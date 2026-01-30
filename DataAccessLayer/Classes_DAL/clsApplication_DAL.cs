@@ -1,0 +1,236 @@
+﻿using Common;
+using DVLD_Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace DVLD_DAL
+{
+    public class clsApplication_DAL
+    {
+
+        public static int LoadCount()
+        {
+            string Query = "Select Count (*) From Applications;";
+            return DbHelper.ExecuteScalar<int>(Query, null);
+        }
+        public static clsApplication_DTO LoadApplicationInfoByID(int ApplicationID)
+        {
+            bool IsFound = false;
+            clsApplication_DTO Model = null;
+            string Query = "Select * From Applications Where ApplicationID = @ApplicationID";
+            IsFound = DbHelper.ExecuteReader(Query,
+                Command => DbHelper.SetValue<int>(Command, "@ApplicationID", ApplicationID),
+                Reader => Model = new clsApplication_DTO
+                {
+                    ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
+                    ApplicationStatus = clsApplicationEnums.ConvertApplicationStatusToEnum(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
+                    ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
+                    ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
+                    ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
+                    LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
+                    PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
+                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
+                });
+            return IsFound ? Model : null;
+        }
+
+        public static clsApplication_DTO LoadApplicationInfoByPersonID(int ApplicantPersonID)
+        {
+            int ApplicationID = -1;
+            string Query = "Select ApplicationID From Applications Where ApplicantPersonID = @ApplicantPersonID";
+            if (DbHelper.FindID<int>(Query, "@ApplicantPersonID", ApplicantPersonID, ref ApplicationID))
+                return LoadApplicationInfoByID(ApplicationID);
+            return null;
+        }
+
+        public static int CreateApplication(clsApplication_DTO Model)
+        {
+
+            string Query = @"INSERT INTO Applications 
+                            (
+                                ApplicantPersonID, ApplicationDate, ApplicationTypeID, 
+                                ApplicationStatus, LastStatusDate, PaidFees, CreatedByUserID
+                            )
+                            SELECT 
+                                @ApplicantPersonID, @ApplicationDate, @ApplicationTypeID, 
+                                @ApplicationStatus, @LastStatusDate, @PaidFees, @CreatedByUserID
+                            WHERE NOT EXISTS 
+                            (
+                                SELECT 1 
+                                FROM Applications 
+                                WHERE ApplicantPersonID = @ApplicantPersonID 
+                                  AND ApplicationStatus = @ApplicationStatus_AddNew
+                                  AND ApplicationTypeID = @ApplicationTypeID
+                            )
+                            ;
+                            IF @@ROWCOUNT > 0
+                                SELECT SCOPE_IDENTITY();
+                            ELSE
+                                SELECT -1;";
+
+            return DbHelper.ExecuteScalar<int>(Query, Command =>
+            {
+                DbHelper.SetValue<int>(Command, "@ApplicantPersonID", Model.ApplicantPersonID);
+                DbHelper.SetValue<DateTime>(Command, "@ApplicationDate", Model.ApplicationDate);
+                DbHelper.SetValue<int>(Command, "@ApplicationTypeID", Model.ApplicationTypeID);
+                DbHelper.SetValue<int>(Command, "@ApplicationStatus", clsApplicationEnums.ConvertApplicationStatusToByte(Model.ApplicationStatus));
+                DbHelper.SetValue(Command, "@ApplicationStatus_AddNew", clsApplicationEnums.ConvertApplicationStatusToByte(clsApplicationEnums.enApplicationStatus.New));
+                DbHelper.SetValue<DateTime>(Command, "@LastStatusDate", Model.LastStatusDate);
+                DbHelper.SetValue<decimal>(Command, "@PaidFees", Model.PaidFees);
+                DbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
+            });
+
+        }
+
+        public static bool UpdateApplication(clsApplication_DTO Model)
+        {
+
+            string Query = @"Update Applications Set
+                              ApplicationTypeID = @ApplicationTypeID ,ApplicationStatus = @ApplicationStatus
+                             , LastStatusDate = @LastStatusDate, PaidFees = @PaidFees 
+                             Where ApplicationID = @ApplicationID";
+
+            return DbHelper.ExecuteNonQuery(Query, Command =>
+            {
+                DbHelper.SetValue<int>(Command, "@ApplicationID", Model.ApplicationID);
+                DbHelper.SetValue<int>(Command, "@ApplicationTypeID", Model.ApplicationTypeID);
+                DbHelper.SetValue<int>(Command, "@ApplicationStatus", clsApplicationEnums.ConvertApplicationStatusToByte(Model.ApplicationStatus));
+                DbHelper.SetValue<DateTime>(Command, "@LastStatusDate", Model.LastStatusDate);
+                DbHelper.SetValue<decimal>(Command, "@PaidFees", Model.PaidFees);
+            }) > 0;
+
+        }
+
+
+        public static bool DeleteApplicationByID(int ApplicationID)
+        {
+            int DeletedApplicationCount = 0;
+
+            string QueryApplicationsTable = @"Delete From Applications Where ApplicationID = @ApplicationID;";
+
+
+            bool TransactionSuccess = DbHelper.ExecuteTransaction(Command =>
+            {
+
+                DbHelper.SetValue<int>(Command, "@ApplicationID", ApplicationID);
+
+                clsLicense_DAL.DeleteLicenseByApplicationID(ApplicationID);
+
+                Command.CommandText = QueryApplicationsTable;
+                DeletedApplicationCount = Command.ExecuteNonQuery();
+            });
+
+
+            return TransactionSuccess && (DeletedApplicationCount > 0);
+        }
+
+        public static bool DeleteApplicationByTypeID(int ApplicationTypeID)
+        {
+            string QueryApplicationsTable = @"Delete From Applications Where ApplicationTypeID = @ApplicationTypeID;";
+
+            int RowsAffected = DbHelper.ExecuteNonQuery
+                (QueryApplicationsTable, Command => DbHelper.SetValue<int>(Command, "@ApplicationTypeID", ApplicationTypeID));
+
+            return (RowsAffected > 0);
+        }
+
+        public static bool DeleteByUserID(int CreatedByUserID)
+        {
+            int DeletedApplicationCount = 0;
+            string QueryApplicationsTable = @"Delete From Applications Where CreatedByUserID = @CreatedByUserID;";
+
+
+            bool TransactionSuccess = DbHelper.ExecuteTransaction(Command =>
+            {
+
+                DbHelper.SetValue<int>(Command, "@CreatedByUserID", CreatedByUserID);
+
+                clsLicense_DAL.DeleteByUserID(CreatedByUserID);
+
+                Command.CommandText = QueryApplicationsTable;
+                DeletedApplicationCount = Command.ExecuteNonQuery();
+            });
+
+
+            return TransactionSuccess && (DeletedApplicationCount > 0);
+        }
+        public static List<clsApplication_DTO> LoadApplications()
+        {
+
+            string Query = "SELECT * FROM Applications;";
+
+            return DbHelper.ReadList(Query, null,
+                Reader => new clsApplication_DTO
+                {
+                    ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
+                    ApplicationStatus = clsApplicationEnums.ConvertApplicationStatusToEnum(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
+                    ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
+                    ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
+                    ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
+                    LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
+                    PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
+                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
+
+                });
+        }
+        public static List<clsApplication_DTO> LoadApplications(int Offset, int CountRows)
+        {
+
+            string Query = @"SELECT * FROM Applications
+                             Order By ApplicationID
+                             OFFSET @Offset ROWS 
+                             FETCH NEXT @CountRows ROWS ONLY;";
+
+            return DbHelper.ReadList(Query,
+                Command =>
+                {
+
+                    DbHelper.SetValue<int>(Command, "@Offset", Offset);
+                    DbHelper.SetValue<int>(Command, "@CountRows", CountRows);
+                },
+                Reader => new clsApplication_DTO
+                {
+                    ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
+                    ApplicationStatus = clsApplicationEnums.ConvertApplicationStatusToEnum(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
+                    ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
+                    ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
+                    ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
+                    LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
+                    PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
+                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
+
+                });
+        }
+
+        public static bool UpdateApplicationStatus(int ApplicationID, byte NewStatus, DateTime StatusDate)
+        {
+            string Query = @"Update Applications Set ApplicationStatus = @ApplicationStatus
+                            ,LastStatusDate = @LastStatusDate Where ApplicationID = @ApplicationID ;";
+            int RowsEffected = -1;
+            RowsEffected = DbHelper.ExecuteNonQuery(Query, Command =>
+            {
+                DbHelper.SetValue<int>(Command, "@ApplicationID", ApplicationID);
+                DbHelper.SetValue<DateTime>(Command, "@LastStatusDate", StatusDate);
+                DbHelper.SetValue<byte>(Command, "@ApplicationStatus", NewStatus);
+            });
+            return RowsEffected > 0;
+
+        }
+
+
+        public static DateTime GetDateOfBirthByApplicationID(int ApplicationID)
+        {
+            string Query = @"Select P.DateOfBirth From People P 
+                            Join Applications A ON A.ApplicantPersonID = P.PersonID
+                            Where A.ApplicationID = @ApplicationID;";
+            return DbHelper.ExecuteScalar<DateTime>(Query, Command => DbHelper.SetValue(Command, "@ApplicationID", ApplicationID));
+        }
+
+    }
+}

@@ -1,0 +1,204 @@
+﻿using Common;
+using DVLD_Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DVLD_DAL
+{
+    public class clsPerson_DAL
+    {
+
+        public static int LoadCount()
+        {
+            string Query = "Select Count (*) From People;";
+            return DbHelper.ExecuteScalar<int>(Query, null);
+        }
+
+        public static clsPerson_DTO LoadPersonInfoByID(int PersonID)
+        {
+            clsPerson_DTO Model = null;
+            bool IsFound = false;
+            string Query = "Select * From People Where PersonID = @PersonID";
+            IsFound = DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue<int>(Command, "@PersonID", PersonID)
+            , Reader =>
+            {
+                Model = new clsPerson_DTO
+                {
+                    PersonID = PersonID,
+                    NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
+                    FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
+                    SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
+                    ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
+                    LastName = DbHelper.GetValue<string>(Reader, "LastName"),
+                    DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
+                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Address = DbHelper.GetValue<string>(Reader, "Address"),
+                    Phone = DbHelper.GetValue<string>(Reader, "Phone"),
+                    Email = DbHelper.GetValue<string>(Reader, "Email"),
+                    NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
+                    ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
+                };
+            });
+            return IsFound ? Model : null;
+
+
+
+        }
+
+        public static clsPerson_DTO LoadPersonInfoByNationalNo(string NationalNo)
+        {
+            string Query = "Select * From People Where NationalNo = @NationalNo";
+            int PersonID = -1;
+            if (DbHelper.FindID<string>(Query, "@NationalNo", NationalNo, ref PersonID))
+                return LoadPersonInfoByID(PersonID);
+            return null;
+        }
+
+
+
+        public static int AddNewPerson(clsPerson_DTO Model)
+
+        {
+            int RowsEffected = -1;
+
+            string Query = @"Insert Into People (NationalNo , FirstName ,SecondName ,ThirdName ,LastName ,
+                                DateOfBirth, Gendor, Address, Phone, Email, NationalityCountryID ,ImagePath)
+                                Values (@NationalNo , @FirstName ,@SecondName ,@ThirdName ,@LastName ,
+                                @DateOfBirth, @Gendor, @Address, @Phone, @Email, @NationalityCountryID ,@ImagePath);
+                                SELECT SCOPE_IDENTITY();";
+            RowsEffected = DbHelper.ExecuteScalar<int>(Query, Command =>
+            {
+                DbHelper.SetValue<int>(Command, "@PersonID", Model.PersonID);
+                DbHelper.SetValue<string>(Command, "@NationalNo", Model.NationalNo);
+                DbHelper.SetValue<string>(Command, "@FirstName", Model.FirstName);
+                DbHelper.SetValue<string>(Command, "@SecondName", Model.SecondName);
+                DbHelper.SetValue<string>(Command, "@ThirdName", Model.ThirdName);
+                DbHelper.SetValue<string>(Command, "@LastName", Model.LastName);
+                DbHelper.SetValue<DateTime>(Command, "@DateOfBirth", Model.DateOfBirth);
+                DbHelper.SetValue<byte>(Command, "@Gendor", clsPersonEnums.ConvertGendorToByte(Model.Gendor));
+                DbHelper.SetValue<string>(Command, "@Address", Model.Address);
+                DbHelper.SetValue<string>(Command, "@Phone", Model.Phone);
+                DbHelper.SetValue<string>(Command, "@Email", Model.Email);
+                DbHelper.SetValue<int>(Command, "@NationalityCountryID", Model.NationalityCountryID);
+                DbHelper.SetValue<string>(Command, "@ImagePath", Model.ImagePath);
+            }
+            );
+            return RowsEffected;
+        }
+
+        public static bool UpdatePerson(clsPerson_DTO Model)
+
+        {
+            bool IsUpdate = false;
+
+            string Query = @"Update People Set 
+                            NationalNo = @NationalNo, FirstName = @FirstName,
+                            SecondName = @SecondName ,ThirdName = @ThirdName,LastName = @LastName,
+                            DateOfBirth = @DateOfBirth, Gendor = @Gendor, Address = @Address,
+                            Phone = @Phone, Email = @Email, NationalityCountryID = @NationalityCountryID,
+                            ImagePath = @ImagePath
+                            Where PersonID = @PersonID;";
+            IsUpdate = DbHelper.ExecuteNonQuery(Query, Command =>
+            {
+                DbHelper.SetValue<int>(Command, "@PersonID", Model.PersonID);
+                DbHelper.SetValue<string>(Command, "@NationalNo", Model.NationalNo);
+                DbHelper.SetValue<string>(Command, "@FirstName", Model.FirstName);
+                DbHelper.SetValue<string>(Command, "@SecondName", Model.SecondName);
+                DbHelper.SetValue<string>(Command, "@ThirdName", Model.ThirdName);
+                DbHelper.SetValue<string>(Command, "@LastName", Model.LastName);
+                DbHelper.SetValue<DateTime>(Command, "@DateOfBirth", Model.DateOfBirth);
+                DbHelper.SetValue<byte>(Command, "@Gendor", clsPersonEnums.ConvertGendorToByte(Model.Gendor));
+                DbHelper.SetValue<string>(Command, "@Address", Model.Address);
+                DbHelper.SetValue<string>(Command, "@Phone", Model.Phone);
+                DbHelper.SetValue<string>(Command, "@Email", Model.Email);
+                DbHelper.SetValue<int>(Command, "@NationalityCountryID", Model.NationalityCountryID);
+                DbHelper.SetValue<string>(Command, "@ImagePath", Model.ImagePath);
+            }) > 0;
+            return IsUpdate;
+        }
+
+        public static bool DeletePerson(int PersonID)
+        {
+            string Query = @"Delete From People Where PersonID = @PersonID;";
+            int DeletedPersonCount = DbHelper.ExecuteNonQuery(Query, Command => DbHelper.SetValue<int>(Command, "@PersonID", PersonID));
+
+            return (DeletedPersonCount > 0);
+        }
+
+        public static bool DeletePersonByCountryID(int NationalityCountryID)
+        {
+            string Query = @"Delete From People Where NationalityCountryID = @NationalityCountryID;";
+            int DeletedPersonCount = DbHelper.ExecuteNonQuery(Query, Command => DbHelper.SetValue<int>(Command, "@NationalityCountryID", NationalityCountryID));
+
+            return (DeletedPersonCount > 0);
+        }
+
+        public static bool DeletePerson(string NationalNo)
+        {
+            int PersonID = -1;
+            string Query = @"Select PersonID From People Where NationalNo = @NationalNo;";
+            if (DbHelper.FindID<string>(Query, "@NationalNo", NationalNo, ref PersonID))
+                return DeletePerson(PersonID);
+            return false;
+        }
+
+        public static List<clsPerson_DTO> LoadPeople()
+        {
+
+            string Query = "SELECT * FROM People;";
+            return DbHelper.ReadList(Query, null,
+                Reader => new clsPerson_DTO
+                {
+                    PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
+                    NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
+                    FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
+                    SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
+                    ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
+                    LastName = DbHelper.GetValue<string>(Reader, "LastName"),
+                    DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
+                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Address = DbHelper.GetValue<string>(Reader, "Address"),
+                    Phone = DbHelper.GetValue<string>(Reader, "Phone"),
+                    Email = DbHelper.GetValue<string>(Reader, "Email"),
+                    NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
+                    ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath")
+                });
+
+        }
+
+        public static List<clsPerson_DTO> LoadPeople(int Offset, int CountRows)
+        {
+            string Query = $@"SELECT * FROM People 
+                      ORDER BY PersonID
+                      OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
+
+            return DbHelper.ReadList(Query,
+                Command => {
+                    DbHelper.SetValue(Command, "@Offset", Offset);
+                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                },
+                Reader => new clsPerson_DTO
+                {
+                    PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
+                    NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
+                    FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
+                    SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
+                    ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
+                    LastName = DbHelper.GetValue<string>(Reader, "LastName"),
+                    DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
+                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Address = DbHelper.GetValue<string>(Reader, "Address"),
+                    Phone = DbHelper.GetValue<string>(Reader, "Phone"),
+                    Email = DbHelper.GetValue<string>(Reader, "Email"),
+                    NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
+                    ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath")
+                });
+        }
+
+    }
+}
