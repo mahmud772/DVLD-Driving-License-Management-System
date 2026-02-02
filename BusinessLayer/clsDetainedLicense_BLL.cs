@@ -1,4 +1,6 @@
-﻿using DVLD_DAL;
+﻿using Common;
+using Common.Helpers;
+using DVLD_DAL;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common;
 using System.Transactions;
 namespace DVLD_BLL
 {
@@ -88,7 +89,7 @@ namespace DVLD_BLL
                     Application.Application.CreatedByUserID = 1;
                     Application.Application.ApplicantPersonID = PersonID;
                     Application.Application.LastStatusDate = clsBLHelper.GetDate_Now();
-                    Application.Application.PaidFees = clsApplicationType_BLL.GetApplicationFees(clsApplicationEnums.ConvertApplicationTypeToInt(clsApplicationEnums.enApplicationType.RetakeTest));
+                    Application.Application.PaidFees = clsApplicationType_BLL.GetApplicationFees(clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.RetakeTest));
                     Application.Application.ApplicationDate = clsBLHelper.GetDate_Now();
 
                     if (!Application.Save()) return false;

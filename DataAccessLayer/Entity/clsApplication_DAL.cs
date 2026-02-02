@@ -1,10 +1,13 @@
 ﻿using Common;
+using Common.Helpers;
+using DVLD_DTO;
 using DVLD_Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +16,21 @@ namespace DVLD_DAL
 {
     public class clsApplication_DAL
     {
-
+        private static clsApplication_DTO _Reader(SqlDataReader Reader)
+        {
+            return new clsApplication_DTO
+            {
+                ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
+                ApplicationStatus = clsApplicationEnumConverter.ToStatus(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
+                ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
+                ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
+                ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
+                LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
+                PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
+                CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
+            };
+        }
+        
         public static int LoadCount()
         {
             string Query = "Select Count (*) From Applications;";
@@ -22,22 +39,12 @@ namespace DVLD_DAL
         public static clsApplication_DTO LoadApplicationInfoByID(int ApplicationID)
         {
             bool IsFound = false;
-            clsApplication_DTO Model = null;
+            clsApplication_DTO DTO = null;
             string Query = "Select * From Applications Where ApplicationID = @ApplicationID";
             IsFound = DbHelper.ExecuteReader(Query,
                 Command => DbHelper.SetValue<int>(Command, "@ApplicationID", ApplicationID),
-                Reader => Model = new clsApplication_DTO
-                {
-                    ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
-                    ApplicationStatus = clsApplicationEnums.ConvertApplicationStatusToEnum(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
-                    ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
-                    ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
-                    ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
-                    LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
-                    PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
-                });
-            return IsFound ? Model : null;
+                Reader => { DTO = _Reader(Reader); });
+            return DTO ;
         }
 
         public static clsApplication_DTO LoadApplicationInfoByPersonID(int ApplicantPersonID)
@@ -74,17 +81,17 @@ namespace DVLD_DAL
                             ELSE
                                 SELECT -1;";
 
-            return DbHelper.ExecuteScalar<int>(Query, Command =>
+            return DbHelper.ExecuteScalar<int>(Query, (Action<SqlCommand>)(Command =>
             {
                 DbHelper.SetValue<int>(Command, "@ApplicantPersonID", Model.ApplicantPersonID);
                 DbHelper.SetValue<DateTime>(Command, "@ApplicationDate", Model.ApplicationDate);
                 DbHelper.SetValue<int>(Command, "@ApplicationTypeID", Model.ApplicationTypeID);
-                DbHelper.SetValue<int>(Command, "@ApplicationStatus", clsApplicationEnums.ConvertApplicationStatusToByte(Model.ApplicationStatus));
-                DbHelper.SetValue(Command, "@ApplicationStatus_AddNew", clsApplicationEnums.ConvertApplicationStatusToByte(clsApplicationEnums.enApplicationStatus.New));
+                DbHelper.SetValue<int>(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(Model.ApplicationStatus));
+                DbHelper.SetValue(Command, "@ApplicationStatus_AddNew", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.New));
                 DbHelper.SetValue<DateTime>(Command, "@LastStatusDate", Model.LastStatusDate);
                 DbHelper.SetValue<decimal>(Command, "@PaidFees", Model.PaidFees);
                 DbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
-            });
+            }));
 
         }
 
@@ -96,14 +103,14 @@ namespace DVLD_DAL
                              , LastStatusDate = @LastStatusDate, PaidFees = @PaidFees 
                              Where ApplicationID = @ApplicationID";
 
-            return DbHelper.ExecuteNonQuery(Query, Command =>
+            return DbHelper.ExecuteNonQuery(Query, (Action<SqlCommand>)(Command =>
             {
                 DbHelper.SetValue<int>(Command, "@ApplicationID", Model.ApplicationID);
                 DbHelper.SetValue<int>(Command, "@ApplicationTypeID", Model.ApplicationTypeID);
-                DbHelper.SetValue<int>(Command, "@ApplicationStatus", clsApplicationEnums.ConvertApplicationStatusToByte(Model.ApplicationStatus));
+                DbHelper.SetValue<int>(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(Model.ApplicationStatus));
                 DbHelper.SetValue<DateTime>(Command, "@LastStatusDate", Model.LastStatusDate);
                 DbHelper.SetValue<decimal>(Command, "@PaidFees", Model.PaidFees);
-            }) > 0;
+            })) > 0;
 
         }
 
@@ -169,7 +176,7 @@ namespace DVLD_DAL
                 Reader => new clsApplication_DTO
                 {
                     ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
-                    ApplicationStatus = clsApplicationEnums.ConvertApplicationStatusToEnum(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
+                    ApplicationStatus = clsApplicationEnumConverter.ToStatus(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
                     ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
                     ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
                     ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
@@ -194,18 +201,7 @@ namespace DVLD_DAL
                     DbHelper.SetValue<int>(Command, "@Offset", Offset);
                     DbHelper.SetValue<int>(Command, "@CountRows", CountRows);
                 },
-                Reader => new clsApplication_DTO
-                {
-                    ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
-                    ApplicationStatus = clsApplicationEnums.ConvertApplicationStatusToEnum(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
-                    ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
-                    ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
-                    ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
-                    LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
-                    PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
-
-                });
+                Reader => _Reader(Reader) );
         }
 
         public static bool UpdateApplicationStatus(int ApplicationID, byte NewStatus, DateTime StatusDate)
@@ -231,6 +227,15 @@ namespace DVLD_DAL
                             Where A.ApplicationID = @ApplicationID;";
             return DbHelper.ExecuteScalar<DateTime>(Query, Command => DbHelper.SetValue(Command, "@ApplicationID", ApplicationID));
         }
-
+        public static List<clsApplication_DTO> LoadAllBy<TValue>(clsEnSearchBy.enApplication By ,TValue Value )
+        {
+            string Query = $@"Select * From Applications Where {By.ToString()}  = @Value";
+            return DbHelper.ReadList<clsApplication_DTO>(Query, 
+                Command =>
+                {
+                    DbHelper.SetValue<TValue>(Command , "@Value", Value);
+                },
+                Reader => _Reader(Reader));
+        }
     }
 }

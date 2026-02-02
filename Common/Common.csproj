@@ -49,12 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsApplicationEnums.cs" />
-    <Compile Include="clsLicenseEnums.cs" />
-    <Compile Include="clsPersonEnums.cs" />
-    <Compile Include="clsTestEnums.cs" />
-    <Compile Include="clsUserEnums.cs" />
+    <Compile Include="Enums\clsApplicationEnums.cs" />
+    <Compile Include="clsEnSearchBy.cs" />
+    <Compile Include="Enums\clsDetainedLicenseEnums.cs" />
+    <Compile Include="Enums\clsDriverEnums.cs" />
+    <Compile Include="Enums\clsLicenseEnums.cs" />
+    <Compile Include="Enums\clsPersonEnums.cs" />
+    <Compile Include="Enums\clsTestEnums.cs" />
+    <Compile Include="Enums\clsUserEnums.cs" />
     <Compile Include="clsUtil.cs" />
+    <Compile Include="Helpers\clsApplicationEnumConverter.cs" />
+    <Compile Include="Helpers\clsLicenseEnumConverter.cs" />
+    <Compile Include="Helpers\clsPersonEnumConverter.cs" />
+    <Compile Include="Helpers\clsTestEnumConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -78,5 +85,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

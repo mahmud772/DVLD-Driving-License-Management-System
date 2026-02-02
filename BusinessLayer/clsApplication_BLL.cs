@@ -1,4 +1,7 @@
-﻿using DVLD_DAL;
+﻿using Common;
+using Common.Helpers;
+using DVLD_DAL;
+using DVLD_DTO;
 using DVLD_Models;
 using System;
 using System.Collections.Generic;
@@ -6,8 +9,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common;
-using DVLD_DTO;
 
 namespace DVLD_BLL
 {
@@ -78,12 +79,12 @@ namespace DVLD_BLL
 
         public static bool SetComplete(int ApplicationID)
         {
-            return clsApplication_DAL.UpdateApplicationStatus(ApplicationID, clsApplicationEnums.ConvertApplicationStatusToByte(clsApplicationEnums.enApplicationStatus.Completed), DateTime.Now);
+            return clsApplication_DAL.UpdateApplicationStatus(ApplicationID, clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Completed), DateTime.Now);
         }
 
         public static bool SetCancelle(int ApplicationID)
         {
-            return clsApplication_DAL.UpdateApplicationStatus(ApplicationID, clsApplicationEnums.ConvertApplicationStatusToByte(clsApplicationEnums.enApplicationStatus.Cancelled), DateTime.Now);
+            return clsApplication_DAL.UpdateApplicationStatus(ApplicationID, clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Cancelled), DateTime.Now);
         }
 
         private bool _CreateApplication()
@@ -138,6 +139,10 @@ namespace DVLD_BLL
         public static bool DeleteApplication(int ApplicationID)
         {
             return clsApplication_DAL.DeleteApplicationByID(ApplicationID);
+        }
+        public static List<clsApplication_DTO> GetAllBy<TValue>(clsEnSearchBy.enApplication by,TValue value)
+        {
+            return new List<clsApplication_DTO>() ;
         }
     }
 }

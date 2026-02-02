@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace DVLD_DAL
                     Model = new clsTestAppointment_DTO
                     {
                         TestAppointmentID = TestAppointmentID,
-                        TestType = Common.clsTestEnums.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
+                        TestType = clsTestEnumConverter.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
                         LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
                         AppointmentDate = DbHelper.GetValue<DateTime>(Reader, "AppointmentDate"),
                         PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
@@ -58,7 +59,7 @@ namespace DVLD_DAL
 
             return DbHelper.ExecuteScalar<int>(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnums.ConvertTestTypeToInt(Model.TestType));
+                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(Model.TestType));
                 DbHelper.SetValue(Command, "@LocalDrivingLicenseApplicationID", Model.LocalDrivingLicenseApplicationID);
                 DbHelper.SetValue(Command, "@AppointmentDate", Model.AppointmentDate);
                 DbHelper.SetValue(Command, "@PaidFees", Model.PaidFees);
@@ -145,7 +146,7 @@ namespace DVLD_DAL
             return DbHelper.Exists(Query, Command =>
             {
                 DbHelper.SetValue(Command, "@LocalDrivingLicenseApplicationID", LocalDrivingLicenseApplicationID);
-                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnums.ConvertTestTypeToInt(Type));
+                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(Type));
 
             });
         }
@@ -203,7 +204,7 @@ namespace DVLD_DAL
                 Reader => new clsTestAppointment_DTO
                 {
                     TestAppointmentID = DbHelper.GetValue<int>(Reader, "TestAppointmentID"),
-                    TestType = Common.clsTestEnums.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
+                    TestType = clsTestEnumConverter.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
                     LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
                     AppointmentDate = DbHelper.GetValue<DateTime>(Reader, "AppointmentDate"),
                     PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
@@ -228,7 +229,7 @@ namespace DVLD_DAL
                 Reader => new clsTestAppointment_DTO
                 {
                     TestAppointmentID = DbHelper.GetValue<int>(Reader, "TestAppointmentID"),
-                    TestType = Common.clsTestEnums.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
+                    TestType = clsTestEnumConverter.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
                     LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
                     AppointmentDate = DbHelper.GetValue<DateTime>(Reader, "AppointmentDate"),
                     PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),

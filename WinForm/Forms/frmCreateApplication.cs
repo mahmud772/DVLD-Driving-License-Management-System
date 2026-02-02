@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_BLL;
 using DVLD_DTO;
 using DVLD_Models;
@@ -69,7 +70,7 @@ namespace DVLDWinForm.Forms
             if (cbApplicationTypes?.SelectedValue != null)
                 _ApplicationInfo.ApplicationTypeID = cbApplicationTypes.SelectedIndex + 1;
             _ApplicationInfo.ApplicantPersonID = Convert.ToInt32(tbID.Text?.Trim());
-            _LocalApplicationInfo.LicenseClass = clsLicenseEnums.ConvertLicenseClassToEnum(cbLicenseClass.SelectedIndex + 1);
+            _LocalApplicationInfo.LicenseClass = clsLicenseEnumConverter.ToClass(cbLicenseClass.SelectedIndex + 1);
             return true;
         }
         

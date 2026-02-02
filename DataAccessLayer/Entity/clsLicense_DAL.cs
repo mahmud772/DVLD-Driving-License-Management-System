@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -33,13 +34,13 @@ namespace DVLD_DAL
                         LicenseID = LicenseID,
                         ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
                         DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                        LicenseClass = clsLicenseEnums.ConvertLicenseClassToEnum(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
+                        LicenseClass = clsLicenseEnumConverter.ToClass(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
                         IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                         ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                         Notes = DbHelper.GetValue<string>(Reader, "Notes"),
                         PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
                         IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                        IssueReason = clsLicenseEnums.ConvertIssueReasonToEnum(DbHelper.GetValue<byte>(Reader, "IssueReason")),
+                        IssueReason = clsLicenseEnumConverter.ToIssueReason(DbHelper.GetValue<byte>(Reader, "IssueReason")),
                         CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
                     };
                 });
@@ -91,9 +92,9 @@ namespace DVLD_DAL
                         ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
                         NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
                         DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                        LicenseClass = clsLicenseEnums.ConvertLicenseClassToEnum(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
+                        LicenseClass = clsLicenseEnumConverter.ToClass(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
                         IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                        IssueReason = clsLicenseEnums.ConvertIssueReasonToEnum(DbHelper.GetValue<byte>(Reader, "IssueReason")),
+                        IssueReason = clsLicenseEnumConverter.ToIssueReason(DbHelper.GetValue<byte>(Reader, "IssueReason")),
                         IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                         ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                         Notes = DbHelper.GetValue<string>(Reader, "Notes"),
@@ -127,13 +128,13 @@ namespace DVLD_DAL
 
                 DbHelper.SetValue<int>(Command, "@ApplicationID", Model.ApplicationID);
                 DbHelper.SetValue<int>(Command, "@DriverID", Model.DriverID);
-                DbHelper.SetValue<int>(Command, "@LicenseClassID", clsLicenseEnums.ConvertLicenseClassToInt(Model.LicenseClass));
+                DbHelper.SetValue<int>(Command, "@LicenseClassID", clsLicenseEnumConverter.ToInt(Model.LicenseClass));
                 DbHelper.SetValue<DateTime>(Command, "@IssueDate", Model.IssueDate);
                 DbHelper.SetValue<DateTime>(Command, "@ExpirationDate", Model.ExpirationDate);
                 DbHelper.SetValue<string>(Command, "@Notes", Model.Notes, ValidNull: true);
                 DbHelper.SetValue<decimal>(Command, "@PaidFees", Model.PaidFees);
                 DbHelper.SetValue<bool>(Command, "@IsActive", Model.IsActive);
-                DbHelper.SetValue<byte>(Command, "@IssueReason", clsLicenseEnums.ConvertIssueReasonToByte(Model.IssueReason));
+                DbHelper.SetValue<byte>(Command, "@IssueReason", clsLicenseEnumConverter.ToByte(Model.IssueReason));
                 DbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
             });
 
@@ -232,13 +233,13 @@ namespace DVLD_DAL
                     LicenseID = DbHelper.GetValue<int>(Reader, "LicenseID"),
                     ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
                     DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                    LicenseClass = clsLicenseEnums.ConvertLicenseClassToEnum(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
+                    LicenseClass = clsLicenseEnumConverter.ToClass(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
                     IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                     ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                     Notes = DbHelper.GetValue<string>(Reader, "Notes"),
                     PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
                     IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                    IssueReason = clsLicenseEnums.ConvertIssueReasonToEnum(DbHelper.GetValue<byte>(Reader, "IssueReason")),
+                    IssueReason = clsLicenseEnumConverter.ToIssueReason(DbHelper.GetValue<byte>(Reader, "IssueReason")),
                     CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
                 });
         }
@@ -258,13 +259,13 @@ namespace DVLD_DAL
                     LicenseID = DbHelper.GetValue<int>(Reader, "LicenseID"),
                     ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
                     DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                    LicenseClass = clsLicenseEnums.ConvertLicenseClassToEnum(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
+                    LicenseClass = clsLicenseEnumConverter.ToClass(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
                     IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                     ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                     Notes = DbHelper.GetValue<string>(Reader, "Notes"),
                     PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
                     IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                    IssueReason = clsLicenseEnums.ConvertIssueReasonToEnum(DbHelper.GetValue<byte>(Reader, "IssueReason")),
+                    IssueReason = clsLicenseEnumConverter.ToIssueReason(DbHelper.GetValue<byte>(Reader, "IssueReason")),
                     CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
 
                 });
@@ -289,9 +290,9 @@ namespace DVLD_DAL
                     ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
                     NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    LicenseClass = clsLicenseEnums.ConvertLicenseClassToEnum(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
+                    LicenseClass = clsLicenseEnumConverter.ToClass(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
                     IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                    IssueReason = clsLicenseEnums.ConvertIssueReasonToEnum(DbHelper.GetValue<byte>(Reader, "IssueReason")),
+                    IssueReason = clsLicenseEnumConverter.ToIssueReason(DbHelper.GetValue<byte>(Reader, "IssueReason")),
                     IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                     ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                     Notes = DbHelper.GetValue<string>(Reader, "Notes"),
@@ -325,9 +326,9 @@ namespace DVLD_DAL
                     ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
                     NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    LicenseClass = clsLicenseEnums.ConvertLicenseClassToEnum(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
+                    LicenseClass = clsLicenseEnumConverter.ToClass(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
                     IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                    IssueReason = clsLicenseEnums.ConvertIssueReasonToEnum(DbHelper.GetValue<byte>(Reader, "IssueReason")),
+                    IssueReason = clsLicenseEnumConverter.ToIssueReason(DbHelper.GetValue<byte>(Reader, "IssueReason")),
                     IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                     ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                     Notes = DbHelper.GetValue<string>(Reader, "Notes"),

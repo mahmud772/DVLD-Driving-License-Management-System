@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace DVLD_DAL
                         ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
                         LastName = DbHelper.GetValue<string>(Reader, "LastName"),
                         DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                        Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                        Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
                         Address = DbHelper.GetValue<string>(Reader, "Address"),
                         Phone = DbHelper.GetValue<string>(Reader, "Phone"),
                         Email = DbHelper.GetValue<string>(Reader, "Email"),
@@ -171,14 +172,14 @@ namespace DVLD_DAL
                         Join Applications A ON A.ApplicationID = LDLA.ApplicationID
                         Join Drivers D ON D.PersonID = A.ApplicantPersonID
                         Where D.DriverID = @DriverID And TA.TestTypeID = @TestTypeID And A.ApplicationTypeID = @ApplicationTypeID And LDLA.LicenseClassID = @LicenseClassID And A.ApplicationStatus = @ApplicationStatus;";
-            return DbHelper.ExecuteScalar<int>(Query, Command =>
+            return DbHelper.ExecuteScalar<int>(Query, (Action<SqlCommand>)(Command =>
             {
                 DbHelper.SetValue(Command, "@DriverID", DriverID);
-                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnums.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
-                DbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnums.ConvertApplicationTypeToInt(clsApplicationEnums.enApplicationType.NewLocalDrivingLicense));
+                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
+                DbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.NewLocalDrivingLicense));
                 DbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID);
-                DbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnums.ConvertApplicationStatusToByte(clsApplicationEnums.enApplicationStatus.Completed));
-            });
+                DbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Completed));
+            }));
         }
 
         public static int LoadInternationalApplicationIDByDriverID(int DriverID, int LicenseClassID)
@@ -189,13 +190,13 @@ namespace DVLD_DAL
                         Join Licenses L ON L.LicenseID = IL.IssuedUsingLocalLicenseID
                         Where D.DriverID = @DriverID And A.ApplicationTypeID = @ApplicationTypeID
                         And A.ApplicationStatus = @ApplicationStatus And L.LicenseClassID = @LicenseClassID;";
-            return DbHelper.ExecuteScalar<int>(Query, Command =>
+            return DbHelper.ExecuteScalar<int>(Query, (Action<SqlCommand>)(Command =>
             {
                 DbHelper.SetValue(Command, "@DriverID", DriverID);
-                DbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnums.ConvertApplicationTypeToInt(clsApplicationEnums.enApplicationType.NewInternationalLicense));
+                DbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.NewInternationalLicense));
                 DbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID);
-                DbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnums.ConvertApplicationStatusToByte(clsApplicationEnums.enApplicationStatus.Completed));
-            });
+                DbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Completed));
+            }));
         }
         public static List<clsDriver_DTO> LoadDrivers()
         {
@@ -215,7 +216,7 @@ namespace DVLD_DAL
                     ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
                     LastName = DbHelper.GetValue<string>(Reader, "LastName"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
                     Address = DbHelper.GetValue<string>(Reader, "Address"),
                     Phone = DbHelper.GetValue<string>(Reader, "Phone"),
                     Email = DbHelper.GetValue<string>(Reader, "Email"),
@@ -253,7 +254,7 @@ namespace DVLD_DAL
                     ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
                     LastName = DbHelper.GetValue<string>(Reader, "LastName"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
                     Address = DbHelper.GetValue<string>(Reader, "Address"),
                     Phone = DbHelper.GetValue<string>(Reader, "Phone"),
                     Email = DbHelper.GetValue<string>(Reader, "Email"),

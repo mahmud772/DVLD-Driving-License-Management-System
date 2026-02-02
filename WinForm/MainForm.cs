@@ -167,7 +167,6 @@ namespace DVLD
 
         private void btnPeople_Click(object sender, EventArgs e)
         {
-
             LoadType = _LoadPeople;
             _ShowFLP();
         }
@@ -188,6 +187,7 @@ namespace DVLD
             CRUDController.PrepareUpdate = Person => new frmAddNew_UpdatePerson(Person as clsPerson_DTO);
             CRUDController.TryDelete = clsPerson_BLL.DeletePerson;
             CRUDController.Search = clsPerson_BLL.Find;
+            CRUDController.iUserControl = new ctrlPerson();
             _InitializeAdapter(clsPerson_BLL.GetPeople,
                 clsPerson_BLL.GetCount,
                 _GetDisplayView<clsPerson_DTO>(person => new ctrlPerson { PersonInfo = person })
@@ -328,5 +328,9 @@ namespace DVLD
             CRUDController.ConfirmAndDelete();
         }
 
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            CRUDController.ShowDTO(Convert.ToInt32(tbSearch?.Text));
+        }
     }
 }

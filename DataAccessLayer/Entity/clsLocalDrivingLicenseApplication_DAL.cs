@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace DVLD_DAL
                  WHERE LDLLA.LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID";
 
             DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue(Command, "@LocalDrivingLicenseApplicationID", LocalDrivingLicenseApplicationID),
-                Reader =>
+                (Action<System.Data.SqlClient.SqlDataReader>)(                Reader =>
                 {
                     Model = new clsLocalDrivingLicenseApplication_DTO
                     {
@@ -44,7 +45,7 @@ namespace DVLD_DAL
                         ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
                         LicenseClassID = DbHelper.GetValue<int>(Reader, "LicenseClassID"),
 
-                        ApplicationStatus = clsApplicationEnums.ConvertApplicationStatusToEnum(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
+                        ApplicationStatus = clsApplicationEnumConverter.ToStatus(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
                         ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
                         ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
                         ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
@@ -52,7 +53,7 @@ namespace DVLD_DAL
                         PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
                         CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
                     };
-                });
+                }));
             return Model;
         }
 
@@ -75,15 +76,15 @@ namespace DVLD_DAL
                             ELSE
                                 SELECT -1;";
 
-            return DbHelper.ExecuteScalar<int>(Query, Command =>
+            return DbHelper.ExecuteScalar<int>(Query, (Action<System.Data.SqlClient.SqlCommand>)(Command =>
             {
                 DbHelper.SetValue(Command, "@ApplicationID", Model.ApplicationID);
                 DbHelper.SetValue(Command, "@LicenseClassID", Model.LicenseClassID);
                 DbHelper.SetValue(Command, "@ApplicantPersonID", Model.ApplicantPersonID);
-                DbHelper.SetValue(Command, "@ApplicationStatus_New", clsApplicationEnums.ConvertApplicationStatusToByte(clsApplicationEnums.enApplicationStatus.New));
-                DbHelper.SetValue(Command, "@ApplicationStatus_Completed", clsApplicationEnums.ConvertApplicationStatusToByte(clsApplicationEnums.enApplicationStatus.Completed));
+                DbHelper.SetValue(Command, "@ApplicationStatus_New", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.New));
+                DbHelper.SetValue(Command, "@ApplicationStatus_Completed", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Completed));
 
-            });
+            }));
         }
 
 
@@ -138,7 +139,7 @@ namespace DVLD_DAL
                     ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
                     LicenseClassID = DbHelper.GetValue<int>(Reader, "LicenseClassID"),
 
-                    ApplicationStatus = clsApplicationEnums.ConvertApplicationStatusToEnum(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
+                    ApplicationStatus = clsApplicationEnumConverter.ToStatus(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
                     ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
                     ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
                     ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
@@ -177,7 +178,7 @@ namespace DVLD_DAL
                     ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
                     LicenseClassID = DbHelper.GetValue<int>(Reader, "LicenseClassID"),
 
-                    ApplicationStatus = clsApplicationEnums.ConvertApplicationStatusToEnum(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
+                    ApplicationStatus = clsApplicationEnumConverter.ToStatus(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
                     ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
                     ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
                     ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),

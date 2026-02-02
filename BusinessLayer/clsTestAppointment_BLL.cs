@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_DAL;
 using DVLD_DTO;
 using System;
@@ -67,7 +68,7 @@ namespace DVLD_BLL
         private bool _IsTestOrderValid()
         {
             int LastPassed = clsTestAppointment_DAL.LoadLastTestTypePassed(this.Appointment.LocalDrivingLicenseApplicationID);
-            clsTestEnums.enTestTypes LastTest = clsTestEnums.ConvertTestTypeToEnum(clsTestAppointment_DAL.LoadLastTestType(this.Appointment.LocalDrivingLicenseApplicationID));
+            clsTestEnums.enTestTypes LastTest = clsTestEnumConverter.ConvertTestTypeToEnum(clsTestAppointment_DAL.LoadLastTestType(this.Appointment.LocalDrivingLicenseApplicationID));
 
             if (LastPassed == 0 && LastTest != clsTestEnums.enTestTypes.VisionTest) return false;
             if (LastPassed == (int)clsTestEnums.enTestTypes.PracticalTest) return false;
@@ -95,7 +96,7 @@ namespace DVLD_BLL
                 clsApplication_BLL Application = new clsApplication_BLL();
                 Application.Application.ApplicantPersonID = clsLocalDrivingLicenseApplication_DAL.GetPersonIDByLocalDrivingLicenseApplicationID(this.Appointment.LocalDrivingLicenseApplicationID);
                 //Application.Application.ApplicationDate = clsBLHelper.GetDate_Now();
-                Application.Application.ApplicationTypeID = clsApplicationEnums.ConvertApplicationTypeToInt(clsApplicationEnums.enApplicationType.RetakeTest);
+                Application.Application.ApplicationTypeID = clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.RetakeTest);
                 Application.Application.ApplicationStatus = clsApplicationEnums.enApplicationStatus.Completed;
                 Application.Application.CreatedByUserID = 1;
                 //Application.Application.LastStatusDate = clsBLHelper.GetDate_Now();
@@ -105,7 +106,7 @@ namespace DVLD_BLL
                 this.IsRetakeTest = true;
                 PaidFeesApplication = Application.Application.PaidFees;
             }
-            this.Appointment.PaidFees = clsTestType_BLL.GetPaidFees(clsTestEnums.ConvertTestTypeToInt(this.Appointment.TestType)) + PaidFeesApplication;
+            this.Appointment.PaidFees = clsTestType_BLL.GetPaidFees(clsTestEnumConverter.ConvertTestTypeToInt(this.Appointment.TestType)) + PaidFeesApplication;
 
             this.Appointment.TestAppointmentID = clsTestAppointment_DAL.AddNewTestAppointment(this.Appointment);
             return (this.Appointment.TestAppointmentID > 0);

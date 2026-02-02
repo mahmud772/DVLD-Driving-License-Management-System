@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_Models;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace DVLD_DAL
                     ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
                     LastName = DbHelper.GetValue<string>(Reader, "LastName"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
                     Address = DbHelper.GetValue<string>(Reader, "Address"),
                     Phone = DbHelper.GetValue<string>(Reader, "Phone"),
                     Email = DbHelper.GetValue<string>(Reader, "Email"),
@@ -80,7 +81,7 @@ namespace DVLD_DAL
                 DbHelper.SetValue<string>(Command, "@ThirdName", Model.ThirdName);
                 DbHelper.SetValue<string>(Command, "@LastName", Model.LastName);
                 DbHelper.SetValue<DateTime>(Command, "@DateOfBirth", Model.DateOfBirth);
-                DbHelper.SetValue<byte>(Command, "@Gendor", clsPersonEnums.ConvertGendorToByte(Model.Gendor));
+                DbHelper.SetValue<byte>(Command, "@Gendor", clsPersonEnumConverter.ToByte(Model.Gendor));
                 DbHelper.SetValue<string>(Command, "@Address", Model.Address);
                 DbHelper.SetValue<string>(Command, "@Phone", Model.Phone);
                 DbHelper.SetValue<string>(Command, "@Email", Model.Email);
@@ -112,7 +113,7 @@ namespace DVLD_DAL
                 DbHelper.SetValue<string>(Command, "@ThirdName", Model.ThirdName);
                 DbHelper.SetValue<string>(Command, "@LastName", Model.LastName);
                 DbHelper.SetValue<DateTime>(Command, "@DateOfBirth", Model.DateOfBirth);
-                DbHelper.SetValue<byte>(Command, "@Gendor", clsPersonEnums.ConvertGendorToByte(Model.Gendor));
+                DbHelper.SetValue<byte>(Command, "@Gendor", clsPersonEnumConverter.ToByte(Model.Gendor));
                 DbHelper.SetValue<string>(Command, "@Address", Model.Address);
                 DbHelper.SetValue<string>(Command, "@Phone", Model.Phone);
                 DbHelper.SetValue<string>(Command, "@Email", Model.Email);
@@ -161,7 +162,7 @@ namespace DVLD_DAL
                     ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
                     LastName = DbHelper.GetValue<string>(Reader, "LastName"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
                     Address = DbHelper.GetValue<string>(Reader, "Address"),
                     Phone = DbHelper.GetValue<string>(Reader, "Phone"),
                     Email = DbHelper.GetValue<string>(Reader, "Email"),
@@ -191,7 +192,7 @@ namespace DVLD_DAL
                     ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
                     LastName = DbHelper.GetValue<string>(Reader, "LastName"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
                     Address = DbHelper.GetValue<string>(Reader, "Address"),
                     Phone = DbHelper.GetValue<string>(Reader, "Phone"),
                     Email = DbHelper.GetValue<string>(Reader, "Email"),

@@ -1,5 +1,6 @@
 ﻿using DVLD_BLL;
 using DVLD_DTO;
+using DVLDWinForm.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace DVLDWinForm.UIHelper_Manger
         public Func<IDTO , Form> PrepareUpdate { get; set; }
         public Func<int, bool> TryDelete { get; set; }
         public Func<int ,IBLL> Search { get; set; }
+        public IUserControl iUserControl { get; set; }
         public IDTO DTO { get; set; } = null;
         public readonly DataGridView DataGrid;
         public readonly FlowLayoutPanel ActionsPanel;
@@ -62,9 +64,11 @@ namespace DVLDWinForm.UIHelper_Manger
         }
         public bool ShowDTO(int ID)
         {
-            IDTO dto = GetSelectedDto();    
-            if (dto == null) return false;
-            Search?.Invoke(ID);
+            if (iUserControl == null) return false;
+            ActionsPanel.Controls.Clear();
+            iUserControl.Info = Search?.Invoke(ID).DTO;
+            if (iUserControl.Info != null)
+                ActionsPanel.Controls.Add(iUserControl as UserControl);
             return true;
         }
     }

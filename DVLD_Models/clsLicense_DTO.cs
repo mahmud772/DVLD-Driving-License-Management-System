@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,12 @@ namespace DVLD_DTO
         { 
             get
             {
-                return clsLicenseEnums.ConvertLicenseClassToEnum(LicenseClassID);
+                return clsLicenseEnumConverter.ToClass(LicenseClassID);
             }
             
             set
             {
-                LicenseClassID = clsLicenseEnums.ConvertLicenseClassToInt(value);
+                LicenseClassID = clsLicenseEnumConverter.ToInt(value);
             }
         }
         public DateTime IssueDate { get; set; }

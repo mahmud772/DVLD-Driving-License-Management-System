@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_Models;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,12 @@ namespace DVLD_DTO
         {
             get
             {
-                return clsLicenseEnums.ConvertLicenseClassToEnum(LicenseClassID);
+                return clsLicenseEnumConverter.ToClass(LicenseClassID);
             }
 
             set
             {
-                LicenseClassID = clsLicenseEnums.ConvertLicenseClassToInt(value);
+                LicenseClassID = clsLicenseEnumConverter.ToInt(value);
             }
         }
     }

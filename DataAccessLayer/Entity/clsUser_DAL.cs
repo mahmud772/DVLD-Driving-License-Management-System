@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_DAL;
 using DVLD_Models;
 using System;
@@ -48,7 +49,7 @@ namespace DVLD_DAL
                         ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
                         LastName = DbHelper.GetValue<string>(Reader, "LastName"),
                         DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                        Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                        Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
                         Address = DbHelper.GetValue<string>(Reader, "Address"),
                         Phone = DbHelper.GetValue<string>(Reader, "Phone"),
                         Email = DbHelper.GetValue<string>(Reader, "Email"),
@@ -233,7 +234,7 @@ namespace DVLD_DAL
                     ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
                     LastName = DbHelper.GetValue<string>(Reader, "LastName"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
                     Address = DbHelper.GetValue<string>(Reader, "Address"),
                     Phone = DbHelper.GetValue<string>(Reader, "Phone"),
                     Email = DbHelper.GetValue<string>(Reader, "Email"),
@@ -271,7 +272,7 @@ namespace DVLD_DAL
                     ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
                     LastName = DbHelper.GetValue<string>(Reader, "LastName"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnums.ConvertGendorToEnum(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
                     Address = DbHelper.GetValue<string>(Reader, "Address"),
                     Phone = DbHelper.GetValue<string>(Reader, "Phone"),
                     Email = DbHelper.GetValue<string>(Reader, "Email"),

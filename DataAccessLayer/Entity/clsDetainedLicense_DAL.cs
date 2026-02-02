@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -207,9 +208,9 @@ namespace DVLD_DAL
                     ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
                     NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
                     DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    LicenseClass = clsLicenseEnums.ConvertLicenseClassToEnum(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
+                    LicenseClass = clsLicenseEnumConverter.ToClass(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
                     IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                    IssueReason = clsLicenseEnums.ConvertIssueReasonToEnum(DbHelper.GetValue<byte>(Reader, "IssueReason")),
+                    IssueReason = clsLicenseEnumConverter.ToIssueReason(DbHelper.GetValue<byte>(Reader, "IssueReason")),
                     IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                     ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                     Notes = DbHelper.GetValue<string>(Reader, "Notes"),

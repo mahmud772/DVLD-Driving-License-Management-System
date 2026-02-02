@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,11 @@ namespace DVLD_DTO
         {
             get
             { 
-                return clsTestEnums.ConvertTestTypeToEnum(TestTypeID);
+                return clsTestEnumConverter.ConvertTestTypeToEnum(TestTypeID);
             }
             set 
             { 
-                TestTypeID = clsTestEnums.ConvertTestTypeToInt(value);
+                TestTypeID = clsTestEnumConverter.ConvertTestTypeToInt(value);
             }
         }
         public int LocalDrivingLicenseApplicationID { get; set; }

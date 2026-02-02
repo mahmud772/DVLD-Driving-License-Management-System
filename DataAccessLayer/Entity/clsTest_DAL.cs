@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -105,12 +106,12 @@ namespace DVLD_DAL
                             Where A.ApplicantPersonID = @ApplicantPersonID
                             And TA.TestTypeID = @TestTypeID
                             And A.ApplicationTypeID = @ApplicationTypeID;";
-            return DbHelper.Exists(Query, Command =>
+            return DbHelper.Exists(Query, (Action<System.Data.SqlClient.SqlCommand>)(Command =>
             {
                 DbHelper.SetValue(Command, "@ApplicantPersonID", PersonID);
-                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnums.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
-                DbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnums.ConvertApplicationTypeToInt(ApplicationType));
-            });
+                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
+                DbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(ApplicationType));
+            }));
         }
 
         public static List<clsTest_DTO> LoadTests()
@@ -174,7 +175,7 @@ namespace DVLD_DAL
             {
                 DbHelper.SetValue<int>(Command, "@DriverID", DriverID);
                 DbHelper.SetValue<int>(Command, "@LicenseClassID", LicenseClassID);
-                DbHelper.SetValue<int>(Command, "@FinalTestTypeID", clsTestEnums.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
+                DbHelper.SetValue<int>(Command, "@FinalTestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
             }
             );
         }

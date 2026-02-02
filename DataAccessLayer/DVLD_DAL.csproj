@@ -49,22 +49,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes_DAL\clsApplication_DAL.cs" />
-    <Compile Include="Classes_DAL\clsApplicationType_DAL.cs" />
+    <Compile Include="Entity\clsApplication_DAL.cs" />
+    <Compile Include="Entity\clsApplicationType_DAL.cs" />
     <Compile Include="clsContactsDataAccessLayer.cs" />
-    <Compile Include="Classes_DAL\clsCountry_DAL.cs" />
-    <Compile Include="Classes_DAL\clsDetainedLicense_DAL.cs" />
-    <Compile Include="Classes_DAL\clsDriver_DAL.cs" />
-    <Compile Include="Classes_DAL\clsInternationalLicense_DAL.cs" />
-    <Compile Include="Classes_DAL\clsLicenseClass_DAL.cs" />
-    <Compile Include="Classes_DAL\clsLicense_DAL.cs" />
-    <Compile Include="Classes_DAL\clsLocalDrivingLicenseApplication_DAL.cs" />
-    <Compile Include="Classes_DAL\clsPerson_DAL.cs" />
-    <Compile Include="Classes_DAL\clsTestAppointment_DAL.cs" />
-    <Compile Include="Classes_DAL\clsTestType_DAL.cs" />
-    <Compile Include="Classes_DAL\clsTest_DAL.cs" />
-    <Compile Include="Classes_DAL\clsUser_DAL.cs" />
+    <Compile Include="Entity\clsCountry_DAL.cs" />
+    <Compile Include="Entity\clsDetainedLicense_DAL.cs" />
+    <Compile Include="Entity\clsDriver_DAL.cs" />
+    <Compile Include="Entity\clsInternationalLicense_DAL.cs" />
+    <Compile Include="Entity\clsLicenseClass_DAL.cs" />
+    <Compile Include="Entity\clsLicense_DAL.cs" />
+    <Compile Include="Entity\clsLocalDrivingLicenseApplication_DAL.cs" />
+    <Compile Include="Entity\clsPerson_DAL.cs" />
+    <Compile Include="Entity\clsTestAppointment_DAL.cs" />
+    <Compile Include="Entity\clsTestType_DAL.cs" />
+    <Compile Include="Entity\clsTest_DAL.cs" />
+    <Compile Include="Entity\clsUser_DAL.cs" />
     <Compile Include="DbHelper.cs" />
+    <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -98,6 +99,9 @@
       <Project>{8dc283c9-3f32-454e-9eb4-7c235c40843f}</Project>
       <Name>DVLD_DTO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mappers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

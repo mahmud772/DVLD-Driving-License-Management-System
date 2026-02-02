@@ -53,7 +53,7 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.btnSort_Filter = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbSearch = new System.Windows.Forms.TextBox();
             this.pnlDisplayMethod = new System.Windows.Forms.Panel();
             this.btnDGV = new System.Windows.Forms.Button();
             this.btnFLP = new System.Windows.Forms.Button();
@@ -262,7 +262,7 @@
             this.pnlMain.Controls.Add(this.dgvDisplay);
             this.pnlMain.Controls.Add(this.btnAddNew);
             this.pnlMain.Controls.Add(this.btnSort_Filter);
-            this.pnlMain.Controls.Add(this.textBox1);
+            this.pnlMain.Controls.Add(this.tbSearch);
             this.pnlMain.Controls.Add(this.pnlDisplayMethod);
             this.pnlMain.Controls.Add(this.pnlTypes);
             this.pnlMain.Controls.Add(this.btnSearch);
@@ -372,14 +372,14 @@
             this.btnSort_Filter.Text = "Sort \\ Filter";
             this.btnSort_Filter.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // tbSearch
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(664, 26);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(189, 38);
-            this.textBox1.TabIndex = 3;
+            this.tbSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearch.Location = new System.Drawing.Point(664, 26);
+            this.tbSearch.Multiline = true;
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(189, 38);
+            this.tbSearch.TabIndex = 3;
             // 
             // pnlDisplayMethod
             // 
@@ -429,6 +429,7 @@
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // MainForm
             // 
@@ -460,7 +461,7 @@
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Panel pnlDisplayMethod;
         private System.Windows.Forms.Panel pnlTypes;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnSort_Filter;
         private System.Windows.Forms.Button btnAddNew;

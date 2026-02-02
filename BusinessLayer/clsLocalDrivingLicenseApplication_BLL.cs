@@ -87,7 +87,7 @@ namespace DVLD_BLL
             return clsLocalDrivingLicenseApplication_DAL.UpdateLocalDrivingLicenseApplication(this.LocalApplication);
         }
 
-        public bool Save()
+        public override bool Save()
         {
 
             if (!base.Save()) { return false; }

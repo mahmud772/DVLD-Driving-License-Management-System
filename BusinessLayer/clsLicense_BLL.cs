@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_DAL;
 using DVLD_DTO;
 using System;
@@ -80,15 +81,15 @@ namespace DVLD_BLL
 
         private bool _AddNewLicense()
         {
-            this.License.PaidFees = clsLicenseClass_BLL.GetClassFees(clsLicenseEnums.ConvertLicenseClassToInt(this.License.LicenseClass));
+            this.License.PaidFees = clsLicenseClass_BLL.GetClassFees(clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
             this.License.IssueDate = clsBLHelper.GetDate_Now();
             if (_IsFirstTime)
             {
-                this.License.ApplicationID = clsDriver_DAL.LoadLocalApplicationIDByDriverID(this.License.DriverID, clsLicenseEnums.ConvertLicenseClassToInt(this.License.LicenseClass));
+                this.License.ApplicationID = clsDriver_DAL.LoadLocalApplicationIDByDriverID(this.License.DriverID, clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
                 this.License.IssueReason = clsLicenseEnums.enIssueReason.New;
             }
             if (this.License.IssueReason == clsLicenseEnums.enIssueReason.New || this.License.IssueReason == clsLicenseEnums.enIssueReason.Renew)
-                this.License.ExpirationDate = clsBLHelper.GetDate_Now().AddYears(clsLicenseClass_BLL.GetDefaultValidityLength(clsLicenseEnums.ConvertLicenseClassToInt(this.License.LicenseClass)));
+                this.License.ExpirationDate = clsBLHelper.GetDate_Now().AddYears(clsLicenseClass_BLL.GetDefaultValidityLength(clsLicenseEnumConverter.ToInt(this.License.LicenseClass)));
 
 
             this.License.CreatedByUserID = 1;
@@ -100,7 +101,7 @@ namespace DVLD_BLL
 
         private bool _UpdateLicense()
         {
-            this.License.PaidFees = clsLicenseClass_BLL.GetClassFees(clsLicenseEnums.ConvertLicenseClassToInt(this.License.LicenseClass));
+            this.License.PaidFees = clsLicenseClass_BLL.GetClassFees(clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
 
             return clsLicense_DAL.UpdateLicense(this.License);
         }
