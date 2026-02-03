@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Common.Enums;
+using Common.Filters;
 
 namespace Common
 {
     public class clsApplicationEnums
     {
+
         public enum enApplicationSearchBy
         {
             ApplicationID = 1,
@@ -47,5 +46,5 @@ namespace Common
 
     }
 
-
+    
 }

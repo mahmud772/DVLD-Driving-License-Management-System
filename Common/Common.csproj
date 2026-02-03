@@ -54,15 +54,33 @@
     <Compile Include="Enums\clsDetainedLicenseEnums.cs" />
     <Compile Include="Enums\clsDriverEnums.cs" />
     <Compile Include="Enums\clsLicenseEnums.cs" />
+    <Compile Include="Enums\clsOrderDirectionEnums.cs" />
     <Compile Include="Enums\clsPersonEnums.cs" />
     <Compile Include="Enums\clsTestEnums.cs" />
     <Compile Include="Enums\clsUserEnums.cs" />
     <Compile Include="clsUtil.cs" />
+    <Compile Include="Filters\clsApplicationFilter.cs" />
+    <Compile Include="Filters\clsDetainedLicenseFilter.cs" />
+    <Compile Include="Filters\clsDriverFilter.cs" />
+    <Compile Include="Filters\clsLocalDrivingLicenseApplicationFilter.cs" />
+    <Compile Include="Filters\clsLicenseFilter.cs" />
+    <Compile Include="Filters\clsPersonFilter.cs" />
+    <Compile Include="Filters\clsTestAppointmentFilter.cs" />
+    <Compile Include="Filters\clsUserFilter.cs" />
+    <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Helpers\clsApplicationEnumConverter.cs" />
     <Compile Include="Helpers\clsLicenseEnumConverter.cs" />
     <Compile Include="Helpers\clsPersonEnumConverter.cs" />
     <Compile Include="Helpers\clsTestEnumConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\clsApplicationQuery.cs" />
+    <Compile Include="Queries\clsBaseQuery.cs" />
+    <Compile Include="Queries\clsDetainedLicenseQuery.cs" />
+    <Compile Include="Queries\clsDriverQuery.cs" />
+    <Compile Include="Queries\clsLicenseQuery.cs" />
+    <Compile Include="Queries\clsTestAppointmentQuery.cs" />
+    <Compile Include="Queries\clsPersonQuery.cs" />
+    <Compile Include="Queries\clsUserQuery.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

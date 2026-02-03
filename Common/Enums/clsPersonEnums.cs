@@ -24,6 +24,7 @@ namespace Common
             NationalityCountryID = 5
         }
         
-        public enum enGendor { Male = 0 , Female = 1 };
+        public enum enGendor : byte
+        { Male = 0 , Female = 1 };
     }
 }

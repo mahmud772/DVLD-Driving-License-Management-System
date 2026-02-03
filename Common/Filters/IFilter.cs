@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DVLD_DAL.Filters
+namespace Common.Filters
 {
     public interface IFilter
     {
