@@ -81,6 +81,7 @@
     <Compile Include="Queries\clsTestAppointmentQuery.cs" />
     <Compile Include="Queries\clsPersonQuery.cs" />
     <Compile Include="Queries\clsUserQuery.cs" />
+    <Compile Include="Queries\IQuery.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

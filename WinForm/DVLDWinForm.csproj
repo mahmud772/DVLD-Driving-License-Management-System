@@ -154,6 +154,12 @@
     <Compile Include="User Controls\ctrlUser.Designer.cs">
       <DependentUpon>ctrlUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\Filters\ctrlApplicationFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\Filters\ctrlApplicationFilter.Designer.cs">
+      <DependentUpon>ctrlApplicationFilter.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\frmAddNew_UpdatePerson.resx">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
     </EmbeddedResource>
@@ -202,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\ctrlUser.resx">
       <DependentUpon>ctrlUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\Filters\ctrlApplicationFilter.resx">
+      <DependentUpon>ctrlApplicationFilter.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

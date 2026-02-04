@@ -35,7 +35,7 @@ namespace DVLDWinForm
                 _SetPersonInfo(value);  
             }
         }
-        public IDTO Info { get => _PersonInfo; set => PersonInfo = value as clsPerson_DTO; }
+        public IDTO Info { get => PersonInfo; set => PersonInfo = value as clsPerson_DTO; }
 
 
         public Func<IDTO> SelectdDTO;
