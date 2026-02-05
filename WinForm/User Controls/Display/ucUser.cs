@@ -16,11 +16,11 @@ using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 namespace DVLDWinForm.User_Controls
 {
-    public partial class ctrlUser : UserControl
+    public partial class ucUser : UserControl
     {
         public clsUser_DTO UserInfo { get; set => __LoadUserInfo(value); }
         
-        public ctrlUser()
+        public ucUser()
         {
             InitializeComponent();
             _LoadDesign();

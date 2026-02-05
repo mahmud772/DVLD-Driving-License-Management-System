@@ -1,5 +1,5 @@
 ﻿using Common;
-using DVLD;
+using DVLDWinForm;
 using DVLD_BLL;
 using DVLD_DTO;
 using DVLD_Models;
@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace DVLDWinForm
 {
-    public partial class ctrlPerson : UserControl , IUserControl
+    public partial class ucPerson : UserControl , IUserControl
     {
         bool IsPersonSelectd ;
         public event Action OnVisibleChanged;
@@ -48,7 +48,7 @@ namespace DVLDWinForm
         public int _expandedHeight { get; } = 300;
 
        
-        public ctrlPerson()
+        public ucPerson()
         {
             InitializeComponent();
             //clsStaticData_BLL.LoadAllStaticData();

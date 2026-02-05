@@ -1,6 +1,6 @@
 ﻿namespace DVLDWinForm
 {
-    partial class ctrlPerson
+    partial class ucPerson
     {
         /// <summary> 
         /// Required designer variable.

@@ -1,4 +1,4 @@
-﻿using DVLD;
+﻿using DVLDWinForm;
 using DVLD_BLL;
 using DVLD_DTO;
 using DVLD_Models;
@@ -16,7 +16,7 @@ using static Common.clsApplicationEnums;
 
 namespace DVLDWinForm.User_Controls
 {
-    public partial class ctrlTestAppointment : UserControl
+    public partial class ucTestAppointment : UserControl
     {
         private clsTestAppointment_DTO _AppointmentInfo;
 
@@ -29,7 +29,7 @@ namespace DVLDWinForm.User_Controls
                 _SetAppointmentInfo(value);
             }
         }
-        public ctrlTestAppointment()
+        public ucTestAppointment()
         {
             InitializeComponent();
             clsUIHelper.CornerRadius(this, 25);

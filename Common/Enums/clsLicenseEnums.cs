@@ -24,7 +24,7 @@ namespace Common
             CreatedByUserID = 5,
             IssueReason = 6
         }
-        public enum enIssueReason 
+        public enum enIssueReason : byte
         {
             New = 1,
             Renew = 2,

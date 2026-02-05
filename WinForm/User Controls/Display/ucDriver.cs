@@ -14,11 +14,11 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm
 {
-    public partial class ctrlDriver : UserControl
+    public partial class ucDriver : UserControl
     {
         public clsDriver_DTO DriverInfo {  get; set => _LoadDriverInfo(value); }
         
-        public ctrlDriver()
+        public ucDriver()
         {
             InitializeComponent();
             _LoadDesign();

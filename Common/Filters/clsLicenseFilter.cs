@@ -10,9 +10,11 @@ namespace Common.Filters
     public class clsLicenseFilter : IFilter
     {
         public int? LicenseClassID { get; set; }
-        public DateTime? IssueDate { get; set; }
-        public DateTime? ExpirationDate { get; set; }
+        public DateTime? FromIssueDate { get; set; }
+        public DateTime? ToIssueDate { get; set; }
+        public DateTime? FromExpirationDate { get; set; }
+        public DateTime? ToExpirationDate { get; set; }
         public bool? IsActive { get; set; }
-        public clsLicenseEnums.enIssueReason? IssueReason { get; set; }
+        public clsLicenseEnums.enIssueReason? IssueReason { get; set; }// New , Renew , ReplacementForDamaged , ReplacementForLost
     }
 }

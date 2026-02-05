@@ -1,4 +1,4 @@
-﻿namespace DVLD
+﻿namespace DVLDWinForm
 {
     partial class MainForm
     {
@@ -371,6 +371,7 @@
             this.btnSort_Filter.TabIndex = 4;
             this.btnSort_Filter.Text = "Sort \\ Filter";
             this.btnSort_Filter.UseVisualStyleBackColor = true;
+            this.btnSort_Filter.Click += new System.EventHandler(this.btnSort_Filter_Click);
             // 
             // tbSearch
             // 

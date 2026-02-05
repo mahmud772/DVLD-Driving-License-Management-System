@@ -1,6 +1,6 @@
 ﻿namespace DVLDWinForm.User_Controls
 {
-    partial class ctrlUser
+    partial class ucUser
     {
         /// <summary> 
         /// Required designer variable.
@@ -32,7 +32,7 @@
             this.lbUserID_Title = new System.Windows.Forms.Label();
             this.lbUserName = new System.Windows.Forms.Label();
             this.pbIsActive = new System.Windows.Forms.PictureBox();
-            this.ctrlPerson1 = new DVLDWinForm.ctrlPerson();
+            this.ctrlPerson1 = new DVLDWinForm.ucPerson();
             ((System.ComponentModel.ISupportInitialize)(this.pbIsActive)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,7 +112,7 @@
 
         #endregion
 
-        private ctrlPerson ctrlPerson1;
+        private ucPerson ctrlPerson1;
         private System.Windows.Forms.Label lbUserID;
         private System.Windows.Forms.Label lbUserID_Title;
         private System.Windows.Forms.Label lbUserName;

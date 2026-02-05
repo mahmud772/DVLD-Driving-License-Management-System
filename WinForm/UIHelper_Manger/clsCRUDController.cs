@@ -1,6 +1,8 @@
-﻿using DVLD_BLL;
+﻿using Common.Queries;
+using DVLD_BLL;
 using DVLD_DTO;
 using DVLDWinForm.Forms;
+using DVLDWinForm.User_Controls.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace DVLDWinForm.UIHelper_Manger
         public Func<Form> CreateForm { get; set; }
         public Func<IDTO , Form> PrepareUpdate { get; set; }
         public Func<int, bool> TryDelete { get; set; }
-        public Func<int ,IBLL> Search { get; set; }
+        public Func<IUserControlFilter ,IQuery> Search { get; set; }
         public IUserControl iUserControl { get; set; }
         public IDTO DTO { get; set; } = null;
         public readonly DataGridView DataGrid;
@@ -66,7 +68,7 @@ namespace DVLDWinForm.UIHelper_Manger
         {
             if (iUserControl == null) return false;
             ActionsPanel.Controls.Clear();
-            iUserControl.Info = Search?.Invoke(ID).DTO;
+            //iUserControl.Info = Search?.Invoke(ID).DTO;
             if (iUserControl.Info != null)
                 ActionsPanel.Controls.Add(iUserControl as UserControl);
             return true;

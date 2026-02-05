@@ -1,5 +1,5 @@
 ﻿using Common;
-using DVLD;
+using DVLDWinForm;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

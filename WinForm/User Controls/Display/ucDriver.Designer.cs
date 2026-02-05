@@ -1,6 +1,6 @@
 ﻿namespace DVLDWinForm
 {
-    partial class ctrlDriver
+    partial class ucDriver
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctrlPerson1 = new DVLDWinForm.ctrlPerson();
+            this.ctrlPerson1 = new DVLDWinForm.ucPerson();
             this.lbDriverID = new System.Windows.Forms.Label();
             this.lbDriverID_Title = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -83,7 +83,7 @@
 
         #endregion
 
-        private ctrlPerson ctrlPerson1;
+        private ucPerson ctrlPerson1;
         private System.Windows.Forms.Label lbDriverID;
         private System.Windows.Forms.Label lbDriverID_Title;
     }

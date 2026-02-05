@@ -1,6 +1,6 @@
 ﻿namespace DVLDWinForm.User_Controls
 {
-    partial class ctrlApplication
+    partial class ucApplication
     {
         /// <summary> 
         /// Required designer variable.

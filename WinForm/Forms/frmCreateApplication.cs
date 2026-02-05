@@ -142,19 +142,19 @@ namespace DVLDWinForm.Forms
             if(cbApplicationTypes.SelectedIndex == 0) // New Local Driving License Service
             {
                 CreateApp = _CreateLoaclApplication;
-                OpenForm = () => new frmFind(new ctrlPerson() , clsPerson_BLL.Find);
+                OpenForm = () => new frmFind(new ucPerson() , clsPerson_BLL.Find);
                 _UpdateForm_NewLocalApplication();
             }
             else if(cbApplicationTypes.SelectedIndex == 6) // RetakeTest
             {
                 CreateApp = _CreateApplication;
-                OpenForm = () => new frmFind(new ctrlApplication() , clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);
+                OpenForm = () => new frmFind(new ucApplication() , clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);
                 _UpdateForm_RetakeTest();
             }
             else
             {
                 CreateApp = _CreateApplication;
-                OpenForm = () => new frmFind(new ctrlLicense() , clsLicense_BLL.GetLicenseCardInfo);
+                OpenForm = () => new frmFind(new ucLicense() , clsLicense_BLL.GetLicenseCardInfo);
                 _UpdateForm_License();
             }
         }

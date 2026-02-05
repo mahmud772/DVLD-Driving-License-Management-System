@@ -54,6 +54,7 @@
             this.btnOk.TabIndex = 1;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
@@ -63,6 +64,7 @@
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // pnlSort
             // 
@@ -97,6 +99,7 @@
             // rbASC
             // 
             this.rbASC.AutoSize = true;
+            this.rbASC.Checked = true;
             this.rbASC.Location = new System.Drawing.Point(203, 11);
             this.rbASC.Name = "rbASC";
             this.rbASC.Size = new System.Drawing.Size(45, 17);
@@ -112,7 +115,6 @@
             this.rbDESC.Name = "rbDESC";
             this.rbDESC.Size = new System.Drawing.Size(51, 17);
             this.rbDESC.TabIndex = 0;
-            this.rbDESC.TabStop = true;
             this.rbDESC.Text = "DESC";
             this.rbDESC.UseVisualStyleBackColor = true;
             // 

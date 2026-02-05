@@ -8,8 +8,10 @@ namespace Common.Filters
 {
     public class clsDetainedLicenseFilter : IFilter
     {
-        public DateTime? DetainDate { get; set; }
+        public DateTime? FromDetainDate { get; set; }
+        public DateTime? ToDetainDate { get; set; }
         public bool? IsReleased { get; set; }
-        public DateTime? ReleaseDate { get; set; }
+        public DateTime? FromReleaseDate { get; set; }
+        public DateTime? ToReleaseDate { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using DVLD;
+﻿using DVLDWinForm;
 using DVLD_BLL;
 using DVLD_DTO;
 using DVLD_Models;
@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace DVLDWinForm.User_Controls
 {
-    public partial class ctrlApplication : UserControl , IUserControl
+    public partial class ucApplication : UserControl , IUserControl
     {
         
         private clsApplication_DTO _ApplicationInfo;
@@ -32,7 +32,7 @@ namespace DVLDWinForm.User_Controls
             }
         }
         public IDTO Info { get => _ApplicationInfo; set => ApplicationInfo = value as clsApplication_DTO; }
-        public ctrlApplication()
+        public ucApplication()
         {
             InitializeComponent();
             clsUIHelper.CornerRadius(this, 25);

@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.User_Controls
 {
-    public partial class ctrlLicense : UserControl , IUserControl
+    public partial class ucLicense : UserControl , IUserControl
     {
         
         public clsLicenseCardInfo_DTO LicenseInfo { get; set =>  _LoadLicenseInfo(value);  }
@@ -32,7 +32,7 @@ namespace DVLDWinForm.User_Controls
         private int _expandedHeight = 450;
 
 
-        public ctrlLicense()
+        public ucLicense()
         {
             InitializeComponent();
             _LoadDesign();

@@ -1,6 +1,6 @@
 ﻿namespace DVLDWinForm.User_Controls.Filters
 {
-    partial class ctrlApplicationFilter
+    partial class ucApplicationsFilter
     {
         /// <summary> 
         /// Required designer variable.
@@ -35,11 +35,11 @@
             this.lbFromApplicationDate = new System.Windows.Forms.Label();
             this.lbToApplicationDate = new System.Windows.Forms.Label();
             this.pnlStatus = new System.Windows.Forms.Panel();
-            this.pnlDate = new System.Windows.Forms.Panel();
-            this.ckbApplicationStatus = new System.Windows.Forms.CheckBox();
             this.ckbApplicationType = new System.Windows.Forms.CheckBox();
-            this.ckbApplicationDate = new System.Windows.Forms.CheckBox();
+            this.ckbApplicationStatus = new System.Windows.Forms.CheckBox();
+            this.pnlDate = new System.Windows.Forms.Panel();
             this.pnlFromToDate = new System.Windows.Forms.Panel();
+            this.ckbApplicationDate = new System.Windows.Forms.CheckBox();
             this.pnlStatus.SuspendLayout();
             this.pnlDate.SuspendLayout();
             this.pnlFromToDate.SuspendLayout();
@@ -111,15 +111,16 @@
             this.pnlStatus.Size = new System.Drawing.Size(335, 108);
             this.pnlStatus.TabIndex = 8;
             // 
-            // pnlDate
+            // ckbApplicationType
             // 
-            this.pnlDate.BackColor = System.Drawing.Color.White;
-            this.pnlDate.Controls.Add(this.pnlFromToDate);
-            this.pnlDate.Controls.Add(this.ckbApplicationDate);
-            this.pnlDate.Location = new System.Drawing.Point(12, 140);
-            this.pnlDate.Name = "pnlDate";
-            this.pnlDate.Size = new System.Drawing.Size(388, 115);
-            this.pnlDate.TabIndex = 9;
+            this.ckbApplicationType.AutoSize = true;
+            this.ckbApplicationType.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.ckbApplicationType.Location = new System.Drawing.Point(12, 65);
+            this.ckbApplicationType.Name = "ckbApplicationType";
+            this.ckbApplicationType.Size = new System.Drawing.Size(148, 19);
+            this.ckbApplicationType.TabIndex = 7;
+            this.ckbApplicationType.Text = "Application Type          :";
+            this.ckbApplicationType.UseVisualStyleBackColor = true;
             // 
             // ckbApplicationStatus
             // 
@@ -132,27 +133,15 @@
             this.ckbApplicationStatus.Text = "Application Status        :";
             this.ckbApplicationStatus.UseVisualStyleBackColor = true;
             // 
-            // ckbApplicationType
+            // pnlDate
             // 
-            this.ckbApplicationType.AutoSize = true;
-            this.ckbApplicationType.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.ckbApplicationType.Location = new System.Drawing.Point(12, 65);
-            this.ckbApplicationType.Name = "ckbApplicationType";
-            this.ckbApplicationType.Size = new System.Drawing.Size(148, 19);
-            this.ckbApplicationType.TabIndex = 7;
-            this.ckbApplicationType.Text = "Application Type          :";
-            this.ckbApplicationType.UseVisualStyleBackColor = true;
-            // 
-            // ckbApplicationDate
-            // 
-            this.ckbApplicationDate.AutoSize = true;
-            this.ckbApplicationDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.ckbApplicationDate.Location = new System.Drawing.Point(13, 7);
-            this.ckbApplicationDate.Name = "ckbApplicationDate";
-            this.ckbApplicationDate.Size = new System.Drawing.Size(121, 19);
-            this.ckbApplicationDate.TabIndex = 8;
-            this.ckbApplicationDate.Text = "Application Date :";
-            this.ckbApplicationDate.UseVisualStyleBackColor = true;
+            this.pnlDate.BackColor = System.Drawing.Color.White;
+            this.pnlDate.Controls.Add(this.pnlFromToDate);
+            this.pnlDate.Controls.Add(this.ckbApplicationDate);
+            this.pnlDate.Location = new System.Drawing.Point(12, 140);
+            this.pnlDate.Name = "pnlDate";
+            this.pnlDate.Size = new System.Drawing.Size(388, 115);
+            this.pnlDate.TabIndex = 9;
             // 
             // pnlFromToDate
             // 
@@ -166,14 +155,26 @@
             this.pnlFromToDate.Size = new System.Drawing.Size(316, 79);
             this.pnlFromToDate.TabIndex = 9;
             // 
-            // ctrlApplicationFilter
+            // ckbApplicationDate
+            // 
+            this.ckbApplicationDate.AutoSize = true;
+            this.ckbApplicationDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.ckbApplicationDate.Location = new System.Drawing.Point(13, 7);
+            this.ckbApplicationDate.Name = "ckbApplicationDate";
+            this.ckbApplicationDate.Size = new System.Drawing.Size(121, 19);
+            this.ckbApplicationDate.TabIndex = 8;
+            this.ckbApplicationDate.Text = "Application Date :";
+            this.ckbApplicationDate.UseVisualStyleBackColor = true;
+            this.ckbApplicationDate.CheckedChanged += new System.EventHandler(this.ckbApplicationDate_CheckedChanged);
+            // 
+            // ucApplicationFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.Controls.Add(this.pnlDate);
             this.Controls.Add(this.pnlStatus);
-            this.Name = "ctrlApplicationFilter";
+            this.Name = "ucApplicationFilter";
             this.Size = new System.Drawing.Size(409, 266);
             this.pnlStatus.ResumeLayout(false);
             this.pnlStatus.PerformLayout();

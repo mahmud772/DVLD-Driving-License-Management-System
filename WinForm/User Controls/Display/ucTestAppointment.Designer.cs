@@ -1,6 +1,6 @@
 ﻿namespace DVLDWinForm.User_Controls
 {
-    partial class ctrlTestAppointment
+    partial class ucTestAppointment
     {
         /// <summary> 
         /// Required designer variable.

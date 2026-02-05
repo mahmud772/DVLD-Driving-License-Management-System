@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Queries;
 using DVLD_BLL;
 using DVLD_DTO;
 using DVLD_Models;
@@ -8,6 +9,7 @@ using DVLDWinForm.Tests;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
+using DVLDWinForm.User_Controls.Filters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +21,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace DVLD
+namespace DVLDWinForm
 {
 
     public partial class MainForm : Form
@@ -34,7 +36,13 @@ namespace DVLD
         public static ContextMenuStrip SharedContextMenu { get; private set; }
 
 
-
+        public  clsApplicationQuery ApplicationQuery { get; set; }
+        public  clsPersonQuery PersonQuery { get; set; }
+        public  clsDetainedLicenseQuery DetainedLicenseQuery { get; set; }
+        public  clsDriverQuery DriverQuery { get; set; }
+        public  clsLicenseQuery LicenseQuery { get; set; }
+        public  clsTestAppointmentQuery TestAppointmentQuery { get; set; }
+        public  clsUserQuery UserQuery { get; set; }
         
         
         public MainForm()
@@ -165,11 +173,6 @@ namespace DVLD
             }
         }
 
-        private void btnPeople_Click(object sender, EventArgs e)
-        {
-            LoadType = _LoadPeople;
-            _ShowFLP();
-        }
 
 
 
@@ -181,96 +184,12 @@ namespace DVLD
                 (flpUserControls, ControlCeartor);
         }
 
-        private void _LoadPeople()
+        private void btnPeople_Click(object sender, EventArgs e)
         {
-            CRUDController.CreateForm = () => new frmAddNew_UpdatePerson();
-            CRUDController.PrepareUpdate = Person => new frmAddNew_UpdatePerson(Person as clsPerson_DTO);
-            CRUDController.TryDelete = clsPerson_BLL.DeletePerson;
-            CRUDController.Search = clsPerson_BLL.Find;
-            CRUDController.iUserControl = new ctrlPerson();
-            _InitializeAdapter(clsPerson_BLL.GetPeople,
-                clsPerson_BLL.GetCount,
-                _GetDisplayView<clsPerson_DTO>(person => new ctrlPerson { PersonInfo = person })
-            );
-
+            LoadType = _LoadPeople;
+            _ShowFLP();
         }
-
-        private void _LoadUsers()
-        {
-            CRUDController.TryDelete = clsUser_BLL.DeleteUser;
-            CRUDController.Search = clsUser_BLL.Find;
-            _InitializeAdapter(clsUser_BLL.GetUsers,
-               clsUser_BLL.GetCount,
-               _GetDisplayView<clsUser_DTO>(user => new ctrlUser { UserInfo = user }));
-        }
-        private void _LoadDrivers()
-        {
-            CRUDController.TryDelete = clsDriver_BLL.DeleteDriver;
-            CRUDController.Search = clsDriver_BLL.FindByID;
-            _InitializeAdapter(clsDriver_BLL.GetDrivers,
-               clsDriver_BLL.GetCount,
-               _GetDisplayView<clsDriver_DTO>(driver => new ctrlDriver { DriverInfo = driver }));
-        }
-        private void _LoadApplications()
-        {
-            CRUDController.CreateForm = () => new frmCreateApplication();
-
-            //CRUDController.PrepareUpdate = Application => new frmUpdateApplication(Application as clsApplication_DTO);
-
-            CRUDController.TryDelete = clsApplication_BLL.DeleteApplication;
-            CRUDController.Search = clsApplication_BLL.FindByApplicationID;
-            _InitializeAdapter(clsApplication_BLL.GetApplications,
-               clsApplication_BLL.GetCount,
-               _GetDisplayView<clsApplication_DTO>(application => new ctrlApplication { ApplicationInfo = application }));
-        }
-        private void _LoadDetaindLicenses()
-        {
-            CRUDController.TryDelete = clsDetainedLicense_BLL.DeleteDetain;
-            CRUDController.Search = clsDetainedLicense_BLL.FindByDetainID;
-            _InitializeAdapter(clsDetainedLicense_BLL.GetDetainedLicensesCardsInfo,
-               clsDetainedLicense_BLL.GetCount,
-               _GetDisplayView<clsLicenseCardInfo_DTO>(license => new ctrlLicense { LicenseInfo = license }));
-        }
-        private void _LoadInternationalLicenses()
-        {
-            CRUDController.TryDelete = clsInternationalLicense_BLL.DeleteInternationalLicense;
-            CRUDController.Search = clsInternationalLicense_BLL.FindByID;
-            _InitializeAdapter(clsInternationalLicense_BLL.GetInternationalLicensesCardsInfo,
-               clsInternationalLicense_BLL.GetCount,
-               _GetDisplayView<clsLicenseCardInfo_DTO>(license => new ctrlLicense { LicenseInfo = license }));
-        }
-        private void _LoadLicenses()
-        {
-            //CRUDController.CreateForm = () => new frmAddNewLicense();
-            //CRUDController.PrepareUpdate = License => new frmAddNew_UpdateAppointment(License as clsTestAppointment_DTO);
-            CRUDController.TryDelete = clsLicense_BLL.DeleteLicense;
-            CRUDController.Search = clsLicense_BLL.GetLicenseCardInfo;
-            _InitializeAdapter(clsLicense_BLL.GetLicensesCardsInfo,
-               clsLicense_BLL.GetCount,
-               _GetDisplayView<clsLicenseCardInfo_DTO>(license => new ctrlLicense { LicenseInfo = license }));
-        }
-
-        private void _LoadLocalDrivingLicenseApplications()
-        {
-            CRUDController.CreateForm = () => new frmCreateApplication();
-            //CRUDController.PrepareUpdate = Application => new frmUpdateApplication(Application as clsLocalDrivingLicenseApplication_DTO);
-            CRUDController.TryDelete = clsLocalDrivingLicenseApplication_BLL.DeleteLocalDrivingLicenseApplicationByApplicationID;
-            CRUDController.Search = clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID;
-            _InitializeAdapter(clsLocalDrivingLicenseApplication_BLL.GetLocalDrivingLicenseApplications,
-               clsLocalDrivingLicenseApplication_BLL.GetCount,
-               _GetDisplayView<clsLocalDrivingLicenseApplication_DTO>(application => new ctrlApplication { ApplicationInfo = application }));
-        }
-        private void _LoadTestAppointment()
-        {
-
-            //CRUDController.CreateForm = () => new frmAddNew_UpdateAppointment();
-            //CRUDController.PrepareUpdate = Appointment => new frmAddNew_UpdateAppointment(Appointment as clsTestAppointment_DTO);
-            CRUDController.TryDelete = clsTestAppointment_BLL.DeleteTestAppointment;
-            CRUDController.Search = clsTestAppointment_BLL.FindByID;
-            _InitializeAdapter(clsTestAppointment_BLL.GetTestAppointments,
-               clsTestAppointment_BLL.GetCount,
-               _GetDisplayView<clsTestAppointment_DTO>(Appointment => new ctrlTestAppointment { AppointmentInfo = Appointment }));
-        }
+        
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
@@ -330,7 +249,13 @@ namespace DVLD
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            CRUDController.ShowDTO(Convert.ToInt32(tbSearch?.Text));
+            //CRUDController.ShowDTO(Convert.ToInt32(tbSearch?.Text));
+        }
+
+        private void btnSort_Filter_Click(object sender, EventArgs e)
+        {
+            frmSortAndFilter frm = new frmSortAndFilter(new ucApplicationsFilter() , ApplicationQuery );
+            frm.ShowDialog();
         }
     }
 }

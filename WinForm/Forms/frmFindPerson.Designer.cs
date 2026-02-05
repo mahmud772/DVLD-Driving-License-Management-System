@@ -32,7 +32,7 @@
             this.pbSearch = new System.Windows.Forms.PictureBox();
             this.tbFindBy = new System.Windows.Forms.TextBox();
             this.cbFindBy = new System.Windows.Forms.ComboBox();
-            this.ctrlPerson1 = new DVLDWinForm.ctrlPerson();
+            this.ctrlPerson1 = new DVLDWinForm.ucPerson();
             this.pnlFind.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSearch)).BeginInit();
             this.SuspendLayout();
@@ -104,7 +104,7 @@
 
         #endregion
 
-        private ctrlPerson ctrlPerson1;
+        private ucPerson ctrlPerson1;
         private System.Windows.Forms.Panel pnlFind;
         private System.Windows.Forms.PictureBox pbSearch;
         private System.Windows.Forms.ComboBox cbFindBy;

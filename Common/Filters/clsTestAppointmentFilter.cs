@@ -10,7 +10,8 @@ namespace Common.Filters
     public class clsTestAppointmentFilter : IFilter
     {
         public int? TestTypeID { get;  set; }
-        public DateTime? AppointmentDate { get; set; }
+        public DateTime? FromAppointmentDate { get; set; }
+        public DateTime? ToAppointmentDate { get; set; }
         public bool? IsLocked { get; set; }
         public bool? TestResult { get; set; }
     }
