@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.User_Controls.Filters
 {
-    partial class ucLicenseFilter
+    partial class ucLicensesFilter
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -91,13 +91,14 @@ namespace DVLDWinForm.User_Controls.Filters
             this.ckbLicenseClass.Size = new System.Drawing.Size(120, 24);
             this.ckbLicenseClass.TabIndex = 0;
             this.ckbLicenseClass.Text = "License Class";
+            this.ckbLicenseClass.Click += new System.EventHandler(this.ckbLicenseClass_CheckedChanged);
             // 
             // cbLicenseClass
             // 
             this.cbLicenseClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLicenseClass.Location = new System.Drawing.Point(30, 38);
             this.cbLicenseClass.Name = "cbLicenseClass";
-            this.cbLicenseClass.Size = new System.Drawing.Size(129, 21);
+            this.cbLicenseClass.Size = new System.Drawing.Size(167, 21);
             this.cbLicenseClass.TabIndex = 1;
             // 
             // pnlIssueDate
@@ -121,6 +122,7 @@ namespace DVLDWinForm.User_Controls.Filters
             this.ckbIssueDate.Size = new System.Drawing.Size(104, 24);
             this.ckbIssueDate.TabIndex = 0;
             this.ckbIssueDate.Text = "Issue Date";
+            this.ckbIssueDate.Click += new System.EventHandler(this.ckbIssueDate_CheckedChanged);
             // 
             // lblIssueFrom
             // 
@@ -175,6 +177,7 @@ namespace DVLDWinForm.User_Controls.Filters
             this.ckbExpirationDate.Size = new System.Drawing.Size(124, 24);
             this.ckbExpirationDate.TabIndex = 0;
             this.ckbExpirationDate.Text = "Expiration Date";
+            this.ckbExpirationDate.Click += new System.EventHandler(this.ckbExpirationDate_CheckedChanged);
             // 
             // lblExpireFrom
             // 
@@ -227,6 +230,7 @@ namespace DVLDWinForm.User_Controls.Filters
             this.ckbIsActive.Size = new System.Drawing.Size(120, 24);
             this.ckbIsActive.TabIndex = 0;
             this.ckbIsActive.Text = "License Status";
+            this.ckbIsActive.Click += new System.EventHandler(this.ckbIsActive_CheckedChanged);
             // 
             // rbActiveYes
             // 
@@ -262,6 +266,7 @@ namespace DVLDWinForm.User_Controls.Filters
             this.ckbIssueReason.Size = new System.Drawing.Size(120, 24);
             this.ckbIssueReason.TabIndex = 0;
             this.ckbIssueReason.Text = "Issue Reason";
+            this.ckbIssueReason.Click += new System.EventHandler(this.ckbIssueReason_CheckedChanged);
             // 
             // cbIssueReason
             // 
@@ -271,7 +276,7 @@ namespace DVLDWinForm.User_Controls.Filters
             this.cbIssueReason.Size = new System.Drawing.Size(129, 21);
             this.cbIssueReason.TabIndex = 1;
             // 
-            // ucLicenseFilter
+            // ucLicensesFilter
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.Controls.Add(this.pnlLicenseClass);
@@ -279,7 +284,7 @@ namespace DVLDWinForm.User_Controls.Filters
             this.Controls.Add(this.pnlExpirationDate);
             this.Controls.Add(this.pnlIssueReason);
             this.Controls.Add(this.pnlIsActive);
-            this.Name = "ucLicenseFilter";
+            this.Name = "ucLicensesFilter";
             this.Size = new System.Drawing.Size(410, 269);
             this.pnlLicenseClass.ResumeLayout(false);
             this.pnlIssueDate.ResumeLayout(false);

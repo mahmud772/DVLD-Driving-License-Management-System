@@ -8,8 +8,6 @@ namespace Common.Filters
 {
     public class clsDriverFilter : clsPersonFilter , IFilter
     {
-        public DateTime? FromCreatedDate { get; set; }
-        public DateTime? ToCreatedDate { get; set; }
        
     }
 }

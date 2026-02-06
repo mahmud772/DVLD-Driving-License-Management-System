@@ -164,17 +164,29 @@
     <Compile Include="User Controls\Filters\ucApplicationsFilter.Designer.cs">
       <DependentUpon>ucApplicationsFilter.cs</DependentUpon>
     </Compile>
-    <Compile Include="User Controls\Filters\ucDetainedLicenseFilter.cs">
+    <Compile Include="User Controls\Filters\ucDetainedLicensesFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="User Controls\Filters\ucDetainedLicenseFilter.Designer.cs">
-      <DependentUpon>ucDetainedLicenseFilter.cs</DependentUpon>
+    <Compile Include="User Controls\Filters\ucDetainedLicensesFilter.Designer.cs">
+      <DependentUpon>ucDetainedLicensesFilter.cs</DependentUpon>
     </Compile>
-    <Compile Include="User Controls\Filters\ucLicenseFilter.cs">
+    <Compile Include="User Controls\Filters\ucDriversFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="User Controls\Filters\ucLicenseFilter.Designer.cs">
-      <DependentUpon>ucLicenseFilter.cs</DependentUpon>
+    <Compile Include="User Controls\Filters\ucDriversFilter.Designer.cs">
+      <DependentUpon>ucDriversFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\Filters\ucLicensesFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\Filters\ucLicensesFilter.Designer.cs">
+      <DependentUpon>ucLicensesFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\Filters\ucLocalDrivingLicenseApplicationsFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\Filters\ucLocalDrivingLicenseApplicationsFilter.Designer.cs">
+      <DependentUpon>ucLocalDrivingLicenseApplicationsFilter.cs</DependentUpon>
     </Compile>
     <Compile Include="User Controls\Filters\ucPeopleFilter.cs">
       <SubType>UserControl</SubType>
@@ -182,11 +194,17 @@
     <Compile Include="User Controls\Filters\ucPeopleFilter.Designer.cs">
       <DependentUpon>ucPeopleFilter.cs</DependentUpon>
     </Compile>
-    <Compile Include="User Controls\Filters\ucTestAppointmentFilter.cs">
+    <Compile Include="User Controls\Filters\ucTestAppointmentsFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="User Controls\Filters\ucTestAppointmentFilter.Designer.cs">
-      <DependentUpon>ucTestAppointmentFilter.cs</DependentUpon>
+    <Compile Include="User Controls\Filters\ucTestAppointmentsFilter.Designer.cs">
+      <DependentUpon>ucTestAppointmentsFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\Filters\ucUsersFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\Filters\ucUsersFilter.Designer.cs">
+      <DependentUpon>ucUsersFilter.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\frmAddNew_UpdatePerson.resx">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
@@ -240,17 +258,26 @@
     <EmbeddedResource Include="User Controls\Filters\ucApplicationsFilter.resx">
       <DependentUpon>ucApplicationsFilter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="User Controls\Filters\ucDetainedLicenseFilter.resx">
-      <DependentUpon>ucDetainedLicenseFilter.cs</DependentUpon>
+    <EmbeddedResource Include="User Controls\Filters\ucDetainedLicensesFilter.resx">
+      <DependentUpon>ucDetainedLicensesFilter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="User Controls\Filters\ucLicenseFilter.resx">
-      <DependentUpon>ucLicenseFilter.cs</DependentUpon>
+    <EmbeddedResource Include="User Controls\Filters\ucDriversFilter.resx">
+      <DependentUpon>ucDriversFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\Filters\ucLicensesFilter.resx">
+      <DependentUpon>ucLicensesFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\Filters\ucLocalDrivingLicenseApplicationsFilter.resx">
+      <DependentUpon>ucLocalDrivingLicenseApplicationsFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\Filters\ucPeopleFilter.resx">
       <DependentUpon>ucPeopleFilter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="User Controls\Filters\ucTestAppointmentFilter.resx">
-      <DependentUpon>ucTestAppointmentFilter.cs</DependentUpon>
+    <EmbeddedResource Include="User Controls\Filters\ucTestAppointmentsFilter.resx">
+      <DependentUpon>ucTestAppointmentsFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\Filters\ucUsersFilter.resx">
+      <DependentUpon>ucUsersFilter.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

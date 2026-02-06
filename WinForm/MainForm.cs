@@ -254,7 +254,7 @@ namespace DVLDWinForm
 
         private void btnSort_Filter_Click(object sender, EventArgs e)
         {
-            frmSortAndFilter frm = new frmSortAndFilter(new ucApplicationsFilter() , ApplicationQuery );
+            frmSortAndFilter frm = new frmSortAndFilter(new ucLocalDrivingLicenseApplicationsFilter() , ApplicationQuery );
             frm.ShowDialog();
         }
     }

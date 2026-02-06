@@ -50,54 +50,57 @@
             this.cbApplicationStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbApplicationStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbApplicationStatus.FormattingEnabled = true;
-            this.cbApplicationStatus.Location = new System.Drawing.Point(171, 25);
+            this.cbApplicationStatus.Location = new System.Drawing.Point(171, 12);
             this.cbApplicationStatus.Name = "cbApplicationStatus";
-            this.cbApplicationStatus.Size = new System.Drawing.Size(150, 23);
+            this.cbApplicationStatus.Size = new System.Drawing.Size(128, 23);
             this.cbApplicationStatus.TabIndex = 0;
             // 
             // cbApplicationType
             // 
             this.cbApplicationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbApplicationType.DropDownWidth = 250;
             this.cbApplicationType.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbApplicationType.FormattingEnabled = true;
-            this.cbApplicationType.Location = new System.Drawing.Point(171, 65);
+            this.cbApplicationType.Location = new System.Drawing.Point(171, 52);
             this.cbApplicationType.Name = "cbApplicationType";
-            this.cbApplicationType.Size = new System.Drawing.Size(150, 23);
+            this.cbApplicationType.Size = new System.Drawing.Size(128, 23);
             this.cbApplicationType.TabIndex = 1;
             // 
             // dtpFrom
             // 
-            this.dtpFrom.Location = new System.Drawing.Point(79, 9);
+            this.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFrom.Location = new System.Drawing.Point(58, 9);
             this.dtpFrom.Name = "dtpFrom";
-            this.dtpFrom.Size = new System.Drawing.Size(200, 20);
+            this.dtpFrom.Size = new System.Drawing.Size(103, 20);
             this.dtpFrom.TabIndex = 2;
             // 
             // dtpTo
             // 
-            this.dtpTo.Location = new System.Drawing.Point(79, 51);
+            this.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpTo.Location = new System.Drawing.Point(58, 41);
             this.dtpTo.Name = "dtpTo";
-            this.dtpTo.Size = new System.Drawing.Size(200, 20);
+            this.dtpTo.Size = new System.Drawing.Size(103, 20);
             this.dtpTo.TabIndex = 3;
             // 
             // lbFromApplicationDate
             // 
             this.lbFromApplicationDate.AutoSize = true;
             this.lbFromApplicationDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFromApplicationDate.Location = new System.Drawing.Point(26, 9);
+            this.lbFromApplicationDate.Location = new System.Drawing.Point(16, 9);
             this.lbFromApplicationDate.Name = "lbFromApplicationDate";
-            this.lbFromApplicationDate.Size = new System.Drawing.Size(41, 15);
+            this.lbFromApplicationDate.Size = new System.Drawing.Size(35, 15);
             this.lbFromApplicationDate.TabIndex = 6;
-            this.lbFromApplicationDate.Text = "From :";
+            this.lbFromApplicationDate.Text = "From";
             // 
             // lbToApplicationDate
             // 
             this.lbToApplicationDate.AutoSize = true;
             this.lbToApplicationDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbToApplicationDate.Location = new System.Drawing.Point(26, 51);
+            this.lbToApplicationDate.Location = new System.Drawing.Point(16, 41);
             this.lbToApplicationDate.Name = "lbToApplicationDate";
-            this.lbToApplicationDate.Size = new System.Drawing.Size(41, 15);
+            this.lbToApplicationDate.Size = new System.Drawing.Size(20, 15);
             this.lbToApplicationDate.TabIndex = 7;
-            this.lbToApplicationDate.Text = "To      :";
+            this.lbToApplicationDate.Text = "To";
             // 
             // pnlStatus
             // 
@@ -106,16 +109,16 @@
             this.pnlStatus.Controls.Add(this.ckbApplicationStatus);
             this.pnlStatus.Controls.Add(this.cbApplicationStatus);
             this.pnlStatus.Controls.Add(this.cbApplicationType);
-            this.pnlStatus.Location = new System.Drawing.Point(12, 17);
+            this.pnlStatus.Location = new System.Drawing.Point(11, 9);
             this.pnlStatus.Name = "pnlStatus";
-            this.pnlStatus.Size = new System.Drawing.Size(335, 108);
+            this.pnlStatus.Size = new System.Drawing.Size(308, 86);
             this.pnlStatus.TabIndex = 8;
             // 
             // ckbApplicationType
             // 
             this.ckbApplicationType.AutoSize = true;
             this.ckbApplicationType.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.ckbApplicationType.Location = new System.Drawing.Point(12, 65);
+            this.ckbApplicationType.Location = new System.Drawing.Point(12, 52);
             this.ckbApplicationType.Name = "ckbApplicationType";
             this.ckbApplicationType.Size = new System.Drawing.Size(148, 19);
             this.ckbApplicationType.TabIndex = 7;
@@ -126,7 +129,7 @@
             // 
             this.ckbApplicationStatus.AutoSize = true;
             this.ckbApplicationStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.ckbApplicationStatus.Location = new System.Drawing.Point(12, 25);
+            this.ckbApplicationStatus.Location = new System.Drawing.Point(12, 12);
             this.ckbApplicationStatus.Name = "ckbApplicationStatus";
             this.ckbApplicationStatus.Size = new System.Drawing.Size(150, 19);
             this.ckbApplicationStatus.TabIndex = 6;
@@ -138,9 +141,9 @@
             this.pnlDate.BackColor = System.Drawing.Color.White;
             this.pnlDate.Controls.Add(this.pnlFromToDate);
             this.pnlDate.Controls.Add(this.ckbApplicationDate);
-            this.pnlDate.Location = new System.Drawing.Point(12, 140);
+            this.pnlDate.Location = new System.Drawing.Point(11, 102);
             this.pnlDate.Name = "pnlDate";
-            this.pnlDate.Size = new System.Drawing.Size(388, 115);
+            this.pnlDate.Size = new System.Drawing.Size(308, 104);
             this.pnlDate.TabIndex = 9;
             // 
             // pnlFromToDate
@@ -150,9 +153,9 @@
             this.pnlFromToDate.Controls.Add(this.lbFromApplicationDate);
             this.pnlFromToDate.Controls.Add(this.dtpTo);
             this.pnlFromToDate.Controls.Add(this.lbToApplicationDate);
-            this.pnlFromToDate.Location = new System.Drawing.Point(69, 32);
+            this.pnlFromToDate.Location = new System.Drawing.Point(104, 27);
             this.pnlFromToDate.Name = "pnlFromToDate";
-            this.pnlFromToDate.Size = new System.Drawing.Size(316, 79);
+            this.pnlFromToDate.Size = new System.Drawing.Size(173, 70);
             this.pnlFromToDate.TabIndex = 9;
             // 
             // ckbApplicationDate
@@ -167,15 +170,15 @@
             this.ckbApplicationDate.UseVisualStyleBackColor = true;
             this.ckbApplicationDate.CheckedChanged += new System.EventHandler(this.ckbApplicationDate_CheckedChanged);
             // 
-            // ucApplicationFilter
+            // ucApplicationsFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.Controls.Add(this.pnlDate);
             this.Controls.Add(this.pnlStatus);
-            this.Name = "ucApplicationFilter";
-            this.Size = new System.Drawing.Size(409, 266);
+            this.Name = "ucApplicationsFilter";
+            this.Size = new System.Drawing.Size(324, 214);
             this.pnlStatus.ResumeLayout(false);
             this.pnlStatus.PerformLayout();
             this.pnlDate.ResumeLayout(false);
