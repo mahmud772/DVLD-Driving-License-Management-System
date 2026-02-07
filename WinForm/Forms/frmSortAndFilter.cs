@@ -1,4 +1,5 @@
-﻿using Common.Filters;
+﻿using Common;
+using Common.Filters;
 using Common.Queries;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.User_Controls.Filters;
@@ -25,12 +26,18 @@ namespace DVLDWinForm.Forms
             _icontrol = icontrol;
             _control = icontrol as UserControl;
             _Query = Query;
+            _Initialize();
         }
 
         private void frmSortAndFilter_Load(object sender, EventArgs e)
         {
-            _Set();
+            //_Set();
             _LoadDesign();
+        }
+        private void _Initialize()
+        {
+            cbSortBy.Items.Clear();
+            cbSortBy.DataSource = Enum.GetValues(_Query.OrderBy.GetType());
         }
         private void _LoadDesign()
         {
@@ -50,7 +57,7 @@ namespace DVLDWinForm.Forms
         private void _Set()
         {
             if(_Query == null) return;
-            cbSortBy.DataSource = _Query.OrderBy;
+            cbSortBy.DataSource = _Query?.OrderBy;
             _icontrol?.Filter = _Query?.Filter;
 
         }

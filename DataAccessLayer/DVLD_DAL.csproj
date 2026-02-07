@@ -65,6 +65,13 @@
     <Compile Include="Entity\clsTest_DAL.cs" />
     <Compile Include="Entity\clsUser_DAL.cs" />
     <Compile Include="DbHelper.cs" />
+    <Compile Include="Mappers\clsApplicationMapper.cs" />
+    <Compile Include="Mappers\clsDetainedLicenseMapper.cs" />
+    <Compile Include="Mappers\clsDriverMapper.cs" />
+    <Compile Include="Mappers\clsLicenseMapper.cs" />
+    <Compile Include="Mappers\clsPersonMapper.cs" />
+    <Compile Include="Mappers\clsTestAppointmentMapper.cs" />
+    <Compile Include="Mappers\clsUserMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -99,8 +106,6 @@
       <Name>DVLD_DTO</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mappers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

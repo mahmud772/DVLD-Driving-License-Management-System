@@ -73,7 +73,7 @@
             this.pnlSort.Controls.Add(this.lbSortByTitel);
             this.pnlSort.Controls.Add(this.rbASC);
             this.pnlSort.Controls.Add(this.rbDESC);
-            this.pnlSort.Location = new System.Drawing.Point(28, 45);
+            this.pnlSort.Location = new System.Drawing.Point(40, 45);
             this.pnlSort.Name = "pnlSort";
             this.pnlSort.Size = new System.Drawing.Size(329, 36);
             this.pnlSort.TabIndex = 1;

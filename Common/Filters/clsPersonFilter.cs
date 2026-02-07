@@ -10,7 +10,7 @@ namespace Common.Filters
     {
         public int? AgeOlderThen { get; set; }
         public int? AgeYoungerThen { get; set; }
-        public clsPersonEnums.enGendor? Gendor { get; set; }// male or female
-        public int? NationalityCountryID { get; set; }// كمبو بوكس
+        public clsPersonEnums.enGendor? Gendor { get; set; }
+        public int? NationalityCountryID { get; set; }
     }
 }
