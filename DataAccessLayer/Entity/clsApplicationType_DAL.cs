@@ -1,4 +1,6 @@
-﻿using DVLD_DTO;
+﻿using Common.Filters;
+using DVLD_DAL.Mappers;
+using DVLD_DTO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -111,5 +113,7 @@ namespace DVLD_DAL
         //    string Query = "Select ApplicationFees From ApplicationTypes Where ApplicationTypeID = @ApplicationTypeID;";
         //    return DbHelper.ExecuteScalar<decimal>(Query, Command => DbHelper.SetValue<int>(Command, "@ApplicationTypeID", ApplicationTypeID));
         //}
+        
+
     }
 }

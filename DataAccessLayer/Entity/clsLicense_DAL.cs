@@ -1,5 +1,8 @@
 ﻿using Common;
+using Common.Filters;
 using Common.Helpers;
+using Common.Queries;
+using DVLD_DAL.Mappers;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -14,7 +17,27 @@ namespace DVLD_DAL
 {
     public class clsLicense_DAL
     {
-
+        private static clsLicenseCardInfo_DTO _CardReader(SqlDataReader Reader)
+        {
+            return new clsLicenseCardInfo_DTO
+            {
+                LicenseID = DbHelper.GetValue<int>(Reader, "LicenseID"),
+                FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
+                SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
+                ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
+                LastName = DbHelper.GetValue<string>(Reader, "LastName"),
+                ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
+                NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
+                DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
+                LicenseClass = clsLicenseEnumConverter.ToClass(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
+                IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
+                IssueReason = clsLicenseEnumConverter.ToIssueReason(DbHelper.GetValue<byte>(Reader, "IssueReason")),
+                IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
+                ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
+                Notes = DbHelper.GetValue<string>(Reader, "Notes"),
+                DriverID = DbHelper.GetValue<int>(Reader, "DriverID")
+            };
+        }
         public static int LoadCount()
         {
             string Query = "Select Count (*) From Licenses;";
@@ -131,7 +154,7 @@ namespace DVLD_DAL
                 DbHelper.SetValue<int>(Command, "@LicenseClassID", clsLicenseEnumConverter.ToInt(Model.LicenseClass));
                 DbHelper.SetValue<DateTime>(Command, "@IssueDate", Model.IssueDate);
                 DbHelper.SetValue<DateTime>(Command, "@ExpirationDate", Model.ExpirationDate);
-                DbHelper.SetValue<string>(Command, "@Notes", Model.Notes, ValidNull: true);
+                DbHelper.SetValue<string>(Command, "@Notes", Model.Notes, AllowNull: true);
                 DbHelper.SetValue<decimal>(Command, "@PaidFees", Model.PaidFees);
                 DbHelper.SetValue<bool>(Command, "@IsActive", Model.IsActive);
                 DbHelper.SetValue<byte>(Command, "@IssueReason", clsLicenseEnumConverter.ToByte(Model.IssueReason));
@@ -155,7 +178,7 @@ namespace DVLD_DAL
 
                 DbHelper.SetValue<int>(Command, "@LicenseID", Model.LicenseID);
 
-                DbHelper.SetValue<string>(Command, "@Notes", Model.Notes, ValidNull: true);
+                DbHelper.SetValue<string>(Command, "@Notes", Model.Notes, AllowNull: true);
                 DbHelper.SetValue<decimal>(Command, "@PaidFees", Model.PaidFees);
                 DbHelper.SetValue<bool>(Command, "@IsActive", Model.IsActive);
                 DbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
@@ -339,6 +362,90 @@ namespace DVLD_DAL
         {
             string Query = "Select LicenseClassID From Licenses Where LicenseID = @LicenseID;";
             return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue<int>(Command, "@LicenseID", LicenseID));
+        }
+        public static List<clsLicenseCardInfo_DTO> LoadLicensesCardsInfo(int Offset, int CountRows, clsLicenseQuery clsQuery)
+        {
+            string Query = @"Select L.LicenseID , P.FirstName , P.SecondName , P.ThirdName , P.LastName,
+                        P.ImagePath ,P.NationalNo , P.DateOfBirth , P.Gendor ,
+                        L.LicenseClassID , L.IsActive , 
+                        L.IssueReason , L.IssueDate , L.ExpirationDate ,
+                        L.Notes , L.DriverID From Licenses L
+                        Join Drivers D ON L.DriverID = D.DriverID
+                        Join People P ON D.PersonID = P.PersonID
+                         "; ;
+
+            Query += clsQuery.SearchBy.HasValue
+                ? $" AND {clsLicenseMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+                : "";
+
+            _ApplyLicenseFilter(clsQuery.Filter, ref Query);
+
+            Query += $@" ORDER BY {clsLicenseMapper.MapOrderBy(clsQuery.OrderBy)}
+                 {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}
+                 OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
+
+            return DbHelper.ReadList(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue(Command, "@FromIssueDate",
+                        clsQuery.Filter.FromIssueDate,
+                        clsQuery.Filter.FromIssueDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToIssueDate",
+                        clsQuery.Filter.ToIssueDate,
+                        clsQuery.Filter.ToIssueDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@IsActive",
+                        clsQuery.Filter.IsActive,
+                        clsQuery.Filter.IsActive.HasValue);
+
+                    DbHelper.SetValue(Command, "@FromExpirationDate",
+                        clsQuery.Filter.FromExpirationDate,
+                        clsQuery.Filter.FromExpirationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToExpirationDate",
+                        clsQuery.Filter.ToExpirationDate,
+                        clsQuery.Filter.ToExpirationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@LicenseClassID",
+                        clsQuery.Filter.LicenseClassID,
+                        clsQuery.Filter.LicenseClassID.HasValue);
+
+                    DbHelper.SetValue(Command, "@IssueReason",
+                        clsQuery.Filter.IssueReason,
+                        clsQuery.Filter.IssueReason.HasValue);
+
+                    DbHelper.SetValue(Command, "@Offset", Offset);
+                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                },
+                Reader => _CardReader(Reader));
+        }
+        private static void _ApplyLicenseFilter(clsLicenseFilter filter,ref string query)
+        {
+            if (filter == null) return;
+
+            MappingHelper.AddCondition(filter.LicenseClassID.HasValue,
+                "LicenseClassID = @LicenseClassID",
+                ref query);
+
+            MappingHelper.AddCondition(filter.IsActive.HasValue,
+                "IsActive = @IsActive",
+                ref query);
+
+            MappingHelper.AddCondition(filter.IssueReason.HasValue,
+                "IssueReason = @IssueReason",
+                ref query);
+
+            MappingHelper.ApplyDateRange(filter.FromIssueDate,filter.ToIssueDate,
+                "IssueDate",
+                ref query);
+
+            MappingHelper.ApplyDateRange(filter.FromExpirationDate,filter.ToExpirationDate,
+                "ExpirationDate",
+                ref query);
         }
 
     }

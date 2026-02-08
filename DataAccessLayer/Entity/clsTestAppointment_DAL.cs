@@ -1,5 +1,7 @@
 ﻿using Common;
+using Common.Filters;
 using Common.Helpers;
+using DVLD_DAL.Mappers;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -42,7 +44,7 @@ namespace DVLD_DAL
         }
 
         // إضافة موعد اختبار جديد
-        public static int AddNewTestAppointment(clsTestAppointment_DTO Model)
+        public static int AddNewTestAppointment(clsTestAppointment_DTO DTO)
         {
             string Query = @"INSERT INTO TestAppointments (TestTypeID, LocalDrivingLicenseApplicationID, AppointmentDate, PaidFees, CreatedByUserID, IsLocked, RetakeTestApplicationID)
                             SELECT @TestTypeID, @LocalDrivingLicenseApplicationID, @AppointmentDate, @PaidFees, @CreatedByUserID, 0, @RetakeTestApplicationID
@@ -59,13 +61,13 @@ namespace DVLD_DAL
 
             return DbHelper.ExecuteScalar<int>(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(Model.TestType));
-                DbHelper.SetValue(Command, "@LocalDrivingLicenseApplicationID", Model.LocalDrivingLicenseApplicationID);
-                DbHelper.SetValue(Command, "@AppointmentDate", Model.AppointmentDate);
-                DbHelper.SetValue(Command, "@PaidFees", Model.PaidFees);
-                DbHelper.SetValue(Command, "@CreatedByUserID", Model.CreatedByUserID);
-                DbHelper.SetValue(Command, "@IsLocked", Model.IsLocked);
-                DbHelper.SetValue(Command, "@RetakeTestApplicationID", Model.RetakeTestApplicationID, true);
+                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(DTO.TestType));
+                DbHelper.SetValue(Command, "@LocalDrivingLicenseApplicationID", DTO.LocalDrivingLicenseApplicationID);
+                DbHelper.SetValue(Command, "@AppointmentDate", DTO.AppointmentDate);
+                DbHelper.SetValue(Command, "@PaidFees", DTO.PaidFees);
+                DbHelper.SetValue(Command, "@CreatedByUserID", DTO.CreatedByUserID);
+                DbHelper.SetValue(Command, "@IsLocked", DTO.IsLocked);
+                DbHelper.SetValue(Command, "@RetakeTestApplicationID", DTO.RetakeTestApplicationID, true);
             });
         }
 
@@ -247,5 +249,33 @@ namespace DVLD_DAL
                             Where TA.TestAppointmentID = @TestAppointmentID;";
             return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue(Command, "@TestAppointmentID", TestAppointmentID));
         }
+
+        private void _ApplyTestAppointmentFilter(clsTestAppointmentFilter filter,ref string query)
+        {
+            if (filter == null) return;
+
+            MappingHelper.AddCondition(
+                filter.TestTypeID.HasValue,
+                "TestTypeID = @TestTypeID",
+                ref query);
+
+            MappingHelper.AddCondition(
+                filter.IsLocked.HasValue,
+                "IsLocked = @IsLocked",
+                ref query);
+
+            MappingHelper.AddCondition(
+                filter.TestResult.HasValue,
+                "TestResult = @TestResult",
+                ref query);
+
+            MappingHelper.ApplyDateRange(
+                filter.FromAppointmentDate,
+                filter.ToAppointmentDate,
+                "AppointmentDate",
+                ref query);
+        }
+
+
     }
 }

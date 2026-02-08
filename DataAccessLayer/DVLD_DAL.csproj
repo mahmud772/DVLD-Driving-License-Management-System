@@ -69,9 +69,12 @@
     <Compile Include="Mappers\clsDetainedLicenseMapper.cs" />
     <Compile Include="Mappers\clsDriverMapper.cs" />
     <Compile Include="Mappers\clsLicenseMapper.cs" />
+    <Compile Include="Mappers\clsOrderDirectionMapper.cs" />
     <Compile Include="Mappers\clsPersonMapper.cs" />
     <Compile Include="Mappers\clsTestAppointmentMapper.cs" />
     <Compile Include="Mappers\clsUserMapper.cs" />
+    <Compile Include="Mappers\MappingHelper.cs" />
+    <Compile Include="Mappers\SqlParameterBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Filters;
 using Common.Helpers;
 using DVLD_DAL;
 using DVLD_Models;
@@ -286,6 +287,13 @@ namespace DVLD_DAL
                     IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
                     Permissions = DbHelper.GetValue<int>(Reader, "Permissions")
                 });
+        }
+        private static void _ApplyUserFilter(clsDriverFilter filter, ref string query)
+        {
+            if (filter == null)
+                return;
+
+            clsPerson_DAL.ApplyPersonFilter(filter, ref query);
         }
     }
 }

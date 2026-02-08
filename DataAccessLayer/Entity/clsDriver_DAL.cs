@@ -1,6 +1,10 @@
 ﻿using Common;
+using Common.Filters;
 using Common.Helpers;
+using Common.Queries;
+using DVLD_DAL.Mappers;
 using DVLD_DTO;
+using DVLD_Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +18,31 @@ namespace DVLD_DAL
 {
     public class clsDriver_DAL
     {
+        private static clsDriver_DTO _Reader(SqlDataReader Reader)
+        {
+            return new clsDriver_DTO
+            {
+                // الخصائص الموروثة من clsPerson_DTO
+                PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
+                NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
+                FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
+                SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
+                ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
+                LastName = DbHelper.GetValue<string>(Reader, "LastName"),
+                DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
+                Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                Address = DbHelper.GetValue<string>(Reader, "Address"),
+                Phone = DbHelper.GetValue<string>(Reader, "Phone"),
+                Email = DbHelper.GetValue<string>(Reader, "Email"),
+                NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
+                ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
 
+                // الخصائص الخاصة بـ clsDriver_DTO
+                DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
+                CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
+                CreatedDate = DbHelper.GetValue<DateTime>(Reader, "CreatedDate")
+            };
+        }
         public static int LoadCount()
         {
             string Query = "Select Count (*) From Drivers;";
@@ -40,28 +68,7 @@ namespace DVLD_DAL
             bool IsFound = DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue<int>(Command, "@DriverID", DriverID),
                 Reader =>
                 {
-                    Model = new clsDriver_DTO
-                    {
-                        // الخصائص الموروثة من clsPerson_DTO
-                        PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
-                        NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
-                        FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
-                        SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
-                        ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
-                        LastName = DbHelper.GetValue<string>(Reader, "LastName"),
-                        DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                        Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
-                        Address = DbHelper.GetValue<string>(Reader, "Address"),
-                        Phone = DbHelper.GetValue<string>(Reader, "Phone"),
-                        Email = DbHelper.GetValue<string>(Reader, "Email"),
-                        NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
-                        ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
-
-                        // الخصائص الخاصة بـ clsDriver_DTO
-                        DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                        CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
-                        CreatedDate = DbHelper.GetValue<DateTime>(Reader, "CreatedDate")
-                    };
+                    Model = _Reader(Reader);
                 });
 
             return IsFound ? Model : null;
@@ -206,28 +213,7 @@ namespace DVLD_DAL
                             FROM People P
                             INNER JOIN Drivers D ON P.PersonID = D.PersonID;";
             return DbHelper.ReadList(Query, null,
-                Reader => new clsDriver_DTO
-                {
-                    // الخصائص الموروثة من clsPerson_DTO
-                    PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
-                    NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
-                    FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
-                    SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
-                    ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
-                    LastName = DbHelper.GetValue<string>(Reader, "LastName"),
-                    DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
-                    Address = DbHelper.GetValue<string>(Reader, "Address"),
-                    Phone = DbHelper.GetValue<string>(Reader, "Phone"),
-                    Email = DbHelper.GetValue<string>(Reader, "Email"),
-                    NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
-                    ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
-
-                    // الخصائص الخاصة بـ clsDriver_DTO
-                    DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
-                    CreatedDate = DbHelper.GetValue<DateTime>(Reader, "CreatedDate")
-                });
+                Reader => _Reader(Reader));
         }
         public static List<clsDriver_DTO> LoadDrivers(int Offset, int CountRows)
         {
@@ -244,28 +230,61 @@ namespace DVLD_DAL
                     DbHelper.SetValue(Command, "@Offset", Offset);
                     DbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
-                Reader => new clsDriver_DTO
-                {
-                    // الخصائص الموروثة من clsPerson_DTO
-                    PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
-                    NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
-                    FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
-                    SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
-                    ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
-                    LastName = DbHelper.GetValue<string>(Reader, "LastName"),
-                    DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
-                    Address = DbHelper.GetValue<string>(Reader, "Address"),
-                    Phone = DbHelper.GetValue<string>(Reader, "Phone"),
-                    Email = DbHelper.GetValue<string>(Reader, "Email"),
-                    NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
-                    ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
+                Reader => _Reader(Reader));
+        }
+        public static List<clsDriver_DTO> LoadDrivers(int Offset, int CountRows, clsDriverQuery clsQuery)
+        {
+            string Query = @"SELECT 
+            P.*,
+            D.DriverID, D.CreatedByUserID, D.CreatedDate
+        FROM People P
+        INNER JOIN Drivers D ON P.PersonID = D.PersonID
+        WHERE 1 = 1 ";
 
-                    // الخصائص الخاصة بـ clsDriver_DTO
-                    DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
-                    CreatedDate = DbHelper.GetValue<DateTime>(Reader, "CreatedDate")
-                });
+            Query += clsQuery.SearchBy.HasValue
+                ? $" AND {clsDriverMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+                : "";
+
+            _ApplyDriverFilter(clsQuery.Filter, ref Query);
+
+            Query += $@" ORDER BY {clsDriverMapper.MapOrderBy(clsQuery.OrderBy)}
+                 {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}
+                 OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
+
+            return DbHelper.ReadList(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue(Command, "@AgeOlderThen",
+                        clsQuery.Filter.AgeOlderThen,
+                        clsQuery.Filter.AgeOlderThen.HasValue);
+
+                    DbHelper.SetValue(Command, "@AgeYoungerThen",
+                        clsQuery.Filter.AgeYoungerThen,
+                        clsQuery.Filter.AgeYoungerThen.HasValue);
+
+                    DbHelper.SetValue(Command, "@Gendor",
+                        clsQuery.Filter.Gendor,
+                        clsQuery.Filter.Gendor.HasValue);
+
+                    DbHelper.SetValue(Command, "@NationalityCountryID",
+                        clsQuery.Filter.NationalityCountryID,
+                        clsQuery.Filter.NationalityCountryID.HasValue);
+
+                    DbHelper.SetValue(Command, "@Offset", Offset);
+                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                },
+                Reader => _Reader(Reader));
+        }
+
+        private static void _ApplyDriverFilter(clsDriverFilter filter,ref string query)
+        {
+            if (filter == null)
+                return;
+
+            clsPerson_DAL.ApplyPersonFilter(filter, ref query);
         }
 
     }

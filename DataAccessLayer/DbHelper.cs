@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DVLD_DAL
 {
-    internal class DbHelper
+    internal static class DbHelper
     {
 
         public static T GetValue<T>(SqlDataReader reader, string column)
@@ -17,15 +17,20 @@ namespace DVLD_DAL
         }
 
 
-        public static void SetValue<T>(SqlCommand command, string paramName, T value , bool ValidNull = false)
+        public static void SetValue<T>(SqlCommand command, string paramName, T value , bool AllowNull = false)
         {
             object val = value;
-            if (value == null || (val.Equals(default(T)) && ValidNull))
+            if (value == null || (val.Equals(default(T)) && AllowNull))
                 command.Parameters.AddWithValue(paramName, DBNull.Value);
             else
                 command.Parameters.AddWithValue(paramName, value);
         }
 
+        public static void SetValue<T>(SqlCommand command, string paramName , T value, bool IsHasValue, bool AllowNull = false)
+        {
+            if(IsHasValue)
+                SetValue<T>(command , paramName , value , AllowNull);
+        }
         public static bool FindID<T>(string Query, string ParameterName, T ParameterValue, ref int ID)
         {
             bool IsFound = false;
@@ -289,7 +294,7 @@ namespace DVLD_DAL
             return IsSuccess;
         }
 
-        
+
 
     }
 

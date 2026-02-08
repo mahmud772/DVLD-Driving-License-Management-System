@@ -49,7 +49,7 @@ namespace DVLD_DAL
             {
                 DbHelper.SetValue(Command, "@TestAppointmentID", Model.TestAppointmentID);
                 DbHelper.SetValue(Command, "@TestResult", Model.TestResult);
-                DbHelper.SetValue(Command, "@Notes", Model.Notes, ValidNull: true);
+                DbHelper.SetValue(Command, "@Notes", Model.Notes, AllowNull: true);
                 DbHelper.SetValue(Command, "@CreatedByUserID", Model.CreatedByUserID);
             });
         }
@@ -64,7 +64,7 @@ namespace DVLD_DAL
             int RowsAffected = DbHelper.ExecuteNonQuery(Query, Command =>
             {
                 DbHelper.SetValue(Command, "@TestID", Model.TestID); // شرط التحديث
-                DbHelper.SetValue(Command, "@Notes", Model.Notes, ValidNull: true);
+                DbHelper.SetValue(Command, "@Notes", Model.Notes, AllowNull: true);
             });
             return RowsAffected > 0;
         }

@@ -1,4 +1,5 @@
 ﻿using Common.Enums;
+using Common.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Common.Queries
     public class clsDetainedLicenseQuery :
     clsBaseQuery<clsDetainedLicenseEnums.enDetainedLicenseSearchBy, clsDetainedLicenseEnums.enDetainedLicenseOrderBy>
     {
-
+        public clsDetainedLicenseQuery() { base.Filter = new clsDetainedLicenseFilter(); }
+        public new clsDetainedLicenseFilter Filter => base.Filter as clsDetainedLicenseFilter;
     }
 }

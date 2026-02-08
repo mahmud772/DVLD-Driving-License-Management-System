@@ -1,5 +1,8 @@
 ﻿using Common;
+using Common.Filters;
 using Common.Helpers;
+using Common.Queries;
+using DVLD_DAL.Mappers;
 using DVLD_DTO;
 using DVLD_Models;
 using System;
@@ -186,7 +189,7 @@ namespace DVLD_DAL
 
                 });
         }
-        public static List<clsApplication_DTO> LoadApplications(int Offset, int CountRows)
+        public static List<clsApplication_DTO> LoadAllBy(int Offset, int CountRows)
         {
 
             string Query = @"SELECT * FROM Applications
@@ -227,15 +230,56 @@ namespace DVLD_DAL
                             Where A.ApplicationID = @ApplicationID;";
             return DbHelper.ExecuteScalar<DateTime>(Query, Command => DbHelper.SetValue(Command, "@ApplicationID", ApplicationID));
         }
-        public static List<clsApplication_DTO> LoadAllBy<TValue>(clsEnSearchBy.enApplication By ,TValue Value )
+        public static List<clsApplication_DTO> LoadAllBy(int Offset, int CountRows ,clsApplicationQuery clsQuery)
         {
-            string Query = $@"Select * From Applications Where {By.ToString()}  = @Value";
+
+            string Query = $@"Select * From Applications Where 1 = 1 ";
+
+            Query += clsQuery.SearchBy.HasValue ? $@" And {clsApplicationMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue" : "";
+            ApplyApplicationFilter(clsQuery.Filter, ref Query);
+            Query += $@" Order By {clsApplicationMapper.MapOrderBy(clsQuery.OrderBy)} 
+                                 {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}";
+            Query += " OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
             return DbHelper.ReadList<clsApplication_DTO>(Query, 
                 Command =>
                 {
-                    DbHelper.SetValue<TValue>(Command , "@Value", Value);
+                    DbHelper.SetValue(Command, "@ApplicationStatus", clsQuery.Filter.ApplicationStatus, IsHasValue: clsQuery.Filter.ApplicationStatus.HasValue);
+                    DbHelper.SetValue(Command, "@ApplicationTypeID", clsQuery.Filter.ApplicationTypeID, IsHasValue: clsQuery.Filter.ApplicationTypeID.HasValue);
+                    DbHelper.SetValue(Command, "@FromApplicationDate",
+                    clsQuery.Filter.FromApplicationDate,
+                    clsQuery.Filter.FromApplicationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToApplicationDate",
+                        clsQuery.Filter.ToApplicationDate,
+                        clsQuery.Filter.ToApplicationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue, IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue<int>(Command, "@Offset", Offset);
+                    DbHelper.SetValue<int>(Command, "@CountRows", CountRows);
                 },
                 Reader => _Reader(Reader));
         }
+        public static void ApplyApplicationFilter(clsApplicationFilter filter,ref string query)
+        {
+            if (filter == null) return;
+
+            MappingHelper.AddCondition(filter.ApplicationStatus.HasValue,
+                "ApplicationStatus = @ApplicationStatus",
+                ref query);
+
+            MappingHelper.AddCondition(
+                filter.ApplicationTypeID.HasValue,
+                "ApplicationTypeID = @ApplicationTypeID",
+                ref query);
+
+            MappingHelper.ApplyDateRange(
+                filter.FromApplicationDate,
+                filter.ToApplicationDate,
+                "ApplicationDate",
+                ref query);
+        }
+
+
     }
 }

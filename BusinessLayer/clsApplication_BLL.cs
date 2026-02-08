@@ -134,7 +134,7 @@ namespace DVLD_BLL
         }
         public static List<clsApplication_DTO> GetApplications(int Offset, int CountRows)
         {
-            return clsApplication_DAL.LoadApplications(Offset, CountRows);
+            return clsApplication_DAL.LoadAllBy(Offset, CountRows);
         }
         public static bool DeleteApplication(int ApplicationID)
         {

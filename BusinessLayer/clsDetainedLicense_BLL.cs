@@ -28,7 +28,7 @@ namespace DVLD_BLL
                 ReleaseApplicationID = -1,
                 ReleaseDate = DateTime.MinValue,
                 ReleasedByUserID = -1,
-                FineFees = -1,
+                PaidFees = -1,
                 IsReleased = false
             };
 

@@ -1,5 +1,7 @@
 ﻿using Common;
+using Common.Filters;
 using Common.Helpers;
+using DVLD_DAL.Mappers;
 using DVLD_Models;
 using System;
 using System.Collections.Generic;
@@ -199,6 +201,28 @@ namespace DVLD_DAL
                     NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
                     ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath")
                 });
+        }
+
+        public static void ApplyPersonFilter(clsPersonFilter filter,ref string query)
+        {
+            if (filter == null)
+                return;
+
+            MappingHelper.AddCondition(filter.AgeOlderThen.HasValue,
+                "DateOfBirth <= DATEADD(YEAR, -@AgeOlderThen, GETDATE())",
+                ref query);
+
+            MappingHelper.AddCondition(filter.AgeYoungerThen.HasValue,
+                "DateOfBirth >= DATEADD(YEAR, -@AgeYoungerThen, GETDATE())",
+                ref query);
+
+            MappingHelper.AddCondition(filter.Gendor.HasValue,
+                "Gendor = @Gendor",
+                ref query);
+
+            MappingHelper.AddCondition(filter.NationalityCountryID.HasValue,
+                "NationalityCountryID = @NationalityCountryID",
+                ref query);
         }
 
     }

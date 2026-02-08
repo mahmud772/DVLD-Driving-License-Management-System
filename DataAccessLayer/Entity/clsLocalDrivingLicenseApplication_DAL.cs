@@ -1,5 +1,7 @@
 ﻿using Common;
+using Common.Filters;
 using Common.Helpers;
+using DVLD_DAL.Mappers;
 using DVLD_DTO;
 using System;
 using System.Collections.Generic;
@@ -186,6 +188,20 @@ namespace DVLD_DAL
                     PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
                     CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
                 });
+        }
+        private void _ApplyLocalDrivingLicenseApplicationFilter(clsLocalDrivingLicenseApplicationFilter filter,
+                    ref string query)
+        {
+            if (filter == null)
+                return;
+
+            // Application الأساسية
+            clsApplication_DAL.ApplyApplicationFilter(filter, ref query);
+
+            MappingHelper.AddCondition(
+                filter.LicenseClassID.HasValue,
+                "LicenseClassID = @LicenseClassID",
+                ref query);
         }
 
     }
