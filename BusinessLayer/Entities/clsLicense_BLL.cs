@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Helpers;
+using Common.Queries;
 using DVLD_DAL;
 using DVLD_DTO;
 using System;
@@ -49,9 +50,9 @@ namespace DVLD_BLL
             this.CardInfo = Model;
             this.Mode = enMode.Create;
         }
-        public static int GetCount()
+        public static int GetCount(IQuery query)
         {
-            return clsLicense_DAL.LoadCount();
+            return clsLicense_DAL.LoadCount(query as clsLicenseQuery);
         }
 
         public static clsLicense_BLL FindByID(int LicenseID)
@@ -134,9 +135,9 @@ namespace DVLD_BLL
         {
             return clsLicense_DAL.LoadLicenses(Offset, CountRows);
         }
-        public static List<clsLicenseCardInfo_DTO> GetLicensesCardsInfo(int Offset, int CountRows)
+        public static List<clsLicenseCardInfo_DTO> GetLicensesCardsInfo(int Offset, int CountRows, IQuery Query)
         {
-            return clsLicense_DAL.LoadLicensesCardsInfo(Offset, CountRows);
+            return clsLicense_DAL.LoadLicensesCardsInfo(Offset, CountRows , Query as clsLicenseQuery);
         }
         private static bool _RenewAndReplacementLicense(int LicenseID, int ApplicationID, clsLicenseEnums.enIssueReason IssueReason)
         {

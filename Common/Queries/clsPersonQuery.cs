@@ -10,7 +10,11 @@ namespace Common.Queries
     public class clsPersonQuery :
     clsBaseQuery<clsPersonEnums.enPersonSearchBy, clsPersonEnums.enPersonOrderBy>
     {
-        public clsPersonQuery() { base.Filter = new clsPersonFilter(); }
+        public clsPersonQuery() 
+        { 
+            base.Filter = new clsPersonFilter(); 
+            OrderBy = clsPersonEnums.enPersonOrderBy.PersonID;
+        }
         public new clsPersonFilter Filter => base.Filter as clsPersonFilter;
     }
 }

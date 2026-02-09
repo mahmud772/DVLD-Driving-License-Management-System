@@ -21,5 +21,16 @@ namespace Common
 
             return a % b == 0 || b % a == 0;
         }
+        public static byte CalculateAge(DateTime DateOfBirth)
+        {
+            DateTime Today = DateTime.Now;
+            int Age = Today.Year - DateOfBirth.Year;
+
+            if (DateOfBirth.Date > Today.AddYears(-Age))
+                Age--;
+
+            return Age > 126 ? Convert.ToByte(Age - 2000) : Convert.ToByte(Age);
+        }
+
     }
 }

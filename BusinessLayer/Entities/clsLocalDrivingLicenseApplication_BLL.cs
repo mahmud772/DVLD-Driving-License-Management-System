@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Queries;
 using DVLD_DAL;
 using DVLD_DTO;
 using System;
@@ -41,9 +42,9 @@ namespace DVLD_BLL
             this.Mode = enMode.Update;
         }
 
-        public static int GetCount()
+        public static int GetCount(IQuery query)
         {
-            return clsLocalDrivingLicenseApplication_DAL.LoadCount();
+            return clsLocalDrivingLicenseApplication_DAL.LoadCount(query as clsLocalDrivingLicenseApplicationQuery);
         }
 
         public static clsLocalDrivingLicenseApplication_BLL FindByLocaLicenseApplicationlID(int LocalDrivingLicenseApplicationID)
@@ -69,7 +70,7 @@ namespace DVLD_BLL
         {
             this.LocalApplication.ApplicationID = base.Application.ApplicationID;
             this.LocalApplication.ApplicantPersonID = base.Application.ApplicantPersonID;
-            byte Age = clsBLHelper.CalculateAge(clsApplication_DAL.GetDateOfBirthByApplicationID(this.LocalApplication.ApplicationID));
+            byte Age = clsUtil.CalculateAge(clsApplication_DAL.GetDateOfBirthByApplicationID(this.LocalApplication.ApplicationID));
             if (Age < clsLicenseClass_BLL.MinimumAllowedAge(this.LocalApplication.LicenseClassID)) return false;
             this.Application.ApplicationStatus = clsApplicationEnums.enApplicationStatus.New;
 
@@ -117,9 +118,9 @@ namespace DVLD_BLL
         {
             return clsLocalDrivingLicenseApplication_DAL.LoadLocalDrivingLicenseApplications();
         }
-        public static List<clsLocalDrivingLicenseApplication_DTO> GetLocalDrivingLicenseApplications(int Offset, int CountRows)
+        public static List<clsLocalDrivingLicenseApplication_DTO> GetLocalDrivingLicenseApplications(int Offset, int CountRows , IQuery Query)
         {
-            return clsLocalDrivingLicenseApplication_DAL.LoadLocalDrivingLicenseApplications(Offset, CountRows);
+            return clsLocalDrivingLicenseApplication_DAL.LoadLocalDrivingLicenseApplications(Offset, CountRows , Query as clsLocalDrivingLicenseApplicationQuery);
         }
 
     }

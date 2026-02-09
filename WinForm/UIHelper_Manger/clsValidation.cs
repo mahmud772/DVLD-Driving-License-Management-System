@@ -88,7 +88,7 @@ namespace DVLDWinForm.UIHelper_Manger
 
         public static bool IsValidDateOfBirth(ErrorProvider ep, DateTimePicker dtp)
         {
-            if (_IsEmpty(dtp) || clsBLHelper.CalculateAge(dtp.Value) < 18)
+            if (_IsEmpty(dtp) || clsUtil.CalculateAge(dtp.Value) < 18)
             {
                 ep?.SetError(dtp, "Enter a valid Date.");
                 return false;

@@ -73,7 +73,7 @@
             this.pnlSort.Controls.Add(this.lbSortByTitel);
             this.pnlSort.Controls.Add(this.rbASC);
             this.pnlSort.Controls.Add(this.rbDESC);
-            this.pnlSort.Location = new System.Drawing.Point(40, 45);
+            this.pnlSort.Location = new System.Drawing.Point(39, 45);
             this.pnlSort.Name = "pnlSort";
             this.pnlSort.Size = new System.Drawing.Size(329, 36);
             this.pnlSort.TabIndex = 1;
@@ -129,6 +129,7 @@
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.pnlContainer);
             this.Name = "frmSortAndFilter";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sort & Filter";
             this.Load += new System.EventHandler(this.frmSortAndFilter_Load);
             this.pnlSort.ResumeLayout(false);

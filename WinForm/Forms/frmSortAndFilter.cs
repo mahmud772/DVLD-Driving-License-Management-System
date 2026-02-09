@@ -1,7 +1,9 @@
 ﻿using Common;
+using Common.Enums;
 using Common.Filters;
 using Common.Queries;
 using DVLDWinForm.UIHelper;
+using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls.Filters;
 using System;
 using System.Collections.Generic;
@@ -31,7 +33,7 @@ namespace DVLDWinForm.Forms
 
         private void frmSortAndFilter_Load(object sender, EventArgs e)
         {
-            //_Set();
+            _Set();
             _LoadDesign();
         }
         private void _Initialize()
@@ -49,6 +51,8 @@ namespace DVLDWinForm.Forms
                 pnlContainer.Controls.Add(_control);
                 _control.Show();
             }
+            clsFormLayoutHelper formLayout = new clsFormLayoutHelper(this, pnlContainer, btnCancel, btnOk);
+            formLayout.ApplyLayout();
         }
         private void _Get()
         {
@@ -56,20 +60,27 @@ namespace DVLDWinForm.Forms
         }
         private void _Set()
         {
-            if(_Query == null) return;
-            cbSortBy.DataSource = _Query?.OrderBy;
-            _icontrol?.Filter = _Query?.Filter;
+            if (_Query == null) return;
+            rbASC.Checked = _Query.OrderDirection == clsOrderDirectionEnums.enOrderDirection.Asc;
+            rbDESC.Checked = _Query.OrderDirection == clsOrderDirectionEnums.enOrderDirection.Desc;
 
+            
+            _icontrol.Filter = _Query.Filter;
+            
+            cbSortBy.SelectedItem = _Query?.OrderBy;
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (_Query == null) return;
-            _Query.Filter = _icontrol?.Filter;
-            _Query.OrderDirection = rbASC.Checked ? 
-                Common.Enums.clsOrderDirectionEnums.enOrderDirection.Asc :
-                Common.Enums.clsOrderDirectionEnums.enOrderDirection.Desc;
-            _Query.OrderBy = (Enum)cbSortBy.SelectedItem;
+            _Query.Filter = _icontrol.Filter;
+
+            _Query.OrderDirection = rbASC.Checked
+                ? clsOrderDirectionEnums.enOrderDirection.Asc
+                : clsOrderDirectionEnums.enOrderDirection.Desc;
+
+            if (cbSortBy.SelectedItem is Enum orderBy)
+                _Query.OrderBy = orderBy;
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

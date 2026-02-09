@@ -52,22 +52,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsApplication_BLL.cs" />
-    <Compile Include="clsApplicationType_BLL.cs" />
+    <Compile Include="Entities\clsApplication_BLL.cs" />
+    <Compile Include="Entities\clsApplicationType_BLL.cs" />
     <Compile Include="clsBLHelper.cs" />
-    <Compile Include="clsCountry_BLL.cs" />
-    <Compile Include="clsDetainedLicense_BLL.cs" />
-    <Compile Include="clsDriver_BLL.cs" />
-    <Compile Include="clsInternationalLicense_BLL.cs" />
-    <Compile Include="clsLicenseClass_BLL.cs" />
-    <Compile Include="clsLicense_BLL.cs" />
-    <Compile Include="clsLocalDrivingLicenseApplication_BLL.cs" />
-    <Compile Include="clsPerson_BLL.cs" />
+    <Compile Include="Entities\clsCountry_BLL.cs" />
+    <Compile Include="Entities\clsDetainedLicense_BLL.cs" />
+    <Compile Include="Entities\clsDriver_BLL.cs" />
+    <Compile Include="Entities\clsInternationalLicense_BLL.cs" />
+    <Compile Include="Entities\clsLicenseClass_BLL.cs" />
+    <Compile Include="Entities\clsLicense_BLL.cs" />
+    <Compile Include="Entities\clsLocalDrivingLicenseApplication_BLL.cs" />
+    <Compile Include="Entities\clsPerson_BLL.cs" />
     <Compile Include="clsStaticData_BLL.cs" />
-    <Compile Include="clsTestAppointment_BLL.cs" />
-    <Compile Include="clsTestType_BLL.cs" />
-    <Compile Include="clsTest_BLL.cs" />
-    <Compile Include="clsUser_BLL.cs" />
+    <Compile Include="Entities\clsTestAppointment_BLL.cs" />
+    <Compile Include="Entities\clsTestType_BLL.cs" />
+    <Compile Include="Entities\clsTest_BLL.cs" />
+    <Compile Include="Entities\clsUser_BLL.cs" />
     <Compile Include="IBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

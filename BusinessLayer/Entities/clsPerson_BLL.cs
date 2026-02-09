@@ -1,4 +1,5 @@
-﻿using DVLD_DAL;
+﻿using Common.Queries;
+using DVLD_DAL;
 using DVLD_DTO;
 using DVLD_Models;
 using System;
@@ -44,9 +45,9 @@ namespace DVLD_BLL
             this.Person = Person;
             this.Mode = enMode.Update;
         }
-        public static int GetCount()
+        public static int GetCount(IQuery query)
         {
-            return clsPerson_DAL.LoadCount();
+            return clsPerson_DAL.LoadCount(query as clsPersonQuery);
         }
         private bool _AddNewPerson()
         {
@@ -96,9 +97,9 @@ namespace DVLD_BLL
         {
             return clsPerson_DAL.LoadPeople();
         }
-        public static List<clsPerson_DTO> GetPeople(int Offset, int CountRows)
+        public static List<clsPerson_DTO> GetPeople(int Offset, int CountRows, IQuery Query)
         {
-            return clsPerson_DAL.LoadPeople(Offset, CountRows);
+            return clsPerson_DAL.LoadPeople(Offset, CountRows , Query as clsPersonQuery);
         }
 
 

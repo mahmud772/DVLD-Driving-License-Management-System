@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Helpers;
+using Common.Queries;
 using DVLD_DAL;
 using DVLD_DTO;
 using System;
@@ -41,9 +42,9 @@ namespace DVLD_BLL
             this.Mode = enMode.Update;
         }
 
-        public static int GetCount()
+        public static int GetCount(IQuery query)
         {
-            return clsTestAppointment_DAL.LoadCount();
+            return clsTestAppointment_DAL.LoadCount(query as clsTestAppointmentQuery);
         }
 
         public static clsTestAppointment_BLL FindByID(int TestAppointmentID)
@@ -141,9 +142,9 @@ namespace DVLD_BLL
         {
             return clsTestAppointment_DAL.LoadTestAppointments();
         }
-        public static List<clsTestAppointment_DTO> GetTestAppointments(int Offset, int CountRows)
+        public static List<clsTestAppointment_DTO> GetTestAppointments(int Offset, int CountRows, IQuery Query)
         {
-            return clsTestAppointment_DAL.LoadTestAppointments(Offset, CountRows);
+            return clsTestAppointment_DAL.LoadTestAppointments(Offset, CountRows , Query as clsTestAppointmentQuery);
         }
         public static bool DeleteTestAppointment(int TestAppointmentID)
         {

@@ -1,7 +1,9 @@
 ﻿using Common;
 using Common.Filters;
 using Common.Helpers;
+using Common.Queries;
 using DVLD_DAL;
+using DVLD_DAL.Mappers;
 using DVLD_Models;
 using System;
 using System.Collections;
@@ -18,11 +20,64 @@ namespace DVLD_DAL
 
     public class clsUser_DAL
     {
-
-        public static int LoadCount()
+        private static clsUser_DTO _Reader(SqlDataReader Reader)
         {
-            string Query = "Select Count (*) From Users;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            return new clsUser_DTO
+            {
+                PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
+                NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
+                FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
+                SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
+                ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
+                LastName = DbHelper.GetValue<string>(Reader, "LastName"),
+                DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
+                Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
+                Address = DbHelper.GetValue<string>(Reader, "Address"),
+                Phone = DbHelper.GetValue<string>(Reader, "Phone"),
+                Email = DbHelper.GetValue<string>(Reader, "Email"),
+                NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
+                ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
+
+
+                UserID = DbHelper.GetValue<int>(Reader, "UserID"),
+                UserName = DbHelper.GetValue<string>(Reader, "UserName"),
+                Password = DbHelper.GetValue<string>(Reader, "Password"),
+                IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
+                Permissions = DbHelper.GetValue<int>(Reader, "Permissions")
+            };
+        }
+        public static int LoadCount(clsUserQuery clsQuery)
+        {
+            string Query = "Select Count (*) From Users Where 1 = 1  ";
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+               ? $" AND {clsUserMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+               : "";
+
+            _ApplyUserFilter(clsQuery.Filter, ref Query);
+
+            return DbHelper.ExecuteScalar<int>(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue(Command, "@AgeOlderThen",
+                        clsQuery.Filter.AgeOlderThen,
+                        clsQuery.Filter.AgeOlderThen.HasValue);
+
+                    DbHelper.SetValue(Command, "@AgeYoungerThen",
+                        clsQuery.Filter.AgeYoungerThen,
+                        clsQuery.Filter.AgeYoungerThen.HasValue);
+
+                    DbHelper.SetValue(Command, "@Gendor",
+                        clsQuery.Filter.Gendor,
+                        clsQuery.Filter.Gendor.HasValue);
+
+                    DbHelper.SetValue(Command, "@NationalityCountryID",
+                        clsQuery.Filter.NationalityCountryID,
+                        clsQuery.Filter.NationalityCountryID.HasValue);
+
+                });
         }
 
         public static clsUser_DTO LoadUserByID(int UserID)
@@ -225,31 +280,7 @@ namespace DVLD_DAL
                         FROM People P
                         JOIN Users U ON P.PersonID = U.PersonID;";
             return DbHelper.ReadList(Query, null,
-                Reader => new clsUser_DTO
-                {
-
-                    PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
-                    NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
-                    FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
-                    SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
-                    ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
-                    LastName = DbHelper.GetValue<string>(Reader, "LastName"),
-                    DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
-                    Address = DbHelper.GetValue<string>(Reader, "Address"),
-                    Phone = DbHelper.GetValue<string>(Reader, "Phone"),
-                    Email = DbHelper.GetValue<string>(Reader, "Email"),
-                    NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
-                    ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
-
-
-                    UserID = DbHelper.GetValue<int>(Reader, "UserID"),
-                    UserName = DbHelper.GetValue<string>(Reader, "UserName"),
-                    Password = DbHelper.GetValue<string>(Reader, "Password"),
-                    IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                    Permissions = DbHelper.GetValue<int>(Reader, "Permissions")
-
-                });
+                Reader => _Reader(Reader));
         }
 
         public static List<clsUser_DTO> LoadUsers(int Offset, int CountRows)
@@ -264,31 +295,52 @@ namespace DVLD_DAL
                     DbHelper.SetValue(Command, "@Offset", Offset);
                     DbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
-                Reader => new clsUser_DTO
-                {
-                    PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
-                    NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
-                    FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
-                    SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
-                    ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
-                    LastName = DbHelper.GetValue<string>(Reader, "LastName"),
-                    DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                    Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
-                    Address = DbHelper.GetValue<string>(Reader, "Address"),
-                    Phone = DbHelper.GetValue<string>(Reader, "Phone"),
-                    Email = DbHelper.GetValue<string>(Reader, "Email"),
-                    NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
-                    ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
-
-
-                    UserID = DbHelper.GetValue<int>(Reader, "UserID"),
-                    UserName = DbHelper.GetValue<string>(Reader, "UserName"),
-                    Password = DbHelper.GetValue<string>(Reader, "Password"),
-                    IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                    Permissions = DbHelper.GetValue<int>(Reader, "Permissions")
-                });
+                Reader => _Reader(Reader));
         }
-        private static void _ApplyUserFilter(clsDriverFilter filter, ref string query)
+        public static List<clsUser_DTO> LoadUsers(int Offset, int CountRows , clsUserQuery clsQuery)
+        {
+            string Query = $@"SELECT P.*, U.UserID, U.UserName, U.Password, U.IsActive, U.Permissions
+                      FROM People P JOIN Users U ON P.PersonID = U.PersonID
+                      Where 1 = 1 ";
+
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+               ? $" AND {clsUserMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+               : "";
+
+            _ApplyUserFilter(clsQuery.Filter, ref Query);
+
+            Query += $@" ORDER BY {clsUserMapper.MapOrderBy(clsQuery.OrderBy)}
+                 {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}
+                 OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
+
+            return DbHelper.ReadList(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue(Command, "@AgeOlderThen",
+                        clsQuery.Filter.AgeOlderThen,
+                        clsQuery.Filter.AgeOlderThen.HasValue);
+
+                    DbHelper.SetValue(Command, "@AgeYoungerThen",
+                        clsQuery.Filter.AgeYoungerThen,
+                        clsQuery.Filter.AgeYoungerThen.HasValue);
+
+                    DbHelper.SetValue(Command, "@Gendor",
+                        clsQuery.Filter.Gendor,
+                        clsQuery.Filter.Gendor.HasValue);
+
+                    DbHelper.SetValue(Command, "@NationalityCountryID",
+                        clsQuery.Filter.NationalityCountryID,
+                        clsQuery.Filter.NationalityCountryID.HasValue);
+
+                    DbHelper.SetValue(Command, "@Offset", Offset);
+                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                },
+                Reader => _Reader(Reader));
+        }
+        private static void _ApplyUserFilter(clsUserFilter filter, ref string query)
         {
             if (filter == null)
                 return;

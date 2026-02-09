@@ -17,7 +17,8 @@ namespace DVLDWinForm.UIHelper_Manger
         public Func<Form> CreateForm { get; set; }
         public Func<IDTO , Form> PrepareUpdate { get; set; }
         public Func<int, bool> TryDelete { get; set; }
-        public Func<IUserControlFilter ,IQuery> Search { get; set; }
+        public Func<frmSortAndFilter> Search { get; set; }
+        public Action Refresh { get; set; }
         public IUserControl iUserControl { get; set; }
         public IDTO DTO { get; set; } = null;
         public readonly DataGridView DataGrid;
@@ -39,6 +40,7 @@ namespace DVLDWinForm.UIHelper_Manger
             Form frm = CreateForm?.Invoke();
             frm?.ShowDialog();
             DTO = null;
+            Refresh?.Invoke();
             return frm != null;
         }
 
@@ -50,6 +52,7 @@ namespace DVLDWinForm.UIHelper_Manger
             Form frm = PrepareUpdate?.Invoke(dto);
             frm?.ShowDialog();
             DTO = null;
+            Refresh?.Invoke();
             return true;
         }
 
@@ -61,8 +64,10 @@ namespace DVLDWinForm.UIHelper_Manger
             if (MessageBox.Show("Are you sure?", "Warning",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
                 return false;
-
-            return TryDelete?.Invoke(dto.ID) == true;
+            
+            bool Result = TryDelete?.Invoke(dto.ID) == true;
+            Refresh?.Invoke();
+            return Result;
         }
         public bool ShowDTO(int ID)
         {
@@ -71,7 +76,17 @@ namespace DVLDWinForm.UIHelper_Manger
             //iUserControl.Info = Search?.Invoke(ID).DTO;
             if (iUserControl.Info != null)
                 ActionsPanel.Controls.Add(iUserControl as UserControl);
+            Refresh?.Invoke();
             return true;
+        }
+        public bool ShowFilterForm()
+        {
+
+            Form frm = Search?.Invoke();
+            frm?.ShowDialog();
+            DTO = null;
+            Refresh?.Invoke();
+            return frm != null;
         }
     }
 }

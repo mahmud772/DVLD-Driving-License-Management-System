@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using Common.Queries;
 using DVLD_BLL;
 using DVLD_DTO;
@@ -28,6 +29,7 @@ namespace DVLDWinForm
     {
         private IPageableLoader _currentLoader;
         private clsPaginationManager _paginator;
+        private IQuery _currentQuery;
         enum enDisplayMode { FLP = 1, DGV = 2 }
         enDisplayMode DisplayMode = enDisplayMode.FLP;
         private Action LoadType;
@@ -54,10 +56,18 @@ namespace DVLDWinForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
             clsStaticData_BLL.LoadAllStaticData();
             SharedContextMenu = this.cmsUpdate_Delete;
             CRUDController = new clsCRUDController(dgvDisplay, flpUserControls);
+            ApplicationQuery = new clsApplicationQuery();
+            PersonQuery = new clsPersonQuery();
+            DriverQuery = new clsDriverQuery();
+            LicenseQuery = new clsLicenseQuery();
+            UserQuery = new clsUserQuery();
+            TestAppointmentQuery = new clsTestAppointmentQuery();
+            DetainedLicenseQuery = new clsDetainedLicenseQuery();
+            CRUDController.Refresh = _Refresh;
             LoadType = _LoadPeople;
             _ShowFLP();
             //Test1 form1 = new Test1();
@@ -71,7 +81,6 @@ namespace DVLDWinForm
 
 
         }
-
         private void _LoadDesign()
         {
             clsUIHelper.CornerRadius(pnlMainMenu, 25);
@@ -86,9 +95,13 @@ namespace DVLDWinForm
             {
                 pnlTopForm.BackgroundImage = new Bitmap(tempImage);
             }
-
+            
         }
-
+        private void _Refresh()
+        {
+            LoadType?.Invoke();
+            _LoadData();
+        }
         private void pnlMainMenu_Paint(object sender, PaintEventArgs e)
         {
             //clsUIHelper.ApplyGradient(pnlMainMenu,e, Color.FromArgb(236, 240, 241), Color.FromArgb(189, 195, 199), 45F);
@@ -101,17 +114,17 @@ namespace DVLDWinForm
         }
 
 
-        private void _InitializeAdapter<T>(Func<int, int, List<T>> fetcher, Func<int> counter, IDisplayView<T> viewManager)
+        private void _InitializeAdapter<T>(Func<int, int, IQuery, List<T>> fetcher, Func<IQuery,int> counter, IDisplayView<T> viewManager)
         {
             _currentLoader = new clsDataDisplayAdapter<T>(fetcher, counter, viewManager);
-
-            _paginator = new clsPaginationManager(viewManager.CountItems, _currentLoader.GetTotalCount());
+            
+            _paginator = new clsPaginationManager(viewManager.CountItems, _currentLoader.GetTotalCount(_currentQuery));
 
             _LoadData();
         }
         private void _LoadData()
         {
-            _currentLoader.LoadPage(_paginator.Offset, _paginator.PageSize);
+            _currentLoader.LoadPage(_paginator.Offset, _paginator.PageSize , _currentQuery);
             _UpdateUI();
         }
         private void _UpdateUI()
@@ -132,8 +145,8 @@ namespace DVLDWinForm
         }
         private void _ShowFLP()
         {
-            btnFLP.BackgroundImage = DVLDWinForm.Properties.Resources.Menu_RGB_FLP;
-            btnDGV.BackgroundImage = DVLDWinForm.Properties.Resources.Menu_Gray_DGV;
+            btnFLP.BackgroundImage = Properties.Resources.Menu_RGB_FLP;
+            btnDGV.BackgroundImage = Properties.Resources.Menu_Gray_DGV;
             DisplayMode = enDisplayMode.FLP;
             flpUserControls.Visible = true;
             dgvDisplay.Visible = false;
@@ -249,13 +262,16 @@ namespace DVLDWinForm
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //CRUDController.ShowDTO(Convert.ToInt32(tbSearch?.Text));
+            _currentQuery.SearchBy = (Enum)cbSearchBy.SelectedItem;
+            _currentQuery.SearchValue = clsSearchType.IsTypeEnumString(_currentQuery.SearchBy) ?
+                Convert.ToInt64(tbSearch.Text) : tbSearch.Text;
+            _LoadData();
         }
 
         private void btnSort_Filter_Click(object sender, EventArgs e)
         {
-            frmSortAndFilter frm = new frmSortAndFilter(new ucApplicationsFilter(), ApplicationQuery == null ? new clsApplicationQuery() : ApplicationQuery);
-            frm.ShowDialog();
+            CRUDController.ShowFilterForm();
+            
         }
     }
 }

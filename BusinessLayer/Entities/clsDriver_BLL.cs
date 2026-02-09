@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Queries;
 using DVLD_DAL;
 using DVLD_DTO;
 using System;
@@ -49,9 +50,9 @@ namespace DVLD_BLL
             this.Driver = Driver;
             this.Mode = enMode.Update;
         }
-        public static int GetCount()
+        public static int GetCount(IQuery query)
         {
-            return clsDriver_DAL.LoadCount();
+            return clsDriver_DAL.LoadCount(query as clsDriverQuery);
         }
         private bool _AddNewDriver()
         {
@@ -85,9 +86,9 @@ namespace DVLD_BLL
         {
             return clsDriver_DAL.LoadDrivers();
         }
-        public static List<clsDriver_DTO> GetDrivers(int Offset, int CountRows)
+        public static List<clsDriver_DTO> GetDrivers(int Offset, int CountRows, IQuery Query)
         {
-            return clsDriver_DAL.LoadDrivers(Offset, CountRows);
+            return clsDriver_DAL.LoadDrivers(Offset, CountRows , Query as clsDriverQuery);
         }
 
         public bool Save()

@@ -36,10 +36,49 @@ namespace DVLD_DAL
                 DriverID = DbHelper.GetValue<int>(Reader, "DriverID")
             };
         }
-        public static int LoadCount()
+        public static int LoadCount(clsLicenseQuery clsQuery)
         {
-            string Query = "Select Count (*) From InternationalLicenses;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            string Query = "Select Count (*) From InternationalLicenses Where 1 = 1 ";
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+                ? $" AND {clsLicenseMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+                : "";
+
+            _ApplyLicenseFilter(clsQuery.Filter, ref Query);
+            return DbHelper.ExecuteScalar<int>(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue(Command, "@FromIssueDate",
+                        clsQuery.Filter.FromIssueDate,
+                        clsQuery.Filter.FromIssueDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToIssueDate",
+                        clsQuery.Filter.ToIssueDate,
+                        clsQuery.Filter.ToIssueDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@IsActive",
+                        clsQuery.Filter.IsActive,
+                        clsQuery.Filter.IsActive.HasValue);
+
+                    DbHelper.SetValue(Command, "@FromExpirationDate",
+                        clsQuery.Filter.FromExpirationDate,
+                        clsQuery.Filter.FromExpirationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToExpirationDate",
+                        clsQuery.Filter.ToExpirationDate,
+                        clsQuery.Filter.ToExpirationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@LicenseClassID",
+                        clsQuery.Filter.LicenseClassID,
+                        clsQuery.Filter.LicenseClassID.HasValue);
+
+                    DbHelper.SetValue(Command, "@IssueReason",
+                        clsQuery.Filter.IssueReason,
+                        clsQuery.Filter.IssueReason.HasValue);
+                });
+            
         }
 
         public static clsInternationalLicense_DTO LoadInternationalLicenseByID(int InternationalLicenseID)
@@ -187,9 +226,9 @@ namespace DVLD_DAL
                         Join Drivers D ON L.DriverID = D.DriverID
                         Join People P ON D.PersonID = P.PersonID
                         Join InternationalLicenses IL ON IL.IssuedUsingLocalLicenseID = L.LicenseID
-                         "; ;
+                        Where 1 = 1  "; ;
 
-            Query += clsQuery.SearchBy.HasValue
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
                 ? $" AND {clsLicenseMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
                 : "";
 

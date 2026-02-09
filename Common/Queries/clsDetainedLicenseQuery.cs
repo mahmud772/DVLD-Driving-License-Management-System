@@ -11,7 +11,11 @@ namespace Common.Queries
     public class clsDetainedLicenseQuery :
     clsBaseQuery<clsDetainedLicenseEnums.enDetainedLicenseSearchBy, clsDetainedLicenseEnums.enDetainedLicenseOrderBy>
     {
-        public clsDetainedLicenseQuery() { base.Filter = new clsDetainedLicenseFilter(); }
+        public clsDetainedLicenseQuery() 
+        { 
+            base.Filter = new clsDetainedLicenseFilter(); 
+            OrderBy = clsDetainedLicenseEnums.enDetainedLicenseOrderBy.DetainID;
+        }
         public new clsDetainedLicenseFilter Filter => base.Filter as clsDetainedLicenseFilter;
     }
 }

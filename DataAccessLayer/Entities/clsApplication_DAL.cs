@@ -34,10 +34,32 @@ namespace DVLD_DAL
             };
         }
         
-        public static int LoadCount()
+        public static int LoadCount(clsApplicationQuery clsQuery)
         {
-            string Query = "Select Count (*) From Applications;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            string Query = "Select Count (*) From Applications Where 1 = 1 ";
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+               ? $" AND {clsApplicationMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+               : "";
+
+            ApplyApplicationFilter(clsQuery.Filter, ref Query);
+
+            return DbHelper.ExecuteScalar<int>(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@ApplicationStatus", clsQuery.Filter.ApplicationStatus, IsHasValue: clsQuery.Filter.ApplicationStatus.HasValue);
+                    DbHelper.SetValue(Command, "@ApplicationTypeID", clsQuery.Filter.ApplicationTypeID, IsHasValue: clsQuery.Filter.ApplicationTypeID.HasValue);
+                    DbHelper.SetValue(Command, "@FromApplicationDate",
+                    clsQuery.Filter.FromApplicationDate,
+                    clsQuery.Filter.FromApplicationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToApplicationDate",
+                        clsQuery.Filter.ToApplicationDate,
+                        clsQuery.Filter.ToApplicationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue, IsHasValue: clsQuery.SearchValue != null);
+
+
+                });
         }
         public static clsApplication_DTO LoadApplicationInfoByID(int ApplicationID)
         {

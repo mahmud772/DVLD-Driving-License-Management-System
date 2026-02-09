@@ -1,8 +1,10 @@
 ﻿using Common;
 using Common.Filters;
 using Common.Helpers;
+using Common.Queries;
 using DVLD_DAL.Mappers;
 using DVLD_DTO;
+using DVLD_Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -15,10 +17,57 @@ namespace DVLD_DAL
 {
     public class clsTestAppointment_DAL
     {
-        public static int LoadCount()
+        private static clsTestAppointment_DTO _Reader(SqlDataReader Reader)
         {
-            string Query = "Select Count (*) From TestAppointments;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            return new clsTestAppointment_DTO
+            {
+                TestAppointmentID = DbHelper.GetValue<int>(Reader, "TestAppointmentID"),
+                TestType = clsTestEnumConverter.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
+                LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
+                AppointmentDate = DbHelper.GetValue<DateTime>(Reader, "AppointmentDate"),
+                PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
+                CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
+                IsLocked = DbHelper.GetValue<bool>(Reader, "IsLocked"),
+                RetakeTestApplicationID = DbHelper.GetValue<int>(Reader, "RetakeTestApplicationID")
+            };
+        }
+        public static int LoadCount(clsTestAppointmentQuery clsQuery)
+        {
+            string Query = "Select Count (*) From TestAppointments Where 1 = 1 ";
+
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+                ? $" AND {clsTestAppointmentMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+                : "";
+
+            _ApplyTestAppointmentFilter(clsQuery.Filter, ref Query);
+
+            return DbHelper.ExecuteScalar<int>(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue(Command, "@TestTypeID",
+                        clsQuery.Filter.TestTypeID,
+                        clsQuery.Filter.TestTypeID.HasValue);
+
+                    DbHelper.SetValue(Command, "@IsLocked",
+                        clsQuery.Filter.IsLocked,
+                        clsQuery.Filter.IsLocked.HasValue);
+
+                    DbHelper.SetValue(Command, "@TestResult",
+                        clsQuery.Filter.TestResult,
+                        clsQuery.Filter.TestResult.HasValue);
+
+                    DbHelper.SetValue(Command, "@FromAppointmentDate",
+                        clsQuery.Filter.FromAppointmentDate,
+                        clsQuery.Filter.FromAppointmentDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToAppointmentDate",
+                        clsQuery.Filter.ToAppointmentDate,
+                        clsQuery.Filter.ToAppointmentDate.HasValue);
+
+                });
         }
         public static clsTestAppointment_DTO LoadTestAppointmentByID(int TestAppointmentID)
         {
@@ -28,17 +77,7 @@ namespace DVLD_DAL
             DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue(Command, "@TestAppointmentID", TestAppointmentID),
                 Reader =>
                 {
-                    Model = new clsTestAppointment_DTO
-                    {
-                        TestAppointmentID = TestAppointmentID,
-                        TestType = clsTestEnumConverter.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
-                        LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
-                        AppointmentDate = DbHelper.GetValue<DateTime>(Reader, "AppointmentDate"),
-                        PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
-                        CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
-                        IsLocked = DbHelper.GetValue<bool>(Reader, "IsLocked"),
-                        RetakeTestApplicationID = DbHelper.GetValue<int>(Reader, "RetakeTestApplicationID")
-                    };
+                    Model = _Reader(Reader);
                 });
             return Model;
         }
@@ -203,17 +242,7 @@ namespace DVLD_DAL
         {
             string Query = "Select * From TestAppointments;";
             return DbHelper.ReadList(Query, null,
-                Reader => new clsTestAppointment_DTO
-                {
-                    TestAppointmentID = DbHelper.GetValue<int>(Reader, "TestAppointmentID"),
-                    TestType = clsTestEnumConverter.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
-                    LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
-                    AppointmentDate = DbHelper.GetValue<DateTime>(Reader, "AppointmentDate"),
-                    PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
-                    IsLocked = DbHelper.GetValue<bool>(Reader, "IsLocked"),
-                    RetakeTestApplicationID = DbHelper.GetValue<int>(Reader, "RetakeTestApplicationID")
-                });
+                Reader => _Reader(Reader) );
 
         }
 
@@ -228,17 +257,53 @@ namespace DVLD_DAL
                     DbHelper.SetValue(Command, "@Offset", Offset);
                     DbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
-                Reader => new clsTestAppointment_DTO
+                Reader => _Reader(Reader));
+        }
+
+        public static List<clsTestAppointment_DTO> LoadTestAppointments(int Offset, int CountRows , clsTestAppointmentQuery clsQuery)
+        {
+            string Query = "SELECT * FROM TestAppointments Where 1 = 1 ";
+
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+                ? $" AND {clsTestAppointmentMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+                : "";
+
+            _ApplyTestAppointmentFilter(clsQuery.Filter, ref Query);
+
+            Query += $@" ORDER BY {clsTestAppointmentMapper.MapOrderBy(clsQuery.OrderBy)}
+                 {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}
+                 OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
+
+            return DbHelper.ReadList(Query,
+                Command =>
                 {
-                    TestAppointmentID = DbHelper.GetValue<int>(Reader, "TestAppointmentID"),
-                    TestType = clsTestEnumConverter.ConvertTestTypeToEnum(DbHelper.GetValue<int>(Reader, "TestTypeID")),
-                    LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
-                    AppointmentDate = DbHelper.GetValue<DateTime>(Reader, "AppointmentDate"),
-                    PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
-                    IsLocked = DbHelper.GetValue<bool>(Reader, "IsLocked"),
-                    RetakeTestApplicationID = DbHelper.GetValue<int>(Reader, "RetakeTestApplicationID")
-                });
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue(Command, "@TestTypeID",
+                        clsQuery.Filter.TestTypeID,
+                        clsQuery.Filter.TestTypeID.HasValue);
+
+                    DbHelper.SetValue(Command, "@IsLocked",
+                        clsQuery.Filter.IsLocked,
+                        clsQuery.Filter.IsLocked.HasValue);
+
+                    DbHelper.SetValue(Command, "@TestResult",
+                        clsQuery.Filter.TestResult,
+                        clsQuery.Filter.TestResult.HasValue);
+
+                    DbHelper.SetValue(Command, "@FromAppointmentDate",
+                        clsQuery.Filter.FromAppointmentDate,
+                        clsQuery.Filter.FromAppointmentDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToAppointmentDate",
+                        clsQuery.Filter.ToAppointmentDate,
+                        clsQuery.Filter.ToAppointmentDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@Offset", Offset);
+                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                },
+                Reader => _Reader(Reader));
         }
 
         public static int LoadPersonIDByTestAppointmentID(int TestAppointmentID)
@@ -250,7 +315,7 @@ namespace DVLD_DAL
             return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue(Command, "@TestAppointmentID", TestAppointmentID));
         }
 
-        private void _ApplyTestAppointmentFilter(clsTestAppointmentFilter filter,ref string query)
+        private static void _ApplyTestAppointmentFilter(clsTestAppointmentFilter filter,ref string query)
         {
             if (filter == null) return;
 

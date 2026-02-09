@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Helpers;
+using Common.Queries;
 using DVLD_DAL;
 using DVLD_DTO;
 using System;
@@ -42,9 +43,9 @@ namespace DVLD_BLL
 
         }
 
-        public static int GetCount()
+        public static int GetCount(IQuery query)
         {
-            return clsDetainedLicense_DAL.LoadCount();
+            return clsDetainedLicense_DAL.LoadCount(query as clsDetainedLicenseQuery);
         }
 
         public static clsDetainedLicense_BLL FindByDetainID(int DetainID)
@@ -159,9 +160,9 @@ namespace DVLD_BLL
         {
             return clsDetainedLicense_DAL.LoadDetainedLicenses(Offset, CountRows);
         }
-        public static List<clsLicenseCardInfo_DTO> GetDetainedLicensesCardsInfo(int Offset, int CountRows)
+        public static List<clsLicenseCardInfo_DTO> GetDetainedLicensesCardsInfo(int Offset, int CountRows, IQuery Query)
         {
-            return clsDetainedLicense_DAL.LoadDetainedLicensesCardsInfo(Offset, CountRows);
+            return clsDetainedLicense_DAL.LoadDetainedLicensesCardsInfo(Offset, CountRows , Query as clsDetainedLicenseQuery);
         }
         public static bool DeleteDetain(int DetainID)
         {

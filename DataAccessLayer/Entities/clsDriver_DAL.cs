@@ -43,10 +43,38 @@ namespace DVLD_DAL
                 CreatedDate = DbHelper.GetValue<DateTime>(Reader, "CreatedDate")
             };
         }
-        public static int LoadCount()
+        public static int LoadCount(clsDriverQuery clsQuery)
         {
-            string Query = "Select Count (*) From Drivers;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            string Query = "Select Count (*) From Drivers Where 1 = 1 ";
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+               ? $" AND {clsDriverMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+               : "";
+
+            _ApplyDriverFilter(clsQuery.Filter, ref Query);
+
+            return DbHelper.ExecuteScalar<int>(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue(Command, "@AgeOlderThen",
+                        clsQuery.Filter.AgeOlderThen,
+                        clsQuery.Filter.AgeOlderThen.HasValue);
+
+                    DbHelper.SetValue(Command, "@AgeYoungerThen",
+                        clsQuery.Filter.AgeYoungerThen,
+                        clsQuery.Filter.AgeYoungerThen.HasValue);
+
+                    DbHelper.SetValue(Command, "@Gendor",
+                        clsQuery.Filter.Gendor,
+                        clsQuery.Filter.Gendor.HasValue);
+
+                    DbHelper.SetValue(Command, "@NationalityCountryID",
+                        clsQuery.Filter.NationalityCountryID,
+                        clsQuery.Filter.NationalityCountryID.HasValue);
+
+                });
         }
 
         public static clsDriver_DTO LoadDriverByID(int DriverID)
@@ -241,7 +269,7 @@ namespace DVLD_DAL
         INNER JOIN Drivers D ON P.PersonID = D.PersonID
         WHERE 1 = 1 ";
 
-            Query += clsQuery.SearchBy.HasValue
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
                 ? $" AND {clsDriverMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
                 : "";
 

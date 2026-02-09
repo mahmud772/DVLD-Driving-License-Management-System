@@ -1,10 +1,13 @@
 ﻿using Common;
 using Common.Filters;
 using Common.Helpers;
+using Common.Queries;
 using DVLD_DAL.Mappers;
 using DVLD_DTO;
+using DVLD_Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +16,57 @@ namespace DVLD_DAL
 {
     public class clsLocalDrivingLicenseApplication_DAL
     {
-
-        public static int LoadCount()
+        private static clsLocalDrivingLicenseApplication_DTO _Reader(SqlDataReader Reader)
         {
-            string Query = "Select Count (*) From LocalDrivingLicenseApplications;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            return new clsLocalDrivingLicenseApplication_DTO
+            {
+                LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
+                ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
+                LicenseClassID = DbHelper.GetValue<int>(Reader, "LicenseClassID"),
+
+                ApplicationStatus = clsApplicationEnumConverter.ToStatus(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
+                ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
+                ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
+                ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
+                LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
+                PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
+                CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
+            };
+        }
+        public static int LoadCount(clsLocalDrivingLicenseApplicationQuery clsQuery)
+        {
+            string Query = "Select Count (*) From LocalDrivingLicenseApplications Where 1 = 1 ";
+
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null ?
+                $@" And {clsApplicationMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue" : "";
+
+            _ApplyLocalDrivingLicenseApplicationFilter(clsQuery.Filter, ref Query);
+            return DbHelper.ExecuteScalar<int>(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@ApplicationStatus", clsQuery.Filter.ApplicationStatus,
+                        IsHasValue: clsQuery.Filter.ApplicationStatus.HasValue);
+
+                    DbHelper.SetValue(Command, "@ApplicationTypeID", clsQuery.Filter.ApplicationTypeID,
+                        IsHasValue: clsQuery.Filter.ApplicationTypeID.HasValue);
+
+                    DbHelper.SetValue(Command, "@FromApplicationDate",
+                    clsQuery.Filter.FromApplicationDate,
+                    clsQuery.Filter.FromApplicationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToApplicationDate",
+                        clsQuery.Filter.ToApplicationDate,
+                        clsQuery.Filter.ToApplicationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@LicenseClassID",
+                        clsQuery.Filter.LicenseClassID,
+                        clsQuery.Filter.LicenseClassID.HasValue);
+
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                });
+            
         }
 
         public static clsLocalDrivingLicenseApplication_DTO LoadLocalDrivingLicenseApplicationByID(int LocalDrivingLicenseApplicationID)
@@ -39,23 +88,10 @@ namespace DVLD_DAL
                  WHERE LDLLA.LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID";
 
             DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue(Command, "@LocalDrivingLicenseApplicationID", LocalDrivingLicenseApplicationID),
-                (Action<System.Data.SqlClient.SqlDataReader>)(                Reader =>
+                Reader =>
                 {
-                    Model = new clsLocalDrivingLicenseApplication_DTO
-                    {
-                        LocalDrivingLicenseApplicationID = LocalDrivingLicenseApplicationID,
-                        ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
-                        LicenseClassID = DbHelper.GetValue<int>(Reader, "LicenseClassID"),
-
-                        ApplicationStatus = clsApplicationEnumConverter.ToStatus(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
-                        ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
-                        ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
-                        ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
-                        LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
-                        PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
-                        CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
-                    };
-                }));
+                    Model = _Reader(Reader);
+                });
             return Model;
         }
 
@@ -135,26 +171,13 @@ namespace DVLD_DAL
                  FROM LocalDrivingLicenseApplications LDLLA
                  JOIN Applications A ON LDLLA.ApplicationID = A.ApplicationID ;";
             return DbHelper.ReadList(Query, null,
-                Reader => new clsLocalDrivingLicenseApplication_DTO
-                {
-                    LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
-                    ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
-                    LicenseClassID = DbHelper.GetValue<int>(Reader, "LicenseClassID"),
-
-                    ApplicationStatus = clsApplicationEnumConverter.ToStatus(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
-                    ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
-                    ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
-                    ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
-                    LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
-                    PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
-                }
+                Reader => _Reader(Reader)
                 );
         }
 
         public static List<clsLocalDrivingLicenseApplication_DTO> LoadLocalDrivingLicenseApplications(int Offset, int CountRows)
         {
-            string Query = $@"@""SELECT 
+            string Query = $@"SELECT 
                     LDLLA.LocalDrivingLicenseApplicationID, 
                     LDLLA.ApplicationID, 
                     LDLLA.LicenseClassID, 
@@ -174,22 +197,62 @@ namespace DVLD_DAL
                     DbHelper.SetValue(Command, "@Offset", Offset);
                     DbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
-                Reader => new clsLocalDrivingLicenseApplication_DTO
-                {
-                    LocalDrivingLicenseApplicationID = DbHelper.GetValue<int>(Reader, "LocalDrivingLicenseApplicationID"),
-                    ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
-                    LicenseClassID = DbHelper.GetValue<int>(Reader, "LicenseClassID"),
-
-                    ApplicationStatus = clsApplicationEnumConverter.ToStatus(DbHelper.GetValue<byte>(Reader, "ApplicationStatus")),
-                    ApplicationDate = DbHelper.GetValue<DateTime>(Reader, "ApplicationDate"),
-                    ApplicantPersonID = DbHelper.GetValue<int>(Reader, "ApplicantPersonID"),
-                    ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
-                    LastStatusDate = DbHelper.GetValue<DateTime>(Reader, "LastStatusDate"),
-                    PaidFees = DbHelper.GetValue<decimal>(Reader, "PaidFees"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
-                });
+                Reader => _Reader(Reader));
         }
-        private void _ApplyLocalDrivingLicenseApplicationFilter(clsLocalDrivingLicenseApplicationFilter filter,
+        public static List<clsLocalDrivingLicenseApplication_DTO> LoadLocalDrivingLicenseApplications(int Offset, int CountRows , clsLocalDrivingLicenseApplicationQuery clsQuery)
+        {
+            string Query = $@"SELECT 
+                    LDLLA.LocalDrivingLicenseApplicationID, 
+                    LDLLA.ApplicationID, 
+                    LDLLA.LicenseClassID, 
+                    A.ApplicantPersonID, 
+                    A.ApplicationDate, 
+                    A.ApplicationTypeID, 
+                    A.ApplicationStatus, 
+                    A.LastStatusDate, 
+                    A.PaidFees, 
+                    A.CreatedByUserID
+                 FROM LocalDrivingLicenseApplications LDLLA
+                    Where 1 = 1 ";
+
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null ? 
+                $@" And {clsApplicationMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue" : "";
+            _ApplyLocalDrivingLicenseApplicationFilter(clsQuery.Filter, ref Query);
+
+            Query += $@" Order By {clsApplicationMapper.MapOrderBy(clsQuery.OrderBy)} 
+                                 {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}";
+
+            Query += " OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
+            return DbHelper.ReadList<clsLocalDrivingLicenseApplication_DTO>(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@ApplicationStatus", clsQuery.Filter.ApplicationStatus,
+                        IsHasValue: clsQuery.Filter.ApplicationStatus.HasValue);
+
+                    DbHelper.SetValue(Command, "@ApplicationTypeID", clsQuery.Filter.ApplicationTypeID,
+                        IsHasValue: clsQuery.Filter.ApplicationTypeID.HasValue);
+
+                    DbHelper.SetValue(Command, "@FromApplicationDate",
+                    clsQuery.Filter.FromApplicationDate,
+                    clsQuery.Filter.FromApplicationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToApplicationDate",
+                        clsQuery.Filter.ToApplicationDate,
+                        clsQuery.Filter.ToApplicationDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@LicenseClassID",
+                        clsQuery.Filter.LicenseClassID,
+                        clsQuery.Filter.LicenseClassID.HasValue);
+
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue<int>(Command, "@Offset", Offset);
+                    DbHelper.SetValue<int>(Command, "@CountRows", CountRows);
+                },
+                Reader => _Reader(Reader));
+        }
+        private static void _ApplyLocalDrivingLicenseApplicationFilter(clsLocalDrivingLicenseApplicationFilter filter,
                     ref string query)
         {
             if (filter == null)

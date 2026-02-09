@@ -1,27 +1,32 @@
-﻿using DVLD_BLL;
+﻿using Common;
+using Common.Enums;
+using Common.Queries;
+using DVLD_BLL;
 using DVLD_DTO;
 using DVLD_Models;
 using DVLDWinForm;
 using DVLDWinForm.Forms;
 using DVLDWinForm.User_Controls;
+using DVLDWinForm.User_Controls.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace DVLDWinForm
 {
-    public partial class MainForm : Form
+    public partial class MainForm 
     {
         private void _LoadPeople()
         {
+            _currentQuery = PersonQuery;
             CRUDController.CreateForm = () => new frmAddNew_UpdatePerson();
             CRUDController.PrepareUpdate = Person => new frmAddNew_UpdatePerson(Person as clsPerson_DTO);
             CRUDController.TryDelete = clsPerson_BLL.DeletePerson;
-            //CRUDController.Search = clsPerson_BLL.Find;
+            CRUDController.Search = () => new frmSortAndFilter(new ucPeopleFilter(),PersonQuery);
             CRUDController.iUserControl = new ucPerson();
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsPersonEnums.enPersonSearchBy));
             _InitializeAdapter(clsPerson_BLL.GetPeople,
                 clsPerson_BLL.GetCount,
                 _GetDisplayView<clsPerson_DTO>(person => new ucPerson { PersonInfo = person })
@@ -31,54 +36,72 @@ namespace DVLDWinForm
 
         private void _LoadUsers()
         {
+            _currentQuery = UserQuery;
             CRUDController.TryDelete = clsUser_BLL.DeleteUser;
-            //CRUDController.Search = clsUser_BLL.Find;
+            CRUDController.Search = () => new frmSortAndFilter(new ucUsersFilter(), UserQuery);
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsUserEnums.enUserSearchBy));
+
             _InitializeAdapter(clsUser_BLL.GetUsers,
                clsUser_BLL.GetCount,
                _GetDisplayView<clsUser_DTO>(user => new ucUser { UserInfo = user }));
         }
         private void _LoadDrivers()
         {
+            _currentQuery = DriverQuery;
             CRUDController.TryDelete = clsDriver_BLL.DeleteDriver;
-            //CRUDController.Search = clsDriver_BLL.FindByID;
+            CRUDController.Search = () => new frmSortAndFilter(new ucDriversFilter(), DriverQuery);
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsDriverEnums.enDriverSearchBy));
+
             _InitializeAdapter(clsDriver_BLL.GetDrivers,
                clsDriver_BLL.GetCount,
                _GetDisplayView<clsDriver_DTO>(driver => new ucDriver { DriverInfo = driver }));
         }
         private void _LoadApplications()
         {
+            _currentQuery = ApplicationQuery;
             CRUDController.CreateForm = () => new frmCreateApplication();
 
             //CRUDController.PrepareUpdate = Application => new frmUpdateApplication(Application as clsApplication_DTO);
 
             CRUDController.TryDelete = clsApplication_BLL.DeleteApplication;
-            //CRUDController.Search = clsApplication_BLL.FindByApplicationID;
+            CRUDController.Search = () => new frmSortAndFilter(new ucApplicationsFilter(), ApplicationQuery);
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsApplicationEnums.enApplicationSearchBy));
+
             _InitializeAdapter(clsApplication_BLL.GetApplications,
                clsApplication_BLL.GetCount,
                _GetDisplayView<clsApplication_DTO>(application => new ucApplication { ApplicationInfo = application }));
         }
         private void _LoadDetaindLicenses()
         {
+            _currentQuery = DetainedLicenseQuery;
             CRUDController.TryDelete = clsDetainedLicense_BLL.DeleteDetain;
-            //CRUDController.Search = clsDetainedLicense_BLL.FindByDetainID;
+            CRUDController.Search = () => new frmSortAndFilter(new ucDetainedLicensesFilter(), DetainedLicenseQuery);
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsDetainedLicenseEnums.enDetainedLicenseSearchBy));
+
             _InitializeAdapter(clsDetainedLicense_BLL.GetDetainedLicensesCardsInfo,
                clsDetainedLicense_BLL.GetCount,
                _GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense { LicenseInfo = license }));
         }
         private void _LoadInternationalLicenses()
         {
+            _currentQuery = LicenseQuery;
             CRUDController.TryDelete = clsInternationalLicense_BLL.DeleteInternationalLicense;
-            //CRUDController.Search = clsInternationalLicense_BLL.FindByID;
+            CRUDController.Search = () => new frmSortAndFilter(new ucLicensesFilter(), LicenseQuery);
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsLicenseEnums.enLicenseSearchBy));
+
             _InitializeAdapter(clsInternationalLicense_BLL.GetInternationalLicensesCardsInfo,
                clsInternationalLicense_BLL.GetCount,
                _GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense { LicenseInfo = license }));
         }
         private void _LoadLicenses()
         {
+            _currentQuery = LicenseQuery;
             //CRUDController.CreateForm = () => new frmAddNewLicense();
             //CRUDController.PrepareUpdate = License => new frmAddNew_UpdateAppointment(License as clsTestAppointment_DTO);
             CRUDController.TryDelete = clsLicense_BLL.DeleteLicense;
-            //CRUDController.Search = clsLicense_BLL.GetLicenseCardInfo;
+            CRUDController.Search = () => new frmSortAndFilter(new ucLicensesFilter(), LicenseQuery);
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsLicenseEnums.enLicenseSearchBy));
+
             _InitializeAdapter(clsLicense_BLL.GetLicensesCardsInfo,
                clsLicense_BLL.GetCount,
                _GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense { LicenseInfo = license }));
@@ -86,21 +109,26 @@ namespace DVLDWinForm
 
         private void _LoadLocalDrivingLicenseApplications()
         {
+            _currentQuery = ApplicationQuery;
             CRUDController.CreateForm = () => new frmCreateApplication();
             //CRUDController.PrepareUpdate = Application => new frmUpdateApplication(Application as clsLocalDrivingLicenseApplication_DTO);
             CRUDController.TryDelete = clsLocalDrivingLicenseApplication_BLL.DeleteLocalDrivingLicenseApplicationByApplicationID;
-            //CRUDController.Search = clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID;
+            CRUDController.Search = () => new frmSortAndFilter(new ucLocalDrivingLicenseApplicationsFilter(), ApplicationQuery);
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsApplicationEnums.enApplicationSearchBy));
+
             _InitializeAdapter(clsLocalDrivingLicenseApplication_BLL.GetLocalDrivingLicenseApplications,
                clsLocalDrivingLicenseApplication_BLL.GetCount,
                _GetDisplayView<clsLocalDrivingLicenseApplication_DTO>(application => new ucApplication { ApplicationInfo = application }));
         }
         private void _LoadTestAppointment()
         {
-
+            _currentQuery = TestAppointmentQuery;
             //CRUDController.CreateForm = () => new frmAddNew_UpdateAppointment();
             //CRUDController.PrepareUpdate = Appointment => new frmAddNew_UpdateAppointment(Appointment as clsTestAppointment_DTO);
             CRUDController.TryDelete = clsTestAppointment_BLL.DeleteTestAppointment;
-            //CRUDController.Search = clsTestAppointment_BLL.FindByID;
+            CRUDController.Search = () => new frmSortAndFilter(new ucTestAppointmentsFilter(), TestAppointmentQuery);
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsTestEnums.enTestAppointmentSearchBy));
+
             _InitializeAdapter(clsTestAppointment_BLL.GetTestAppointments,
                clsTestAppointment_BLL.GetCount,
                _GetDisplayView<clsTestAppointment_DTO>(Appointment => new ucTestAppointment { AppointmentInfo = Appointment }));

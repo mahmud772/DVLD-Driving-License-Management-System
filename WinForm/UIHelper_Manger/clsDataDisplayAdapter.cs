@@ -1,4 +1,5 @@
-﻿using DVLDWinForm.UIHelper;
+﻿using Common.Queries;
+using DVLDWinForm.UIHelper;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
@@ -10,14 +11,14 @@ namespace DVLDWinForm.UIHelper_Manger
 {
     public class clsDataDisplayAdapter<T> : IPageableLoader
     {
-        private readonly Func<int, int, List<T>> _dataSource; // دالة جلب البيانات من BLL
+        private readonly Func<int, int, IQuery , List<T>> _dataSource; // دالة جلب البيانات من BLL
         private readonly IDisplayView<T> _viewManager;         
-        private readonly Func<int> _countSource;             // دالة جلب العدد الكلي
+        private readonly Func<IQuery ,int> _countSource;             // دالة جلب العدد الكلي
         
         private List<T> _LoadData {  get; set; }
         public int CurrentPage { get; set; } = 1;
 
-        public clsDataDisplayAdapter(Func<int, int, List<T>> dataSource, Func<int> countSource,  IDisplayView<T> viewManager)
+        public clsDataDisplayAdapter(Func<int, int , IQuery, List<T>> dataSource, Func<IQuery,int> countSource,  IDisplayView<T> viewManager)
         {
             _dataSource = dataSource;
             _countSource = countSource;
@@ -35,14 +36,14 @@ namespace DVLDWinForm.UIHelper_Manger
         //    }
         //    return false;
         //}
-        public void LoadPage(int offset, int pageSize)
+        public void LoadPage(int offset, int pageSize , IQuery Query)
         {
             //_LoadNewDataSource(offset, pageSize);
             //List<T> data = _LoadData.GetRange(offset , pageSize);
-            List<T> data = _dataSource(offset, pageSize);
+            List<T> data = _dataSource(offset, pageSize , Query);
             _viewManager.Display(data);
         }
-
-        public int GetTotalCount() => _countSource();
+        
+        public int GetTotalCount(IQuery query) => _countSource(query);
     }
 }

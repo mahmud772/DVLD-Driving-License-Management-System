@@ -25,9 +25,9 @@ namespace Common.Queries
             get => OrderBy;
             set => OrderBy = (TOrderEnum)value;
         }
-        public TOrderEnum OrderBy { get; set; } 
+        public TOrderEnum OrderBy { get; set; }
         public clsOrderDirectionEnums.enOrderDirection OrderDirection { get; set; }
-            = clsOrderDirectionEnums.enOrderDirection.Desc;
+            = clsOrderDirectionEnums.enOrderDirection.Asc;
 
         public IFilter Filter { get; set; }
     }

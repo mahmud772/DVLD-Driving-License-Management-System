@@ -55,10 +55,43 @@ namespace DVLD_DAL
                 DriverID = DbHelper.GetValue<int>(Reader, "DriverID")
             };
         }
-        public static int LoadCount()
+        public static int LoadCount(clsDetainedLicenseQuery clsQuery)
         {
-            string Query = "Select Count (*) From DetainedLicenses;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            string Query = "Select Count (*) From DetainedLicenses Where 1 = 1  ";
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+                ? $" AND {clsDetainedLicenseMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+                : "";
+
+            _ApplyDetainedLicenseFilter(clsQuery.Filter, ref Query);
+
+
+            return DbHelper.ExecuteScalar<int>(Query,
+                Command =>
+                {
+                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                        IsHasValue: clsQuery.SearchValue != null);
+
+                    DbHelper.SetValue(Command, "@FromDetainDate",
+                        clsQuery.Filter.FromDetainDate,
+                        clsQuery.Filter.FromDetainDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToDetainDate",
+                        clsQuery.Filter.ToDetainDate,
+                        clsQuery.Filter.ToDetainDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@FromReleaseDate",
+                        clsQuery.Filter.FromReleaseDate,
+                        clsQuery.Filter.FromReleaseDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@ToReleaseDate",
+                        clsQuery.Filter.ToReleaseDate,
+                        clsQuery.Filter.ToReleaseDate.HasValue);
+
+                    DbHelper.SetValue(Command, "@IsReleased",
+                        clsQuery.Filter.IsReleased,
+                        clsQuery.Filter.IsReleased.HasValue);
+
+                });
         }
 
         public static clsDetainedLicense_DTO LoadDetainedLicenseByID(int DetainID)
@@ -221,7 +254,7 @@ namespace DVLD_DAL
                                     JOIN DetainedLicenses DL ON DL.LicenseID = L.LicenseID
                                     WHERE 1 = 1 ";
 
-            Query += clsQuery.SearchBy.HasValue
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
                 ? $" AND {clsDetainedLicenseMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
                 : "";
 

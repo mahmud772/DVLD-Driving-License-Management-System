@@ -59,13 +59,7 @@ namespace DVLDWinForm.UIHelper
         
         
 
-        public static void ApplyGradient(Panel panel, PaintEventArgs e, Color color1, Color color2, float angle)
-        {
-            using (LinearGradientBrush brush = new LinearGradientBrush(panel.ClientRectangle, color1, color2, angle))
-            {
-                e.Graphics.FillRectangle(brush, panel.ClientRectangle);
-            }
-        }
+        
         public static void FitText(Label lbl , float MinSize)
         {
             // "We need to start with a large font and shrink it until it fits." 

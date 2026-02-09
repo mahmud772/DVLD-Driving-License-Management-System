@@ -10,7 +10,11 @@ namespace Common.Queries
     public class clsLicenseQuery :
     clsBaseQuery<clsLicenseEnums.enLicenseSearchBy, clsLicenseEnums.enLicenseOrderBy>
     {
-        public clsLicenseQuery(){ base.Filter = new clsLicenseFilter(); }
+        public clsLicenseQuery()
+        { 
+            base.Filter = new clsLicenseFilter();
+            OrderBy = clsLicenseEnums.enLicenseOrderBy.LicenseID;
+        }
         public new clsLicenseFilter Filter => base.Filter as clsLicenseFilter;
     }
 }

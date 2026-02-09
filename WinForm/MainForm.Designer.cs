@@ -59,11 +59,19 @@
             this.btnFLP = new System.Windows.Forms.Button();
             this.pnlTypes = new System.Windows.Forms.Panel();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.cbSearchBy = new System.Windows.Forms.ComboBox();
+            this.pnlShowTotal = new System.Windows.Forms.Panel();
+            this.lbTotalCount = new System.Windows.Forms.Label();
+            this.lbTotalType_Titel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlMainMenu.SuspendLayout();
+            this.pnlTopForm.SuspendLayout();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).BeginInit();
             this.cmsUpdate_Delete.SuspendLayout();
             this.pnlDisplayMethod.SuspendLayout();
+            this.pnlShowTotal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMainMenu
@@ -246,6 +254,7 @@
             // pnlTopForm
             // 
             this.pnlTopForm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlTopForm.Controls.Add(this.pnlShowTotal);
             this.pnlTopForm.Location = new System.Drawing.Point(217, 5);
             this.pnlTopForm.Name = "pnlTopForm";
             this.pnlTopForm.Size = new System.Drawing.Size(1215, 225);
@@ -255,6 +264,7 @@
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pnlMain.Controls.Add(this.cbSearchBy);
             this.pnlMain.Controls.Add(this.lbPageNumber);
             this.pnlMain.Controls.Add(this.btnNextPage);
             this.pnlMain.Controls.Add(this.btnPreviousPage);
@@ -432,6 +442,60 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // cbSearchBy
+            // 
+            this.cbSearchBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSearchBy.DropDownWidth = 200;
+            this.cbSearchBy.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSearchBy.FormattingEnabled = true;
+            this.cbSearchBy.ItemHeight = 17;
+            this.cbSearchBy.Location = new System.Drawing.Point(645, 39);
+            this.cbSearchBy.Name = "cbSearchBy";
+            this.cbSearchBy.Size = new System.Drawing.Size(18, 25);
+            this.cbSearchBy.TabIndex = 10;
+            // 
+            // pnlShowTotal
+            // 
+            this.pnlShowTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(240)))), ((int)(((byte)(255)))));
+            this.pnlShowTotal.Controls.Add(this.pictureBox1);
+            this.pnlShowTotal.Controls.Add(this.lbTotalType_Titel);
+            this.pnlShowTotal.Controls.Add(this.lbTotalCount);
+            this.pnlShowTotal.Location = new System.Drawing.Point(1006, 106);
+            this.pnlShowTotal.Name = "pnlShowTotal";
+            this.pnlShowTotal.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlShowTotal.Size = new System.Drawing.Size(194, 82);
+            this.pnlShowTotal.TabIndex = 0;
+            // 
+            // lbTotalCount
+            // 
+            this.lbTotalCount.AutoSize = true;
+            this.lbTotalCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.lbTotalCount.Location = new System.Drawing.Point(16, 40);
+            this.lbTotalCount.Name = "lbTotalCount";
+            this.lbTotalCount.Size = new System.Drawing.Size(49, 30);
+            this.lbTotalCount.TabIndex = 0;
+            this.lbTotalCount.Text = "400";
+            // 
+            // lbTotalType_Titel
+            // 
+            this.lbTotalType_Titel.AutoSize = true;
+            this.lbTotalType_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalType_Titel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lbTotalType_Titel.Location = new System.Drawing.Point(12, 10);
+            this.lbTotalType_Titel.Name = "lbTotalType_Titel";
+            this.lbTotalType_Titel.Size = new System.Drawing.Size(60, 21);
+            this.lbTotalType_Titel.TabIndex = 1;
+            this.lbTotalType_Titel.Text = "People";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(156, 46);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(25, 22);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -446,11 +510,15 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.pnlMainMenu.ResumeLayout(false);
             this.pnlMainMenu.PerformLayout();
+            this.pnlTopForm.ResumeLayout(false);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).EndInit();
             this.cmsUpdate_Delete.ResumeLayout(false);
             this.pnlDisplayMethod.ResumeLayout(false);
+            this.pnlShowTotal.ResumeLayout(false);
+            this.pnlShowTotal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -486,6 +554,11 @@
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         public System.Windows.Forms.ContextMenuStrip cmsUpdate_Delete;
+        private System.Windows.Forms.ComboBox cbSearchBy;
+        private System.Windows.Forms.Panel pnlShowTotal;
+        private System.Windows.Forms.Label lbTotalType_Titel;
+        private System.Windows.Forms.Label lbTotalCount;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

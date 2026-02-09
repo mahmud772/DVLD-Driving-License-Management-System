@@ -49,21 +49,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\clsApplication_DAL.cs" />
-    <Compile Include="Entity\clsApplicationType_DAL.cs" />
+    <Compile Include="Entities\clsApplication_DAL.cs" />
+    <Compile Include="Entities\clsApplicationType_DAL.cs" />
     <Compile Include="clsContactsDataAccessLayer.cs" />
-    <Compile Include="Entity\clsCountry_DAL.cs" />
-    <Compile Include="Entity\clsDetainedLicense_DAL.cs" />
-    <Compile Include="Entity\clsDriver_DAL.cs" />
-    <Compile Include="Entity\clsInternationalLicense_DAL.cs" />
-    <Compile Include="Entity\clsLicenseClass_DAL.cs" />
-    <Compile Include="Entity\clsLicense_DAL.cs" />
-    <Compile Include="Entity\clsLocalDrivingLicenseApplication_DAL.cs" />
-    <Compile Include="Entity\clsPerson_DAL.cs" />
-    <Compile Include="Entity\clsTestAppointment_DAL.cs" />
-    <Compile Include="Entity\clsTestType_DAL.cs" />
-    <Compile Include="Entity\clsTest_DAL.cs" />
-    <Compile Include="Entity\clsUser_DAL.cs" />
+    <Compile Include="Entities\clsCountry_DAL.cs" />
+    <Compile Include="Entities\clsDetainedLicense_DAL.cs" />
+    <Compile Include="Entities\clsDriver_DAL.cs" />
+    <Compile Include="Entities\clsInternationalLicense_DAL.cs" />
+    <Compile Include="Entities\clsLicenseClass_DAL.cs" />
+    <Compile Include="Entities\clsLicense_DAL.cs" />
+    <Compile Include="Entities\clsLocalDrivingLicenseApplication_DAL.cs" />
+    <Compile Include="Entities\clsPerson_DAL.cs" />
+    <Compile Include="Entities\clsTestAppointment_DAL.cs" />
+    <Compile Include="Entities\clsTestType_DAL.cs" />
+    <Compile Include="Entities\clsTest_DAL.cs" />
+    <Compile Include="Entities\clsUser_DAL.cs" />
     <Compile Include="DbHelper.cs" />
     <Compile Include="Mappers\clsApplicationMapper.cs" />
     <Compile Include="Mappers\clsDetainedLicenseMapper.cs" />

@@ -44,7 +44,8 @@ namespace DVLD_DAL.Mappers
                     return "NationalityCountryID";
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    return "PersonID";
+                    //throw new ArgumentOutOfRangeException();
             }
         }
     }

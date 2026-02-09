@@ -71,6 +71,7 @@
     <Compile Include="Helpers\clsApplicationEnumConverter.cs" />
     <Compile Include="Helpers\clsLicenseEnumConverter.cs" />
     <Compile Include="Helpers\clsPersonEnumConverter.cs" />
+    <Compile Include="Helpers\clsSearchType.cs" />
     <Compile Include="Helpers\clsTestEnumConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\clsApplicationQuery.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Queries\clsDetainedLicenseQuery.cs" />
     <Compile Include="Queries\clsDriverQuery.cs" />
     <Compile Include="Queries\clsLicenseQuery.cs" />
+    <Compile Include="Queries\clsLocalDrivingLicenseApplicationQuery.cs" />
     <Compile Include="Queries\clsTestAppointmentQuery.cs" />
     <Compile Include="Queries\clsPersonQuery.cs" />
     <Compile Include="Queries\clsUserQuery.cs" />

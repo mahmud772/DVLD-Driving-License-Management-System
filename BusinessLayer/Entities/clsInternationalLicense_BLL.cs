@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Queries;
 using DVLD_DAL;
 using DVLD_DTO;
 using System;
@@ -37,9 +38,9 @@ namespace DVLD_BLL
             this.Mode = enMode.Update;
         }
 
-        public static int GetCount()
+        public static int GetCount(IQuery query)
         {
-            return clsInternationalLicense_DAL.LoadCount();
+            return clsInternationalLicense_DAL.LoadCount(query as clsLicenseQuery);
         }
 
         public static clsInternationalLicense_BLL FindByID(int InternationalLicenseID)
@@ -100,9 +101,9 @@ namespace DVLD_BLL
         {
             return clsInternationalLicense_DAL.LoadInternationalLicenses(Offset , CountRows);
         }
-        public static List<clsLicenseCardInfo_DTO> GetInternationalLicensesCardsInfo(int Offset, int CountRows)
+        public static List<clsLicenseCardInfo_DTO> GetInternationalLicensesCardsInfo(int Offset, int CountRows, IQuery Query)
         {
-            return clsInternationalLicense_DAL.LoadInternationalLicensesCardsInfo(Offset, CountRows);
+            return clsInternationalLicense_DAL.LoadInternationalLicensesCardsInfo(Offset, CountRows , Query as clsLicenseQuery);
         }
         public static bool DeleteInternationalLicense(int InternationalLicense)
         {

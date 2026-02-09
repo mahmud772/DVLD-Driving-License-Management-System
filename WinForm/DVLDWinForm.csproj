@@ -52,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="prlMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,7 @@
     <Compile Include="Forms\frmSortAndFilter.Designer.cs">
       <DependentUpon>frmSortAndFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIHelper_Manger\clsFormLayoutHelper.cs" />
     <Compile Include="User Controls\Display\IUserControl.cs" />
     <Compile Include="UIHelper_Manger\clsCRUDController.cs" />
     <Compile Include="UIHelper_Manger\clsDataDisplayAdapter.cs" />
@@ -217,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFindPerson.resx">
       <DependentUpon>frmFindPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSortAndFilter.resx">
       <DependentUpon>frmSortAndFilter.cs</DependentUpon>

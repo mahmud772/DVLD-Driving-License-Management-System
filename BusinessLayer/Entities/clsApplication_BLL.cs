@@ -1,15 +1,11 @@
 ﻿using Common;
 using Common.Helpers;
+using Common.Queries;
 using DVLD_DAL;
 using DVLD_DTO;
 using DVLD_Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DVLD_BLL
 {
     public enum enMode { Create = 1, Update = 2 }
@@ -43,9 +39,9 @@ namespace DVLD_BLL
 
         }
 
-        public static int GetCount()
+        public static int GetCount(IQuery query)
         {
-            return clsApplication_DAL.LoadCount();
+            return clsApplication_DAL.LoadCount(query as clsApplicationQuery);
         }
 
         public static clsApplication_BLL FindByApplicationID(int ApplicationID)
@@ -132,17 +128,13 @@ namespace DVLD_BLL
         {
             return clsApplication_DAL.LoadApplications();
         }
-        public static List<clsApplication_DTO> GetApplications(int Offset, int CountRows)
+        public static List<clsApplication_DTO> GetApplications(int Offset, int CountRows , IQuery Query)
         {
-            return clsApplication_DAL.LoadAllBy(Offset, CountRows);
+            return clsApplication_DAL.LoadAllBy(Offset, CountRows , Query as clsApplicationQuery);
         }
         public static bool DeleteApplication(int ApplicationID)
         {
             return clsApplication_DAL.DeleteApplicationByID(ApplicationID);
-        }
-        public static List<clsApplication_DTO> GetAllBy<TValue>(clsEnSearchBy.enApplication by,TValue value)
-        {
-            return new List<clsApplication_DTO>() ;
         }
     }
 }
