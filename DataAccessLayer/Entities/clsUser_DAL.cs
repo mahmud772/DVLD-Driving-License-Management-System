@@ -95,27 +95,7 @@ namespace DVLD_DAL
             bool IsFound = DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue<int>(Command, "@UserID", UserID),
                 Reader =>
                 {
-                    Model = new clsUser_DTO
-                    {
-                        UserID = UserID,
-                        PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
-                        NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
-                        FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
-                        SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
-                        ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
-                        LastName = DbHelper.GetValue<string>(Reader, "LastName"),
-                        DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                        Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
-                        Address = DbHelper.GetValue<string>(Reader, "Address"),
-                        Phone = DbHelper.GetValue<string>(Reader, "Phone"),
-                        Email = DbHelper.GetValue<string>(Reader, "Email"),
-                        NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
-                        ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
-                        UserName = DbHelper.GetValue<string>(Reader, "UserName"),
-                        Password = DbHelper.GetValue<string>(Reader, "Password"),
-                        IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                        Permissions = DbHelper.GetValue<int>(Reader, "Permissions")
-                    };
+                    Model = _Reader(Reader);
                 });
             return IsFound ? Model : null;
         }
@@ -250,14 +230,25 @@ namespace DVLD_DAL
         }
 
 
-        public static bool Login(string UserName, string Password)
+        public static clsUser_DTO Login(string UserName, string Password)
         {
-            string Query = @"Select 1 From Users Where UserName = @UserName And Password = @Password;";
-            return DbHelper.Exists(Query, Command =>
+            string Query = @"
+                        SELECT 
+                            P.PersonID AS PersonID, P.NationalNo, P.FirstName, P.SecondName, P.ThirdName, 
+                            P.LastName, P.DateOfBirth, P.Gendor, P.Address, P.Phone, P.Email, 
+                            P.NationalityCountryID, P.ImagePath,
+                            U.UserID, U.UserName, U.Password, U.IsActive , U.Permissions
+                        FROM People P
+                        JOIN Users U ON P.PersonID = U.PersonID
+                        Where UserName = @UserName And Password = @Password;";
+            clsUser_DTO DTO = null;
+            DbHelper.ExecuteReader(Query, Command =>
             {
                 DbHelper.SetValue<string>(Command, "@UserName", UserName);
                 DbHelper.SetValue<string>(Command, "@Password", Password);
-            });
+            },
+            Reader => DTO = _Reader(Reader));
+            return DTO;
         }
 
         public static bool DeleteUserByPersonID(int PersonID)

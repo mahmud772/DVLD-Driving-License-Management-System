@@ -186,10 +186,7 @@ namespace DVLDWinForm.UIHelper
             return (control.Height == targetHeight);
         }
 
-        public static ErrorProvider ErrorProvider { get; } = new ErrorProvider()
-        {
-            BlinkStyle = ErrorBlinkStyle.NeverBlink
-        };
+        
     }
 
 }

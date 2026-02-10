@@ -14,10 +14,20 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm
 {
-    public partial class ucDriver : UserControl
+    public partial class ucDriver : UserControl , IUserControl
     {
-        public clsDriver_DTO DriverInfo {  get; set => _LoadDriverInfo(value); }
-        
+        private clsDriver_DTO _DriverInfo {  get; set => _LoadDriverInfo(value); }
+
+        public clsDriver_DTO DriverInfo
+        {
+            get => _DriverInfo;
+            set
+            {
+                _DriverInfo = value;
+                _LoadDriverInfo(value);
+            }
+        }
+        public IDTO Info { get => _DriverInfo; set => DriverInfo = value as clsDriver_DTO; }
         public ucDriver()
         {
             InitializeComponent();
@@ -60,7 +70,7 @@ namespace DVLDWinForm
             ctrlPerson1.OnVisibleChanged += VisibleComponents;
             ctrlPerson1.OnUnvisibleChanged += UnvisibleComponents;
             
-            ctrlPerson1.SelectdDTO = () => DriverInfo;
+            ctrlPerson1.SelectdDTO = () => _DriverInfo;
         }
         private void VisibleComponents()
         {

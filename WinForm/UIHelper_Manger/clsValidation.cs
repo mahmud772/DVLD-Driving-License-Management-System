@@ -11,7 +11,11 @@ namespace DVLDWinForm.UIHelper_Manger
 {
     public static class clsValidation
     {
-        
+        public static ErrorProvider ep { get; } = new ErrorProvider()
+        {
+            BlinkStyle = ErrorBlinkStyle.NeverBlink
+        };
+
         private static bool _IsEmpty(Control tb)
         {
             return (tb == null || string.IsNullOrEmpty(tb.Text));
@@ -22,16 +26,16 @@ namespace DVLDWinForm.UIHelper_Manger
             return (_IsEmpty(tb) || !int.TryParse(tb.Text.Trim(), out int value)) ;
             
         }
-        public static bool IsEmpty(ErrorProvider ep , TextBox tb , string ErrorMessage)
+        public static bool IsEmpty(TextBox tb , string ErrorMessage)
         {
             if(_IsEmpty(tb))
             {
                 ep.SetError(tb, ErrorMessage);
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
-        public static bool IsNumber(ErrorProvider ep, TextBox tb, string ErrorMessage)
+        public static bool IsNumber(TextBox tb, string ErrorMessage)
         {
             if (!_IsNumber(tb))
             {
@@ -40,7 +44,7 @@ namespace DVLDWinForm.UIHelper_Manger
             }
             return true;
         }
-        public static bool IsValidEmail(ErrorProvider ep, TextBox tb)
+        public static bool IsValidEmail(TextBox tb)
         {
             if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
@@ -49,7 +53,7 @@ namespace DVLDWinForm.UIHelper_Manger
             }
             return true;
         }
-        public static bool IsValidPhoneNumber(ErrorProvider ep, TextBox tb)
+        public static bool IsValidPhoneNumber(TextBox tb)
         {
             if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^09\d{8}$"))
             {
@@ -58,7 +62,7 @@ namespace DVLDWinForm.UIHelper_Manger
             }
             return true;
         }
-        public static bool IsValidAddress(ErrorProvider ep, TextBox tb)
+        public static bool IsValidAddress(TextBox tb)
         {
             if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^(?:[a-zA-Z]+|[\u0600-\u06FF]+)$") )
             {
@@ -67,7 +71,7 @@ namespace DVLDWinForm.UIHelper_Manger
             }
             return true;
         }
-        public static bool IsValidWord(ErrorProvider ep, TextBox tb)
+        public static bool IsValidWord(TextBox tb)
         {
             if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^(?:[a-zA-Z]+|[\u0600-\u06FF]+)$"))
             {
@@ -76,7 +80,17 @@ namespace DVLDWinForm.UIHelper_Manger
             }
             return true;
         }
-        public static bool IsValidNationalNo(ErrorProvider ep, TextBox tb)
+        public static bool IsValidWord(TextBox tb , string ErrorMessage)
+        {
+            if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^(?:[a-zA-Z]+|[\u0600-\u06FF]+)$"))
+            {
+                ep?.SetError(tb, ErrorMessage);
+                return false;
+            }
+            return true;
+        }
+
+        public static bool IsValidNationalNo(TextBox tb)
         {
             if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^[1-2]\d{11}$"))
             {
@@ -86,7 +100,7 @@ namespace DVLDWinForm.UIHelper_Manger
             return true;
         }
 
-        public static bool IsValidDateOfBirth(ErrorProvider ep, DateTimePicker dtp)
+        public static bool IsValidDateOfBirth(DateTimePicker dtp)
         {
             if (_IsEmpty(dtp) || clsUtil.CalculateAge(dtp.Value) < 18)
             {

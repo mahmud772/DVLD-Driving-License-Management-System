@@ -6,7 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DVLD_BLL;
 using System.Windows.Forms;
+using DVLDWinForm.UIHelper_Manger;
+using DVLDWinForm.UIHelper;
 
 namespace DVLDWinForm.Forms
 {
@@ -18,15 +21,14 @@ namespace DVLDWinForm.Forms
         }
         private void chkShowPassword_CheckedChanged(object sender, EventArgs e)
         {
-            txtPassword.UseSystemPasswordChar = !chkShowPassword.Checked;
+            tbPassword.UseSystemPasswordChar = !chkShowPassword.Checked;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            // TODO: منطق تسجيل الدخول
-            // مثال مؤقت:
-            if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
-                string.IsNullOrWhiteSpace(txtPassword.Text))
+            clsValidation.ep.Clear();
+            if(clsValidation.IsValidWord(tbUsername , "Enter a Valid User Name") && !clsValidation.IsEmpty(tbPassword , "Enter a Valid Password")) return;
+            if (!clsUser_BLL.Login(tbUsername?.Text , tbPassword?.Text))
             {
                 lblError.Text = "Incorrect Password or User Name";
                 lblError.Visible = true;
@@ -35,7 +37,12 @@ namespace DVLDWinForm.Forms
 
             lblError.Visible = false;
             MessageBox.Show("Login Successful");
+            this.DialogResult = DialogResult.OK;
         }
 
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            clsUIHelper.CornerRadius(pnlContainer , 10);
+        }
     }
 }

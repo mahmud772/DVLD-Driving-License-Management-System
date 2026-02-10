@@ -31,39 +31,40 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pnlMainMenu = new System.Windows.Forms.Panel();
-            this.btnLicenses = new System.Windows.Forms.Button();
-            this.btnTestAppointments = new System.Windows.Forms.Button();
-            this.btnApplications = new System.Windows.Forms.Button();
-            this.btnDrivers = new System.Windows.Forms.Button();
-            this.btnUsers = new System.Windows.Forms.Button();
             this.lbLicenses_Title = new System.Windows.Forms.Label();
             this.lbApplications_Title = new System.Windows.Forms.Label();
             this.lbTests_Title = new System.Windows.Forms.Label();
             this.lbPeople_Titel = new System.Windows.Forms.Label();
-            this.btnPeople = new System.Windows.Forms.Button();
             this.pnlTopForm = new System.Windows.Forms.Panel();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.cbSearchBy = new System.Windows.Forms.ComboBox();
             this.lbPageNumber = new System.Windows.Forms.Label();
             this.btnNextPage = new System.Windows.Forms.Button();
             this.btnPreviousPage = new System.Windows.Forms.Button();
             this.flpUserControls = new System.Windows.Forms.FlowLayoutPanel();
             this.dgvDisplay = new System.Windows.Forms.DataGridView();
             this.cmsUpdate_Delete = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.btnSort_Filter = new System.Windows.Forms.Button();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.pnlDisplayMethod = new System.Windows.Forms.Panel();
-            this.btnDGV = new System.Windows.Forms.Button();
-            this.btnFLP = new System.Windows.Forms.Button();
             this.pnlTypes = new System.Windows.Forms.Panel();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.cbSearchBy = new System.Windows.Forms.ComboBox();
-            this.pnlShowTotal = new System.Windows.Forms.Panel();
-            this.lbTotalCount = new System.Windows.Forms.Label();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDGV = new System.Windows.Forms.Button();
+            this.btnFLP = new System.Windows.Forms.Button();
+            this.btnLicenses = new System.Windows.Forms.Button();
+            this.btnTestAppointments = new System.Windows.Forms.Button();
+            this.btnApplications = new System.Windows.Forms.Button();
+            this.btnDrivers = new System.Windows.Forms.Button();
+            this.btnUsers = new System.Windows.Forms.Button();
+            this.btnPeople = new System.Windows.Forms.Button();
+            this.pnlShowTotal = new DVLDWinForm.UIHelper_Manger.GlassPanel();
+            this.pbTotal = new System.Windows.Forms.PictureBox();
             this.lbTotalType_Titel = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lbTotalCount = new System.Windows.Forms.Label();
+            this.ucLogout1 = new DVLDWinForm.User_Controls.ucLogout();
             this.pnlMainMenu.SuspendLayout();
             this.pnlTopForm.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -71,12 +72,13 @@
             this.cmsUpdate_Delete.SuspendLayout();
             this.pnlDisplayMethod.SuspendLayout();
             this.pnlShowTotal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMainMenu
             // 
             this.pnlMainMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlMainMenu.Controls.Add(this.ucLogout1);
             this.pnlMainMenu.Controls.Add(this.btnLicenses);
             this.pnlMainMenu.Controls.Add(this.btnTestAppointments);
             this.pnlMainMenu.Controls.Add(this.btnApplications);
@@ -92,6 +94,253 @@
             this.pnlMainMenu.Size = new System.Drawing.Size(217, 878);
             this.pnlMainMenu.TabIndex = 0;
             this.pnlMainMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMainMenu_Paint);
+            // 
+            // lbLicenses_Title
+            // 
+            this.lbLicenses_Title.AutoSize = true;
+            this.lbLicenses_Title.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLicenses_Title.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbLicenses_Title.Location = new System.Drawing.Point(7, 391);
+            this.lbLicenses_Title.Name = "lbLicenses_Title";
+            this.lbLicenses_Title.Size = new System.Drawing.Size(56, 17);
+            this.lbLicenses_Title.TabIndex = 5;
+            this.lbLicenses_Title.Text = "Licenses";
+            // 
+            // lbApplications_Title
+            // 
+            this.lbApplications_Title.AutoSize = true;
+            this.lbApplications_Title.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbApplications_Title.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbApplications_Title.Location = new System.Drawing.Point(7, 244);
+            this.lbApplications_Title.Name = "lbApplications_Title";
+            this.lbApplications_Title.Size = new System.Drawing.Size(79, 17);
+            this.lbApplications_Title.TabIndex = 4;
+            this.lbApplications_Title.Text = "Applications";
+            // 
+            // lbTests_Title
+            // 
+            this.lbTests_Title.AutoSize = true;
+            this.lbTests_Title.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTests_Title.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbTests_Title.Location = new System.Drawing.Point(7, 312);
+            this.lbTests_Title.Name = "lbTests_Title";
+            this.lbTests_Title.Size = new System.Drawing.Size(37, 17);
+            this.lbTests_Title.TabIndex = 3;
+            this.lbTests_Title.Text = "Tests";
+            // 
+            // lbPeople_Titel
+            // 
+            this.lbPeople_Titel.AutoSize = true;
+            this.lbPeople_Titel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPeople_Titel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbPeople_Titel.Location = new System.Drawing.Point(7, 94);
+            this.lbPeople_Titel.Name = "lbPeople_Titel";
+            this.lbPeople_Titel.Size = new System.Drawing.Size(48, 17);
+            this.lbPeople_Titel.TabIndex = 2;
+            this.lbPeople_Titel.Text = "People";
+            // 
+            // pnlTopForm
+            // 
+            this.pnlTopForm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlTopForm.Controls.Add(this.pnlShowTotal);
+            this.pnlTopForm.Location = new System.Drawing.Point(217, 5);
+            this.pnlTopForm.Name = "pnlTopForm";
+            this.pnlTopForm.Size = new System.Drawing.Size(1215, 225);
+            this.pnlTopForm.TabIndex = 1;
+            this.pnlTopForm.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlTopForm_Paint);
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pnlMain.Controls.Add(this.cbSearchBy);
+            this.pnlMain.Controls.Add(this.lbPageNumber);
+            this.pnlMain.Controls.Add(this.btnNextPage);
+            this.pnlMain.Controls.Add(this.btnPreviousPage);
+            this.pnlMain.Controls.Add(this.flpUserControls);
+            this.pnlMain.Controls.Add(this.dgvDisplay);
+            this.pnlMain.Controls.Add(this.btnAddNew);
+            this.pnlMain.Controls.Add(this.btnSort_Filter);
+            this.pnlMain.Controls.Add(this.tbSearch);
+            this.pnlMain.Controls.Add(this.pnlDisplayMethod);
+            this.pnlMain.Controls.Add(this.pnlTypes);
+            this.pnlMain.Controls.Add(this.btnSearch);
+            this.pnlMain.Location = new System.Drawing.Point(217, 199);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(1215, 681);
+            this.pnlMain.TabIndex = 2;
+            // 
+            // cbSearchBy
+            // 
+            this.cbSearchBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSearchBy.DropDownWidth = 200;
+            this.cbSearchBy.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSearchBy.FormattingEnabled = true;
+            this.cbSearchBy.ItemHeight = 17;
+            this.cbSearchBy.Location = new System.Drawing.Point(645, 39);
+            this.cbSearchBy.Name = "cbSearchBy";
+            this.cbSearchBy.Size = new System.Drawing.Size(18, 25);
+            this.cbSearchBy.TabIndex = 10;
+            // 
+            // lbPageNumber
+            // 
+            this.lbPageNumber.AutoSize = true;
+            this.lbPageNumber.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPageNumber.Location = new System.Drawing.Point(651, 601);
+            this.lbPageNumber.Name = "lbPageNumber";
+            this.lbPageNumber.Size = new System.Drawing.Size(12, 15);
+            this.lbPageNumber.TabIndex = 0;
+            this.lbPageNumber.Text = "1";
+            // 
+            // btnNextPage
+            // 
+            this.btnNextPage.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNextPage.Location = new System.Drawing.Point(682, 597);
+            this.btnNextPage.Name = "btnNextPage";
+            this.btnNextPage.Size = new System.Drawing.Size(38, 21);
+            this.btnNextPage.TabIndex = 9;
+            this.btnNextPage.Text = ">";
+            this.btnNextPage.UseVisualStyleBackColor = true;
+            this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
+            // 
+            // btnPreviousPage
+            // 
+            this.btnPreviousPage.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPreviousPage.Location = new System.Drawing.Point(597, 597);
+            this.btnPreviousPage.Name = "btnPreviousPage";
+            this.btnPreviousPage.Size = new System.Drawing.Size(38, 21);
+            this.btnPreviousPage.TabIndex = 8;
+            this.btnPreviousPage.Text = "<";
+            this.btnPreviousPage.UseVisualStyleBackColor = true;
+            this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
+            // 
+            // flpUserControls
+            // 
+            this.flpUserControls.AutoScroll = true;
+            this.flpUserControls.Location = new System.Drawing.Point(0, 81);
+            this.flpUserControls.Name = "flpUserControls";
+            this.flpUserControls.Size = new System.Drawing.Size(1215, 506);
+            this.flpUserControls.TabIndex = 6;
+            // 
+            // dgvDisplay
+            // 
+            this.dgvDisplay.AllowUserToAddRows = false;
+            this.dgvDisplay.AllowUserToDeleteRows = false;
+            this.dgvDisplay.AllowUserToOrderColumns = true;
+            this.dgvDisplay.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDisplay.ContextMenuStrip = this.cmsUpdate_Delete;
+            this.dgvDisplay.Location = new System.Drawing.Point(0, 81);
+            this.dgvDisplay.Name = "dgvDisplay";
+            this.dgvDisplay.ReadOnly = true;
+            this.dgvDisplay.Size = new System.Drawing.Size(1215, 506);
+            this.dgvDisplay.TabIndex = 0;
+            this.dgvDisplay.Visible = false;
+            this.dgvDisplay.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvData_CellMouseDown);
+            // 
+            // cmsUpdate_Delete
+            // 
+            this.cmsUpdate_Delete.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.cmsUpdate_Delete.Name = "cmsUpdate_Delete";
+            this.cmsUpdate_Delete.Size = new System.Drawing.Size(113, 48);
+            // 
+            // btnAddNew
+            // 
+            this.btnAddNew.Location = new System.Drawing.Point(1084, 24);
+            this.btnAddNew.Name = "btnAddNew";
+            this.btnAddNew.Size = new System.Drawing.Size(116, 40);
+            this.btnAddNew.TabIndex = 5;
+            this.btnAddNew.Text = "Add New";
+            this.btnAddNew.UseVisualStyleBackColor = true;
+            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
+            // 
+            // btnSort_Filter
+            // 
+            this.btnSort_Filter.Location = new System.Drawing.Point(941, 24);
+            this.btnSort_Filter.Name = "btnSort_Filter";
+            this.btnSort_Filter.Size = new System.Drawing.Size(116, 40);
+            this.btnSort_Filter.TabIndex = 4;
+            this.btnSort_Filter.Text = "Sort \\ Filter";
+            this.btnSort_Filter.UseVisualStyleBackColor = true;
+            this.btnSort_Filter.Click += new System.EventHandler(this.btnSort_Filter_Click);
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearch.Location = new System.Drawing.Point(664, 26);
+            this.tbSearch.Multiline = true;
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(189, 38);
+            this.tbSearch.TabIndex = 3;
+            // 
+            // pnlDisplayMethod
+            // 
+            this.pnlDisplayMethod.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.pnlDisplayMethod.Controls.Add(this.btnDGV);
+            this.pnlDisplayMethod.Controls.Add(this.btnFLP);
+            this.pnlDisplayMethod.Location = new System.Drawing.Point(292, 26);
+            this.pnlDisplayMethod.Name = "pnlDisplayMethod";
+            this.pnlDisplayMethod.Size = new System.Drawing.Size(94, 39);
+            this.pnlDisplayMethod.TabIndex = 1;
+            // 
+            // pnlTypes
+            // 
+            this.pnlTypes.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.pnlTypes.Location = new System.Drawing.Point(6, 26);
+            this.pnlTypes.Name = "pnlTypes";
+            this.pnlTypes.Size = new System.Drawing.Size(252, 39);
+            this.pnlTypes.TabIndex = 0;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(851, 25);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(49, 40);
+            this.btnSearch.TabIndex = 2;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateToolStripMenuItem.Image = global::DVLDWinForm.Properties.Resources.Update_Person;
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteToolStripMenuItem.Image = global::DVLDWinForm.Properties.Resources.Delete_Person;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // btnDGV
+            // 
+            this.btnDGV.BackgroundImage = global::DVLDWinForm.Properties.Resources.Menu_Gray_DGV;
+            this.btnDGV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnDGV.Location = new System.Drawing.Point(53, 4);
+            this.btnDGV.Name = "btnDGV";
+            this.btnDGV.Size = new System.Drawing.Size(35, 29);
+            this.btnDGV.TabIndex = 6;
+            this.btnDGV.UseVisualStyleBackColor = true;
+            this.btnDGV.Click += new System.EventHandler(this.btnDGV_Click);
+            // 
+            // btnFLP
+            // 
+            this.btnFLP.BackgroundImage = global::DVLDWinForm.Properties.Resources.Menu_Gray_FLP;
+            this.btnFLP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnFLP.Location = new System.Drawing.Point(6, 4);
+            this.btnFLP.Name = "btnFLP";
+            this.btnFLP.Size = new System.Drawing.Size(35, 29);
+            this.btnFLP.TabIndex = 7;
+            this.btnFLP.UseVisualStyleBackColor = true;
+            this.btnFLP.Click += new System.EventHandler(this.btnFLP_Click);
             // 
             // btnLicenses
             // 
@@ -188,50 +437,6 @@
             this.btnUsers.UseVisualStyleBackColor = false;
             this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             // 
-            // lbLicenses_Title
-            // 
-            this.lbLicenses_Title.AutoSize = true;
-            this.lbLicenses_Title.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLicenses_Title.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbLicenses_Title.Location = new System.Drawing.Point(7, 391);
-            this.lbLicenses_Title.Name = "lbLicenses_Title";
-            this.lbLicenses_Title.Size = new System.Drawing.Size(56, 17);
-            this.lbLicenses_Title.TabIndex = 5;
-            this.lbLicenses_Title.Text = "Licenses";
-            // 
-            // lbApplications_Title
-            // 
-            this.lbApplications_Title.AutoSize = true;
-            this.lbApplications_Title.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbApplications_Title.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbApplications_Title.Location = new System.Drawing.Point(7, 244);
-            this.lbApplications_Title.Name = "lbApplications_Title";
-            this.lbApplications_Title.Size = new System.Drawing.Size(79, 17);
-            this.lbApplications_Title.TabIndex = 4;
-            this.lbApplications_Title.Text = "Applications";
-            // 
-            // lbTests_Title
-            // 
-            this.lbTests_Title.AutoSize = true;
-            this.lbTests_Title.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTests_Title.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbTests_Title.Location = new System.Drawing.Point(7, 312);
-            this.lbTests_Title.Name = "lbTests_Title";
-            this.lbTests_Title.Size = new System.Drawing.Size(37, 17);
-            this.lbTests_Title.TabIndex = 3;
-            this.lbTests_Title.Text = "Tests";
-            // 
-            // lbPeople_Titel
-            // 
-            this.lbPeople_Titel.AutoSize = true;
-            this.lbPeople_Titel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPeople_Titel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbPeople_Titel.Location = new System.Drawing.Point(7, 94);
-            this.lbPeople_Titel.Name = "lbPeople_Titel";
-            this.lbPeople_Titel.Size = new System.Drawing.Size(48, 17);
-            this.lbPeople_Titel.TabIndex = 2;
-            this.lbPeople_Titel.Text = "People";
-            // 
             // btnPeople
             // 
             this.btnPeople.BackColor = System.Drawing.SystemColors.Control;
@@ -251,250 +456,57 @@
             this.btnPeople.UseVisualStyleBackColor = false;
             this.btnPeople.Click += new System.EventHandler(this.btnPeople_Click);
             // 
-            // pnlTopForm
-            // 
-            this.pnlTopForm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlTopForm.Controls.Add(this.pnlShowTotal);
-            this.pnlTopForm.Location = new System.Drawing.Point(217, 5);
-            this.pnlTopForm.Name = "pnlTopForm";
-            this.pnlTopForm.Size = new System.Drawing.Size(1215, 225);
-            this.pnlTopForm.TabIndex = 1;
-            this.pnlTopForm.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlTopForm_Paint);
-            // 
-            // pnlMain
-            // 
-            this.pnlMain.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pnlMain.Controls.Add(this.cbSearchBy);
-            this.pnlMain.Controls.Add(this.lbPageNumber);
-            this.pnlMain.Controls.Add(this.btnNextPage);
-            this.pnlMain.Controls.Add(this.btnPreviousPage);
-            this.pnlMain.Controls.Add(this.flpUserControls);
-            this.pnlMain.Controls.Add(this.dgvDisplay);
-            this.pnlMain.Controls.Add(this.btnAddNew);
-            this.pnlMain.Controls.Add(this.btnSort_Filter);
-            this.pnlMain.Controls.Add(this.tbSearch);
-            this.pnlMain.Controls.Add(this.pnlDisplayMethod);
-            this.pnlMain.Controls.Add(this.pnlTypes);
-            this.pnlMain.Controls.Add(this.btnSearch);
-            this.pnlMain.Location = new System.Drawing.Point(217, 199);
-            this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1215, 681);
-            this.pnlMain.TabIndex = 2;
-            // 
-            // lbPageNumber
-            // 
-            this.lbPageNumber.AutoSize = true;
-            this.lbPageNumber.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPageNumber.Location = new System.Drawing.Point(651, 601);
-            this.lbPageNumber.Name = "lbPageNumber";
-            this.lbPageNumber.Size = new System.Drawing.Size(12, 15);
-            this.lbPageNumber.TabIndex = 0;
-            this.lbPageNumber.Text = "1";
-            // 
-            // btnNextPage
-            // 
-            this.btnNextPage.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNextPage.Location = new System.Drawing.Point(682, 597);
-            this.btnNextPage.Name = "btnNextPage";
-            this.btnNextPage.Size = new System.Drawing.Size(38, 21);
-            this.btnNextPage.TabIndex = 9;
-            this.btnNextPage.Text = ">";
-            this.btnNextPage.UseVisualStyleBackColor = true;
-            this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
-            // 
-            // btnPreviousPage
-            // 
-            this.btnPreviousPage.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreviousPage.Location = new System.Drawing.Point(597, 597);
-            this.btnPreviousPage.Name = "btnPreviousPage";
-            this.btnPreviousPage.Size = new System.Drawing.Size(38, 21);
-            this.btnPreviousPage.TabIndex = 8;
-            this.btnPreviousPage.Text = "<";
-            this.btnPreviousPage.UseVisualStyleBackColor = true;
-            this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
-            // 
-            // flpUserControls
-            // 
-            this.flpUserControls.AutoScroll = true;
-            this.flpUserControls.Location = new System.Drawing.Point(0, 81);
-            this.flpUserControls.Name = "flpUserControls";
-            this.flpUserControls.Size = new System.Drawing.Size(1215, 506);
-            this.flpUserControls.TabIndex = 6;
-            // 
-            // dgvDisplay
-            // 
-            this.dgvDisplay.AllowUserToAddRows = false;
-            this.dgvDisplay.AllowUserToDeleteRows = false;
-            this.dgvDisplay.AllowUserToOrderColumns = true;
-            this.dgvDisplay.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDisplay.ContextMenuStrip = this.cmsUpdate_Delete;
-            this.dgvDisplay.Location = new System.Drawing.Point(0, 81);
-            this.dgvDisplay.Name = "dgvDisplay";
-            this.dgvDisplay.ReadOnly = true;
-            this.dgvDisplay.Size = new System.Drawing.Size(1215, 506);
-            this.dgvDisplay.TabIndex = 0;
-            this.dgvDisplay.Visible = false;
-            this.dgvDisplay.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvData_CellMouseDown);
-            // 
-            // cmsUpdate_Delete
-            // 
-            this.cmsUpdate_Delete.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.updateToolStripMenuItem,
-            this.deleteToolStripMenuItem});
-            this.cmsUpdate_Delete.Name = "cmsUpdate_Delete";
-            this.cmsUpdate_Delete.Size = new System.Drawing.Size(113, 48);
-            // 
-            // updateToolStripMenuItem
-            // 
-            this.updateToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateToolStripMenuItem.Image = global::DVLDWinForm.Properties.Resources.Update_Person;
-            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.updateToolStripMenuItem.Text = "Update";
-            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteToolStripMenuItem.Image = global::DVLDWinForm.Properties.Resources.Delete_Person;
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
-            // btnAddNew
-            // 
-            this.btnAddNew.Location = new System.Drawing.Point(1084, 24);
-            this.btnAddNew.Name = "btnAddNew";
-            this.btnAddNew.Size = new System.Drawing.Size(116, 40);
-            this.btnAddNew.TabIndex = 5;
-            this.btnAddNew.Text = "Add New";
-            this.btnAddNew.UseVisualStyleBackColor = true;
-            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
-            // 
-            // btnSort_Filter
-            // 
-            this.btnSort_Filter.Location = new System.Drawing.Point(941, 24);
-            this.btnSort_Filter.Name = "btnSort_Filter";
-            this.btnSort_Filter.Size = new System.Drawing.Size(116, 40);
-            this.btnSort_Filter.TabIndex = 4;
-            this.btnSort_Filter.Text = "Sort \\ Filter";
-            this.btnSort_Filter.UseVisualStyleBackColor = true;
-            this.btnSort_Filter.Click += new System.EventHandler(this.btnSort_Filter_Click);
-            // 
-            // tbSearch
-            // 
-            this.tbSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSearch.Location = new System.Drawing.Point(664, 26);
-            this.tbSearch.Multiline = true;
-            this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(189, 38);
-            this.tbSearch.TabIndex = 3;
-            // 
-            // pnlDisplayMethod
-            // 
-            this.pnlDisplayMethod.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.pnlDisplayMethod.Controls.Add(this.btnDGV);
-            this.pnlDisplayMethod.Controls.Add(this.btnFLP);
-            this.pnlDisplayMethod.Location = new System.Drawing.Point(292, 26);
-            this.pnlDisplayMethod.Name = "pnlDisplayMethod";
-            this.pnlDisplayMethod.Size = new System.Drawing.Size(94, 39);
-            this.pnlDisplayMethod.TabIndex = 1;
-            // 
-            // btnDGV
-            // 
-            this.btnDGV.BackgroundImage = global::DVLDWinForm.Properties.Resources.Menu_Gray_DGV;
-            this.btnDGV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnDGV.Location = new System.Drawing.Point(53, 4);
-            this.btnDGV.Name = "btnDGV";
-            this.btnDGV.Size = new System.Drawing.Size(35, 29);
-            this.btnDGV.TabIndex = 6;
-            this.btnDGV.UseVisualStyleBackColor = true;
-            this.btnDGV.Click += new System.EventHandler(this.btnDGV_Click);
-            // 
-            // btnFLP
-            // 
-            this.btnFLP.BackgroundImage = global::DVLDWinForm.Properties.Resources.Menu_Gray_FLP;
-            this.btnFLP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnFLP.Location = new System.Drawing.Point(6, 4);
-            this.btnFLP.Name = "btnFLP";
-            this.btnFLP.Size = new System.Drawing.Size(35, 29);
-            this.btnFLP.TabIndex = 7;
-            this.btnFLP.UseVisualStyleBackColor = true;
-            this.btnFLP.Click += new System.EventHandler(this.btnFLP_Click);
-            // 
-            // pnlTypes
-            // 
-            this.pnlTypes.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.pnlTypes.Location = new System.Drawing.Point(6, 26);
-            this.pnlTypes.Name = "pnlTypes";
-            this.pnlTypes.Size = new System.Drawing.Size(252, 39);
-            this.pnlTypes.TabIndex = 0;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(851, 25);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(49, 40);
-            this.btnSearch.TabIndex = 2;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // cbSearchBy
-            // 
-            this.cbSearchBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSearchBy.DropDownWidth = 200;
-            this.cbSearchBy.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbSearchBy.FormattingEnabled = true;
-            this.cbSearchBy.ItemHeight = 17;
-            this.cbSearchBy.Location = new System.Drawing.Point(645, 39);
-            this.cbSearchBy.Name = "cbSearchBy";
-            this.cbSearchBy.Size = new System.Drawing.Size(18, 25);
-            this.cbSearchBy.TabIndex = 10;
-            // 
             // pnlShowTotal
             // 
-            this.pnlShowTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(240)))), ((int)(((byte)(255)))));
-            this.pnlShowTotal.Controls.Add(this.pictureBox1);
+            this.pnlShowTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(238)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
+            this.pnlShowTotal.Controls.Add(this.pbTotal);
             this.pnlShowTotal.Controls.Add(this.lbTotalType_Titel);
             this.pnlShowTotal.Controls.Add(this.lbTotalCount);
-            this.pnlShowTotal.Location = new System.Drawing.Point(1006, 106);
+            this.pnlShowTotal.Location = new System.Drawing.Point(1000, 109);
             this.pnlShowTotal.Name = "pnlShowTotal";
-            this.pnlShowTotal.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlShowTotal.Size = new System.Drawing.Size(194, 82);
-            this.pnlShowTotal.TabIndex = 0;
+            this.pnlShowTotal.Size = new System.Drawing.Size(200, 82);
+            this.pnlShowTotal.TabIndex = 1;
             // 
-            // lbTotalCount
+            // pbTotal
             // 
-            this.lbTotalCount.AutoSize = true;
-            this.lbTotalCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.lbTotalCount.Location = new System.Drawing.Point(16, 40);
-            this.lbTotalCount.Name = "lbTotalCount";
-            this.lbTotalCount.Size = new System.Drawing.Size(49, 30);
-            this.lbTotalCount.TabIndex = 0;
-            this.lbTotalCount.Text = "400";
+            this.pbTotal.BackColor = System.Drawing.Color.Transparent;
+            this.pbTotal.Location = new System.Drawing.Point(147, 52);
+            this.pbTotal.Name = "pbTotal";
+            this.pbTotal.Size = new System.Drawing.Size(25, 22);
+            this.pbTotal.TabIndex = 2;
+            this.pbTotal.TabStop = false;
             // 
             // lbTotalType_Titel
             // 
             this.lbTotalType_Titel.AutoSize = true;
+            this.lbTotalType_Titel.BackColor = System.Drawing.Color.Transparent;
             this.lbTotalType_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalType_Titel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbTotalType_Titel.Location = new System.Drawing.Point(12, 10);
+            this.lbTotalType_Titel.Location = new System.Drawing.Point(3, 9);
             this.lbTotalType_Titel.Name = "lbTotalType_Titel";
             this.lbTotalType_Titel.Size = new System.Drawing.Size(60, 21);
             this.lbTotalType_Titel.TabIndex = 1;
             this.lbTotalType_Titel.Text = "People";
             // 
-            // pictureBox1
+            // lbTotalCount
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(156, 46);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(25, 22);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.lbTotalCount.AutoSize = true;
+            this.lbTotalCount.BackColor = System.Drawing.Color.Transparent;
+            this.lbTotalCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.lbTotalCount.Location = new System.Drawing.Point(8, 44);
+            this.lbTotalCount.Name = "lbTotalCount";
+            this.lbTotalCount.Size = new System.Drawing.Size(49, 30);
+            this.lbTotalCount.TabIndex = 0;
+            this.lbTotalCount.Text = "400";
+            // 
+            // ucLogout1
+            // 
+            this.ucLogout1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.ucLogout1.Location = new System.Drawing.Point(3, 762);
+            this.ucLogout1.Name = "ucLogout1";
+            this.ucLogout1.Size = new System.Drawing.Size(211, 58);
+            this.ucLogout1.TabIndex = 11;
             // 
             // MainForm
             // 
@@ -518,7 +530,7 @@
             this.pnlDisplayMethod.ResumeLayout(false);
             this.pnlShowTotal.ResumeLayout(false);
             this.pnlShowTotal.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -555,10 +567,11 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         public System.Windows.Forms.ContextMenuStrip cmsUpdate_Delete;
         private System.Windows.Forms.ComboBox cbSearchBy;
-        private System.Windows.Forms.Panel pnlShowTotal;
         private System.Windows.Forms.Label lbTotalType_Titel;
         private System.Windows.Forms.Label lbTotalCount;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbTotal;
+        private UIHelper_Manger.GlassPanel pnlShowTotal;
+        private User_Controls.ucLogout ucLogout1;
     }
 }
 

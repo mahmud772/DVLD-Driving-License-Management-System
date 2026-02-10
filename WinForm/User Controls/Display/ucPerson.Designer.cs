@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.lbName = new System.Windows.Forms.Label();
             this.lbNationalNo_Titel = new System.Windows.Forms.Label();
             this.lbPersonID = new System.Windows.Forms.Label();
@@ -50,7 +49,6 @@
             this.pctrPhone = new System.Windows.Forms.PictureBox();
             this.pctrEmail = new System.Windows.Forms.PictureBox();
             this.pnlIDs = new System.Windows.Forms.Panel();
-            this.tmrAnimationSize = new System.Windows.Forms.Timer(this.components);
             this.btnUpdate_Delete = new System.Windows.Forms.Button();
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.pnlMoreInfo.SuspendLayout();
@@ -296,10 +294,6 @@
             this.pnlIDs.Size = new System.Drawing.Size(381, 33);
             this.pnlIDs.TabIndex = 55;
             // 
-            // tmrAnimationSize
-            // 
-            this.tmrAnimationSize.Tick += new System.EventHandler(this.tmrAnimationSize_Tick);
-            // 
             // btnUpdate_Delete
             // 
             this.btnUpdate_Delete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -329,7 +323,7 @@
             this.pbImage.TabStop = false;
             this.pbImage.Paint += new System.Windows.Forms.PaintEventHandler(this.pbImage_Paint);
             // 
-            // ctrlPerson
+            // ucPerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -341,7 +335,7 @@
             this.Controls.Add(this.btnShowMore_Less);
             this.Controls.Add(this.pbImage);
             this.Controls.Add(this.lbName);
-            this.Name = "ctrlPerson";
+            this.Name = "ucPerson";
             this.Size = new System.Drawing.Size(381, 296);
             this.Load += new System.EventHandler(this.ctrlPerson_Load);
             this.pnlMoreInfo.ResumeLayout(false);
@@ -386,7 +380,6 @@
         private System.Windows.Forms.Panel pnlMoreInfo;
         private System.Windows.Forms.Panel pnlContacts;
         private System.Windows.Forms.Panel pnlIDs;
-        private System.Windows.Forms.Timer tmrAnimationSize;
         private System.Windows.Forms.Button btnUpdate_Delete;
         //private ctrlImage ctrlImage1;
     }

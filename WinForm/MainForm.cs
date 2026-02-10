@@ -91,11 +91,11 @@ namespace DVLDWinForm
             clsUIHelper.CornerRadius(btnPeople, 5);
             clsUIHelper.CornerRadius(btnUsers, 5);
             clsUIHelper.CornerRadius(btnDrivers, 5);
+            clsUIHelper.CornerRadius(pnlShowTotal, 5);
             using (var tempImage = System.Drawing.Image.FromFile(@"C:\Users\m9816\Desktop\C#\DVLD\WinForm\Images\TopBackground.png"))
             {
                 pnlTopForm.BackgroundImage = new Bitmap(tempImage);
             }
-            
         }
         private void _Refresh()
         {
@@ -266,6 +266,8 @@ namespace DVLDWinForm
             _currentQuery.SearchValue = clsSearchType.IsTypeEnumString(_currentQuery.SearchBy) ?
                 Convert.ToInt64(tbSearch.Text) : tbSearch.Text;
             _LoadData();
+            _currentQuery.SearchBy = null;
+            _currentQuery.SearchValue = null;
         }
 
         private void btnSort_Filter_Click(object sender, EventArgs e)

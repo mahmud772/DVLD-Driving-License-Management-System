@@ -87,11 +87,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 316);
+            this.ClientSize = new System.Drawing.Size(476, 334);
             this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.pnlFind);
             this.Name = "frmFind";
             this.Text = "frmFind";
+            this.Load += new System.EventHandler(this.frmFind_Load);
             this.pnlFind.ResumeLayout(false);
             this.pnlFind.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSearch)).EndInit();

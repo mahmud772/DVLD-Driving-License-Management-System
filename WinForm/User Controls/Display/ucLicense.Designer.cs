@@ -87,10 +87,11 @@
             this.pbImage.Image = global::DVLDWinForm.Properties.Resources.User;
             this.pbImage.Location = new System.Drawing.Point(19, 3);
             this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(100, 88);
+            this.pbImage.Size = new System.Drawing.Size(88, 88);
             this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbImage.TabIndex = 35;
             this.pbImage.TabStop = false;
+            this.pbImage.Paint += new System.Windows.Forms.PaintEventHandler(this.pbImage_Paint);
             // 
             // lbNationalNo_Titel
             // 
@@ -172,7 +173,7 @@
             // 
             this.pbIsActive.BackColor = System.Drawing.SystemColors.Control;
             this.pbIsActive.Image = global::DVLDWinForm.Properties.Resources.NotActive;
-            this.pbIsActive.Location = new System.Drawing.Point(96, 66);
+            this.pbIsActive.Location = new System.Drawing.Point(89, 68);
             this.pbIsActive.Name = "pbIsActive";
             this.pbIsActive.Size = new System.Drawing.Size(16, 16);
             this.pbIsActive.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -328,7 +329,7 @@
             this.lbIssueReason_Titel.TabIndex = 54;
             this.lbIssueReason_Titel.Text = "ISSUE REASON   :";
             // 
-            // ctrlLicense
+            // ucLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -347,8 +348,9 @@
             this.Controls.Add(this.pbImage);
             this.Controls.Add(this.lbName);
             this.Controls.Add(this.lbDateOfBirth);
-            this.Name = "ctrlLicense";
+            this.Name = "ucLicense";
             this.Size = new System.Drawing.Size(338, 442);
+            this.Load += new System.EventHandler(this.ucLicense_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbIsActive)).EndInit();
             this.pnlMoreInfo.ResumeLayout(false);

@@ -17,5 +17,9 @@ namespace DVLDWinForm.Forms
         {
             InitializeComponent();
         }
+        public frmAddNew_UpdateUser()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using Common;
-using DVLDWinForm;
 using DVLD_BLL;
 using DVLD_DTO;
 using DVLD_Models;
+using DVLDWinForm;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
+using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.Expando;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,7 +27,8 @@ namespace DVLDWinForm
         public event Action OnVisibleChanged;
         public event Action OnUnvisibleChanged;
         private clsPerson_DTO _PersonInfo;
-        
+
+        clsControlAnimateHeight Animate;
         public clsPerson_DTO PersonInfo
         {
             get => _PersonInfo;
@@ -51,17 +54,18 @@ namespace DVLDWinForm
         public ucPerson()
         {
             InitializeComponent();
+            Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
             //clsStaticData_BLL.LoadAllStaticData();
-            _LoadDesign();
 
-            tmrAnimationSize.Interval = 15; // سرعة التحديث (بالملي ثانية)
-            tmrAnimationSize.Tick += tmrAnimationSize_Tick;
-            this.Height = _collapsedHeight; // تعيين الارتفاع الأصغر (e.g., 230)
-            pnlMoreInfo.Visible = false;    // إخفاء لوحة المعلومات الإضافية
-            pnlIDs.Visible = false;
-            btnShowMore_Less.Text = ">>";   // تعيين النص المناسب للزر
-            
-            //clsUIHelper.CornerRadius(this, 15);
+
+            //tmrAnimationSize.Interval = 15; // سرعة التحديث (بالملي ثانية)
+            //tmrAnimationSize.Tick += tmrAnimationSize_Tick;
+            //this.Height = _collapsedHeight; // تعيين الارتفاع الأصغر (e.g., 230)
+            //pnlMoreInfo.Visible = false;    // إخفاء لوحة المعلومات الإضافية
+            //pnlIDs.Visible = false;
+            //btnShowMore_Less.Text = ">>";   // تعيين النص المناسب للزر
+
+            ////clsUIHelper.CornerRadius(this, 15);
 
         }
         
@@ -123,12 +127,11 @@ namespace DVLDWinForm
 
         public void CollapseInstantly()
         {
-            this.Height = _collapsedHeight;
-            _UnvisibleComponents();
-            btnShowMore_Less.Text = ">>";
+            Animate.OnCollapse -= _Collapse;
+            Animate.OnCollapse += _Collapse;
+            Animate.OnExpand -= _Expand;
+            Animate.Collapse();
             clsUIHelper.CornerRadius(this, 15);
-            lbNationalNo_Titel.Visible = false;
-            lbNationalNo.Visible = false;
         }
 
 
@@ -140,7 +143,11 @@ namespace DVLDWinForm
 
         private void ctrlPerson_Load(object sender, EventArgs e)
         {
-
+            _LoadDesign();
+            clsUIHelper.CornerRadius(this, 15);
+            
+            Animate.OnCollapse += _Collapse;
+            Animate.Collapse();
         }
 
         
@@ -160,48 +167,38 @@ namespace DVLDWinForm
 
         }
 
-        private void tmrAnimationSize_Tick(object sender, EventArgs e)
-        {
-            // استدعاء دالة الحركة (Call the animation function)
-            bool isFinished = clsUIHelper.AnimateHeight(this, _targetHeight, _step);
-
-            if (isFinished)
-            {
-                tmrAnimationSize.Stop();
-                this.Tag = null; // إنهاء حالة التحريك (End animation state)
-                clsUIHelper.CornerRadius(this, 15);
-                // تحديث الحالة النهائية (Update final state)
-                if (this.Height == _collapsedHeight)
-                {
-                    _UnvisibleComponents();
-                    btnShowMore_Less.Text = ">>";
-                }
-                else
-                {
-                    btnShowMore_Less.Text = "<<";
-                }
-            }
-        }
+       
 
         private void btnShowMore_Less_Click(object sender, EventArgs e)
         {
-            //this.Tag = "IsAnimating"; // لمنع تداخل العمليات (To prevent operation overlap)
-            //this.Region = null;
-            if (this.Height == _collapsedHeight)
+            Animate.OnExpand -= _Expand;
+            Animate.OnExpand += _Expand;
+            Animate.OnCollapse -= _Collapse;
+            Animate.OnCollapse += _Collapse;
+            if (Animate.Status == clsControlAnimateHeight.enStatus.Closed)
             {
-                _targetHeight = _expandedHeight; // الهدف هو التوسيع
-                _VisibleComponents();
+                Animate.OnExpand -= _Collapse;
+                Animate.Expand();
             }
             else
             {
-                _targetHeight = _collapsedHeight; // الهدف هو التقليص
+                Animate.OnExpand -= _Expand;
+                Animate.Collapse();
             }
-
-            tmrAnimationSize.Start();
         }
 
-        
 
+        private void _Expand()
+        {
+            btnShowMore_Less.Text = "<<";
+            _VisibleComponents();
+        }
+        private void _Collapse()
+        {
+            pnlMoreInfo.Visible = false;
+            btnShowMore_Less.Text = ">>";
+            _UnvisibleComponents();
+        }
         private void btnUpdate_Delete_Click(object sender, EventArgs e)
         {
             if (PersonInfo != null && SelectdDTO == null)

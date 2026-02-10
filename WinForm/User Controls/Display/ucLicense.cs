@@ -3,6 +3,7 @@ using DVLD_BLL;
 using DVLD_DTO;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
+using DVLDWinForm.UIHelper_Manger;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,26 +25,19 @@ namespace DVLDWinForm.User_Controls
         public IDTO Info { get => LicenseInfo; set => LicenseInfo = value as clsLicenseCardInfo_DTO; }
 
         private int _targetHeight; // الارتفاع الذي نريد الوصول إليه
-        private const int _step = 20; // مقدار التغيير في كل خطوة (سرعة الحركة)
+        private const int _step = 10; // مقدار التغيير في كل خطوة (سرعة الحركة)
 
         // "We need to define the heights for both states."
         // (نحتاج إلى تحديد الارتفاعات لكلتا الحالتين).
         private int _collapsedHeight = 261;
         private int _expandedHeight = 450;
 
-
+        clsControlAnimateHeight Animate;
+        
         public ucLicense()
         {
             InitializeComponent();
-            _LoadDesign();
-            // إعداد المؤقت (Timer setup)
-            tmrAnimationSize.Interval = 15; // سرعة التحديث (بالملي ثانية)
-            tmrAnimationSize.Tick += tmrAnimationSize_Tick;
-            this.Height = _collapsedHeight; // تعيين الارتفاع الأصغر (e.g., 230)
-            pnlMoreInfo.Visible = false;    // إخفاء لوحة المعلومات الإضافية
-            btnShowMore_Less.Text = ">>";   // تعيين النص المناسب للزر
             
-            clsUIHelper.CornerRadius(this, 15);
         }
         private void _LoadLicenseInfo(clsLicenseCardInfo_DTO LicenseInfo)
         {
@@ -101,23 +95,48 @@ namespace DVLDWinForm.User_Controls
 
         private void btnShowMore_Less_Click(object sender, EventArgs e)
         {
-            this.Tag = "IsAnimating"; // لمنع تداخل العمليات (To prevent operation overlap)
-            this.Region = null;
-            if (this.Height == _collapsedHeight)
+            Animate.OnExpand -=_Expand;
+            Animate.OnExpand +=_Expand;
+            Animate.OnCollapse -=_Collapse;
+            Animate.OnCollapse +=_Collapse;
+            if(Animate.Status == clsControlAnimateHeight.enStatus.Closed) 
             {
-                _targetHeight = _expandedHeight; // الهدف هو التوسيع
-                pnlMoreInfo.Visible = true;
+                Animate.OnExpand -= _Collapse;
+                Animate.Expand();
             }
             else
-            {
-                _targetHeight = _collapsedHeight; // الهدف هو التقليص
+            {  
+                Animate.OnExpand -= _Expand;
+                Animate.Collapse();
             }
 
-            tmrAnimationSize.Start();
+            //    this.Tag = "IsAnimating"; // لمنع تداخل العمليات (To prevent operation overlap)
+            //this.Region = null;
+            //if (this.Height == _collapsedHeight)
+            //{
+            //    _targetHeight = _expandedHeight; // الهدف هو التوسيع
+            //    pnlMoreInfo.Visible = true;
+            //}
+            //else
+            //{
+            //    _targetHeight = _collapsedHeight; // الهدف هو التقليص
+            //}
+
+            //tmrAnimationSize.Start();
 
             
         }
+        private void _Expand()
+        {
+            pnlMoreInfo.Visible = true;
+            btnShowMore_Less.Text = "<<";
 
+        }
+        private void _Collapse()
+        {
+            pnlMoreInfo.Visible = false;
+            btnShowMore_Less.Text = ">>";
+        }
         private void tmrAnimationSize_Tick(object sender, EventArgs e)
         {
 
@@ -142,8 +161,19 @@ namespace DVLDWinForm.User_Controls
             }
         }
 
-        
+        private void pbImage_Paint(object sender, PaintEventArgs e)
+        {
+            clsUIHelper.MakeFramePictureBox(sender, e);
+        }
 
+        private void ucLicense_Load(object sender, EventArgs e)
+        {
+            _LoadDesign();
+            clsUIHelper.CornerRadius(this, 15);
+            Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
+            Animate.OnCollapse += _Collapse;
+            Animate.Collapse();
+        }
     }
 }
     

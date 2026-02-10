@@ -52,6 +52,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.Designer.cs">
+      <DependentUpon>frmAddNewLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateAppointment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateAppointment.Designer.cs">
+      <DependentUpon>frmAddNew_UpdateAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateApplication.Designer.cs">
+      <DependentUpon>frmUpdateApplication.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,28 +79,28 @@
     <Compile Include="prlMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddNew_UpdateDriver.cs">
+    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateDriver.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddNew_UpdateDriver.Designer.cs">
+    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateDriver.Designer.cs">
       <DependentUpon>frmAddNew_UpdateDriver.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAddNew_UpdatePerson.cs">
+    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddNew_UpdatePerson.Designer.cs">
+    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.Designer.cs">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAddNew_UpdateUser.cs">
+    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddNew_UpdateUser.Designer.cs">
+    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateUser.Designer.cs">
       <DependentUpon>frmAddNew_UpdateUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmCreateApplication.cs">
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmCreateApplication.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmCreateApplication.Designer.cs">
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmCreateApplication.Designer.cs">
       <DependentUpon>frmCreateApplication.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmFind.cs">
@@ -103,7 +121,11 @@
     <Compile Include="Forms\frmSortAndFilter.Designer.cs">
       <DependentUpon>frmSortAndFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIHelper_Manger\clsControlAnimateHeight.cs" />
     <Compile Include="UIHelper_Manger\clsFormLayoutHelper.cs" />
+    <Compile Include="UIHelper_Manger\GlassPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="User Controls\Display\IUserControl.cs" />
     <Compile Include="UIHelper_Manger\clsCRUDController.cs" />
     <Compile Include="UIHelper_Manger\clsDataDisplayAdapter.cs" />
@@ -213,10 +235,16 @@
     <Compile Include="User Controls\Filters\ucUsersFilter.Designer.cs">
       <DependentUpon>ucUsersFilter.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\frmAddNew_UpdatePerson.resx">
+    <Compile Include="User Controls\ucLogout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\ucLogout.Designer.cs">
+      <DependentUpon>ucLogout.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.resx">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmCreateApplication.resx">
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmCreateApplication.resx">
       <DependentUpon>frmCreateApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFind.resx">
@@ -288,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\Filters\ucUsersFilter.resx">
       <DependentUpon>ucUsersFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\ucLogout.resx">
+      <DependentUpon>ucLogout.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -412,6 +443,8 @@
   <ItemGroup>
     <None Include="Images\Search.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Images\Logout.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

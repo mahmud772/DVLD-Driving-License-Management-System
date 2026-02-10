@@ -112,7 +112,8 @@ namespace DVLD_BLL
 
         public static bool Login(string UserName, string Password)
         {
-            return clsUser_DAL.Login(UserName, Password);
+            clsCurrentUser.SetUser( clsUser_DAL.Login(UserName, Password));
+            return clsCurrentUser.User != null;
         }
 
         public bool CheckAccessPermission(int Permission)

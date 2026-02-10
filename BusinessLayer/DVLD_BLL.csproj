@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsCurrentUser.cs" />
     <Compile Include="Entities\clsApplication_BLL.cs" />
     <Compile Include="Entities\clsApplicationType_BLL.cs" />
     <Compile Include="clsBLHelper.cs" />

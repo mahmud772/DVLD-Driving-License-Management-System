@@ -102,15 +102,15 @@ namespace DVLDWinForm.Forms
         {
             ep.Clear();
             if (!(
-                clsValidation.IsValidNationalNo(ep, tbNationalNo) &&
-                clsValidation.IsValidWord(ep, tbFirstName) &&
-                clsValidation.IsValidWord(ep, tbSecondName) &&
-                clsValidation.IsValidWord(ep, tbThirdName) &&
-                clsValidation.IsValidWord(ep, tbLastName) &&
-                clsValidation.IsValidEmail(ep, tbEmail) &&
-                clsValidation.IsValidAddress(ep, tbAddress) &&
-                clsValidation.IsValidPhoneNumber(ep, tbPhone)&&
-                clsValidation.IsValidDateOfBirth(ep, dtpDateOfBirth)
+                clsValidation.IsValidNationalNo(tbNationalNo) &&
+                clsValidation.IsValidWord(tbFirstName) &&
+                clsValidation.IsValidWord(tbSecondName) &&
+                clsValidation.IsValidWord(tbThirdName) &&
+                clsValidation.IsValidWord(tbLastName) &&
+                clsValidation.IsValidEmail(tbEmail) &&
+                clsValidation.IsValidAddress(tbAddress) &&
+                clsValidation.IsValidPhoneNumber(tbPhone)&&
+                clsValidation.IsValidDateOfBirth(dtpDateOfBirth)
                 )) return false;
             if (_PersonInfo == null) return false;
 

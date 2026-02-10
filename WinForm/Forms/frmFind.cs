@@ -2,6 +2,7 @@
 using DVLD_DTO;
 using DVLD_Models;
 using DVLDWinForm.UIHelper;
+using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace DVLDWinForm.Forms
             _controlInterface = controlInterface;
             _fncFind = fncFind;
             _uiControl = controlInterface as UserControl;
-            _LoadDesign();
+            
 
         }
 
@@ -59,6 +60,12 @@ namespace DVLDWinForm.Forms
             }
             else
                 MessageBox.Show("Not Found !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void frmFind_Load(object sender, EventArgs e)
+        {
+            _LoadDesign();
+            new clsFormLayoutHelper(this , pnlContainer).ApplyLayout(); 
         }
     }
 }

@@ -63,8 +63,8 @@ namespace DVLDWinForm.Forms
 
         private bool _GetApplicationInfo()
         {
-            clsUIHelper.ErrorProvider.Clear();
-            if (clsValidation.IsEmpty(clsUIHelper.ErrorProvider, tbID , "Select a valid ID")) return false;
+            clsValidation.ep.Clear();
+            if (clsValidation.IsEmpty(tbID , "Select a valid ID")) return false;
             _ApplicationInfo = new clsApplication_DTO();
             _LocalApplicationInfo = new clsLocalDrivingLicenseApplication_DTO();
             if (cbApplicationTypes?.SelectedValue != null)
@@ -78,7 +78,6 @@ namespace DVLDWinForm.Forms
         private void frmCreateApplication_Load(object sender, EventArgs e)
         {
             _SetApplicationInfo();
-            clsUIHelper.ErrorProvider.ContainerControl = this;
         }
 
         
