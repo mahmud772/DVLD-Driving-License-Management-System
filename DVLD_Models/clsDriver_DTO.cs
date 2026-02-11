@@ -1,11 +1,11 @@
-﻿using DVLD_Models;
+﻿using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DVLD_DTO
+namespace DVLD_DTOs
 {
     public class clsDriver_DTO : clsPerson_DTO , IDTO
     {

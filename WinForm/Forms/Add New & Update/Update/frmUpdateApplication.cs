@@ -1,8 +1,8 @@
 ﻿using Common;
 using Common.Helpers;
 using DVLD_BLL;
-using DVLD_DTO;
-using DVLD_Models;
+using DVLD_DTOs;
+using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using System;
 using System.Collections.Generic;

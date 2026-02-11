@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLD_BLL;
-using DVLD_Models;
+using DVLD_DTOs;
 using DVLDWinForm.Forms;
 namespace DVLDWinForm.Tests
 {

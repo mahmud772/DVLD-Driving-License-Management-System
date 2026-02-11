@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.lbName = new System.Windows.Forms.Label();
             this.lbDateOfBirth = new System.Windows.Forms.Label();
             this.pbImage = new System.Windows.Forms.PictureBox();
@@ -41,7 +40,6 @@
             this.btnShowMore_Less = new System.Windows.Forms.Button();
             this.pbIsActive = new System.Windows.Forms.PictureBox();
             this.lbExpirationDate = new System.Windows.Forms.Label();
-            this.tmrAnimationSize = new System.Windows.Forms.Timer(this.components);
             this.pnlMoreInfo = new System.Windows.Forms.Panel();
             this.lbNotes_Titel = new System.Windows.Forms.Label();
             this.lbLicenseClass = new System.Windows.Forms.Label();
@@ -190,10 +188,6 @@
             this.lbExpirationDate.Size = new System.Drawing.Size(79, 26);
             this.lbExpirationDate.TabIndex = 39;
             this.lbExpirationDate.Text = "0001\\1\\1";
-            // 
-            // tmrAnimationSize
-            // 
-            this.tmrAnimationSize.Tick += new System.EventHandler(this.tmrAnimationSize_Tick);
             // 
             // pnlMoreInfo
             // 
@@ -387,7 +381,6 @@
         //private System.Windows.Forms.Label lbNotes;
         private System.Windows.Forms.Button btnShowMore_Less;
         private System.Windows.Forms.PictureBox pbIsActive;
-        private System.Windows.Forms.Timer tmrAnimationSize;
         private System.Windows.Forms.Panel pnlMoreInfo;
         private System.Windows.Forms.Panel pnlNotes;
         private System.Windows.Forms.Label lbNotes_Titel;

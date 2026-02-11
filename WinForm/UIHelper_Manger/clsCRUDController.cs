@@ -1,6 +1,6 @@
 ﻿using Common.Queries;
 using DVLD_BLL;
-using DVLD_DTO;
+using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.User_Controls.Filters;
 using System;

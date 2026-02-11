@@ -1,7 +1,7 @@
 ﻿using DVLDWinForm;
 using DVLD_BLL;
-using DVLD_DTO;
-using DVLD_Models;
+using DVLD_DTOs;
+using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using System;
 using System.Collections.Generic;
@@ -13,10 +13,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Common.clsApplicationEnums;
+using DVLDWinForm.Forms;
 
 namespace DVLDWinForm.User_Controls
 {
-    public partial class ucTestAppointment : UserControl
+    public partial class ucTestAppointment : UserControl , IUserControl
     {
         private clsTestAppointment_DTO _AppointmentInfo;
 
@@ -29,6 +30,7 @@ namespace DVLDWinForm.User_Controls
                 _SetAppointmentInfo(value);
             }
         }
+        public IDTO Info { get => _AppointmentInfo; set => AppointmentInfo = value as clsTestAppointment_DTO; }
         public ucTestAppointment()
         {
             InitializeComponent();

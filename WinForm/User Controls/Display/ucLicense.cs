@@ -1,6 +1,6 @@
 ﻿using Common;
 using DVLD_BLL;
-using DVLD_DTO;
+using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
@@ -19,25 +19,32 @@ namespace DVLDWinForm.User_Controls
 {
     public partial class ucLicense : UserControl , IUserControl
     {
-        
-        public clsLicenseCardInfo_DTO LicenseInfo { get; set =>  _LoadLicenseInfo(value);  }
 
-        public IDTO Info { get => LicenseInfo; set => LicenseInfo = value as clsLicenseCardInfo_DTO; }
+        private clsLicenseCardInfo_DTO _LicenseInfo { get; set; }
+        public clsLicenseCardInfo_DTO LicenseInfo
+        {
+            get => _LicenseInfo;
+            set
+            {
+                _LicenseInfo = value;
+                _LoadLicenseInfo(value);
+            }
+        }
+        public IDTO Info { get => _LicenseInfo; set => LicenseInfo = value as clsLicenseCardInfo_DTO; }
 
-        private int _targetHeight; // الارتفاع الذي نريد الوصول إليه
+
         private const int _step = 10; // مقدار التغيير في كل خطوة (سرعة الحركة)
 
-        // "We need to define the heights for both states."
-        // (نحتاج إلى تحديد الارتفاعات لكلتا الحالتين).
-        private int _collapsedHeight = 261;
-        private int _expandedHeight = 450;
+        private const int _collapsedHeight = 261;
+        private const int _expandedHeight = 450;
 
         clsControlAnimateHeight Animate;
         
         public ucLicense()
         {
             InitializeComponent();
-            
+            Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
+            CollapseInstantly();
         }
         private void _LoadLicenseInfo(clsLicenseCardInfo_DTO LicenseInfo)
         {
@@ -63,68 +70,39 @@ namespace DVLDWinForm.User_Controls
             clsUIHelper.FitText(lbName , 8.0f);
         }
 
-        
-        private void LoadImageDesign()
-        {
-            clsUIHelper.MakePictureBoxCircular(pbImage);
-            pbImage.SizeMode = PictureBoxSizeMode.Zoom;
-        }
-        private void LoadUserControlDesign()
-        {
-            clsUIHelper.CornerRadius(this, 25);
-        }
-        private void LoadPanelsDesign()
-        {
-            clsUIHelper.CornerRadius(pnlMoreInfo, 25);
-            clsUIHelper.CornerRadius(pnlNotes, 25);
-
-        }
         private void _LoadDesign()
         {
-            LoadImageDesign();
-            LoadUserControlDesign();
-            LoadImageIsActivelDesign();
-            LoadPanelsDesign();
-        }
-        private void LoadImageIsActivelDesign()
-        {
+            clsUIHelper.MakePictureBoxCircular(pbImage);
+            clsUIHelper.CornerRadius(this, 25);
+            clsUIHelper.CornerRadius(pnlMoreInfo, 25);
+            clsUIHelper.CornerRadius(pnlNotes, 25);
             clsUIHelper.CornerRadius(pbIsActive, 5);
         }
-       
 
+        public void CollapseInstantly()
+        {
+            Animate.OnCollapse -= _Collapse;
+            Animate.OnCollapse += _Collapse;
+            Animate.OnExpand -= _Expand;
+            Animate.QuickCollapse();
+            clsUIHelper.CornerRadius(this, 15);
+        }
 
         private void btnShowMore_Less_Click(object sender, EventArgs e)
         {
-            Animate.OnExpand -=_Expand;
-            Animate.OnExpand +=_Expand;
-            Animate.OnCollapse -=_Collapse;
-            Animate.OnCollapse +=_Collapse;
-            if(Animate.Status == clsControlAnimateHeight.enStatus.Closed) 
+            Animate.OnCollapse -= _Collapse;
+            Animate.OnExpand -= _Expand;
+            if (Animate.Status == clsControlAnimateHeight.enStatus.Closed)
             {
-                Animate.OnExpand -= _Collapse;
+                Animate.OnExpand += _Expand;
                 Animate.Expand();
             }
             else
-            {  
-                Animate.OnExpand -= _Expand;
+            {
+                Animate.OnCollapse += _Collapse;
                 Animate.Collapse();
             }
 
-            //    this.Tag = "IsAnimating"; // لمنع تداخل العمليات (To prevent operation overlap)
-            //this.Region = null;
-            //if (this.Height == _collapsedHeight)
-            //{
-            //    _targetHeight = _expandedHeight; // الهدف هو التوسيع
-            //    pnlMoreInfo.Visible = true;
-            //}
-            //else
-            //{
-            //    _targetHeight = _collapsedHeight; // الهدف هو التقليص
-            //}
-
-            //tmrAnimationSize.Start();
-
-            
         }
         private void _Expand()
         {
@@ -137,29 +115,7 @@ namespace DVLDWinForm.User_Controls
             pnlMoreInfo.Visible = false;
             btnShowMore_Less.Text = ">>";
         }
-        private void tmrAnimationSize_Tick(object sender, EventArgs e)
-        {
-
-            // استدعاء دالة الحركة (Call the animation function)
-            bool isFinished = clsUIHelper.AnimateHeight(this, _targetHeight, _step);
-
-            if (isFinished)
-            {
-                tmrAnimationSize.Stop();
-                this.Tag = null; // إنهاء حالة التحريك (End animation state)
-                clsUIHelper.CornerRadius(this, 15);
-                // تحديث الحالة النهائية (Update final state)
-                if (this.Height == _collapsedHeight)
-                {
-                    pnlMoreInfo.Visible = false;
-                    btnShowMore_Less.Text = ">>";
-                }
-                else
-                {
-                    btnShowMore_Less.Text = "<<";
-                }
-            }
-        }
+        
 
         private void pbImage_Paint(object sender, PaintEventArgs e)
         {
@@ -169,10 +125,6 @@ namespace DVLDWinForm.User_Controls
         private void ucLicense_Load(object sender, EventArgs e)
         {
             _LoadDesign();
-            clsUIHelper.CornerRadius(this, 15);
-            Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
-            Animate.OnCollapse += _Collapse;
-            Animate.Collapse();
         }
     }
 }

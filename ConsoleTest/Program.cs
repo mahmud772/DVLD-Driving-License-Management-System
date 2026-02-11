@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
-using DVLD_DTO;
+using DVLD_DTOs;
 namespace ConsoleTest
 {
     delegate bool ConditionAge(int Age);

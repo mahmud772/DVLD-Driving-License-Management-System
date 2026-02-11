@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DVLD_DTO.Properties {
+namespace DVLD_DTOs.Properties {
     using System;
     
     

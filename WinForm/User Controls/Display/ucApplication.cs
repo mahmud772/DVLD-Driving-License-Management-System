@@ -1,7 +1,7 @@
 ﻿using DVLDWinForm;
 using DVLD_BLL;
-using DVLD_DTO;
-using DVLD_Models;
+using DVLD_DTOs;
+using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
 using System;

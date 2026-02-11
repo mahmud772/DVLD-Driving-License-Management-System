@@ -1,7 +1,7 @@
 ﻿using Common;
 using Common.Helpers;
 using DVLD_BLL;
-using DVLD_DTO;
+using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using System;

@@ -1,6 +1,6 @@
 ﻿using DVLD_DAL;
-using DVLD_DTO;
-using DVLD_Models;
+using DVLD_DTOs;
+using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
 using System.Data;

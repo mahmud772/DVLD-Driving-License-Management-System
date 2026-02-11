@@ -1,7 +1,7 @@
 ﻿using Common;
 using DVLD_BLL;
-using DVLD_DTO;
-using DVLD_Models;
+using DVLD_DTOs;
+using DVLD_DTOs;
 using DVLDWinForm;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
@@ -43,7 +43,6 @@ namespace DVLDWinForm
 
         public Func<IDTO> SelectdDTO;
         
-        private int _targetHeight; // الارتفاع الذي نريد الوصول إليه
         private const int _step = 20;
         // "We need to define the heights for both states."
         // (نحتاج إلى تحديد الارتفاعات لكلتا الحالتين).
@@ -55,18 +54,7 @@ namespace DVLDWinForm
         {
             InitializeComponent();
             Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
-            //clsStaticData_BLL.LoadAllStaticData();
-
-
-            //tmrAnimationSize.Interval = 15; // سرعة التحديث (بالملي ثانية)
-            //tmrAnimationSize.Tick += tmrAnimationSize_Tick;
-            //this.Height = _collapsedHeight; // تعيين الارتفاع الأصغر (e.g., 230)
-            //pnlMoreInfo.Visible = false;    // إخفاء لوحة المعلومات الإضافية
-            //pnlIDs.Visible = false;
-            //btnShowMore_Less.Text = ">>";   // تعيين النص المناسب للزر
-
-            ////clsUIHelper.CornerRadius(this, 15);
-
+            CollapseInstantly();
         }
         
 
@@ -99,30 +87,13 @@ namespace DVLDWinForm
             return true;
         }
         
-
-
-        private void LoadImageDesign()
+        private void _LoadDesign()
         {
             clsUIHelper.MakePictureBoxCircular(pbImage);
-            
-        }
-        private void LoadUserControlDesign()
-        {
             clsUIHelper.CornerRadius(this, 25);
-        }
-
-        private void LoadPanelsDesign()
-        {
             clsUIHelper.CornerRadius(pnlContacts, 25);
             clsUIHelper.CornerRadius(pnlMoreInfo, 25);
             clsUIHelper.CornerRadius(pnlIDs, 25);
-
-        }
-        private void _LoadDesign()
-        {
-            LoadImageDesign();
-            LoadUserControlDesign();
-            LoadPanelsDesign();
         }
 
         public void CollapseInstantly()
@@ -130,7 +101,7 @@ namespace DVLDWinForm
             Animate.OnCollapse -= _Collapse;
             Animate.OnCollapse += _Collapse;
             Animate.OnExpand -= _Expand;
-            Animate.Collapse();
+            Animate.QuickCollapse();
             clsUIHelper.CornerRadius(this, 15);
         }
 
@@ -146,8 +117,6 @@ namespace DVLDWinForm
             _LoadDesign();
             clsUIHelper.CornerRadius(this, 15);
             
-            Animate.OnCollapse += _Collapse;
-            Animate.Collapse();
         }
 
         
@@ -171,18 +140,16 @@ namespace DVLDWinForm
 
         private void btnShowMore_Less_Click(object sender, EventArgs e)
         {
-            Animate.OnExpand -= _Expand;
-            Animate.OnExpand += _Expand;
             Animate.OnCollapse -= _Collapse;
-            Animate.OnCollapse += _Collapse;
+            Animate.OnExpand -= _Expand;
             if (Animate.Status == clsControlAnimateHeight.enStatus.Closed)
             {
-                Animate.OnExpand -= _Collapse;
+                Animate.OnExpand += _Expand;
                 Animate.Expand();
             }
             else
             {
-                Animate.OnExpand -= _Expand;
+                Animate.OnCollapse += _Collapse;
                 Animate.Collapse();
             }
         }
@@ -195,7 +162,6 @@ namespace DVLDWinForm
         }
         private void _Collapse()
         {
-            pnlMoreInfo.Visible = false;
             btnShowMore_Less.Text = ">>";
             _UnvisibleComponents();
         }

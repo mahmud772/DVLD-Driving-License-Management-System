@@ -1,8 +1,8 @@
 ﻿using Common;
 using Common.Helpers;
 using DVLD_BLL;
-using DVLD_DTO;
-using DVLD_Models;
+using DVLD_DTOs;
+using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
@@ -54,7 +54,7 @@ namespace DVLDWinForm.Forms
             cbApplicationTypes.DisplayMember = "ApplicationTypeTitle"; // النص الذي يظهر (The displayed text)
             cbApplicationTypes.ValueMember = "ApplicationTypeID";     // القيمة المخفية (The hidden value)
             
-            _LicenseClassesList = clsStaticData_BLL.LicenseClasses;
+            _LicenseClassesList = clsStaticData_BLL.LicenseClasses;// نفس الشيء
             cbLicenseClass?.DataSource = _LicenseClassesList;
             cbLicenseClass.DisplayMember = "ClassName";
             cbLicenseClass.ValueMember = "LicenseClassID";
@@ -68,7 +68,7 @@ namespace DVLDWinForm.Forms
             _ApplicationInfo = new clsApplication_DTO();
             _LocalApplicationInfo = new clsLocalDrivingLicenseApplication_DTO();
             if (cbApplicationTypes?.SelectedValue != null)
-                _ApplicationInfo.ApplicationTypeID = cbApplicationTypes.SelectedIndex + 1;
+                _ApplicationInfo.ApplicationTypeID = Convert.ToByte(cbApplicationTypes.SelectedItem);
             _ApplicationInfo.ApplicantPersonID = Convert.ToInt32(tbID.Text?.Trim());
             _LocalApplicationInfo.LicenseClass = clsLicenseEnumConverter.ToClass(cbLicenseClass.SelectedIndex + 1);
             return true;
@@ -103,13 +103,23 @@ namespace DVLDWinForm.Forms
             tbID.Text = frm?.SelectedID;
         }
 
-
+        private void _OperationsLicense()
+        {
+            if(_ApplicationInfo?.ApplicationTypeID == 2)
+                clsLicense_BLL.RenewLicense(Convert.ToInt32(tbID?.Text) , _ApplicationInfo.ApplicationID);
+            else if(_ApplicationInfo?.ApplicationTypeID == 3)
+                clsLicense_BLL.ReplacementforLostLicense(Convert.ToInt32(tbID?.Text), _ApplicationInfo.ApplicationID);
+            else if(_ApplicationInfo?.ApplicationTypeID == 4)
+                clsLicense_BLL.ReplacementforDamagedLicense(Convert.ToInt32(tbID?.Text) , _ApplicationInfo.ApplicationID);
+        }
 
         private void _CreateApplication()
         {
             clsApplication_BLL Application = new clsApplication_BLL();
             Application.Application = _ApplicationInfo;
             Application.Save();
+            if(Application.Application.ApplicationTypeID >= 2 && Application.Application.ApplicationTypeID <= 4) 
+                _OperationsLicense();
         }
         private void _CreateLoaclApplication()
         {
@@ -138,13 +148,14 @@ namespace DVLDWinForm.Forms
         }
         private void cbApplicationTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cbApplicationTypes.SelectedIndex == 0) // New Local Driving License Service
+            clsApplicationType_DTO ApplicationType = cbApplicationTypes.SelectedItem as clsApplicationType_DTO;
+            if ( ApplicationType.ApplicationTypeID == 1) // New Local Driving License Service
             {
                 CreateApp = _CreateLoaclApplication;
                 OpenForm = () => new frmFind(new ucPerson() , clsPerson_BLL.Find);
                 _UpdateForm_NewLocalApplication();
             }
-            else if(cbApplicationTypes.SelectedIndex == 6) // RetakeTest
+            else if (ApplicationType.ApplicationTypeID == 8) // RetakeTest
             {
                 CreateApp = _CreateApplication;
                 OpenForm = () => new frmFind(new ucApplication() , clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);

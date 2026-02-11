@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DVLD_DTO
+namespace DVLD_DTOs
 {
     public class clsTestType_DTO : IDTO
     {

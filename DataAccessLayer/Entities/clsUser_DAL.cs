@@ -4,7 +4,7 @@ using Common.Helpers;
 using Common.Queries;
 using DVLD_DAL;
 using DVLD_DAL.Mappers;
-using DVLD_Models;
+using DVLD_DTOs;
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using DVLD_BLL;
-using DVLD_DTO;
+using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
 using System;
@@ -16,7 +16,7 @@ namespace DVLDWinForm
 {
     public partial class ucDriver : UserControl , IUserControl
     {
-        private clsDriver_DTO _DriverInfo {  get; set => _LoadDriverInfo(value); }
+        private clsDriver_DTO _DriverInfo { get; set; }
 
         public clsDriver_DTO DriverInfo
         {
@@ -31,22 +31,11 @@ namespace DVLDWinForm
         public ucDriver()
         {
             InitializeComponent();
-            _LoadDesign();
-            UnvisibleComponents();
-            ctrlPerson1.CollapseInstantly();
-            this.Height = ctrlPerson1._collapsedHeight;
-
-
         }
 
-
-        private void LoadUserControlDesign()
-        {
-            clsUIHelper.CornerRadius(this, 25);
-        }
         private void _LoadDesign()
         {
-            LoadUserControlDesign();
+            clsUIHelper.CornerRadius(this, 25);
         }
 
         
@@ -87,7 +76,10 @@ namespace DVLDWinForm
         
         private void ctrlDriver_Load(object sender, EventArgs e)
         {
-           
+            _LoadDesign();
+            UnvisibleComponents();
+            ctrlPerson1.CollapseInstantly();
+            this.Height = ctrlPerson1._collapsedHeight;
         }
     }
 }

@@ -3,7 +3,7 @@ using Common.Filters;
 using Common.Helpers;
 using Common.Queries;
 using DVLD_DAL.Mappers;
-using DVLD_DTO;
+using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;

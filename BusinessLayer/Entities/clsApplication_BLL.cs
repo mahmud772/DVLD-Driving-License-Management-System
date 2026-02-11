@@ -2,8 +2,7 @@
 using Common.Helpers;
 using Common.Queries;
 using DVLD_DAL;
-using DVLD_DTO;
-using DVLD_Models;
+using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
 namespace DVLD_BLL
@@ -11,11 +10,11 @@ namespace DVLD_BLL
     public enum enMode { Create = 1, Update = 2 }
     public class clsApplication_BLL : IBLL
     {
-
         enMode Mode = enMode.Create;
         public bool IsNew => Mode == enMode.Create;
         public clsApplication_DTO Application { get; set; }
-        public IDTO DTO { get => Application; set => value = Application; }
+        public IDTO DTO { get => Application; set => Application = value as clsApplication_DTO; }
+
         public clsApplication_BLL()
         {
             Application = new clsApplication_DTO
@@ -90,7 +89,7 @@ namespace DVLD_BLL
             this.Application.ApplicationDate = clsBLHelper.GetDate_Now();
             this.Application.PaidFees = clsApplicationType_BLL.GetApplicationFees(this.Application.ApplicationTypeID);
 
-            this.Application.CreatedByUserID = 17;
+            this.Application.CreatedByUserID = clsCurrentUser.User.UserID;
 
             this.Application.ApplicationID = clsApplication_DAL.CreateApplication(this.Application);
             return (this.Application.ApplicationID > 0);

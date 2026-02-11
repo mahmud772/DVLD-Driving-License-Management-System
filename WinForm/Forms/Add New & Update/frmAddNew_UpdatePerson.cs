@@ -1,5 +1,5 @@
 ﻿using DVLD_BLL;
-using DVLD_Models;
+using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using System;

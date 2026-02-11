@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DVLD_DTO
+namespace DVLD_DTOs
 {
     public class clsLicenseCardInfo_DTO : IDTO
     {
-        public int ID { get => LicenseID; set => value = LicenseID; }
+        public int ID { get => LicenseID; set => LicenseID = value; }
         public int LicenseID { get; set; }
         public int DriverID { get; set; }
         public clsLicenseEnums.enLicenseClasses LicenseClass { get; set; }

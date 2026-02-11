@@ -1,12 +1,12 @@
 ﻿using Common;
-using DVLD_DTO;
+using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DVLD_Models
+namespace DVLD_DTOs
 {
     public class clsApplication_DTO : IDTO
     {

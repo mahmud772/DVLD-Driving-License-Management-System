@@ -94,5 +94,12 @@ namespace DVLDWinForm.UIHelper_Manger
             OnCollapse?.Invoke();
             _animationTimer.Start();
         }
+        public void QuickCollapse()
+        {
+            Status = enStatus.Closed;
+            _isExpanding = false;
+            OnCollapse?.Invoke();
+            _userControl.Height = _collapsedHeight;
+        }
     }
 }

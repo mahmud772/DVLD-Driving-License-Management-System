@@ -2,7 +2,7 @@
 using Common.Helpers;
 using Common.Queries;
 using DVLD_DAL;
-using DVLD_DTO;
+using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -61,17 +61,6 @@ namespace DVLD_BLL
             return Model == null ? null : new clsLicense_BLL(Model);
         }
 
-        public static bool FindByID(int LicenseID, out clsLicense_BLL License)
-        {
-            clsLicense_DTO Model = clsLicense_DAL.LoadLicenseInfoByID(LicenseID);
-            if (Model == null)
-            {
-                License = null;
-                return false;
-            }
-            License = new clsLicense_BLL(Model);
-            return true;
-        }
 
         public static int GetDriverIDByLicenseID(int LicenseID)
         {
@@ -174,28 +163,8 @@ namespace DVLD_BLL
             NewLicense.License.IssueReason = IssueReason;
             NewLicense.License.IsActive = true;
 
-            // ملاحظة: دالة _AddNewLicense ستتولى حساب التاريخ والرسوم تلقائياً
             return NewLicense.Save();
 
-            //if (ApplicationID <= 0) return false;
-            //clsLicense_BLL OldLicense = FindByID(LicenseID);
-            //if (OldLicense == null || !OldLicense.License.IsActive) return false;
-
-
-            //OldLicense.License.IsActive = false;
-            //if (!OldLicense.Save()) return false;
-
-
-            //clsLicense_BLL NewLicense = new clsLicense_BLL();
-
-
-            //NewLicense.License.ApplicationID = ApplicationID;
-
-            //NewLicense = OldLicense;
-            //NewLicense.License.IssueReason = IssueReason ;
-            //NewLicense.License.IsActive = true;
-            //_IsFirstTime = false;
-            //return NewLicense.Save();
         }
         public static bool RenewLicense(int LicenseID, int ApplicationID)
         {
