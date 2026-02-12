@@ -31,9 +31,9 @@ namespace DVLDWinForm.UIHelper_Manger
             if(_IsEmpty(tb))
             {
                 ep.SetError(tb, ErrorMessage);
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
         public static bool IsNumber(TextBox tb, string ErrorMessage)
         {

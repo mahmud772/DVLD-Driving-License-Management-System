@@ -82,7 +82,7 @@ namespace DVLD_BLL
                 this.License.ExpirationDate = clsBLHelper.GetDate_Now().AddYears(clsLicenseClass_BLL.GetDefaultValidityLength(clsLicenseEnumConverter.ToInt(this.License.LicenseClass)));
 
 
-            this.License.CreatedByUserID = 1;
+            this.License.CreatedByUserID = clsCurrentUser.User.UserID;
             this.License.IsActive = true;
 
             this.License.LicenseID = clsLicense_DAL.AddNewLicense(this.License);
@@ -135,15 +135,15 @@ namespace DVLD_BLL
             clsLicense_BLL OldLicense = FindByID(LicenseID);
             if (OldLicense == null || !OldLicense.License.IsActive) return false;
 
-
-            // 1. إيقاف الرخصة القديمة
+            if ( IssueReason == clsLicenseEnums.enIssueReason.Renew && OldLicense.License.ExpirationDate < clsBLHelper.GetDate_Now() ) return false;
+            //  إيقاف الرخصة القديمة
 
 
 
             OldLicense.License.IsActive = false;
             if (!OldLicense.Save()) return false;
 
-            // 2. إنشاء كائن الرخصة الجديد بنسخ البيانات
+            //  إنشاء كائن الرخصة الجديد بنسخ البيانات
             clsLicense_BLL NewLicense = new clsLicense_BLL();
 
 
@@ -159,7 +159,7 @@ namespace DVLD_BLL
 
             NewLicense.License.ApplicationID = ApplicationID;
 
-            NewLicense = OldLicense;
+            //NewLicense = OldLicense;
             NewLicense.License.IssueReason = IssueReason;
             NewLicense.License.IsActive = true;
 

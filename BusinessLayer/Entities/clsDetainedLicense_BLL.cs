@@ -50,8 +50,13 @@ namespace DVLD_BLL
 
         public static clsDetainedLicense_BLL FindByDetainID(int DetainID)
         {
-
             clsDetainedLicense_DTO Detain = clsDetainedLicense_DAL.LoadDetainedLicenseByID(DetainID);
+
+            return Detain == null ? null : new clsDetainedLicense_BLL(Detain);
+        }
+        public static clsDetainedLicense_BLL FindDetainedLicenseByLicenseID(int LicenseID)
+        {
+            clsDetainedLicense_DTO Detain = clsDetainedLicense_DAL.LoadDetainedLicenseByLicenseID(LicenseID);
 
             return Detain == null ? null : new clsDetainedLicense_BLL(Detain);
         }
@@ -114,11 +119,23 @@ namespace DVLD_BLL
 
         }
 
+        public static bool ReleaseLicense(int LicenseID, int ApplicationID)
+        {
+            clsDetainedLicense_DTO detainedLicense = FindDetainedLicenseByLicenseID(LicenseID)?.Detain;
+            detainedLicense.IsReleased = true;
+            detainedLicense.ReleaseDate = clsBLHelper.GetDate_Now();
+            detainedLicense.ReleasedByUserID = clsCurrentUser.User.UserID;
+            detainedLicense.ReleaseApplicationID = ApplicationID;
 
+            if (clsDetainedLicense_DAL.ReleaseLicense(detainedLicense)) return true;
+
+            return false;
+        }
         private bool _AddNewDetain()
         {
             this.Detain.DetainDate = clsBLHelper.GetDate_Now();
-
+            this.Detain.CreatedByUserID = clsCurrentUser.User.UserID;
+            this.Detain.DetainDate = clsBLHelper.GetDate_Now();
             this.Detain.DetainID = clsDetainedLicense_DAL.AddNewDetainedLicense(this.Detain);
             return (this.Detain.DetainID > 0);
         }

@@ -97,10 +97,10 @@
     <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateUser.Designer.cs">
       <DependentUpon>frmAddNew_UpdateUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Add New &amp; Update\Add New\frmCreateApplication.cs">
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\frmCreateApplication.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Add New &amp; Update\Add New\frmCreateApplication.Designer.cs">
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\frmCreateApplication.Designer.cs">
       <DependentUpon>frmCreateApplication.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmFind.cs">
@@ -135,6 +135,9 @@
     <Compile Include="UIHelper_Manger\clsValidation.cs" />
     <Compile Include="UIHelper_Manger\IDisplayView.cs" />
     <Compile Include="UIHelper_Manger\IPageableLoader.cs" />
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\ApplicationFactory.cs" />
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\FormStateManager.cs" />
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\LicenseOperationManager.cs" />
     <Compile Include="User Controls\Display\ucApplication.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -244,7 +247,7 @@
     <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.resx">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmCreateApplication.resx">
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmApplication\frmCreateApplication.resx">
       <DependentUpon>frmCreateApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFind.resx">

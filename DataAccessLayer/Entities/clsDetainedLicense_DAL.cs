@@ -106,6 +106,18 @@ namespace DVLD_DAL
                 });
             return Model;
         }
+        public static clsDetainedLicense_DTO LoadDetainedLicenseByLicenseID(int LicenseID)
+        {
+            clsDetainedLicense_DTO Model = null;
+            string Query = "SELECT * FROM DetainedLicenses WHERE LicenseID = @LicenseID And IsReleased = 0";
+
+            DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue(Command, "@LicenseID", LicenseID),
+                Reader =>
+                {
+                    Model = _Reader(Reader);
+                });
+            return Model;
+        }
 
         // إضافة احتجاز رخصة جديدة
         public static int AddNewDetainedLicense(clsDetainedLicense_DTO Model)
