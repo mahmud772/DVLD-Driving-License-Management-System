@@ -186,6 +186,9 @@ namespace DVLD_BLL
             return clsDetainedLicense_DAL.IsReleaseLicense(DetainID) ? false : clsDetainedLicense_DAL.DeleteDetainedLicenseByID(DetainID);
         }
 
-
+        public static int GetPersonIDByDetainID(int DetainID)
+        {
+            return clsDetainedLicense_DAL.LoadPersonIDByDetainID(DetainID);
+        }
     }
 }

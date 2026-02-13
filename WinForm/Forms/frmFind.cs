@@ -17,7 +17,7 @@ namespace DVLDWinForm.Forms
 {
     public partial class frmFind : Form
     {
-        public string? SelectedID { get; private set; }
+        public string SelectedID { get; private set; }
 
         IUserControl _controlInterface;
         UserControl _uiControl;

@@ -27,7 +27,7 @@ namespace DVLDWinForm.Forms
         private void btnLogin_Click(object sender, EventArgs e)
         {
             clsValidation.ep.Clear();
-            if(clsValidation.IsValidWord(tbUsername , "Enter a Valid User Name") && !clsValidation.IsEmpty(tbPassword , "Enter a Valid Password")) return;
+            if(!clsValidation.IsValidWord(tbUsername , "Enter a Valid User Name") || clsValidation.IsEmpty(tbPassword , "Enter a Valid Password")) return;
             if (!clsUser_BLL.Login(tbUsername?.Text , tbPassword?.Text))
             {
                 lblError.Text = "Incorrect Password or User Name";

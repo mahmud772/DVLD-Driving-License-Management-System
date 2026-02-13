@@ -17,22 +17,28 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
                 return false;
 
             bool result = false;
-
-            if (ApplicationType == clsApplicationEnums.enApplicationType.RenewDrivingLicense)
+            switch (ApplicationType)
             {
-                result = clsLicense_BLL.RenewLicense(ID, ApplicationID);
-            }
-            else if (ApplicationType == clsApplicationEnums.enApplicationType.ReplacementForLostDrivingLicense)
-            {
-                result = clsLicense_BLL.ReplacementforLostLicense(ID, ApplicationID);
-            }
-            else if (ApplicationType == clsApplicationEnums.enApplicationType.ReplacementForDamagedDrivingLicense)
-            {
-                result = clsLicense_BLL.ReplacementforDamagedLicense(ID, ApplicationID);
-            }
-            else if (ApplicationType == clsApplicationEnums.enApplicationType.ReleaseDetainedDrivingLicsense)
-            {
-                result = clsDetainedLicense_BLL.ReleaseLicense(ID, ApplicationID);
+                case clsApplicationEnums.enApplicationType.NewLocalDrivingLicense:
+                    break;
+                case clsApplicationEnums.enApplicationType.RenewDrivingLicense:
+                    result = clsLicense_BLL.RenewLicense(ID, ApplicationID);
+                    break;
+                case clsApplicationEnums.enApplicationType.ReplacementForLostDrivingLicense:
+                    result = clsLicense_BLL.ReplacementforLostLicense(ID, ApplicationID);
+                    break;
+                case clsApplicationEnums.enApplicationType.ReplacementForDamagedDrivingLicense:
+                    result = clsLicense_BLL.ReplacementforDamagedLicense(ID, ApplicationID);
+                    break;
+                case clsApplicationEnums.enApplicationType.ReleaseDetainedDrivingLicsense:
+                    result = clsDetainedLicense_BLL.ReleaseLicense(ID, ApplicationID);
+                    break;
+                case clsApplicationEnums.enApplicationType.NewInternationalLicense:
+                    break;
+                case clsApplicationEnums.enApplicationType.RetakeTest:
+                    break;
+                default:
+                    break;
             }
 
             return result;

@@ -70,11 +70,11 @@
             this.lbPaidFees2.AutoSize = true;
             this.lbPaidFees2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             this.lbPaidFees2.ForeColor = System.Drawing.Color.MediumTurquoise;
-            this.lbPaidFees2.Location = new System.Drawing.Point(168, 46);
+            this.lbPaidFees2.Location = new System.Drawing.Point(172, 46);
             this.lbPaidFees2.Name = "lbPaidFees2";
-            this.lbPaidFees2.Size = new System.Drawing.Size(32, 17);
+            this.lbPaidFees2.Size = new System.Drawing.Size(28, 17);
             this.lbPaidFees2.TabIndex = 51;
-            this.lbPaidFees2.Text = " + 0";
+            this.lbPaidFees2.Text = "+ 0";
             // 
             // lbPaidFees
             // 
@@ -108,6 +108,7 @@
             this.ckbOperationLicense.TabIndex = 48;
             this.ckbOperationLicense.Text = "Renew";
             this.ckbOperationLicense.UseVisualStyleBackColor = true;
+            this.ckbOperationLicense.CheckedChanged += new System.EventHandler(this.ckbOperationLicense_CheckedChanged);
             // 
             // cbLicenseClass
             // 
@@ -118,6 +119,7 @@
             this.cbLicenseClass.Name = "cbLicenseClass";
             this.cbLicenseClass.Size = new System.Drawing.Size(206, 21);
             this.cbLicenseClass.TabIndex = 47;
+            this.cbLicenseClass.SelectedIndexChanged += new System.EventHandler(this.cbLicenseClass_SelectedIndexChanged);
             // 
             // lbLicenseClass
             // 
@@ -138,6 +140,7 @@
             this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbSelectedID.TabIndex = 45;
             this.pbSelectedID.TabStop = false;
+            this.pbSelectedID.Click += new System.EventHandler(this.pbSelectedID_Click);
             // 
             // cbApplicationTypes
             // 

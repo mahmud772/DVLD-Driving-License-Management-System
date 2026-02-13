@@ -3,7 +3,6 @@ using Common.Enums;
 using Common.Queries;
 using DVLD_BLL;
 using DVLD_DTOs;
-using DVLD_DTOs;
 using DVLDWinForm;
 using DVLDWinForm.Forms;
 using DVLDWinForm.Forms.Add_New___Update;

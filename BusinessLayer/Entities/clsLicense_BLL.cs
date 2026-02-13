@@ -66,6 +66,10 @@ namespace DVLD_BLL
         {
             return clsLicense_DAL.LoadDriverIDByLicenseID(LicenseID);
         }
+        public static int GetPersonIDByLicenseID(int LicenseID)
+        {
+            return clsLicense_DAL.LoadPersonIDByLicenseID(LicenseID);
+        }
 
 
 

@@ -98,12 +98,16 @@ namespace DVLD_BLL
 
         public static decimal GetClassFees(int LicenseClassID)
         {
-            return clsStaticData_BLL.LicenseClasses[LicenseClassID].ClassFees;
+            return clsStaticData_BLL.LicenseClasses
+                .FirstOrDefault(type => type.LicenseClassID == LicenseClassID)
+                .ClassFees;
         }
         
         public static byte GetDefaultValidityLength(int LicenseClassID)
         {
-            return clsStaticData_BLL.LicenseClasses[LicenseClassID].DefaultValidityLength;
+            return clsStaticData_BLL.LicenseClasses
+                .FirstOrDefault(type => type.LicenseClassID == LicenseClassID)
+                .DefaultValidityLength;
         }
 
 
@@ -114,7 +118,9 @@ namespace DVLD_BLL
 
         public static byte MinimumAllowedAge(int LicenseClassID)
         {
-            return clsStaticData_BLL.LicenseClasses[LicenseClassID].MinimumAllowedAge;
+            return clsStaticData_BLL.LicenseClasses
+                .FirstOrDefault(type => type.LicenseClassID == LicenseClassID)
+                .MinimumAllowedAge;
         }
 
     }

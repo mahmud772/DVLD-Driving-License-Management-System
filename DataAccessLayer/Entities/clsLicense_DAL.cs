@@ -128,6 +128,13 @@ namespace DVLD_DAL
             string Query = "Select DriverID From Licenses Where LicenseID = @LicenseID ;";
             return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue(Command, "@LicenseID", LicenseID));
         }
+        public static int LoadPersonIDByLicenseID(int LicenseID)
+        {
+            string Query = @"Select D.PersonID From Licenses L
+                        Join Drivers D ON L.DriverID = D.DriverID
+                        Where L.LicenseID = @LicenseID ;";
+            return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue(Command, "@LicenseID", LicenseID));
+        }
 
         public static clsLicenseCardInfo_DTO LoadLicenseCardInfo(int LicenseID)
         {

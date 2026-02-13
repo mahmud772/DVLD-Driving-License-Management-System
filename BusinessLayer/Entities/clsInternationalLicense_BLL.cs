@@ -109,5 +109,9 @@ namespace DVLD_BLL
         {
             return clsInternationalLicense_DAL.DeleteInternationalLicenseByID(InternationalLicense);
         }
+        public static int GetPersonIDByInternationalLicenseID(int InternationalLicenseID)
+        {
+            return clsInternationalLicense_DAL.LoadPersonIDByInternationalLicenseID(InternationalLicenseID);
+        }
     }
 }

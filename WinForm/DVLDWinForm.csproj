@@ -136,7 +136,6 @@
     <Compile Include="UIHelper_Manger\IDisplayView.cs" />
     <Compile Include="UIHelper_Manger\IPageableLoader.cs" />
     <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\ApplicationFactory.cs" />
-    <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\FormStateManager.cs" />
     <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\LicenseOperationManager.cs" />
     <Compile Include="User Controls\Display\ucApplication.cs">
       <SubType>UserControl</SubType>
@@ -249,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmApplication\frmCreateApplication.resx">
       <DependentUpon>frmCreateApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdateUser.resx">
+      <DependentUpon>frmAddNew_UpdateUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFind.resx">
       <DependentUpon>frmFind.cs</DependentUpon>
@@ -448,6 +450,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\Logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\AddNew.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

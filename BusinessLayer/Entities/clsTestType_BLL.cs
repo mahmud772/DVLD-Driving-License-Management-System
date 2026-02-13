@@ -102,11 +102,15 @@ namespace DVLD_BLL
 
         public static decimal GetPaidFees(int TestTypeID)
         {
-            return clsStaticData_BLL.TestTypes[TestTypeID].TestTypeFees;
+            return clsStaticData_BLL.TestTypes
+                .FirstOrDefault(type => type.TestTypeID == TestTypeID)
+                .TestTypeFees;
         }
         public static string GetTestTypeTitle(int TestTypeID)
         {
-            return clsStaticData_BLL.TestTypes[TestTypeID].TestTypeTitle;
+            return clsStaticData_BLL.TestTypes
+               .FirstOrDefault(type => type.TestTypeID == TestTypeID)?
+               .TestTypeTitle;
         }
     }
 }

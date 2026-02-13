@@ -3,7 +3,6 @@ using Common.Helpers;
 using Common.Queries;
 using DVLD_BLL;
 using DVLD_DTOs;
-using DVLD_DTOs;
 using DVLDWinForm;
 using DVLDWinForm.Forms;
 using DVLDWinForm.Tests;
@@ -102,16 +101,6 @@ namespace DVLDWinForm
             LoadType?.Invoke();
             _LoadData();
         }
-        private void pnlMainMenu_Paint(object sender, PaintEventArgs e)
-        {
-            //clsUIHelper.ApplyGradient(pnlMainMenu,e, Color.FromArgb(236, 240, 241), Color.FromArgb(189, 195, 199), 45F);
-        }
-
-        private void pnlTopForm_Paint(object sender, PaintEventArgs e)
-        {
-            //clsUIHelper.ApplyGradient(pnlTopForm, e, Color.FromArgb(236, 240, 241), Color.FromArgb(189, 195, 199), 45F);
-
-        }
 
 
         private void _InitializeAdapter<T>(Func<int, int, IQuery, List<T>> fetcher, Func<IQuery,int> counter, IDisplayView<T> viewManager)
@@ -135,8 +124,8 @@ namespace DVLDWinForm
         }
         private void _ShowDGV()
         {
-            btnFLP.BackgroundImage = DVLDWinForm.Properties.Resources.Menu_Gray_FLP;
-            btnDGV.BackgroundImage = DVLDWinForm.Properties.Resources.Menu_RGB_DGV;
+            btnFLP.BackgroundImage = Properties.Resources.Menu_Gray_FLP;
+            btnDGV.BackgroundImage = Properties.Resources.Menu_RGB_DGV;
             DisplayMode = enDisplayMode.DGV;
             flpUserControls.Visible = false;
             dgvDisplay.Visible = true;
@@ -262,9 +251,11 @@ namespace DVLDWinForm
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            int ID;
+            int.TryParse(tbSearch.Text, out ID);
             _currentQuery.SearchBy = (Enum)cbSearchBy.SelectedItem;
             _currentQuery.SearchValue = clsSearchType.IsTypeEnumString(_currentQuery.SearchBy) ?
-                Convert.ToInt64(tbSearch.Text) : tbSearch.Text;
+                ID : tbSearch.Text;
             _LoadData();
             _currentQuery.SearchBy = null;
             _currentQuery.SearchValue = null;

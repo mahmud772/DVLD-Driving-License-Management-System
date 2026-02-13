@@ -17,11 +17,11 @@ namespace DVLDWinForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //using (frmLogin login = new frmLogin())
-            //{
-            //    if (login.ShowDialog() != DialogResult.OK)
-            //        return;
-            //}
+            using (frmLogin login = new frmLogin())
+            {
+                if (login.ShowDialog() != DialogResult.OK)
+                    return;
+            }
             Application.Run(new MainForm());
         }
     }

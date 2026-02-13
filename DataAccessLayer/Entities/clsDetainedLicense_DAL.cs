@@ -329,7 +329,14 @@ namespace DVLD_DAL
                 "ReleaseDate",
                 ref query);
         }
-
+        public static int LoadPersonIDByDetainID(int DetainID)
+        {
+            string Query = @"Select D.PersonID From DetainedLicenses DL
+                        Join Licenses L ON L.LicenseID = DL.LicenseID
+                        Join Drivers D ON L.DriverID = D.DriverID
+                        Where DetainID = @DetainID;";
+            return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue(Command, "@DetainID", DetainID));
+        }
     }
 }
 

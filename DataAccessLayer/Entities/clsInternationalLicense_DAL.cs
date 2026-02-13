@@ -320,5 +320,12 @@ namespace DVLD_DAL
 
             return RowsAffected > 0;
         }
+        public static int LoadPersonIDByInternationalLicenseID(int InternationalLicenseID)
+        {
+            string Query = @"Select D.PersonID From InternationalLicenses IL
+                        Join Drivers D ON D.DriverID = IL.DriverID
+                        Where InternationalLicenseID = @InternationalLicenseID;";
+            return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue(Command, "@InternationalLicenseID", InternationalLicenseID));
+        }
     }
 }

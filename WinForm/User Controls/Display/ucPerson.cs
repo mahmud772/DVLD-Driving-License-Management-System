@@ -1,7 +1,6 @@
 ﻿using Common;
 using DVLD_BLL;
 using DVLD_DTOs;
-using DVLD_DTOs;
 using DVLDWinForm;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;

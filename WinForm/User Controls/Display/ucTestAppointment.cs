@@ -1,7 +1,6 @@
 ﻿using DVLDWinForm;
 using DVLD_BLL;
 using DVLD_DTOs;
-using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using System;
 using System.Collections.Generic;

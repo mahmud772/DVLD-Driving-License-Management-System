@@ -105,13 +105,16 @@ namespace DVLD_BLL
         }
         public static decimal GetApplicationFees(int ApplicationTypeID)
         {
-            return clsStaticData_BLL.ApplicationTypes[ApplicationTypeID].ApplicationFees;
+            return clsStaticData_BLL.ApplicationTypes
+                .FirstOrDefault(type => type.ApplicationTypeID == ApplicationTypeID)
+                .ApplicationFees;
 
         }
         public static string GetApplicationTypeTitle(int ApplicationTypeID)
         {
-            return clsStaticData_BLL.ApplicationTypes[ApplicationTypeID].ApplicationTypeTitle;
-
+            return clsStaticData_BLL.ApplicationTypes
+                .FirstOrDefault(type => type.ApplicationTypeID == ApplicationTypeID)?
+                .ApplicationTypeTitle;
         }
     }
 }
