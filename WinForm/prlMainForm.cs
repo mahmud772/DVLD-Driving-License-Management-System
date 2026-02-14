@@ -45,8 +45,8 @@ namespace DVLDWinForm
             CRUDController.TryDelete = clsUser_BLL.DeleteUser;
             CRUDController.Search = () => new frmSortAndFilter(new ucUsersFilter(), UserQuery);
             cbSearchBy.DataSource = Enum.GetValues(typeof(clsUserEnums.enUserSearchBy));
-            CRUDController.CreateForm = () => new frmAddNew_UpdateUser();
-            CRUDController.PrepareUpdate = User => new frmAddNew_UpdateUser(User as clsUser_DTO);
+            CRUDController.CreateForm = () => new frmAddNewUser();
+            //CRUDController.PrepareUpdate = User => new frmAddNewUser(User as clsUser_DTO);
             _InitializeAdapter(clsUser_BLL.GetUsers,
                clsUser_BLL.GetCount,
                _GetDisplayView<clsUser_DTO>(user => new ucUser { UserInfo = user }));

@@ -21,7 +21,7 @@ namespace Common
             ManageApplicationTypes = 1 << 5,
             ManageTestTypes = 1 << 6,
             ManageLicenseClasses = 1 << 7,
-            All = ~0
+            All = -1
         }
         public enum enUserSearchBy
         {

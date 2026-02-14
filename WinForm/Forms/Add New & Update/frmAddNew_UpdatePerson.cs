@@ -100,7 +100,7 @@ namespace DVLDWinForm.Forms
         
         private bool _GetPersonInfo()
         {
-            ep.Clear();
+            clsValidation.ep.Clear();
             if (!(
                 clsValidation.IsValidNationalNo(tbNationalNo) &&
                 clsValidation.IsValidWord(tbFirstName) &&

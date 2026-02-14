@@ -132,6 +132,9 @@ namespace DVLD_BLL
         {
             return clsUser_DAL.LoadUsers(Offset, CountRows , Query as clsUserQuery);
         }
-
+        public static bool IsPersonIsUser(int PersonID)
+        {
+            return clsUser_DAL.IsPersonIsUser(PersonID);
+        }
     }
 }

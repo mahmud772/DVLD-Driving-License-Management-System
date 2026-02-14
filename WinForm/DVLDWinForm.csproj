@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom Components\CheckedComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,11 +94,11 @@
     <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.Designer.cs">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateUser.cs">
+    <Compile Include="Forms\Add New &amp; Update\frmAddNewUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateUser.Designer.cs">
-      <DependentUpon>frmAddNew_UpdateUser.cs</DependentUpon>
+    <Compile Include="Forms\Add New &amp; Update\frmAddNewUser.Designer.cs">
+      <DependentUpon>frmAddNewUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\frmCreateApplication.cs">
       <SubType>Form</SubType>
@@ -123,7 +126,7 @@
     </Compile>
     <Compile Include="UIHelper_Manger\clsControlAnimateHeight.cs" />
     <Compile Include="UIHelper_Manger\clsFormLayoutHelper.cs" />
-    <Compile Include="UIHelper_Manger\GlassPanel.cs">
+    <Compile Include="Custom Components\GlassPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="User Controls\Display\IUserControl.cs" />
@@ -249,8 +252,8 @@
     <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmApplication\frmCreateApplication.resx">
       <DependentUpon>frmCreateApplication.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdateUser.resx">
-      <DependentUpon>frmAddNew_UpdateUser.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNewUser.resx">
+      <DependentUpon>frmAddNewUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFind.resx">
       <DependentUpon>frmFind.cs</DependentUpon>

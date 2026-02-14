@@ -338,5 +338,10 @@ namespace DVLD_DAL
 
             clsPerson_DAL.ApplyPersonFilter(filter, ref query);
         }
+        public static bool IsPersonIsUser(int PersonID)
+        {
+            string Query = @"Select 1 From Users Where PersonID = @PersonID;";
+            return DbHelper.Exists(Query , Command => DbHelper.SetValue(Command , "@PersonID" , PersonID));
+        }
     }
 }
