@@ -41,6 +41,10 @@ public class CheckedComboBox : ComboBox
             _dropDown.Show(this, 0, this.Height);
         }
     }
+    public void SetItemChecked(int index, bool isChecked)
+    {
+        _checkListBox.SetItemChecked(index, isChecked);
+    }
 
     public CheckedListBox.ObjectCollection ItemsList
     {

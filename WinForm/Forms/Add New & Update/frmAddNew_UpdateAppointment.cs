@@ -42,7 +42,6 @@ namespace DVLDWinForm.Forms.Add_New___Update
         private void _LoadDesign()
         {
             clsUIHelper.CornerRadius(pnlAppointment, 5);
-            //clsUIHelper.ErrorProvider.ContainerControl = this;
         }
         private void _SetApplicationInfo()
         {

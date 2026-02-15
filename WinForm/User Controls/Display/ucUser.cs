@@ -3,6 +3,7 @@ using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
+using DVLDWinForm.UIHelper_Manger;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +18,18 @@ namespace DVLDWinForm.User_Controls
 {
     public partial class ucUser : UserControl
     {
-        public clsUser_DTO UserInfo { get; set => __LoadUserInfo(value); }
-        
+        private clsUser_DTO _UserInfo { get; set; }
+
+        public clsUser_DTO UserInfo
+        {
+            get => _UserInfo;
+            set
+            {
+                _UserInfo = value;
+                __LoadUserInfo(value);
+            }
+        }
+        public IDTO Info { get => UserInfo; set => UserInfo = value as clsUser_DTO; }
         public ucUser()
         {
             InitializeComponent();
@@ -61,7 +72,7 @@ namespace DVLDWinForm.User_Controls
         {
             ctrlPerson1.OnVisibleChanged += VisibleComponents;
             ctrlPerson1.OnUnvisibleChanged += UnvisibleComponents;
-            ctrlPerson1.SelectdDTO = () => UserInfo;
+            ctrlPerson1.SelectdDTO = () => _UserInfo;
         }
         private void VisibleComponents()
         {

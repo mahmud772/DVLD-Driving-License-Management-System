@@ -1,25 +1,12 @@
-﻿using Common;
-using Common.Helpers;
+﻿using Common.Helpers;
 using Common.Queries;
 using DVLD_BLL;
-using DVLD_DTOs;
-using DVLDWinForm;
-using DVLDWinForm.Forms;
-using DVLDWinForm.Tests;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
-using DVLDWinForm.User_Controls;
-using DVLDWinForm.User_Controls.Filters;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DVLDWinForm
 {
@@ -37,15 +24,15 @@ namespace DVLDWinForm
         public static ContextMenuStrip SharedContextMenu { get; private set; }
 
 
-        public  clsApplicationQuery ApplicationQuery { get; set; }
-        public  clsPersonQuery PersonQuery { get; set; }
-        public  clsDetainedLicenseQuery DetainedLicenseQuery { get; set; }
-        public  clsDriverQuery DriverQuery { get; set; }
-        public  clsLicenseQuery LicenseQuery { get; set; }
-        public  clsTestAppointmentQuery TestAppointmentQuery { get; set; }
-        public  clsUserQuery UserQuery { get; set; }
-        
-        
+        public clsApplicationQuery ApplicationQuery { get; set; }
+        public clsPersonQuery PersonQuery { get; set; }
+        public clsDetainedLicenseQuery DetainedLicenseQuery { get; set; }
+        public clsDriverQuery DriverQuery { get; set; }
+        public clsLicenseQuery LicenseQuery { get; set; }
+        public clsTestAppointmentQuery TestAppointmentQuery { get; set; }
+        public clsUserQuery UserQuery { get; set; }
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -55,7 +42,7 @@ namespace DVLDWinForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
             clsStaticData_BLL.LoadAllStaticData();
             SharedContextMenu = this.cmsUpdate_Delete;
             CRUDController = new clsCRUDController(dgvDisplay, flpUserControls);
@@ -91,7 +78,7 @@ namespace DVLDWinForm
             clsUIHelper.CornerRadius(btnUsers, 5);
             clsUIHelper.CornerRadius(btnDrivers, 5);
             clsUIHelper.CornerRadius(pnlShowTotal, 5);
-            using (var tempImage = System.Drawing.Image.FromFile(@"C:\Users\m9816\Desktop\C#\DVLD\WinForm\Images\TopBackground.png"))
+            using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\C#\DVLD\WinForm\Images\TopBackground.png"))
             {
                 pnlTopForm.BackgroundImage = new Bitmap(tempImage);
             }
@@ -103,17 +90,17 @@ namespace DVLDWinForm
         }
 
 
-        private void _InitializeAdapter<T>(Func<int, int, IQuery, List<T>> fetcher, Func<IQuery,int> counter, IDisplayView<T> viewManager)
+        private void _InitializeAdapter<T>(Func<int, int, IQuery, List<T>> fetcher, Func<IQuery, int> counter, IDisplayView<T> viewManager)
         {
             _currentLoader = new clsDataDisplayAdapter<T>(fetcher, counter, viewManager);
-            
+
             _paginator = new clsPaginationManager(viewManager.CountItems, _currentLoader.GetTotalCount(_currentQuery));
 
             _LoadData();
         }
         private void _LoadData()
         {
-            _currentLoader.LoadPage(_paginator.Offset, _paginator.PageSize , _currentQuery);
+            _currentLoader.LoadPage(_paginator.Offset, _paginator.PageSize, _currentQuery);
             _UpdateUI();
         }
         private void _UpdateUI()
@@ -167,7 +154,6 @@ namespace DVLDWinForm
 
         private void btnPreviousPage_Click(object sender, EventArgs e)
         {
-
             if (_paginator.HasPreviousPage)
             {
                 _paginator.PreviousPage();
@@ -182,8 +168,7 @@ namespace DVLDWinForm
         {
             return DisplayMode == enDisplayMode.DGV ?
                 new clsDGVManager<T>(dgvDisplay) :
-                new clsFLPManager<T>
-                (flpUserControls, ControlCeartor);
+                new clsFLPManager<T>(flpUserControls, ControlCeartor);
         }
 
         private void btnPeople_Click(object sender, EventArgs e)
@@ -191,7 +176,7 @@ namespace DVLDWinForm
             LoadType = _LoadPeople;
             _ShowFLP();
         }
-        
+
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
@@ -225,10 +210,7 @@ namespace DVLDWinForm
             _ShowFLP();
         }
 
-        private void btnAddNew_Click(object sender, EventArgs e)
-        {
-            CRUDController.ShowCreateForm();
-        }
+
         private void dgvData_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
@@ -238,17 +220,11 @@ namespace DVLDWinForm
                 dgvDisplay.CurrentCell = dgvDisplay.Rows[e.RowIndex].Cells[0];
             }
         }
+        private void btnAddNew_Click(object sender, EventArgs e) => CRUDController.ShowCreateForm();
+        public void updateToolStripMenuItem_Click(object sender, EventArgs e) => CRUDController.ShowUpdateForm();
 
-        public void updateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CRUDController.ShowUpdateForm();
-        }
-
-        public void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CRUDController.ConfirmAndDelete();
-        }
-
+        public void deleteToolStripMenuItem_Click(object sender, EventArgs e) => CRUDController.ConfirmAndDelete();
+        private void btnSort_Filter_Click(object sender, EventArgs e) => CRUDController.ShowFilterForm();
         private void btnSearch_Click(object sender, EventArgs e)
         {
             int ID;
@@ -261,10 +237,6 @@ namespace DVLDWinForm
             _currentQuery.SearchValue = null;
         }
 
-        private void btnSort_Filter_Click(object sender, EventArgs e)
-        {
-            CRUDController.ShowFilterForm();
-            
-        }
+
     }
 }

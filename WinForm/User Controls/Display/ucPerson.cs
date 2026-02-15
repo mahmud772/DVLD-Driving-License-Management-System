@@ -81,8 +81,6 @@ namespace DVLDWinForm
             clsUIHelper.FitText(lbName, 7.0f);
             clsUIHelper.FitText(lbAddress, 8.0f);
             clsUIHelper.FitText(lbEmail, 8.0f);
-            MainForm.CRUDController.PrepareUpdate = Person => new frmAddNew_UpdatePerson(Person as clsPerson_DTO);
-            MainForm.CRUDController.TryDelete = clsPerson_BLL.DeletePerson;
             return true;
         }
         

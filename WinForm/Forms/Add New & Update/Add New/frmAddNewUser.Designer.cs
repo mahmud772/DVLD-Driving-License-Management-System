@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.pnlUserInfo = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbPassword = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbUserName = new System.Windows.Forms.TextBox();
             this.lbUserName = new System.Windows.Forms.Label();
+            this.ckcbPermissions = new CheckedComboBox();
             this.pbSelectedID = new System.Windows.Forms.PictureBox();
             this.tbID = new System.Windows.Forms.TextBox();
             this.lbID = new System.Windows.Forms.Label();
             this.lbLicenseClass = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.ckcbPermissions = new CheckedComboBox();
             this.pnlUserInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             this.SuspendLayout();
@@ -47,7 +47,7 @@
             // pnlUserInfo
             // 
             this.pnlUserInfo.BackColor = System.Drawing.Color.White;
-            this.pnlUserInfo.Controls.Add(this.textBox1);
+            this.pnlUserInfo.Controls.Add(this.tbPassword);
             this.pnlUserInfo.Controls.Add(this.label1);
             this.pnlUserInfo.Controls.Add(this.tbUserName);
             this.pnlUserInfo.Controls.Add(this.lbUserName);
@@ -61,13 +61,13 @@
             this.pnlUserInfo.Size = new System.Drawing.Size(330, 134);
             this.pnlUserInfo.TabIndex = 53;
             // 
-            // textBox1
+            // tbPassword
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(124, 72);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(114, 22);
-            this.textBox1.TabIndex = 59;
+            this.tbPassword.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbPassword.Location = new System.Drawing.Point(124, 72);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(114, 22);
+            this.tbPassword.TabIndex = 59;
             // 
             // label1
             // 
@@ -96,6 +96,16 @@
             this.lbUserName.Size = new System.Drawing.Size(110, 17);
             this.lbUserName.TabIndex = 55;
             this.lbUserName.Text = "User Name        :";
+            // 
+            // ckcbPermissions
+            // 
+            this.ckcbPermissions.DropDownHeight = 1;
+            this.ckcbPermissions.FormattingEnabled = true;
+            this.ckcbPermissions.IntegralHeight = false;
+            this.ckcbPermissions.Location = new System.Drawing.Point(123, 106);
+            this.ckcbPermissions.Name = "ckcbPermissions";
+            this.ckcbPermissions.Size = new System.Drawing.Size(195, 21);
+            this.ckcbPermissions.TabIndex = 54;
             // 
             // pbSelectedID
             // 
@@ -161,16 +171,6 @@
             this.lbTitel.TabIndex = 51;
             this.lbTitel.Text = "ADD NEW USER";
             // 
-            // ckcbPermissions
-            // 
-            this.ckcbPermissions.DropDownHeight = 1;
-            this.ckcbPermissions.FormattingEnabled = true;
-            this.ckcbPermissions.IntegralHeight = false;
-            this.ckcbPermissions.Location = new System.Drawing.Point(123, 106);
-            this.ckcbPermissions.Name = "ckcbPermissions";
-            this.ckcbPermissions.Size = new System.Drawing.Size(195, 21);
-            this.ckcbPermissions.TabIndex = 54;
-            // 
             // frmAddNewUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,7 +203,7 @@
         private CheckedComboBox ckcbPermissions;
         private System.Windows.Forms.TextBox tbUserName;
         private System.Windows.Forms.Label lbUserName;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Label label1;
     }
 }

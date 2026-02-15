@@ -14,8 +14,12 @@ namespace DVLDWinForm.UIHelper_Manger
         private readonly Func<int, int, IQuery , List<T>> _dataSource; // دالة جلب البيانات من BLL
         private readonly IDisplayView<T> _viewManager;         
         private readonly Func<IQuery ,int> _countSource;             // دالة جلب العدد الكلي
-        
-        private List<T> _LoadData {  get; set; }
+
+        private IQuery _lastQuery;
+
+        private List<T> _cache = new List<T>();
+        private int _cacheStart = 0;
+        private int _cacheSize = 198;
         public int CurrentPage { get; set; } = 1;
 
         public clsDataDisplayAdapter(Func<int, int , IQuery, List<T>> dataSource, Func<IQuery,int> countSource,  IDisplayView<T> viewManager)
@@ -24,26 +28,36 @@ namespace DVLDWinForm.UIHelper_Manger
             _countSource = countSource;
             _viewManager = viewManager;
         }
-        
-        //private bool _LoadNewDataSource(int offset, int pageSize )// بهذه الدالة نجلب عدد معين من السجلات لكي نقلل عدد الاستعلامات
-        //{
-        //    int CountRows = 198; // هذا العدد هو مضاعف الاصغر للعددين 22 و 9 الذان هما عدد Items في DGV , FLP
-
-        //    if (CountRows % (offset + pageSize + 1) == 0 || offset == 0) //  التحقق هل نحتاج الى تحميل بيانات جديده ام لا عن طريق معرفة هل نحن في اول استدعاء ام هل اخر صف مستدعى هو من مضاعفات العدد 198
-        //    {
-        //        _LoadData = _dataSource(offset, CountRows);
-        //        return true;
-        //    }
-        //    return false;
-        //}
-        public void LoadPage(int offset, int pageSize , IQuery Query)
+        private bool NeedLoad(int offset, int pageSize , IQuery query)
         {
-            //_LoadNewDataSource(offset, pageSize);
-            //List<T> data = _LoadData.GetRange(offset , pageSize);
-            List<T> data = _dataSource(offset, pageSize , Query);
-            _viewManager.Display(data);
+            return _cache.Count == 0 ||
+                   offset < _cacheStart ||
+                   offset + pageSize > _cacheStart + _cache.Count ||
+                   _lastQuery != query;
         }
-        
+
+        private void LoadCache(int offset, IQuery query)
+        {
+            _cacheStart = offset;
+            _cache = _dataSource(_cacheStart, _cacheSize, query);
+            _lastQuery = query;
+        }
+
+
+        public void LoadPage(int offset, int pageSize, IQuery query)
+        {
+            if (NeedLoad(offset, pageSize ,query))
+                LoadCache(offset, query);
+            int LocalOffset = offset - _cacheStart;
+
+            List<T> pageData = _cache
+                .Skip(LocalOffset)
+                .Take(pageSize)
+                .ToList();
+
+            _viewManager.Display(pageData);
+        }
+
         public int GetTotalCount(IQuery query) => _countSource(query);
     }
 }

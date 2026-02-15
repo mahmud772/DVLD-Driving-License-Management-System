@@ -111,5 +111,24 @@ namespace DVLDWinForm.UIHelper_Manger
             }
             return true;
         }
+        public static bool IsValidUserName(TextBox tb)
+        {
+            if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^[A-Za-z][A-Za-z0-9]{0,29}$"))
+            {
+                ep?.SetError(tb, "Enter a valid User Name.");
+                return false;
+            }
+            return true;
+        }
+
+        public static bool IsValidPassword(TextBox tb)
+        {
+            if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^\S{8,}$"))
+            {
+                ep?.SetError(tb, "Enter a valid User Name.");
+                return false;
+            }
+            return true;
+        }
     }
 }

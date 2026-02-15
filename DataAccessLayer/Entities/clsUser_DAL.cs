@@ -148,8 +148,8 @@ namespace DVLD_DAL
 
             string Query = @"Insert Into Users (PersonID , UserName , Password , IsActive , Permissions)
                              Select @PersonID , @UserName , @Password , @IsActive , @Permissions
-                             Where Exists (Select 1 From People PersonID = @PersonID)
-                             And Not Exists (Select 1 From Users UserName = @UserName);
+                             Where Exists (Select 1 From People Where PersonID = @PersonID)
+                             And Not Exists (Select 1 From Users Where UserName = @UserName);
                              IF @@ROWCOUNT > 0
                                 SELECT SCOPE_IDENTITY();
                              ELSE
@@ -169,14 +169,13 @@ namespace DVLD_DAL
         {
 
             string Query = @"Update Users Set IsActive = @IsActive , 
-                             Permissions = @Permissions ,Password = @Password
+                             Permissions = @Permissions
                              Where UserID = @UserID ";
             return DbHelper.ExecuteNonQuery
                 (Query, Command =>
                 {
                     DbHelper.SetValue<int>(Command, "@UserID", Model.UserID);
                     DbHelper.SetValue<bool>(Command, "@IsActive", Model.IsActive);
-                    DbHelper.SetValue<string>(Command, "@Password", Model.Password);
                     DbHelper.SetValue<int>(Command, "@Permissions", Model.Permissions);
                 }
                 ) > 0;

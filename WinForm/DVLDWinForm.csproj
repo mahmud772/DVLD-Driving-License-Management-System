@@ -73,6 +73,12 @@
     <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateApplication.Designer.cs">
       <DependentUpon>frmUpdateApplication.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateUser.Designer.cs">
+      <DependentUpon>frmUpdateUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,10 +100,10 @@
     <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.Designer.cs">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Add New &amp; Update\frmAddNewUser.cs">
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Add New &amp; Update\frmAddNewUser.Designer.cs">
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewUser.Designer.cs">
       <DependentUpon>frmAddNewUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Add New &amp; Update\Add New\frmApplication\frmCreateApplication.cs">
@@ -252,8 +258,11 @@
     <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmApplication\frmCreateApplication.resx">
       <DependentUpon>frmCreateApplication.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNewUser.resx">
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmAddNewUser.resx">
       <DependentUpon>frmAddNewUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateUser.resx">
+      <DependentUpon>frmUpdateUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFind.resx">
       <DependentUpon>frmFind.cs</DependentUpon>

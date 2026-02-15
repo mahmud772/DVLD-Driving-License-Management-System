@@ -46,7 +46,7 @@ namespace DVLDWinForm
             CRUDController.Search = () => new frmSortAndFilter(new ucUsersFilter(), UserQuery);
             cbSearchBy.DataSource = Enum.GetValues(typeof(clsUserEnums.enUserSearchBy));
             CRUDController.CreateForm = () => new frmAddNewUser();
-            //CRUDController.PrepareUpdate = User => new frmAddNewUser(User as clsUser_DTO);
+            CRUDController.PrepareUpdate = User => new frmUpdateUser(User as clsUser_DTO);
             _InitializeAdapter(clsUser_BLL.GetUsers,
                clsUser_BLL.GetCount,
                _GetDisplayView<clsUser_DTO>(user => new ucUser { UserInfo = user }));
