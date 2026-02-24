@@ -4,7 +4,6 @@ using Common.Helpers;
 using Common.Queries;
 using DVLD_DAL.Mappers;
 using DVLD_DTOs;
-using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -266,6 +265,13 @@ namespace DVLD_DAL
                 "LicenseClassID = @LicenseClassID",
                 ref query);
         }
-
+        public static int LoadLicenseClassIDByLocalDrivingLicenseApplicationID(int LocalLicenseAppID)
+        {
+            string Query = @"SELECT 
+                    LicenseClassID
+                    From LocalDrivingLicenseApplications
+                    Where LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID ;";
+            return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue(Command, "@LocalDrivingLicenseApplicationID", LocalLicenseAppID));
+        }
     }
 }

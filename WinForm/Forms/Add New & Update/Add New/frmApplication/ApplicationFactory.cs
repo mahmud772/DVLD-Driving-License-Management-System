@@ -21,7 +21,7 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
             _InitializeStaticDataToForm();
         }
         public void CreateApplication(clsApplication_DTO AppInfo,clsLocalDrivingLicenseApplication_DTO localInfo,
-            clsApplicationEnums.enApplicationType type,bool ExecuteLicenseOperation)
+            int LicenseID,clsApplicationEnums.enApplicationType type,bool ExecuteLicenseOperation)
         {
             if (type == clsApplicationEnums.enApplicationType.NewLocalDrivingLicense)
             {
@@ -29,7 +29,7 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
             }
             else
             {
-                CreateGeneralApplication(AppInfo, type, ExecuteLicenseOperation);
+                CreateGeneralApplication(AppInfo,LicenseID, type, ExecuteLicenseOperation);
             }
         }
         private void _InitializeStaticDataToForm()
@@ -50,17 +50,22 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
             application.Save();
         }
 
-        private void CreateGeneralApplication(clsApplication_DTO appInfo,clsApplicationEnums.enApplicationType type,
+        private void CreateGeneralApplication(clsApplication_DTO appInfo , int LicenseID
+            ,clsApplicationEnums.enApplicationType type,
             bool executeLicenseOperation)
         {
             clsApplication_BLL application = new clsApplication_BLL();
             application.Application = appInfo;
             application.Save();
-
+            int ID;
+            if (type == clsApplicationEnums.enApplicationType.NewLocalDrivingLicense)
+                ID = appInfo.ApplicantPersonID;
+            else
+                ID = LicenseID;             
             if (executeLicenseOperation)
             {
                 LicenseOperationManager manager = new LicenseOperationManager();
-                manager.ExecuteOperation(type,appInfo.ApplicantPersonID,application.Application.ApplicationID);
+                manager.ExecuteOperation(type, ID, application.Application.ApplicationID);
             }
         }
         public int GetPersonIDByApplicationType(int ID, clsApplicationEnums.enApplicationType type)

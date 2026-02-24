@@ -17,10 +17,10 @@ namespace DVLD_DAL.Mappers
         public static void ApplyDateRange(DateTime? from,DateTime? to,string column,ref string query)
         {
             if (from.HasValue)
-                query += $" AND {column} >= @{column}From";
+                query += $" AND {column} >= @From{column}";
 
             if (to.HasValue)
-                query += $" AND {column} <= @{column}To";
+                query += $" AND {column} <= @To{column}";
         }
 
     }

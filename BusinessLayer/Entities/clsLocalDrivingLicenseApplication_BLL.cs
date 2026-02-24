@@ -126,6 +126,9 @@ namespace DVLD_BLL
         {
             return clsLocalDrivingLicenseApplication_DAL.GetPersonIDByLocalDrivingLicenseApplicationID(LocalLicenseAppID);
         }
-
+        public static int GetLicenseClassIDByLocalDrivingLicenseApplicationID(int LocalLicenseAppID)
+        {
+            return clsLocalDrivingLicenseApplication_DAL.LoadLicenseClassIDByLocalDrivingLicenseApplicationID(LocalLicenseAppID);
+        }
     }
 }

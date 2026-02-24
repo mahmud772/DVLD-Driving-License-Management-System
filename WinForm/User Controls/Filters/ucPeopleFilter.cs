@@ -41,9 +41,8 @@ namespace DVLDWinForm.User_Controls.Filters
         public ucPeopleFilter()
         {
             InitializeComponent();
-            _LoadDesign();
+
             _InitializeControls();
-            _Set(PersonFilter);
         }
 
         // ===================== UI =====================
@@ -67,14 +66,12 @@ namespace DVLDWinForm.User_Controls.Filters
             cboNationality.Enabled = false;
         }
 
-        // ===================== GET =====================
 
         private clsPersonFilter _Get()
         {
             if (_PersonFilter == null)
                 _PersonFilter = new clsPersonFilter();
 
-            // Reset
             _PersonFilter.AgeOlderThen = null;
             _PersonFilter.AgeYoungerThen = null;
             _PersonFilter.Gendor = null;
@@ -103,7 +100,6 @@ namespace DVLDWinForm.User_Controls.Filters
             return _PersonFilter;
         }
 
-        // ===================== SET =====================
 
         private void _Set(clsPersonFilter filter)
         {
@@ -112,6 +108,7 @@ namespace DVLDWinForm.User_Controls.Filters
             if (filter.AgeOlderThen.HasValue && filter.AgeYoungerThen.HasValue)
             {
                 chkAge.Checked = true;
+                pnlFromToAge.Enabled = true;
                 nudAgeFrom.Value = filter.AgeOlderThen.Value;
                 nudAgeTo.Value = filter.AgeYoungerThen.Value;
             }
@@ -119,19 +116,20 @@ namespace DVLDWinForm.User_Controls.Filters
             if (filter.Gendor.HasValue)
             {
                 chkGender.Checked = true;
-
+                pnlMaleFemale.Enabled = true;
                 rbMale.Checked = filter.Gendor == clsPersonEnums.enGendor.Male;
                 rbFemale.Checked = filter.Gendor == clsPersonEnums.enGendor.Female;
             }
 
             if (filter.NationalityCountryID.HasValue)
             {
+                cboNationality.Enabled = true;
                 chkNationality.Checked = true;
+               
                 cboNationality.SelectedValue = filter.NationalityCountryID.Value;
             }
         }
 
-        // ===================== EVENTS =====================
 
         private void chkAge_CheckedChanged(object sender, EventArgs e)
         {
@@ -148,5 +146,11 @@ namespace DVLDWinForm.User_Controls.Filters
             cboNationality.Enabled = chkNationality.Checked;
         }
 
+        private void ucPeopleFilter_Load(object sender, EventArgs e)
+        {
+
+            _LoadDesign();
+            _Set(PersonFilter);
+        }
     }
 }

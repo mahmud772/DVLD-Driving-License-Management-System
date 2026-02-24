@@ -195,6 +195,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.Name = "ucPeopleFilter";
             this.Size = new System.Drawing.Size(426, 169);
+            this.Load += new System.EventHandler(this.ucPeopleFilter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudAgeFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAgeTo)).EndInit();
             this.pnlAge.ResumeLayout(false);

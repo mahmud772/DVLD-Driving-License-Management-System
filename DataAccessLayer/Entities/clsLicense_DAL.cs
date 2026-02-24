@@ -214,7 +214,7 @@ namespace DVLD_DAL
         {
             string Query = @"
                         UPDATE Licenses SET Notes = @Notes,
-                            PaidFees = @PaidFees, IsActive = @IsActive,
+                            PaidFees = @PaidFees, IsActive = @IsActive
                         WHERE LicenseID = @LicenseID";
 
 

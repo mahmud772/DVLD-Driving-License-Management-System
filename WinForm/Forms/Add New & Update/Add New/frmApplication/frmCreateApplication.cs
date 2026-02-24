@@ -9,6 +9,7 @@ using DVLDWinForm.User_Controls;
 using DVLDWinForm.User_Controls.Display.ucApplication;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms
@@ -21,6 +22,7 @@ namespace DVLDWinForm.Forms
         clsApplicationType_DTO _CurrentApplicationType;
         clsLicenseClass_DTO _CurrentLicenseClass;
         Func<frmFind> OpenForm;
+        Func<int, int> GetLicenseClass;
         private ApplicationFactory _factory;
         clsApplicationEnums.enApplicationType _type;
         public frmCreateApplication()
@@ -34,9 +36,9 @@ namespace DVLDWinForm.Forms
         {
             clsUIHelper.CornerRadius(pnlApplication, 15);
             ckbOperationLicense.Visible = false;
-            ckbOperationLicense.Checked = true;
+            ckbOperationLicense.Checked = false;
             ckbOperationLicense.Location = lbLicenseClass.Location;
-            lbPaidFees2.Visible = false;
+            lbPaidFeesLicenseClass.Visible = true;
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -48,8 +50,9 @@ namespace DVLDWinForm.Forms
 
             clsApplicationEnums.enApplicationType type = clsApplicationEnumConverter.ToType(
                     Convert.ToInt32(cbApplicationTypes.SelectedValue));
-
-            _factory.CreateApplication(_applicationInfo,_localInfo,type,ckbOperationLicense.Checked);
+            int LicenseID;
+            int.TryParse(tbID.Text, out LicenseID);
+            _factory.CreateApplication(_applicationInfo,_localInfo,LicenseID,type,ckbOperationLicense.Checked);
 
             this.Close();
         }
@@ -90,6 +93,17 @@ namespace DVLDWinForm.Forms
                 frm?.ShowDialog();
                 tbID.Text = frm?.SelectedID;
             }
+            if (tbID.Text == string.Empty || 
+                _CurrentApplicationType == null ||
+                clsApplicationEnumConverter.ToType(_CurrentApplicationType.ApplicationTypeID) ==
+                clsApplicationEnums.enApplicationType.NewLocalDrivingLicense ||
+                GetLicenseClass == null) return;
+            int ID;
+            int.TryParse(tbID.Text, out ID);
+            _CurrentLicenseClass = 
+                clsLicenseClass_BLL.FindByID(GetLicenseClass.Invoke(ID))?.LicenseClass; // محتاجة تعديل لجلب البيانات من الستاتك داتا
+            
+            UpdatePaidFeesLicenseClass();
         }
         private void frmCreateApplication_Load(object sender, EventArgs e)
         {
@@ -104,7 +118,8 @@ namespace DVLDWinForm.Forms
                 OpenForm = () => new frmFind(new ucPerson(), clsPerson_BLL.Find);
                 lbID.Text = "Person ID:";
                 ckbOperationLicense.Visible = false;
-                lbPaidFees2.Visible = true;
+                lbPaidFeesLicenseClass.Visible = true;
+                GetLicenseClass = null;
             }
             else if (type == clsApplicationEnums.enApplicationType.RetakeTest)
             {
@@ -112,7 +127,8 @@ namespace DVLDWinForm.Forms
                 OpenForm = () => new frmFind(new ucApplication(), clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);
                 lbID.Text = "Local Application ID:";
                 ckbOperationLicense.Visible = false;
-                lbPaidFees2.Visible = false;
+                lbPaidFeesLicenseClass.Visible = false;
+                GetLicenseClass = clsLocalDrivingLicenseApplication_BLL.GetLicenseClassIDByLocalDrivingLicenseApplicationID;
             }
             else
             {
@@ -120,9 +136,11 @@ namespace DVLDWinForm.Forms
                 OpenForm = () => new frmFind(new ucLicense(), clsLicense_BLL.GetLicenseCardInfo);
                 lbID.Text = "License ID:";
                 ckbOperationLicense.Visible = true;
-                lbPaidFees2.Visible = true;
+                lbPaidFeesLicenseClass.Visible = true;
+                GetLicenseClass = clsLicense_BLL.GetLicenseClassIDByLicenseID;
             }
             UpdateUIOperationLicense(type);
+            UpdatePaidFeesLicenseClass();
         }
 
         private void ShowLicenseClass()
@@ -142,7 +160,7 @@ namespace DVLDWinForm.Forms
         {
             _CurrentApplicationType = cbApplicationTypes.SelectedItem as clsApplicationType_DTO;
             lbPaidFees.Text = _CurrentApplicationType?.ApplicationFees.ToString("F1");
-            lbPaidFees2.Text = " + " +  _CurrentLicenseClass?.ClassFees.ToString("F1");
+            UpdatePaidFeesLicenseClass();
             switch (type)
             {
                 case clsApplicationEnums.enApplicationType.NewLocalDrivingLicense:
@@ -171,21 +189,25 @@ namespace DVLDWinForm.Forms
         private void cbLicenseClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             _CurrentLicenseClass = cbLicenseClass.SelectedItem as clsLicenseClass_DTO;
-            lbPaidFees2.Text = "+ " + _CurrentLicenseClass?.ClassFees.ToString("F1");
+            lbPaidFeesLicenseClass.Text = "+ " + _CurrentLicenseClass?.ClassFees.ToString("F1");
         }
 
         private void ckbOperationLicense_CheckedChanged(object sender, EventArgs e)
         {
-            UpdatePaidFees2();
+            UpdatePaidFeesLicenseClass();
         }
-        private void UpdatePaidFees2()
+        private void UpdatePaidFeesLicenseClass()
         {
-            if(!ckbOperationLicense.Checked)
-            {
-                lbPaidFees2.Visible = false;
-                return;
-            }
-            lbPaidFees2.Visible = true;
+            clsApplicationEnums.enApplicationType type = clsApplicationEnumConverter.ToType(
+                    Convert.ToInt32(_CurrentApplicationType?.ApplicationTypeID));
+            if (ckbOperationLicense.Checked ||
+                type == clsApplicationEnums.enApplicationType.NewLocalDrivingLicense)
+                lbPaidFeesLicenseClass.Visible = true;
+            else
+                lbPaidFeesLicenseClass.Visible = false;
+            
+           lbPaidFeesLicenseClass.Text = "+ " + _CurrentLicenseClass?.ClassFees.ToString("F1");
+                
         }
     }
 }

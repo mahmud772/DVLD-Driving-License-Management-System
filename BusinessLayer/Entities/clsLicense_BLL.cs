@@ -19,7 +19,7 @@ namespace DVLD_BLL
         public clsLicenseCardInfo_DTO CardInfo { get; set; }
         public IDTO DTO { get => CardInfo; set => CardInfo = value as clsLicenseCardInfo_DTO; }
 
-        private static bool _IsFirstTime = true;
+        //private static bool _IsFirstTime = true;
 
         public clsLicense_BLL()
         {
@@ -77,7 +77,7 @@ namespace DVLD_BLL
         {
             this.License.PaidFees = clsLicenseClass_BLL.GetClassFees(clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
             this.License.IssueDate = clsBLHelper.GetDate_Now();
-            if (_IsFirstTime)
+            if (this.License.ApplicationID == -1)// Is First Time
             {
                 this.License.ApplicationID = clsDriver_DAL.LoadLocalApplicationIDByDriverID(this.License.DriverID, clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
                 this.License.IssueReason = clsLicenseEnums.enIssueReason.New;
@@ -193,6 +193,10 @@ namespace DVLD_BLL
         public static bool DeleteLicense(int LicenseID)
         {
             return clsLicense_DAL.DeleteLicenseByID(LicenseID);
+        }
+        public static int GetLicenseClassIDByLicenseID(int LocalLicenseAppID)
+        {
+            return clsLicense_DAL.LoadLicenseClassIDByLicenseID(LocalLicenseAppID);
         }
     }
 

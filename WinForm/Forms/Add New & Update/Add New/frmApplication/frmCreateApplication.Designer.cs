@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.pnlApplication = new System.Windows.Forms.Panel();
-            this.lbPaidFees2 = new System.Windows.Forms.Label();
+            this.lbPaidFeesLicenseClass = new System.Windows.Forms.Label();
             this.lbPaidFees = new System.Windows.Forms.Label();
             this.lbPaidFees_Titel = new System.Windows.Forms.Label();
             this.ckbOperationLicense = new System.Windows.Forms.CheckBox();
@@ -49,7 +49,7 @@
             // pnlApplication
             // 
             this.pnlApplication.BackColor = System.Drawing.Color.White;
-            this.pnlApplication.Controls.Add(this.lbPaidFees2);
+            this.pnlApplication.Controls.Add(this.lbPaidFeesLicenseClass);
             this.pnlApplication.Controls.Add(this.lbPaidFees);
             this.pnlApplication.Controls.Add(this.lbPaidFees_Titel);
             this.pnlApplication.Controls.Add(this.ckbOperationLicense);
@@ -67,14 +67,14 @@
             // 
             // lbPaidFees2
             // 
-            this.lbPaidFees2.AutoSize = true;
-            this.lbPaidFees2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbPaidFees2.ForeColor = System.Drawing.Color.MediumTurquoise;
-            this.lbPaidFees2.Location = new System.Drawing.Point(172, 46);
-            this.lbPaidFees2.Name = "lbPaidFees2";
-            this.lbPaidFees2.Size = new System.Drawing.Size(28, 17);
-            this.lbPaidFees2.TabIndex = 51;
-            this.lbPaidFees2.Text = "+ 0";
+            this.lbPaidFeesLicenseClass.AutoSize = true;
+            this.lbPaidFeesLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFeesLicenseClass.ForeColor = System.Drawing.Color.MediumTurquoise;
+            this.lbPaidFeesLicenseClass.Location = new System.Drawing.Point(172, 46);
+            this.lbPaidFeesLicenseClass.Name = "lbPaidFees2";
+            this.lbPaidFeesLicenseClass.Size = new System.Drawing.Size(28, 17);
+            this.lbPaidFeesLicenseClass.TabIndex = 51;
+            this.lbPaidFeesLicenseClass.Text = "+ 0";
             // 
             // lbPaidFees
             // 
@@ -239,7 +239,7 @@
         private System.Windows.Forms.Label lbLicenseClass;
         private System.Windows.Forms.CheckBox ckbOperationLicense;
         private System.Windows.Forms.Label lbPaidFees_Titel;
-        private System.Windows.Forms.Label lbPaidFees2;
+        private System.Windows.Forms.Label lbPaidFeesLicenseClass;
         private System.Windows.Forms.Label lbPaidFees;
     }
 }
