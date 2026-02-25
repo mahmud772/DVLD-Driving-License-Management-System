@@ -118,11 +118,13 @@ namespace DVLDWinForm.UIHelper
                 _SetDefaultImage(gendor , pbImage);
             }
         }
+        
         private static void _SetDefaultImage(clsPersonEnums.enGendor gendor , PictureBox pbImage)
         {
             pbImage.Image = (gendor == clsPersonEnums.enGendor.Male) ?
                              Properties.Resources.MaleDefault : Properties.Resources.FemaleDefault;
         }
+        
 
         public static void MakePictureBoxCircular(PictureBox pb)
         {
@@ -161,30 +163,7 @@ namespace DVLDWinForm.UIHelper
             
         }
 
-        
-        public static bool AnimateHeight(Control control, int targetHeight, int step)
-        {
-            if (control.Height == targetHeight) return true; // انتهت الحركة (Animation finished)
-
-            if (control.Height < targetHeight)
-            {
-                // توسيع (Expanding)
-                if (control.Height + step >= targetHeight)
-                    control.Height = targetHeight;
-                else
-                    control.Height += step;
-            }
-            else
-            {
-                // تقليص (Collapsing)
-                if (control.Height - step <= targetHeight)
-                    control.Height = targetHeight;
-                else
-                    control.Height -= step;
-            }
-
-            return (control.Height == targetHeight);
-        }
+     
 
         
     }

@@ -42,7 +42,12 @@ namespace DVLDWinForm.Forms
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            clsUIHelper.CornerRadius(pnlContainer , 10);
+            clsUIHelper.CornerRadius(pnlContainer , 5);
+            clsUIHelper.CornerRadius(this , 5);
+            using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\DVLD\WinForm\Images\LoginBackground.png"))
+            {
+                pnl.BackgroundImage = new Bitmap(tempImage);
+            }
         }
 
     }

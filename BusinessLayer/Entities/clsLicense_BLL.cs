@@ -77,7 +77,7 @@ namespace DVLD_BLL
         {
             this.License.PaidFees = clsLicenseClass_BLL.GetClassFees(clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
             this.License.IssueDate = clsBLHelper.GetDate_Now();
-            if (this.License.ApplicationID == -1)// Is First Time
+            if (this.License.DriverID == -1 )// Is First Time
             {
                 this.License.ApplicationID = clsDriver_DAL.LoadLocalApplicationIDByDriverID(this.License.DriverID, clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
                 this.License.IssueReason = clsLicenseEnums.enIssueReason.New;
@@ -147,16 +147,13 @@ namespace DVLD_BLL
             OldLicense.License.IsActive = false;
             if (!OldLicense.Save()) return false;
 
-            //  إنشاء كائن الرخصة الجديد بنسخ البيانات
             clsLicense_BLL NewLicense = new clsLicense_BLL();
 
 
-            // نسخ القيم الضرورية من الرخصة القديمة
             NewLicense.License.DriverID = OldLicense.License.DriverID;
             NewLicense.License.LicenseClass = OldLicense.License.LicenseClass;
             NewLicense.License.Notes = OldLicense.License.Notes;
 
-            // إسناد القيم الجديدة
             NewLicense.License.ApplicationID = ApplicationID;
             NewLicense.License.IssueReason = IssueReason;
 
