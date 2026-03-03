@@ -26,65 +26,36 @@ namespace DVLDWinForm.Forms
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             this.pnl = new System.Windows.Forms.Panel();
-            this.btnLogin = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.pnlContainer = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.lblError = new System.Windows.Forms.Label();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.chkShowPassword = new System.Windows.Forms.CheckBox();
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.tbUsername = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnl.SuspendLayout();
             this.pnlContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnl
             // 
             this.pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.pnl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnl.Controls.Add(this.pictureBox1);
             this.pnl.Controls.Add(this.pnlContainer);
             this.pnl.Location = new System.Drawing.Point(0, 0);
             this.pnl.Name = "pnl";
             this.pnl.Size = new System.Drawing.Size(743, 453);
-            this.pnl.TabIndex = 1;
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(90)))), ((int)(((byte)(160)))));
-            this.btnLogin.FlatAppearance.BorderSize = 0;
-            this.btnLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(115)))), ((int)(((byte)(196)))));
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(40, 304);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(280, 36);
-            this.btnLogin.TabIndex = 6;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = false;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(326, 304);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(40, 23);
-            this.btnCancel.TabIndex = 8;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Visible = false;
+            this.pnl.TabIndex = 0;
             // 
             // pnlContainer
             // 
             this.pnlContainer.BackColor = System.Drawing.Color.White;
-            this.pnlContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pnlContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pnlContainer.Controls.Add(this.btnCancel);
             this.pnlContainer.Controls.Add(this.lblError);
             this.pnlContainer.Controls.Add(this.btnLogin);
@@ -98,7 +69,18 @@ namespace DVLDWinForm.Forms
             this.pnlContainer.Location = new System.Drawing.Point(345, 1);
             this.pnlContainer.Name = "pnlContainer";
             this.pnlContainer.Size = new System.Drawing.Size(397, 450);
-            this.pnlContainer.TabIndex = 0;
+            this.pnlContainer.TabIndex = 4;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(326, 304);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(40, 23);
+            this.btnCancel.TabIndex = 8;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Visible = false;
             // 
             // lblError
             // 
@@ -113,6 +95,22 @@ namespace DVLDWinForm.Forms
             this.lblError.Text = "Incorrect Password or User Name";
             this.lblError.Visible = false;
             // 
+            // btnLogin
+            // 
+            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(90)))), ((int)(((byte)(160)))));
+            this.btnLogin.FlatAppearance.BorderSize = 0;
+            this.btnLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(115)))), ((int)(((byte)(196)))));
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnLogin.ForeColor = System.Drawing.Color.White;
+            this.btnLogin.Location = new System.Drawing.Point(40, 304);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(280, 36);
+            this.btnLogin.TabIndex = 3;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
             // chkShowPassword
             // 
             this.chkShowPassword.AutoSize = true;
@@ -121,7 +119,7 @@ namespace DVLDWinForm.Forms
             this.chkShowPassword.Location = new System.Drawing.Point(40, 274);
             this.chkShowPassword.Name = "chkShowPassword";
             this.chkShowPassword.Size = new System.Drawing.Size(108, 19);
-            this.chkShowPassword.TabIndex = 5;
+            this.chkShowPassword.TabIndex = 2;
             this.chkShowPassword.Text = "Show Password";
             this.chkShowPassword.UseVisualStyleBackColor = false;
             this.chkShowPassword.CheckedChanged += new System.EventHandler(this.chkShowPassword_CheckedChanged);
@@ -130,12 +128,12 @@ namespace DVLDWinForm.Forms
             // 
             this.tbPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.tbPassword.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.tbPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(226)))));
+            this.tbPassword.ForeColor = System.Drawing.Color.Black;
             this.tbPassword.Location = new System.Drawing.Point(40, 227);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.tbPassword.Size = new System.Drawing.Size(280, 25);
-            this.tbPassword.TabIndex = 4;
+            this.tbPassword.TabIndex = 1;
             this.tbPassword.UseSystemPasswordChar = true;
             // 
             // lblPassword
@@ -153,12 +151,12 @@ namespace DVLDWinForm.Forms
             // 
             this.tbUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(249)))), ((int)(((byte)(252)))));
             this.tbUsername.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.tbUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(226)))));
+            this.tbUsername.ForeColor = System.Drawing.Color.Black;
             this.tbUsername.Location = new System.Drawing.Point(40, 153);
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.tbUsername.Size = new System.Drawing.Size(280, 25);
-            this.tbUsername.TabIndex = 2;
+            this.tbUsername.TabIndex = 0;
             // 
             // lblUsername
             // 
@@ -184,17 +182,6 @@ namespace DVLDWinForm.Forms
             this.lblTitle.Text = "Driving && Vehicle License Department";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::DVLDWinForm.Properties.Resources.LoginLicense;
-            this.pictureBox1.Location = new System.Drawing.Point(60, 22);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(168, 129);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
-            // 
             // frmLogin
             // 
             this.AcceptButton = this.btnLogin;
@@ -205,6 +192,7 @@ namespace DVLDWinForm.Forms
             this.ClientSize = new System.Drawing.Size(744, 453);
             this.Controls.Add(this.pnl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmLogin";
@@ -213,13 +201,11 @@ namespace DVLDWinForm.Forms
             this.pnl.ResumeLayout(false);
             this.pnlContainer.ResumeLayout(false);
             this.pnlContainer.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         private Button btnCancel;
         private Panel pnl;
-        private PictureBox pictureBox1;
     }
 }

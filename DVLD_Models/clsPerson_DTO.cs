@@ -10,8 +10,7 @@ namespace DVLD_DTOs
 {
     public class clsPerson_DTO : IDTO
     {
-        
-        public int ID { get => PersonID; set => value = PersonID; }
+        int IDTO.ID { get => PersonID; set => value = PersonID; }
         public int PersonID { get; set; }
         public string NationalNo { get; set; }
         public string FirstName { get; set; }

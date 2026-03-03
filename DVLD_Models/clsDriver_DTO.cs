@@ -10,7 +10,7 @@ namespace DVLD_DTOs
     public class clsDriver_DTO : clsPerson_DTO , IDTO
     {
         public int DriverID { get; set; }
-        public int ID { get => DriverID; set => DriverID = value ; }
+        int IDTO.ID { get => DriverID; set => DriverID = value ; }
         public int CreatedByUserID { get; set; }
         public DateTime CreatedDate { get; set; }
     }

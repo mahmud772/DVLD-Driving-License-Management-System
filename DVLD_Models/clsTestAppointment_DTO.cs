@@ -10,7 +10,7 @@ namespace DVLD_DTOs
 {
     public class clsTestAppointment_DTO : IDTO
     {
-        public int ID { get => TestAppointmentID; set => value = TestAppointmentID; }
+        int IDTO.ID { get => TestAppointmentID; set => value = TestAppointmentID; }
         public int TestAppointmentID { get; set; }
         public int TestTypeID { get;private set; }
         public clsTestEnums.enTestTypes TestType 

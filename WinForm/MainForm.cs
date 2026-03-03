@@ -43,7 +43,6 @@ namespace DVLDWinForm
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            clsStaticData_BLL.LoadAllStaticData();
             SharedContextMenu = this.cmsUpdate_Delete;
             CRUDController = new clsCRUDController(dgvDisplay, flpUserControls);
             ApplicationQuery = new clsApplicationQuery();

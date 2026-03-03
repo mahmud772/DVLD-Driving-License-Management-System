@@ -34,6 +34,8 @@ namespace DVLDWinForm.User_Controls
         {
             InitializeComponent();
             clsUIHelper.CornerRadius(this, 25);
+            clsUIHelper.CornerRadius(pnlMoreInfo, 25);
+            clsUIHelper.CornerRadius(pnlIDs, 25);
         }
         
 
@@ -47,13 +49,11 @@ namespace DVLDWinForm.User_Controls
             lbAppointmentID.Text = AppointmentInfo.TestAppointmentID.ToString();
             lbTestID.Text = AppointmentInfo.TestAppointmentID.ToString();
             lbAppointmentDate.Text = AppointmentInfo.AppointmentDate.ToString("yyyy/MM/dd");
-            lbTestType.Text = clsTestType_BLL.GetTestTypeTitle(AppointmentInfo.TestTypeID);
+            lbTestType.Text = clsTestType_BLL.GetTestTypeTitle(AppointmentInfo.TestTypeID).Split(' ')[0];
             lbTestResult.Text = AppointmentInfo.RetakeTestApplicationID.ToString();
             lbPaidFees.Text = AppointmentInfo.PaidFees.ToString();
             clsUIHelper.FitText(lbTestType, 7.0f);
 
-            //MainForm.CRUDController.PrepareUpdate = Person => new frmAddNew_UpdatePerson(Person as clsPerson_DTO);
-            MainForm.CRUDController.TryDelete = clsTestAppointment_BLL.DeleteTestAppointment;
         }
 
         private void btnUpdate_Delete_Click(object sender, EventArgs e)

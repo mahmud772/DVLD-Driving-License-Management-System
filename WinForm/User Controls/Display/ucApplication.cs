@@ -34,7 +34,11 @@ namespace DVLDWinForm.User_Controls
         public ucApplication()
         {
             InitializeComponent();
+            clsUIHelper.CornerRadius(pnlIDs, 25);
+            clsUIHelper.CornerRadius(pnlMoreInfo, 25);
             clsUIHelper.CornerRadius(this, 25);
+            lbPaidFees.Visible = false;
+            pctrPaidFees.Visible = false;
         }
         
         private void _SetApplicationInfo(clsApplication_DTO ApplicationInfo)
@@ -50,10 +54,8 @@ namespace DVLDWinForm.User_Controls
             lbApplicationType.Text = clsApplicationType_BLL.GetApplicationTypeTitle(ApplicationInfo.ApplicationTypeID);
             lbStatus.Text = ApplicationInfo.ApplicationStatus.ToString();
             lbPaidFees.Text = ApplicationInfo.PaidFees.ToString();
-            clsUIHelper.FitText(lbApplicationType, 7.0f);
+            clsUIHelper.FitText(lbApplicationType, 4.0f);
 
-            //MainForm.CRUDController.PrepareUpdate = Person => new frmAddNew_UpdatePerson(Person as clsPerson_DTO);
-            MainForm.CRUDController.TryDelete = clsApplication_BLL.DeleteApplication;
         }
 
         private void btnUpdate_Delete_Click(object sender, EventArgs e)

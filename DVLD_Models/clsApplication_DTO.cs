@@ -10,9 +10,8 @@ namespace DVLD_DTOs
 {
     public class clsApplication_DTO : IDTO
     {
-       
+        int IDTO.ID { get => ApplicationID; set => value = ApplicationID; }
         public clsApplicationEnums.enApplicationStatus ApplicationStatus { get; set; }
-        public int ID { get => ApplicationID; set => value = ApplicationID; }
         public int ApplicationID { get;  set; }
         public DateTime ApplicationDate { get; set; }
         public int ApplicantPersonID { get; set; }

@@ -275,7 +275,7 @@
             // pctrEmail
             // 
             this.pctrEmail.Image = global::DVLDWinForm.Properties.Resources.Email;
-            this.pctrEmail.Location = new System.Drawing.Point(12, 50);
+            this.pctrEmail.Location = new System.Drawing.Point(12, 47);
             this.pctrEmail.Name = "pctrEmail";
             this.pctrEmail.Size = new System.Drawing.Size(24, 26);
             this.pctrEmail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;

@@ -8,7 +8,7 @@ namespace DVLD_DTOs
 {
     public class clsCountry_DTO : IDTO
     {
-        public int ID { get => CountryID; set => value = CountryID; }
+        int IDTO.ID { get => CountryID; set => value = CountryID; }
         public int CountryID { get; set; }
         public string CountryName { get; set; }
     }

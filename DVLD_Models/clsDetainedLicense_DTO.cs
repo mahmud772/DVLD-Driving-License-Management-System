@@ -8,7 +8,7 @@ namespace DVLD_DTOs
 {
     public class clsDetainedLicense_DTO : IDTO
     {
-        public int ID { get => LicenseID; set => value = LicenseID; }
+        int IDTO.ID { get => LicenseID; set => value = LicenseID; }
         public int LicenseID { get; set; }
         public int DetainID { get; set; }
         public DateTime DetainDate { get; set; }

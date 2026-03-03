@@ -8,7 +8,7 @@ namespace DVLD_DTOs
 {
     public class clsTest_DTO : IDTO
     {
-        public int ID { get => TestID; set => value = TestID; }
+        int IDTO.ID { get => TestID; set => value = TestID; }
         public int TestID { get; set; }
         public int TestAppointmentID { get; set; }
         public bool TestResult { get; set; }

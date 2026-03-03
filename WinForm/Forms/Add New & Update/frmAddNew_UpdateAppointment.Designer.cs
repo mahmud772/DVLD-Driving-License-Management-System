@@ -38,6 +38,8 @@
             this.lbAppointmentType = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
+            this.lbPaidFees = new System.Windows.Forms.Label();
+            this.lbPaidFees_Titel = new System.Windows.Forms.Label();
             this.pnlAppointment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             this.SuspendLayout();
@@ -45,14 +47,17 @@
             // dtpAppointmentDate
             // 
             this.dtpAppointmentDate.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpAppointmentDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpAppointmentDate.Location = new System.Drawing.Point(145, 55);
             this.dtpAppointmentDate.Name = "dtpAppointmentDate";
-            this.dtpAppointmentDate.Size = new System.Drawing.Size(202, 22);
+            this.dtpAppointmentDate.Size = new System.Drawing.Size(94, 22);
             this.dtpAppointmentDate.TabIndex = 11;
             // 
             // pnlAppointment
             // 
             this.pnlAppointment.BackColor = System.Drawing.Color.White;
+            this.pnlAppointment.Controls.Add(this.lbPaidFees);
+            this.pnlAppointment.Controls.Add(this.lbPaidFees_Titel);
             this.pnlAppointment.Controls.Add(this.lbType);
             this.pnlAppointment.Controls.Add(this.lbLicenseClass);
             this.pnlAppointment.Controls.Add(this.pbSelectedID);
@@ -62,7 +67,7 @@
             this.pnlAppointment.Controls.Add(this.lbAppointmentType);
             this.pnlAppointment.Location = new System.Drawing.Point(19, 44);
             this.pnlAppointment.Name = "pnlAppointment";
-            this.pnlAppointment.Size = new System.Drawing.Size(373, 130);
+            this.pnlAppointment.Size = new System.Drawing.Size(319, 147);
             this.pnlAppointment.TabIndex = 47;
             // 
             // lbType
@@ -89,7 +94,7 @@
             // pbSelectedID
             // 
             this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedID.Location = new System.Drawing.Point(304, 9);
+            this.pbSelectedID.Location = new System.Drawing.Point(275, 10);
             this.pbSelectedID.Name = "pbSelectedID";
             this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
             this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -123,13 +128,13 @@
             this.lbAppointmentType.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAppointmentType.Location = new System.Drawing.Point(4, 96);
             this.lbAppointmentType.Name = "lbAppointmentType";
-            this.lbAppointmentType.Size = new System.Drawing.Size(136, 17);
+            this.lbAppointmentType.Size = new System.Drawing.Size(135, 17);
             this.lbAppointmentType.TabIndex = 0;
-            this.lbAppointmentType.Text = "Appointment Type   :";
+            this.lbAppointmentType.Text = "Test Type                 :";
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(163, 180);
+            this.btnSave.Location = new System.Drawing.Point(129, 197);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(85, 33);
             this.btnSave.TabIndex = 46;
@@ -143,22 +148,44 @@
             this.lbTitel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.lbTitel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTitel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbTitel.Location = new System.Drawing.Point(97, 9);
+            this.lbTitel.Location = new System.Drawing.Point(69, 9);
             this.lbTitel.Name = "lbTitel";
             this.lbTitel.Size = new System.Drawing.Size(207, 21);
             this.lbTitel.TabIndex = 45;
             this.lbTitel.Text = "ADD NEW APPOINTMENT";
             // 
-            // frmAddNewAppointment
+            // lbPaidFees
+            // 
+            this.lbPaidFees.AutoSize = true;
+            this.lbPaidFees.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFees.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbPaidFees.Location = new System.Drawing.Point(144, 121);
+            this.lbPaidFees.Name = "lbPaidFees";
+            this.lbPaidFees.Size = new System.Drawing.Size(15, 17);
+            this.lbPaidFees.TabIndex = 52;
+            this.lbPaidFees.Text = "0";
+            // 
+            // lbPaidFees_Titel
+            // 
+            this.lbPaidFees_Titel.AutoSize = true;
+            this.lbPaidFees_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFees_Titel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbPaidFees_Titel.Location = new System.Drawing.Point(5, 120);
+            this.lbPaidFees_Titel.Name = "lbPaidFees_Titel";
+            this.lbPaidFees_Titel.Size = new System.Drawing.Size(132, 17);
+            this.lbPaidFees_Titel.TabIndex = 51;
+            this.lbPaidFees_Titel.Text = "PaidFees                 :";
+            // 
+            // frmAddNew_UpdateAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(404, 226);
+            this.ClientSize = new System.Drawing.Size(352, 233);
             this.Controls.Add(this.pnlAppointment);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
-            this.Name = "frmAddNewAppointment";
+            this.Name = "frmAddNew_UpdateAppointment";
             this.Text = "Add New Appointment";
             this.Load += new System.EventHandler(this.frmAddNewAppointment_Load);
             this.pnlAppointment.ResumeLayout(false);
@@ -181,5 +208,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lbTitel;
         private System.Windows.Forms.Label lbType;
+        private System.Windows.Forms.Label lbPaidFees;
+        private System.Windows.Forms.Label lbPaidFees_Titel;
     }
 }

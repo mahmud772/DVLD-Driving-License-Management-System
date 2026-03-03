@@ -8,7 +8,7 @@ namespace DVLD_DTOs
 {
     public class clsLicenseClass_DTO  : IDTO
     {
-        public int ID { get => LicenseClassID; set => value = LicenseClassID; }
+        int IDTO.ID { get => LicenseClassID; set => value = LicenseClassID; }
         public int LicenseClassID { get; set; }
         public string ClassName { get; set; }
         public string ClassDescription { get; set; }

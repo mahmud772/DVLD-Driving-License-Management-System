@@ -34,21 +34,21 @@
             this.lbPersonID = new System.Windows.Forms.Label();
             this.lbApplicationID = new System.Windows.Forms.Label();
             this.pnlMoreInfo = new System.Windows.Forms.Panel();
+            this.lbPaidFees = new System.Windows.Forms.Label();
+            this.pctrPaidFees = new System.Windows.Forms.PictureBox();
+            this.pctrCountry = new System.Windows.Forms.PictureBox();
             this.lbApplicationDate = new System.Windows.Forms.Label();
             this.lbApplicationType = new System.Windows.Forms.Label();
             this.lbStatus = new System.Windows.Forms.Label();
-            this.btnUpdate_Delete = new System.Windows.Forms.Button();
-            this.pctrCountry = new System.Windows.Forms.PictureBox();
             this.pctrDateOfBirth = new System.Windows.Forms.PictureBox();
             this.pctrGendor = new System.Windows.Forms.PictureBox();
-            this.lbPaidFees = new System.Windows.Forms.Label();
-            this.pctrPaidFees = new System.Windows.Forms.PictureBox();
+            this.btnUpdate_Delete = new System.Windows.Forms.Button();
             this.pnlIDs.SuspendLayout();
             this.pnlMoreInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrPaidFees)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrCountry)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrDateOfBirth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrGendor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrPaidFees)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlIDs
@@ -118,91 +118,10 @@
             this.pnlMoreInfo.Controls.Add(this.lbStatus);
             this.pnlMoreInfo.Controls.Add(this.pctrDateOfBirth);
             this.pnlMoreInfo.Controls.Add(this.pctrGendor);
-            this.pnlMoreInfo.Location = new System.Drawing.Point(18, 29);
+            this.pnlMoreInfo.Location = new System.Drawing.Point(12, 29);
             this.pnlMoreInfo.Name = "pnlMoreInfo";
-            this.pnlMoreInfo.Size = new System.Drawing.Size(355, 93);
+            this.pnlMoreInfo.Size = new System.Drawing.Size(366, 93);
             this.pnlMoreInfo.TabIndex = 61;
-            // 
-            // lbApplicationDate
-            // 
-            this.lbApplicationDate.AutoSize = true;
-            this.lbApplicationDate.Font = new System.Drawing.Font("Segoe UI Variable Display", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbApplicationDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
-            this.lbApplicationDate.Location = new System.Drawing.Point(250, 58);
-            this.lbApplicationDate.Name = "lbApplicationDate";
-            this.lbApplicationDate.Size = new System.Drawing.Size(79, 26);
-            this.lbApplicationDate.TabIndex = 12;
-            this.lbApplicationDate.Text = "0001\\1\\1";
-            // 
-            // lbApplicationType
-            // 
-            this.lbApplicationType.AutoSize = true;
-            this.lbApplicationType.Font = new System.Drawing.Font("Segoe UI Variable Display", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbApplicationType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
-            this.lbApplicationType.Location = new System.Drawing.Point(49, 16);
-            this.lbApplicationType.Name = "lbApplicationType";
-            this.lbApplicationType.Size = new System.Drawing.Size(146, 26);
-            this.lbApplicationType.TabIndex = 11;
-            this.lbApplicationType.Text = "ApplicationType";
-            // 
-            // lbStatus
-            // 
-            this.lbStatus.AutoSize = true;
-            this.lbStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbStatus.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.lbStatus.Location = new System.Drawing.Point(50, 62);
-            this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(55, 21);
-            this.lbStatus.TabIndex = 15;
-            this.lbStatus.Text = "Status";
-            // 
-            // btnUpdate_Delete
-            // 
-            this.btnUpdate_Delete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnUpdate_Delete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.btnUpdate_Delete.FlatAppearance.BorderSize = 0;
-            this.btnUpdate_Delete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.btnUpdate_Delete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.btnUpdate_Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate_Delete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate_Delete.Location = new System.Drawing.Point(11, 2);
-            this.btnUpdate_Delete.Name = "btnUpdate_Delete";
-            this.btnUpdate_Delete.Size = new System.Drawing.Size(30, 25);
-            this.btnUpdate_Delete.TabIndex = 64;
-            this.btnUpdate_Delete.Text = ". . .";
-            this.btnUpdate_Delete.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnUpdate_Delete.UseVisualStyleBackColor = true;
-            this.btnUpdate_Delete.Click += new System.EventHandler(this.btnUpdate_Delete_Click);
-            // 
-            // pctrCountry
-            // 
-            this.pctrCountry.Image = global::DVLDWinForm.Properties.Resources.Status;
-            this.pctrCountry.Location = new System.Drawing.Point(11, 58);
-            this.pctrCountry.Name = "pctrCountry";
-            this.pctrCountry.Size = new System.Drawing.Size(24, 26);
-            this.pctrCountry.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrCountry.TabIndex = 22;
-            this.pctrCountry.TabStop = false;
-            // 
-            // pctrDateOfBirth
-            // 
-            this.pctrDateOfBirth.Image = global::DVLDWinForm.Properties.Resources.IssueDate;
-            this.pctrDateOfBirth.Location = new System.Drawing.Point(212, 58);
-            this.pctrDateOfBirth.Name = "pctrDateOfBirth";
-            this.pctrDateOfBirth.Size = new System.Drawing.Size(24, 26);
-            this.pctrDateOfBirth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrDateOfBirth.TabIndex = 19;
-            this.pctrDateOfBirth.TabStop = false;
-            // 
-            // pctrGendor
-            // 
-            this.pctrGendor.Image = global::DVLDWinForm.Properties.Resources.ApplicationType;
-            this.pctrGendor.Location = new System.Drawing.Point(11, 16);
-            this.pctrGendor.Name = "pctrGendor";
-            this.pctrGendor.Size = new System.Drawing.Size(24, 26);
-            this.pctrGendor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrGendor.TabIndex = 18;
-            this.pctrGendor.TabStop = false;
             // 
             // lbPaidFees
             // 
@@ -225,7 +144,88 @@
             this.pctrPaidFees.TabIndex = 26;
             this.pctrPaidFees.TabStop = false;
             // 
-            // ctrlApplication
+            // pctrCountry
+            // 
+            this.pctrCountry.Image = global::DVLDWinForm.Properties.Resources.Status;
+            this.pctrCountry.Location = new System.Drawing.Point(11, 58);
+            this.pctrCountry.Name = "pctrCountry";
+            this.pctrCountry.Size = new System.Drawing.Size(24, 26);
+            this.pctrCountry.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrCountry.TabIndex = 22;
+            this.pctrCountry.TabStop = false;
+            // 
+            // lbApplicationDate
+            // 
+            this.lbApplicationDate.AutoSize = true;
+            this.lbApplicationDate.Font = new System.Drawing.Font("Segoe UI Variable Display", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbApplicationDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
+            this.lbApplicationDate.Location = new System.Drawing.Point(250, 58);
+            this.lbApplicationDate.Name = "lbApplicationDate";
+            this.lbApplicationDate.Size = new System.Drawing.Size(79, 26);
+            this.lbApplicationDate.TabIndex = 12;
+            this.lbApplicationDate.Text = "0001\\1\\1";
+            // 
+            // lbApplicationType
+            // 
+            this.lbApplicationType.AutoSize = true;
+            this.lbApplicationType.Font = new System.Drawing.Font("Segoe UI Variable Display", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbApplicationType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
+            this.lbApplicationType.Location = new System.Drawing.Point(48, 16);
+            this.lbApplicationType.Name = "lbApplicationType";
+            this.lbApplicationType.Size = new System.Drawing.Size(146, 26);
+            this.lbApplicationType.TabIndex = 11;
+            this.lbApplicationType.Text = "ApplicationType";
+            // 
+            // lbStatus
+            // 
+            this.lbStatus.AutoSize = true;
+            this.lbStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStatus.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lbStatus.Location = new System.Drawing.Point(50, 62);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(55, 21);
+            this.lbStatus.TabIndex = 15;
+            this.lbStatus.Text = "Status";
+            // 
+            // pctrDateOfBirth
+            // 
+            this.pctrDateOfBirth.Image = global::DVLDWinForm.Properties.Resources.IssueDate;
+            this.pctrDateOfBirth.Location = new System.Drawing.Point(212, 58);
+            this.pctrDateOfBirth.Name = "pctrDateOfBirth";
+            this.pctrDateOfBirth.Size = new System.Drawing.Size(24, 26);
+            this.pctrDateOfBirth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrDateOfBirth.TabIndex = 19;
+            this.pctrDateOfBirth.TabStop = false;
+            // 
+            // pctrGendor
+            // 
+            this.pctrGendor.Image = global::DVLDWinForm.Properties.Resources.ApplicationType;
+            this.pctrGendor.Location = new System.Drawing.Point(11, 16);
+            this.pctrGendor.Name = "pctrGendor";
+            this.pctrGendor.Size = new System.Drawing.Size(24, 26);
+            this.pctrGendor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrGendor.TabIndex = 18;
+            this.pctrGendor.TabStop = false;
+            // 
+            // btnUpdate_Delete
+            // 
+            this.btnUpdate_Delete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnUpdate_Delete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.btnUpdate_Delete.FlatAppearance.BorderSize = 0;
+            this.btnUpdate_Delete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.btnUpdate_Delete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.btnUpdate_Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate_Delete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdate_Delete.Location = new System.Drawing.Point(11, 2);
+            this.btnUpdate_Delete.Name = "btnUpdate_Delete";
+            this.btnUpdate_Delete.Size = new System.Drawing.Size(30, 25);
+            this.btnUpdate_Delete.TabIndex = 64;
+            this.btnUpdate_Delete.Text = ". . .";
+            this.btnUpdate_Delete.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btnUpdate_Delete.UseVisualStyleBackColor = true;
+            this.btnUpdate_Delete.Click += new System.EventHandler(this.btnUpdate_Delete_Click);
+            // 
+            // ucApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -233,16 +233,16 @@
             this.Controls.Add(this.pnlIDs);
             this.Controls.Add(this.pnlMoreInfo);
             this.Controls.Add(this.btnUpdate_Delete);
-            this.Name = "ctrlApplication";
+            this.Name = "ucApplication";
             this.Size = new System.Drawing.Size(381, 161);
             this.pnlIDs.ResumeLayout(false);
             this.pnlIDs.PerformLayout();
             this.pnlMoreInfo.ResumeLayout(false);
             this.pnlMoreInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrPaidFees)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrCountry)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrDateOfBirth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrGendor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrPaidFees)).EndInit();
             this.ResumeLayout(false);
 
         }

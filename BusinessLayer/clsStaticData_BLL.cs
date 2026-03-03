@@ -1,11 +1,5 @@
 ﻿using DVLD_DTOs;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DVLD_BLL
 {
     public static class clsStaticData_BLL

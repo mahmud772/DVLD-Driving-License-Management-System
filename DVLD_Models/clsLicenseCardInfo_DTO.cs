@@ -9,7 +9,7 @@ namespace DVLD_DTOs
 {
     public class clsLicenseCardInfo_DTO : IDTO
     {
-        public int ID { get => LicenseID; set => LicenseID = value; }
+        int IDTO.ID { get => LicenseID; set => LicenseID = value; }
         public int LicenseID { get; set; }
         public int DriverID { get; set; }
         public clsLicenseEnums.enLicenseClasses LicenseClass { get; set; }

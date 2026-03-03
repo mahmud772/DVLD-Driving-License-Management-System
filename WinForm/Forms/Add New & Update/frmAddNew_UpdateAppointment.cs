@@ -45,12 +45,15 @@ namespace DVLDWinForm.Forms.Add_New___Update
         }
         private void _SetApplicationInfo()
         {
-            if (Mode == enMode.Update)
+            if (Mode == enMode.Update && _AppointmentInfo != null)
             {
-                tbID.Text = _AppointmentInfo?.LocalDrivingLicenseApplicationID.ToString();
+                tbID.Text = _AppointmentInfo.LocalDrivingLicenseApplicationID.ToString();
                 lbTitel.Text = "UPDATE APPOINTMENT";
-                lbType.Text = _AppointmentInfo?.TestType.ToString();
-                dtpAppointmentDate.Value = (DateTime)_AppointmentInfo?.AppointmentDate;
+                lbType.Text = clsStaticData_BLL.TestTypes
+                    .FirstOrDefault(T => T.TestTypeID == _AppointmentInfo.TestTypeID)
+                    .TestTypeTitle.ToString().Split(' ')[0];
+                dtpAppointmentDate.Value = _AppointmentInfo.AppointmentDate;
+                lbPaidFees.Text = _AppointmentInfo.PaidFees.ToString();
             }
         }
         private bool _GetApplicationInfo()
@@ -60,7 +63,7 @@ namespace DVLDWinForm.Forms.Add_New___Update
 
             _AppointmentInfo?.AppointmentDate = dtpAppointmentDate.Value;
             _AppointmentInfo?.LocalDrivingLicenseApplicationID = Convert.ToInt32(tbID.Text?.Trim());
-            _AppointmentInfo?.CreatedByUserID = 17;
+            _AppointmentInfo?.CreatedByUserID = clsCurrentUser.User.UserID;
             if (_AppointmentInfo.AppointmentDate <= DateTime.Now) return false;
 
             return true;

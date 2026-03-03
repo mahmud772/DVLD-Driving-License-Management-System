@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using DVLD_DTOs;
+using System.Runtime.CompilerServices;
 namespace ConsoleTest
 {
     delegate bool ConditionAge(int Age);
@@ -155,10 +156,11 @@ namespace ConsoleTest
                 Console.WriteLine("Test Type : " + Appointment.Appointment.TestType);
             }*/
             
-
+            //List<clsPerson_DTO> Poeple = new List<clsPerson_DTO>();
+            //Poeple.PrintList();
 
         }
-
+        
         static void PrintNameWhenOlderThen(string name , int Age , ConditionAge Condition)
         {
             if(Condition(Age))

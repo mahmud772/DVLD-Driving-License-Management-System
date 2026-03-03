@@ -8,7 +8,7 @@ namespace DVLD_DTOs
 {
     public class clsTestType_DTO : IDTO
     {
-        public int ID { get => TestTypeID; set => value = TestTypeID; }
+        int IDTO.ID { get => TestTypeID; set => value = TestTypeID; }
         public int TestTypeID { get; set; }
         public string TestTypeTitle { get; set; }
         public string TestTypeDescription { get; set; }

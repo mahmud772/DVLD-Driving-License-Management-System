@@ -95,11 +95,12 @@ namespace DVLD_BLL
                 )
             {
                 clsApplication_BLL Application = new clsApplication_BLL();
+
                 Application.Application.ApplicantPersonID = clsLocalDrivingLicenseApplication_DAL.GetPersonIDByLocalDrivingLicenseApplicationID(this.Appointment.LocalDrivingLicenseApplicationID);
                 //Application.Application.ApplicationDate = clsBLHelper.GetDate_Now();
                 Application.Application.ApplicationTypeID = clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.RetakeTest);
                 Application.Application.ApplicationStatus = clsApplicationEnums.enApplicationStatus.Completed;
-                Application.Application.CreatedByUserID = 1;
+                Application.Application.CreatedByUserID = this.Appointment.CreatedByUserID;
                 //Application.Application.LastStatusDate = clsBLHelper.GetDate_Now();
                 //Application.Application.PaidFees = clsApplicationType_BLL.GetApplicationFees(clsApplicationEnums.ConvertApplicationTypeToInt(clsApplicationEnums.enApplicationType.RetakeTest));
                 if (!Application.Save()) return false;
@@ -107,7 +108,7 @@ namespace DVLD_BLL
                 this.IsRetakeTest = true;
                 PaidFeesApplication = Application.Application.PaidFees;
             }
-            this.Appointment.PaidFees = clsTestType_BLL.GetPaidFees(clsTestEnumConverter.ConvertTestTypeToInt(this.Appointment.TestType)) + PaidFeesApplication;
+            this.Appointment.PaidFees = clsTestType_BLL.GetPaidFees(clsTestEnumConverter.ConvertTestTypeToInt(this.Appointment.TestType));
 
             this.Appointment.TestAppointmentID = clsTestAppointment_DAL.AddNewTestAppointment(this.Appointment);
             return (this.Appointment.TestAppointmentID > 0);

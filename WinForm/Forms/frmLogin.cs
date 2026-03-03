@@ -36,7 +36,7 @@ namespace DVLDWinForm.Forms
             }
 
             lblError.Visible = false;
-            MessageBox.Show("Login Successful");
+            //MessageBox.Show("Login Successful");
             this.DialogResult = DialogResult.OK;
         }
 

@@ -252,6 +252,9 @@
     <Compile Include="User Controls\ucLogout.Designer.cs">
       <DependentUpon>ucLogout.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdateAppointment.resx">
+      <DependentUpon>frmAddNew_UpdateAppointment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.resx">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
     </EmbeddedResource>

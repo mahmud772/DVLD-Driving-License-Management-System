@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace DVLD_DTOs
 {
-    public class clsLocalDrivingLicenseApplication_DTO : clsApplication_DTO
+    public class clsLocalDrivingLicenseApplication_DTO : clsApplication_DTO , IDTO
     {
+        int IDTO.ID { get => LocalDrivingLicenseApplicationID; set => value = LocalDrivingLicenseApplicationID; }
         public int LocalDrivingLicenseApplicationID { get; set; }
         public int LicenseClassID { get; set; }
         public clsLicenseEnums.enLicenseClasses LicenseClass

@@ -9,7 +9,7 @@ namespace DVLD_DTOs
 {
     public class clsInternationalLicense_DTO : IDTO
     {
-        public int ID { get => InternationalLicenseID; set => value = InternationalLicenseID; }
+        int IDTO.ID { get => InternationalLicenseID; set => value = InternationalLicenseID; }
         public int InternationalLicenseID { get; set; }
         public int ApplicationID { get; set; }
         public int DriverID { get; set; }

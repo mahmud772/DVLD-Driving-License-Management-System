@@ -1,4 +1,5 @@
-﻿using DVLDWinForm.Forms;
+﻿using DVLD_BLL;
+using DVLDWinForm.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace DVLDWinForm
                 if (login.ShowDialog() != DialogResult.OK)
                     return;
             }
+            clsStaticData_BLL.LoadAllStaticData();
             Application.Run(new MainForm());
         }
     }

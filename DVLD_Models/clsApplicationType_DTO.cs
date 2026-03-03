@@ -8,7 +8,7 @@ namespace DVLD_DTOs
 {
     public class clsApplicationType_DTO : IDTO
     {
-        public int ID { get => ApplicationTypeID; set => value = ApplicationTypeID; }
+        int IDTO.ID { get => ApplicationTypeID; set => value = ApplicationTypeID; }
         public int ApplicationTypeID { get; set; }
         public string ApplicationTypeTitle { get; set; }
         public decimal ApplicationFees { get; set; }
