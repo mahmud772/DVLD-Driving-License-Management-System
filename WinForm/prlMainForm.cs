@@ -79,12 +79,12 @@ namespace DVLDWinForm
 
             CRUDController.TryDelete = clsApplication_BLL.DeleteApplication;
             CRUDController.Search = () => new frmSortAndFilter(new ucApplicationsFilter(), ApplicationQuery);
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsApplicationEnums.enApplicationSearchBy));
+           
 
             _InitializeAdapter(clsApplication_BLL.GetApplications,
                clsApplication_BLL.GetCount,
                _GetDisplayView<clsApplication_DTO>(application => new ucApplication { ApplicationInfo = application }));
-            
+            cbSearchBy.DataSource = Enum.GetValues(typeof(clsApplicationEnums.enApplicationSearchBy));
             lbTotalType_Titel.Text = "Applications";
             lbTotalCount.Text = _paginator.TotalItems.ToString();
             pbTotal.Image = Properties.Resources.Applications;

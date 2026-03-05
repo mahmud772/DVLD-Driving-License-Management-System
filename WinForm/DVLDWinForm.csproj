@@ -55,6 +55,11 @@
     <Compile Include="Custom Components\CheckedComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Display\clsBaseDisplay.cs" />
+    <Compile Include="Display\clsDisplayApplications.cs" />
+    <Compile Include="Display\clsDisplayPeople.cs" />
+    <Compile Include="Display\IDisplay.cs" />
+    <Compile Include="Display\IPaginationView.cs" />
     <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +136,7 @@
       <DependentUpon>frmSortAndFilter.cs</DependentUpon>
     </Compile>
     <Compile Include="UIHelper_Manger\clsControlAnimateHeight.cs" />
+    <Compile Include="UIHelper_Manger\clsEnums.cs" />
     <Compile Include="UIHelper_Manger\clsFormLayoutHelper.cs" />
     <Compile Include="Custom Components\GlassPanel.cs">
       <SubType>Component</SubType>

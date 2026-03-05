@@ -1,25 +1,26 @@
 ﻿using Common.Helpers;
 using Common.Queries;
 using DVLD_BLL;
+using DVLDWinForm.Display;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using static DVLDWinForm.UIHelper_Manger.clsEnums;
 
 namespace DVLDWinForm
 {
 
-    public partial class MainForm : Form
+    public partial class MainForm : Form , IPaginationView
     {
         private IPageableLoader _currentLoader;
         private clsPaginationManager _paginator;
         private IQuery _currentQuery;
-        enum enDisplayMode { FLP = 1, DGV = 2 }
         enDisplayMode DisplayMode = enDisplayMode.FLP;
         private Action LoadType;
-
+        private IDisplay _display;
         public static clsCRUDController CRUDController { get; set; }
         public static ContextMenuStrip SharedContextMenu { get; private set; }
 
@@ -85,7 +86,7 @@ namespace DVLDWinForm
         private void _Refresh()
         {
             LoadType?.Invoke();
-            _LoadData();
+            _display.Load(DisplayMode , _currentQuery);
         }
 
 
@@ -107,6 +108,20 @@ namespace DVLDWinForm
             lbPageNumber.Text = _paginator.CurrentPage.ToString();
             btnNextPage.Visible = _paginator.HasNextPage;
             btnPreviousPage.Visible = _paginator.HasPreviousPage;
+        }
+        public void SetPageNumber(int pageNumber)
+        {
+            lbPageNumber.Text = pageNumber.ToString();
+        }
+
+        public void SetNextButtonVisible(bool visible)
+        {
+            btnNextPage.Visible = visible;
+        }
+
+        public void SetPreviousButtonVisible(bool visible)
+        {
+            btnPreviousPage.Visible = visible;
         }
         private void _ShowDGV()
         {
@@ -143,21 +158,12 @@ namespace DVLDWinForm
 
         private void btnNextPage_Click(object sender, EventArgs e)
         {
-            if (_paginator.HasNextPage)
-            {
-                _paginator.NextPage();
-                _LoadData();
-            }
-
+            _display.NextPage();
         }
 
         private void btnPreviousPage_Click(object sender, EventArgs e)
         {
-            if (_paginator.HasPreviousPage)
-            {
-                _paginator.PreviousPage();
-                _LoadData();
-            }
+            _display.PreviousPage();
         }
 
 
@@ -172,7 +178,13 @@ namespace DVLDWinForm
 
         private void btnPeople_Click(object sender, EventArgs e)
         {
-            LoadType = _LoadPeople;
+            _currentQuery = PersonQuery;
+            _display = new clsDisplayPeople(PersonQuery, this , dgvDisplay
+                ,flpUserControls , CRUDController);
+            LoadType = () => _display.Load(DisplayMode , PersonQuery);
+            LoadType?.Invoke();
+            _display.UpdateUI(cbSearchBy , lbTotalType_Titel, lbTotalCount , pbTotal);
+            _display.InitializeCRUDController();
             _ShowFLP();
         }
 
@@ -193,7 +205,13 @@ namespace DVLDWinForm
 
         private void btnApplications_Click(object sender, EventArgs e)
         {
-            LoadType = _LoadApplications;
+            _currentQuery = ApplicationQuery;
+            _display = new clsDisplayApplications(ApplicationQuery, this, dgvDisplay
+                , flpUserControls, CRUDController);
+            LoadType = () => _display.Load(DisplayMode, ApplicationQuery);
+            LoadType?.Invoke();
+            _display.UpdateUI(cbSearchBy, lbTotalType_Titel, lbTotalCount, pbTotal);
+            _display.InitializeCRUDController();
             _ShowFLP();
         }
 
