@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ctrlPerson1 = new DVLDWinForm.ucPerson();
+            this.ctrlPerson1 = new DVLDWinForm.ucPerson(_CRUDController , _sharedContextMenu);
             this.lbDriverID = new System.Windows.Forms.Label();
             this.lbDriverID_Title = new System.Windows.Forms.Label();
             this.SuspendLayout();

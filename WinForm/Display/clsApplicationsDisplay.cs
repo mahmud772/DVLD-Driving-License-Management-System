@@ -18,10 +18,9 @@ namespace DVLDWinForm.Display
 {
     public class clsDisplayApplications : clsBaseDisplay
     {
-        public clsDisplayApplications(clsApplicationQuery CurrentQuery,
-            IPaginationView paginationView,
-             DataGridView dgvDisplay, FlowLayoutPanel flpUserControls, clsCRUDController CRUDController)
-            : base(dgvDisplay, flpUserControls, paginationView, CRUDController)
+
+        public clsDisplayApplications(clsApplicationQuery CurrentQuery, clsContextDisplay Context)
+            : base(Context)
         {
             _currentQuery = CurrentQuery;
         }
@@ -30,17 +29,16 @@ namespace DVLDWinForm.Display
             _currentQuery = Query;
             InitializeAdapter(clsApplication_BLL.GetApplications,
                clsApplication_BLL.GetCount,
-               GetDisplayView<clsApplication_DTO>(application => new ucApplication { ApplicationInfo = application } , DisplayMode));
-
+               GetDisplayView<clsApplication_DTO>(application => new ucApplication(_context.CRUDController, _context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
 
         }
         public override void InitializeCRUDController()
         {
-            CRUDController.CreateForm = () => new frmCreateApplication();
-            CRUDController.PrepareUpdate = Application => new frmUpdateApplication(Application as clsApplication_DTO);
-            CRUDController.TryDelete = clsApplication_BLL.DeleteApplication;
-            CRUDController.Search = () => new frmSortAndFilter(new ucApplicationsFilter(), _currentQuery);
-            CRUDController.iUserControl = new ucApplication();
+            _context.CRUDController.CreateForm = () => new frmCreateApplication();
+            _context.CRUDController.PrepareUpdate = Application => new frmUpdateApplication(Application as clsApplication_DTO);
+            _context.CRUDController.TryDelete = clsApplication_BLL.DeleteApplication;
+            _context.CRUDController.Search = () => new frmSortAndFilter(new ucApplicationsFilter(), _currentQuery);
+            _context.CRUDController.iUserControl = new ucApplication();
         }
         public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal)

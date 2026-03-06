@@ -12,29 +12,19 @@ namespace DVLDWinForm.Display
 {
     public abstract class clsBaseDisplay : IDisplay
     {
+        protected clsContextDisplay _context;
         protected IPageableLoader _currentLoader;
-        protected clsPaginationManager _paginator;
-        protected DataGridView dgvDisplay;
-        protected FlowLayoutPanel flpUserControls;
         protected IQuery _currentQuery;
-        protected Label lbPageNumber;
-        protected Button btnNextPage;
-        protected Button btnPreviousPage;
-        protected clsCRUDController CRUDController;
-        protected IPaginationView _paginationView;
-        public clsBaseDisplay(DataGridView dgvDisplay , FlowLayoutPanel flpUserControls ,
-            IPaginationView paginationView, clsCRUDController CRUDController)
+        protected clsPaginationManager _paginator;
+        public clsBaseDisplay(clsContextDisplay Context)
         {
-            _paginationView = paginationView;
-            this.dgvDisplay = dgvDisplay;
-            this.flpUserControls = flpUserControls;
-            this.CRUDController = CRUDController;
+            _context = Context;
         }
         public IDisplayView<T> GetDisplayView<T>(Func<T, UserControl> ControlCeartor , clsEnums.enDisplayMode DisplayMode)
         {
             return DisplayMode == clsEnums.enDisplayMode.DGV ?
-                new clsDGVManager<T>(dgvDisplay) :
-                new clsFLPManager<T>(flpUserControls, ControlCeartor);
+                new clsDGVManager<T>(_context.dgvDisplay) :
+                new clsFLPManager<T>(_context.flpUserControls, ControlCeartor);
         }
         public virtual void Load(clsEnums.enDisplayMode DisplayMode, IQuery CurrentQuery) { }
         public virtual void InitializeCRUDController() { }
@@ -55,9 +45,9 @@ namespace DVLDWinForm.Display
         }
         public void UpdatePageUI()
         {
-            _paginationView.SetPageNumber(_paginator.CurrentPage);
-            _paginationView.SetNextButtonVisible(_paginator.HasNextPage);
-            _paginationView.SetPreviousButtonVisible(_paginator.HasPreviousPage);
+            _context.PaginationView.SetPageNumber(_paginator.CurrentPage);
+            _context.PaginationView.SetNextButtonVisible(_paginator.HasNextPage);
+            _context.PaginationView.SetPreviousButtonVisible(_paginator.HasPreviousPage);
         }
         public void NextPage()
         {

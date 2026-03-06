@@ -15,6 +15,7 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.Expando;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,6 +27,9 @@ namespace DVLDWinForm
         public event Action OnVisibleChanged;
         public event Action OnUnvisibleChanged;
         private clsPerson_DTO _PersonInfo;
+
+        clsCRUDController _CRUDController;
+        ContextMenuStrip _sharedContextMenu;
 
         clsControlAnimateHeight Animate;
         public clsPerson_DTO PersonInfo
@@ -43,8 +47,6 @@ namespace DVLDWinForm
         public Func<IDTO> SelectdDTO;
         
         private const int _step = 20;
-        // "We need to define the heights for both states."
-        // (نحتاج إلى تحديد الارتفاعات لكلتا الحالتين).
         public int _collapsedHeight { get; } = 161;
         public int _expandedHeight { get; } = 300;
 
@@ -54,6 +56,15 @@ namespace DVLDWinForm
             InitializeComponent();
             Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
             CollapseInstantly();
+        }
+        
+        public ucPerson(clsCRUDController CRUDController, ContextMenuStrip SharedContextMenu)
+        {
+            InitializeComponent();
+            Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
+            CollapseInstantly();
+            _CRUDController = CRUDController;
+            _sharedContextMenu = SharedContextMenu;
         }
         
 
@@ -91,6 +102,14 @@ namespace DVLDWinForm
             clsUIHelper.CornerRadius(pnlContacts, 25);
             clsUIHelper.CornerRadius(pnlMoreInfo, 25);
             clsUIHelper.CornerRadius(pnlIDs, 25);
+            if(_sharedContextMenu == null || _CRUDController == null)
+                btnUpdate_Delete.Visible = false;
+
+            if (this is not ucPerson)
+            {
+                lbNationalNo.Visible = false;
+                lbNationalNo_Titel.Visible = false;
+            }
         }
 
         public void CollapseInstantly()
@@ -112,8 +131,6 @@ namespace DVLDWinForm
         private void ctrlPerson_Load(object sender, EventArgs e)
         {
             _LoadDesign();
-            clsUIHelper.CornerRadius(this, 15);
-            
         }
 
         
@@ -130,7 +147,6 @@ namespace DVLDWinForm
             OnUnvisibleChanged?.Invoke();
             pnlMoreInfo.Visible = false;
             pnlIDs.Visible = false;
-
         }
 
        
@@ -166,13 +182,13 @@ namespace DVLDWinForm
         {
             if (PersonInfo != null && SelectdDTO == null)
             { 
-                MainForm.CRUDController?.DTO = this.PersonInfo; 
+                _CRUDController?.DTO = this.PersonInfo; 
             }
             else
             {
-                MainForm.CRUDController?.DTO = SelectdDTO?.Invoke();
+                _CRUDController?.DTO = SelectdDTO?.Invoke();
             }
-            MainForm.SharedContextMenu.Show(btnUpdate_Delete , new Point(0,btnUpdate_Delete.Height));
+            _sharedContextMenu.Show(btnUpdate_Delete , new Point(0,btnUpdate_Delete.Height));
         }
     }
 }

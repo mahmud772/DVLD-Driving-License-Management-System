@@ -2,6 +2,7 @@
 using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
+using DVLDWinForm.UIHelper_Manger;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,8 @@ namespace DVLDWinForm
     public partial class ucDriver : UserControl , IUserControl
     {
         private clsDriver_DTO _DriverInfo { get; set; }
-
+        clsCRUDController _CRUDController;
+        ContextMenuStrip _sharedContextMenu;
         public clsDriver_DTO DriverInfo
         {
             get => _DriverInfo;
@@ -30,6 +32,12 @@ namespace DVLDWinForm
         public IDTO Info { get => _DriverInfo; set => DriverInfo = value as clsDriver_DTO; }
         public ucDriver()
         {
+            InitializeComponent();
+        }
+        public ucDriver(clsCRUDController CRUDController, ContextMenuStrip SharedContextMenu)
+        {
+            _CRUDController = CRUDController;
+            _sharedContextMenu = SharedContextMenu;
             InitializeComponent();
         }
 

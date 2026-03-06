@@ -34,15 +34,15 @@
             this.lbTestID = new System.Windows.Forms.Label();
             this.lbAppointmentID = new System.Windows.Forms.Label();
             this.pnlMoreInfo = new System.Windows.Forms.Panel();
-            this.lbAppointmentDate = new System.Windows.Forms.Label();
-            this.lbTestType = new System.Windows.Forms.Label();
-            this.lbTestResult = new System.Windows.Forms.Label();
-            this.btnUpdate_Delete = new System.Windows.Forms.Button();
             this.lbPaidFees = new System.Windows.Forms.Label();
             this.pctrPaidFees = new System.Windows.Forms.PictureBox();
             this.pctrCountry = new System.Windows.Forms.PictureBox();
+            this.lbAppointmentDate = new System.Windows.Forms.Label();
+            this.lbTestType = new System.Windows.Forms.Label();
+            this.lbTestResult = new System.Windows.Forms.Label();
             this.pctrAppointmentDate = new System.Windows.Forms.PictureBox();
             this.pctrGendor = new System.Windows.Forms.PictureBox();
+            this.btnUpdate_Delete = new System.Windows.Forms.Button();
             this.pnlIDs.SuspendLayout();
             this.pnlMoreInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctrPaidFees)).BeginInit();
@@ -123,6 +123,37 @@
             this.pnlMoreInfo.Size = new System.Drawing.Size(355, 93);
             this.pnlMoreInfo.TabIndex = 65;
             // 
+            // lbPaidFees
+            // 
+            this.lbPaidFees.AutoSize = true;
+            this.lbPaidFees.Font = new System.Drawing.Font("Segoe UI Variable Display", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPaidFees.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
+            this.lbPaidFees.Location = new System.Drawing.Point(250, 16);
+            this.lbPaidFees.Name = "lbPaidFees";
+            this.lbPaidFees.Size = new System.Drawing.Size(83, 26);
+            this.lbPaidFees.TabIndex = 23;
+            this.lbPaidFees.Text = "PaidFees";
+            // 
+            // pctrPaidFees
+            // 
+            this.pctrPaidFees.Image = global::DVLDWinForm.Properties.Resources.PaidFees;
+            this.pctrPaidFees.Location = new System.Drawing.Point(212, 16);
+            this.pctrPaidFees.Name = "pctrPaidFees";
+            this.pctrPaidFees.Size = new System.Drawing.Size(24, 26);
+            this.pctrPaidFees.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrPaidFees.TabIndex = 24;
+            this.pctrPaidFees.TabStop = false;
+            // 
+            // pctrCountry
+            // 
+            this.pctrCountry.Image = global::DVLDWinForm.Properties.Resources.Status;
+            this.pctrCountry.Location = new System.Drawing.Point(11, 58);
+            this.pctrCountry.Name = "pctrCountry";
+            this.pctrCountry.Size = new System.Drawing.Size(24, 26);
+            this.pctrCountry.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrCountry.TabIndex = 22;
+            this.pctrCountry.TabStop = false;
+            // 
             // lbAppointmentDate
             // 
             this.lbAppointmentDate.AutoSize = true;
@@ -156,55 +187,6 @@
             this.lbTestResult.TabIndex = 15;
             this.lbTestResult.Text = "TestResult";
             // 
-            // btnUpdate_Delete
-            // 
-            this.btnUpdate_Delete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnUpdate_Delete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.btnUpdate_Delete.FlatAppearance.BorderSize = 0;
-            this.btnUpdate_Delete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.btnUpdate_Delete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.btnUpdate_Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate_Delete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate_Delete.Location = new System.Drawing.Point(11, 1);
-            this.btnUpdate_Delete.Name = "btnUpdate_Delete";
-            this.btnUpdate_Delete.Size = new System.Drawing.Size(30, 25);
-            this.btnUpdate_Delete.TabIndex = 67;
-            this.btnUpdate_Delete.Text = ". . .";
-            this.btnUpdate_Delete.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnUpdate_Delete.UseVisualStyleBackColor = true;
-            this.btnUpdate_Delete.Click += new System.EventHandler(this.btnUpdate_Delete_Click);
-            // 
-            // lbPaidFees
-            // 
-            this.lbPaidFees.AutoSize = true;
-            this.lbPaidFees.Font = new System.Drawing.Font("Segoe UI Variable Display", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPaidFees.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
-            this.lbPaidFees.Location = new System.Drawing.Point(250, 16);
-            this.lbPaidFees.Name = "lbPaidFees";
-            this.lbPaidFees.Size = new System.Drawing.Size(83, 26);
-            this.lbPaidFees.TabIndex = 23;
-            this.lbPaidFees.Text = "PaidFees";
-            // 
-            // pctrPaidFees
-            // 
-            this.pctrPaidFees.Image = global::DVLDWinForm.Properties.Resources.PaidFees;
-            this.pctrPaidFees.Location = new System.Drawing.Point(212, 16);
-            this.pctrPaidFees.Name = "pctrPaidFees";
-            this.pctrPaidFees.Size = new System.Drawing.Size(24, 26);
-            this.pctrPaidFees.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrPaidFees.TabIndex = 24;
-            this.pctrPaidFees.TabStop = false;
-            // 
-            // pctrCountry
-            // 
-            this.pctrCountry.Image = global::DVLDWinForm.Properties.Resources.Status;
-            this.pctrCountry.Location = new System.Drawing.Point(11, 58);
-            this.pctrCountry.Name = "pctrCountry";
-            this.pctrCountry.Size = new System.Drawing.Size(24, 26);
-            this.pctrCountry.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrCountry.TabIndex = 22;
-            this.pctrCountry.TabStop = false;
-            // 
             // pctrAppointmentDate
             // 
             this.pctrAppointmentDate.Image = global::DVLDWinForm.Properties.Resources.IssueDate;
@@ -225,14 +207,33 @@
             this.pctrGendor.TabIndex = 18;
             this.pctrGendor.TabStop = false;
             // 
-            // ctrlTestAppointment
+            // btnUpdate_Delete
+            // 
+            this.btnUpdate_Delete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnUpdate_Delete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.btnUpdate_Delete.FlatAppearance.BorderSize = 0;
+            this.btnUpdate_Delete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.btnUpdate_Delete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.btnUpdate_Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate_Delete.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdate_Delete.Location = new System.Drawing.Point(11, 1);
+            this.btnUpdate_Delete.Name = "btnUpdate_Delete";
+            this.btnUpdate_Delete.Size = new System.Drawing.Size(30, 25);
+            this.btnUpdate_Delete.TabIndex = 67;
+            this.btnUpdate_Delete.Text = ". . .";
+            this.btnUpdate_Delete.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btnUpdate_Delete.UseVisualStyleBackColor = true;
+            this.btnUpdate_Delete.Click += new System.EventHandler(this.btnUpdate_Delete_Click);
+            // 
+            // ucTestAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.Controls.Add(this.pnlIDs);
             this.Controls.Add(this.pnlMoreInfo);
             this.Controls.Add(this.btnUpdate_Delete);
-            this.Name = "ctrlTestAppointment";
+            this.Name = "ucTestAppointment";
             this.Size = new System.Drawing.Size(381, 161);
             this.pnlIDs.ResumeLayout(false);
             this.pnlIDs.PerformLayout();

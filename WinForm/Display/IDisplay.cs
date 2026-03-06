@@ -11,7 +11,7 @@ namespace DVLDWinForm.Display
 {
     public interface IDisplay
     {
-        void Load(clsEnums.enDisplayMode mode, IQuery CurrentQuery);
+        void Load(clsEnums.enDisplayMode mode , IQuery query);
         void NextPage();
         void PreviousPage();
         void InitializeCRUDController();

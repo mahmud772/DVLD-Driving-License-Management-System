@@ -56,8 +56,16 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Display\clsBaseDisplay.cs" />
-    <Compile Include="Display\clsDisplayApplications.cs" />
-    <Compile Include="Display\clsDisplayPeople.cs" />
+    <Compile Include="Display\clsApplicationsDisplay.cs" />
+    <Compile Include="Display\clsContextDisplay.cs" />
+    <Compile Include="Display\clsDetaindLicensesDisplay.cs" />
+    <Compile Include="Display\clsDriversDisplay.cs" />
+    <Compile Include="Display\clsInternationalLicensesDisplay.cs" />
+    <Compile Include="Display\clsLicensesDisplay.cs" />
+    <Compile Include="Display\clsLocalDrivingLicenseApplicationsDisplay.cs" />
+    <Compile Include="Display\clsPeopleDisplay.cs" />
+    <Compile Include="Display\clsTestAppointmentsDisplay.cs" />
+    <Compile Include="Display\clsUsersDisplay.cs" />
     <Compile Include="Display\IDisplay.cs" />
     <Compile Include="Display\IPaginationView.cs" />
     <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.cs">
@@ -89,9 +97,6 @@
     </Compile>
     <Compile Include="Forms\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="prlMainForm.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateDriver.cs">
       <SubType>Form</SubType>

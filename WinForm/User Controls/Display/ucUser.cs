@@ -16,10 +16,11 @@ using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 namespace DVLDWinForm.User_Controls
 {
-    public partial class ucUser : UserControl
+    public partial class ucUser : UserControl , IUserControl
     {
         private clsUser_DTO _UserInfo { get; set; }
-
+        clsCRUDController _CRUDController;
+        ContextMenuStrip _sharedContextMenu;
         public clsUser_DTO UserInfo
         {
             get => _UserInfo;
@@ -32,6 +33,17 @@ namespace DVLDWinForm.User_Controls
         public IDTO Info { get => UserInfo; set => UserInfo = value as clsUser_DTO; }
         public ucUser()
         {
+            InitializeComponent();
+            _LoadDesign();
+            UnvisibleComponents();
+            ctrlPerson1.CollapseInstantly();
+            this.Height = ctrlPerson1._collapsedHeight;
+        }
+        public ucUser(clsCRUDController CRUDController, ContextMenuStrip SharedContextMenu)
+        {
+
+            _CRUDController = CRUDController;
+            _sharedContextMenu = SharedContextMenu;
             InitializeComponent();
             _LoadDesign();
             UnvisibleComponents();

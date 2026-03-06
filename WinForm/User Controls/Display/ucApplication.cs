@@ -1,8 +1,9 @@
-﻿using DVLDWinForm;
-using DVLD_BLL;
+﻿using DVLD_BLL;
 using DVLD_DTOs;
+using DVLDWinForm;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
+using DVLDWinForm.UIHelper_Manger;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,8 @@ namespace DVLDWinForm.User_Controls
     {
         
         private clsApplication_DTO _ApplicationInfo;
-
+        clsCRUDController _CRUDController;
+        ContextMenuStrip _sharedContextMenu;
         public clsApplication_DTO ApplicationInfo
         {
             get => _ApplicationInfo;
@@ -40,7 +42,24 @@ namespace DVLDWinForm.User_Controls
             lbPaidFees.Visible = false;
             pctrPaidFees.Visible = false;
         }
-        
+        public ucApplication(clsCRUDController CRUDController, ContextMenuStrip SharedContextMenu)
+        {
+            InitializeComponent();
+            _CRUDController = CRUDController;
+            _sharedContextMenu = SharedContextMenu;
+            LoadDesign();
+            
+        }
+        private void LoadDesign()
+        {
+            clsUIHelper.CornerRadius(pnlIDs, 25);
+            clsUIHelper.CornerRadius(pnlMoreInfo, 25);
+            clsUIHelper.CornerRadius(this, 25);
+            lbPaidFees.Visible = false;
+            pctrPaidFees.Visible = false;
+            if (_sharedContextMenu == null || _CRUDController == null)
+                btnUpdate_Delete.Visible = false;
+        }
         private void _SetApplicationInfo(clsApplication_DTO ApplicationInfo)
         {
             if (ApplicationInfo == null)
@@ -60,8 +79,8 @@ namespace DVLDWinForm.User_Controls
 
         private void btnUpdate_Delete_Click(object sender, EventArgs e)
         {
-            MainForm.CRUDController?.DTO = this.ApplicationInfo;
-            MainForm.SharedContextMenu?.Show(btnUpdate_Delete, new Point(0, btnUpdate_Delete.Height));
+            _CRUDController?.DTO = this.ApplicationInfo;
+            _sharedContextMenu?.Show(btnUpdate_Delete, new Point(0, btnUpdate_Delete.Height));
         }
     }
 }

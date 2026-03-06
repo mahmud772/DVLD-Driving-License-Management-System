@@ -32,7 +32,7 @@
             this.lbUserID_Title = new System.Windows.Forms.Label();
             this.lbUserName = new System.Windows.Forms.Label();
             this.pbIsActive = new System.Windows.Forms.PictureBox();
-            this.ctrlPerson1 = new DVLDWinForm.ucPerson();
+            this.ctrlPerson1 = new DVLDWinForm.ucPerson(_CRUDController , _sharedContextMenu);
             ((System.ComponentModel.ISupportInitialize)(this.pbIsActive)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,6 +75,7 @@
             // pbIsActive
             // 
             this.pbIsActive.BackColor = System.Drawing.SystemColors.Control;
+            this.pbIsActive.Image = global::DVLDWinForm.Properties.Resources.Active;
             this.pbIsActive.Location = new System.Drawing.Point(345, 74);
             this.pbIsActive.Name = "pbIsActive";
             this.pbIsActive.Size = new System.Drawing.Size(16, 16);
@@ -85,6 +86,7 @@
             // ctrlPerson1
             // 
             this.ctrlPerson1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.ctrlPerson1.Info = null;
             this.ctrlPerson1.Location = new System.Drawing.Point(0, 0);
             this.ctrlPerson1.Name = "ctrlPerson1";
             this.ctrlPerson1.PersonInfo = null;
@@ -92,7 +94,7 @@
             this.ctrlPerson1.TabIndex = 0;
             this.ctrlPerson1.Load += new System.EventHandler(this.ctrlPerson1_Load);
             // 
-            // ctrlUser
+            // ucUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,7 +103,7 @@
             this.Controls.Add(this.lbUserID);
             this.Controls.Add(this.lbUserID_Title);
             this.Controls.Add(this.ctrlPerson1);
-            this.Name = "ctrlUser";
+            this.Name = "ucUser";
             this.Size = new System.Drawing.Size(381, 296);
             this.Load += new System.EventHandler(this.ctrlUser_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbIsActive)).EndInit();

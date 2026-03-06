@@ -15,12 +15,10 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Display
 {
-    public class clsDisplayPeople : clsBaseDisplay
+    public class clsPeopleDisplay : clsBaseDisplay
     {
-        public clsDisplayPeople(clsPersonQuery CurrentQuery,
-            IPaginationView paginationView,
-             DataGridView dgvDisplay , FlowLayoutPanel flpUserControls , clsCRUDController CRUDController) 
-            : base (dgvDisplay , flpUserControls , paginationView , CRUDController)
+        public clsPeopleDisplay(clsPersonQuery CurrentQuery, clsContextDisplay Context) 
+            : base (Context)
         {
             _currentQuery = CurrentQuery;
         }
@@ -29,17 +27,16 @@ namespace DVLDWinForm.Display
             _currentQuery = PersonQuery;
             InitializeAdapter(clsPerson_BLL.GetPeople,
                 clsPerson_BLL.GetCount,
-                GetDisplayView<clsPerson_DTO>(person => new ucPerson { PersonInfo = person } , DisplayMode)
+                GetDisplayView<clsPerson_DTO>(person => new ucPerson(_context.CRUDController , _context.SharedContextMenu) { PersonInfo = person } , DisplayMode)
             );
             
         }
         public override void InitializeCRUDController()
         {
-            CRUDController.CreateForm = () => new frmAddNew_UpdatePerson();
-            CRUDController.PrepareUpdate = Person => new frmAddNew_UpdatePerson(Person as clsPerson_DTO);
-            CRUDController.TryDelete = clsPerson_BLL.DeletePerson;
-            CRUDController.Search = () => new frmSortAndFilter(new ucPeopleFilter(), _currentQuery);
-            CRUDController.iUserControl = new ucPerson();
+            _context.CRUDController.CreateForm = () => new frmAddNew_UpdatePerson();
+            _context.CRUDController.PrepareUpdate = Person => new frmAddNew_UpdatePerson(Person as clsPerson_DTO);
+            _context.CRUDController.TryDelete = clsPerson_BLL.DeletePerson;
+            _context.CRUDController.Search = () => new frmSortAndFilter(new ucPeopleFilter(), _currentQuery);
         }
         public override void UpdateUI(ComboBox cbSearchBy , Label lbTotalType_Titel ,
             Label lbTotalCount , PictureBox pbTotal)

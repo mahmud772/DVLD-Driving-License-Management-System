@@ -7,6 +7,7 @@ using DVLDWinForm.UIHelper_Manger;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
 using static DVLDWinForm.UIHelper_Manger.clsEnums;
 
@@ -15,11 +16,8 @@ namespace DVLDWinForm
 
     public partial class MainForm : Form , IPaginationView
     {
-        private IPageableLoader _currentLoader;
-        private clsPaginationManager _paginator;
         private IQuery _currentQuery;
         enDisplayMode DisplayMode = enDisplayMode.FLP;
-        private Action LoadType;
         private IDisplay _display;
         public static clsCRUDController CRUDController { get; set; }
         public static ContextMenuStrip SharedContextMenu { get; private set; }
@@ -33,7 +31,7 @@ namespace DVLDWinForm
         public clsTestAppointmentQuery TestAppointmentQuery { get; set; }
         public clsUserQuery UserQuery { get; set; }
 
-
+        private clsContextDisplay _context { get; set; }
         public MainForm()
         {
             InitializeComponent();
@@ -43,7 +41,7 @@ namespace DVLDWinForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
             SharedContextMenu = this.cmsUpdate_Delete;
             CRUDController = new clsCRUDController(dgvDisplay, flpUserControls);
             ApplicationQuery = new clsApplicationQuery();
@@ -54,7 +52,9 @@ namespace DVLDWinForm
             TestAppointmentQuery = new clsTestAppointmentQuery();
             DetainedLicenseQuery = new clsDetainedLicenseQuery();
             CRUDController.Refresh = _Refresh;
-            LoadType = _LoadPeople;
+            _context = new clsContextDisplay(this, dgvDisplay, flpUserControls, CRUDController , SharedContextMenu);
+            _currentQuery = PersonQuery;
+            _display = new clsPeopleDisplay(PersonQuery, _context);
             _ShowFLP();
             //Test1 form1 = new Test1();
             //form1.ShowDialog();
@@ -67,6 +67,7 @@ namespace DVLDWinForm
 
 
         }
+        
         private void _LoadDesign()
         {
             clsUIHelper.CornerRadius(pnlMainMenu, 25);
@@ -85,30 +86,9 @@ namespace DVLDWinForm
         }
         private void _Refresh()
         {
-            LoadType?.Invoke();
-            _display.Load(DisplayMode , _currentQuery);
+            _display.Load(DisplayMode, _currentQuery);
         }
 
-
-        private void _InitializeAdapter<T>(Func<int, int, IQuery, List<T>> fetcher, Func<IQuery, int> counter, IDisplayView<T> viewManager)
-        {
-            _currentLoader = new clsDataDisplayAdapter<T>(fetcher, counter, viewManager);
-
-            _paginator = new clsPaginationManager(viewManager.CountItems, _currentLoader.GetTotalCount(_currentQuery));
-
-            _LoadData();
-        }
-        private void _LoadData()
-        {
-            _currentLoader.LoadPage(_paginator.Offset, _paginator.PageSize, _currentQuery);
-            _UpdateUI();
-        }
-        private void _UpdateUI()
-        {
-            lbPageNumber.Text = _paginator.CurrentPage.ToString();
-            btnNextPage.Visible = _paginator.HasNextPage;
-            btnPreviousPage.Visible = _paginator.HasPreviousPage;
-        }
         public void SetPageNumber(int pageNumber)
         {
             lbPageNumber.Text = pageNumber.ToString();
@@ -130,8 +110,9 @@ namespace DVLDWinForm
             DisplayMode = enDisplayMode.DGV;
             flpUserControls.Visible = false;
             dgvDisplay.Visible = true;
-            LoadType?.Invoke();
-
+            _display.Load(DisplayMode , _currentQuery);
+            _display.UpdateUI(cbSearchBy, lbTotalType_Titel, lbTotalCount, pbTotal);
+            _display.InitializeCRUDController();
         }
         private void _ShowFLP()
         {
@@ -140,8 +121,9 @@ namespace DVLDWinForm
             DisplayMode = enDisplayMode.FLP;
             flpUserControls.Visible = true;
             dgvDisplay.Visible = false;
-            LoadType?.Invoke();
-
+            _display.Load(DisplayMode, _currentQuery);
+            _display.UpdateUI(cbSearchBy, lbTotalType_Titel, lbTotalCount, pbTotal);
+            _display.InitializeCRUDController();
         }
 
         private void btnFLP_Click(object sender, EventArgs e)
@@ -168,37 +150,25 @@ namespace DVLDWinForm
 
 
 
-
-        private IDisplayView<T> _GetDisplayView<T>(Func<T, UserControl> ControlCeartor)
-        {
-            return DisplayMode == enDisplayMode.DGV ?
-                new clsDGVManager<T>(dgvDisplay) :
-                new clsFLPManager<T>(flpUserControls, ControlCeartor);
-        }
-
         private void btnPeople_Click(object sender, EventArgs e)
         {
             _currentQuery = PersonQuery;
-            _display = new clsDisplayPeople(PersonQuery, this , dgvDisplay
-                ,flpUserControls , CRUDController);
-            LoadType = () => _display.Load(DisplayMode , PersonQuery);
-            LoadType?.Invoke();
-            _display.UpdateUI(cbSearchBy , lbTotalType_Titel, lbTotalCount , pbTotal);
-            _display.InitializeCRUDController();
+            _display = new clsPeopleDisplay(PersonQuery, _context);
             _ShowFLP();
         }
 
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
-
-            LoadType = _LoadUsers;
+            _currentQuery = UserQuery;
+            _display = new clsUsersDisplay(UserQuery, _context);
             _ShowFLP();
         }
 
         private void btnDrivers_Click(object sender, EventArgs e)
         {
-            LoadType = _LoadDrivers;
+            _currentQuery = DriverQuery;
+            _display = new clsDriversDisplay(DriverQuery, _context);
             _ShowFLP();
         }
 
@@ -206,24 +176,21 @@ namespace DVLDWinForm
         private void btnApplications_Click(object sender, EventArgs e)
         {
             _currentQuery = ApplicationQuery;
-            _display = new clsDisplayApplications(ApplicationQuery, this, dgvDisplay
-                , flpUserControls, CRUDController);
-            LoadType = () => _display.Load(DisplayMode, ApplicationQuery);
-            LoadType?.Invoke();
-            _display.UpdateUI(cbSearchBy, lbTotalType_Titel, lbTotalCount, pbTotal);
-            _display.InitializeCRUDController();
+            _display = new clsDisplayApplications(ApplicationQuery, _context);
             _ShowFLP();
         }
 
         private void btnTestAppointments_Click(object sender, EventArgs e)
         {
-            LoadType = _LoadTestAppointment;
+            _currentQuery = TestAppointmentQuery;
+            _display = new clsTestAppointmentsDisplay(TestAppointmentQuery, _context);
             _ShowFLP();
         }
 
         private void btnLicenses_Click(object sender, EventArgs e)
         {
-            LoadType = _LoadLicenses;
+            _currentQuery = LicenseQuery;
+            _display = new clsLicensesDisplay(LicenseQuery, _context);
             _ShowFLP();
         }
 
@@ -249,7 +216,7 @@ namespace DVLDWinForm
             _currentQuery.SearchBy = (Enum)cbSearchBy.SelectedItem;
             _currentQuery.SearchValue = clsSearchType.IsTypeEnumString(_currentQuery.SearchBy) ?
                 ID : tbSearch.Text;
-            _LoadData();
+            _display.Load(DisplayMode, _currentQuery);
             _currentQuery.SearchBy = null;
             _currentQuery.SearchValue = null;
         }
