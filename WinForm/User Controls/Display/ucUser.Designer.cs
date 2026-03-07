@@ -32,7 +32,7 @@
             this.lbUserID_Title = new System.Windows.Forms.Label();
             this.lbUserName = new System.Windows.Forms.Label();
             this.pbIsActive = new System.Windows.Forms.PictureBox();
-            this.ctrlPerson1 = new DVLDWinForm.ucPerson(_CRUDController , _sharedContextMenu);
+            this.ctrlPerson1 = new DVLDWinForm.ucPerson(_sharedContextMenu);
             ((System.ComponentModel.ISupportInitialize)(this.pbIsActive)).BeginInit();
             this.SuspendLayout();
             // 

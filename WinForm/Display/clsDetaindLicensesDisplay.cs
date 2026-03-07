@@ -27,17 +27,28 @@ namespace DVLDWinForm.Display
         {
             _currentQuery = CurrentQuery;
         }
-        public override void Load(clsEnums.enDisplayMode DisplayMode, IQuery Query)
+        public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
             InitializeAdapter(clsDetainedLicense_BLL.GetDetainedLicensesCardsInfo,
                clsDetainedLicense_BLL.GetCount,
-               GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense(_context.CRUDController , _context.SharedContextMenu) { LicenseInfo = license } , DisplayMode));
+               GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense( _context.SharedContextMenu) { LicenseInfo = license } , DisplayMode));
         }
-        public override void InitializeCRUDController()
+        public override void InitializeUIActionsManager()
         {
-            _context.CRUDController.TryDelete = clsDetainedLicense_BLL.DeleteDetain;
-            _context.CRUDController.Search = () => new frmSortAndFilter(new ucDetainedLicensesFilter(), _currentQuery);
+            clsUIActionsManager ui = _context.UIActionsManager;
+            ui.Reset();
+
+            //ui.RegisterCreate(() => new frmCreateApplication());
+
+            //ui.RegisterUpdate(dto =>
+             //   new frmUpdateApplication(dto as clsApplication_DTO));
+
+            ui.RegisterDelete(clsDetainedLicense_BLL.DeleteDetain);
+
+            ui.RegisterFilter(() =>
+                new frmSortAndFilter(new ucDetainedLicensesFilter(), _currentQuery));
+            
         }
         public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal)

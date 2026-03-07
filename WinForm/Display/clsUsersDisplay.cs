@@ -24,20 +24,28 @@ namespace DVLDWinForm.Display
         {
             _currentQuery = CurrentQuery;
         }
-        public override void Load(clsEnums.enDisplayMode DisplayMode, IQuery Query)
+        public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
             InitializeAdapter(clsUser_BLL.GetUsers,
                clsUser_BLL.GetCount,
-               GetDisplayView<clsUser_DTO>(user => new ucUser(_context.CRUDController, _context.SharedContextMenu) { UserInfo = user }, DisplayMode));
+               GetDisplayView<clsUser_DTO>(user => new ucUser(_context.SharedContextMenu) { UserInfo = user }, DisplayMode));
 
         }
-        public override void InitializeCRUDController()
+        public override void InitializeUIActionsManager()
         {
-            _context.CRUDController.TryDelete = clsUser_BLL.DeleteUser;
-            _context.CRUDController.Search = () => new frmSortAndFilter(new ucUsersFilter(), _currentQuery);
-            _context.CRUDController.CreateForm = () => new frmAddNewUser();
-            _context.CRUDController.PrepareUpdate = User => new frmUpdateUser(User as clsUser_DTO);
+            clsUIActionsManager ui = _context.UIActionsManager;
+            ui.Reset();
+
+            ui.RegisterCreate(() => new frmAddNewUser());
+
+            ui.RegisterUpdate(dto =>
+                new frmUpdateUser(dto as clsUser_DTO));
+
+            ui.RegisterDelete(clsUser_BLL.DeleteUser);
+
+            ui.RegisterFilter(() =>
+                new frmSortAndFilter(new ucUsersFilter(), _currentQuery));
         }
         public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal)

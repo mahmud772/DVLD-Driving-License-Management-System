@@ -18,7 +18,6 @@ namespace DVLDWinForm
     public partial class ucDriver : UserControl , IUserControl
     {
         private clsDriver_DTO _DriverInfo { get; set; }
-        clsCRUDController _CRUDController;
         ContextMenuStrip _sharedContextMenu;
         public clsDriver_DTO DriverInfo
         {
@@ -34,9 +33,8 @@ namespace DVLDWinForm
         {
             InitializeComponent();
         }
-        public ucDriver(clsCRUDController CRUDController, ContextMenuStrip SharedContextMenu)
+        public ucDriver(ContextMenuStrip SharedContextMenu)
         {
-            _CRUDController = CRUDController;
             _sharedContextMenu = SharedContextMenu;
             InitializeComponent();
         }

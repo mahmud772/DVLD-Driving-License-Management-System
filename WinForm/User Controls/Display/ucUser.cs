@@ -19,7 +19,6 @@ namespace DVLDWinForm.User_Controls
     public partial class ucUser : UserControl , IUserControl
     {
         private clsUser_DTO _UserInfo { get; set; }
-        clsCRUDController _CRUDController;
         ContextMenuStrip _sharedContextMenu;
         public clsUser_DTO UserInfo
         {
@@ -39,10 +38,9 @@ namespace DVLDWinForm.User_Controls
             ctrlPerson1.CollapseInstantly();
             this.Height = ctrlPerson1._collapsedHeight;
         }
-        public ucUser(clsCRUDController CRUDController, ContextMenuStrip SharedContextMenu)
+        public ucUser(ContextMenuStrip SharedContextMenu)
         {
 
-            _CRUDController = CRUDController;
             _sharedContextMenu = SharedContextMenu;
             InitializeComponent();
             _LoadDesign();

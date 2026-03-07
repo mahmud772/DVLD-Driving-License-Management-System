@@ -24,19 +24,27 @@ namespace DVLDWinForm.Display
         {
             _currentQuery = CurrentQuery;
         }
-        public override void Load(clsEnums.enDisplayMode DisplayMode, IQuery Query)
+        public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
             InitializeAdapter(clsTestAppointment_BLL.GetTestAppointments,
               clsTestAppointment_BLL.GetCount,
-              GetDisplayView<clsTestAppointment_DTO>(Appointment => new ucTestAppointment(_context.CRUDController, _context.SharedContextMenu) { AppointmentInfo = Appointment } , DisplayMode));
+              GetDisplayView<clsTestAppointment_DTO>(Appointment => new ucTestAppointment( _context.SharedContextMenu) { AppointmentInfo = Appointment } , DisplayMode));
         }
-        public override void InitializeCRUDController()
+        public override void InitializeUIActionsManager()
         {
-            _context.CRUDController.CreateForm = () => new frmAddNew_UpdateAppointment();
-            _context.CRUDController.PrepareUpdate = Appointment => new frmAddNew_UpdateAppointment(Appointment as clsTestAppointment_DTO);
-            _context.CRUDController.TryDelete = clsTestAppointment_BLL.DeleteTestAppointment;
-            _context.CRUDController.Search = () => new frmSortAndFilter(new ucTestAppointmentsFilter(), _currentQuery);
+            clsUIActionsManager ui = _context.UIActionsManager;
+            ui.Reset();
+
+            ui.RegisterCreate(() => new frmAddNew_UpdateAppointment());
+
+            ui.RegisterUpdate(dto =>
+                new frmAddNew_UpdateAppointment(dto as clsTestAppointment_DTO));
+
+            ui.RegisterDelete(clsTestAppointment_BLL.DeleteTestAppointment);
+
+            ui.RegisterFilter(() =>
+                new frmSortAndFilter(new ucTestAppointmentsFilter(), _currentQuery));
         }
         public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal)

@@ -15,14 +15,17 @@ namespace DVLDWinForm.Display
         public FlowLayoutPanel flpUserControls { get; set; }
         public clsCRUDController CRUDController { get; set; }
         public ContextMenuStrip SharedContextMenu { get; set; }
+        public clsUIActionsManager UIActionsManager { get; set; }
         public clsContextDisplay(IPaginationView paginationView,DataGridView dgv,
-            FlowLayoutPanel flp,clsCRUDController crudController, ContextMenuStrip sharedContextMenu)
+            FlowLayoutPanel flp,clsCRUDController crudController
+            , ContextMenuStrip sharedContextMenu , clsUIActionsManager actionsManager)
         {
             PaginationView = paginationView;
             dgvDisplay = dgv;
             flpUserControls = flp;
             CRUDController = crudController;
             SharedContextMenu = sharedContextMenu;
+            UIActionsManager = actionsManager;
         }
     }
 }

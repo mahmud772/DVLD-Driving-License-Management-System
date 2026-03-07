@@ -24,20 +24,29 @@ namespace DVLDWinForm.Display
         {
             _currentQuery = CurrentQuery;
         }
-        public override void Load(clsEnums.enDisplayMode DisplayMode, IQuery Query)
+        public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
             InitializeAdapter(clsLocalDrivingLicenseApplication_BLL.GetLocalDrivingLicenseApplications,
                clsLocalDrivingLicenseApplication_BLL.GetCount,
-               GetDisplayView<clsLocalDrivingLicenseApplication_DTO>(application => new ucApplication(_context.CRUDController, _context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
+               GetDisplayView<clsLocalDrivingLicenseApplication_DTO>(application => new ucApplication( _context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
 
         }
-        public override void InitializeCRUDController()
+        public override void InitializeUIActionsManager()
         {
-            _context.CRUDController.CreateForm = () => new frmCreateApplication();
-            _context.CRUDController.PrepareUpdate = Application => new frmUpdateApplication(Application as clsLocalDrivingLicenseApplication_DTO);
-            _context.CRUDController.TryDelete = clsLocalDrivingLicenseApplication_BLL.DeleteLocalDrivingLicenseApplicationByApplicationID;
-            _context.CRUDController.Search = () => new frmSortAndFilter(new ucLocalDrivingLicenseApplicationsFilter(), _currentQuery);
+            clsUIActionsManager ui = _context.UIActionsManager;
+            ui.Reset();
+
+            ui.RegisterCreate(() => new frmCreateApplication());
+
+            ui.RegisterUpdate(dto =>
+                new frmUpdateApplication(dto as clsLocalDrivingLicenseApplication_DTO));
+
+            ui.RegisterDelete(clsLocalDrivingLicenseApplication_BLL
+                .DeleteLocalDrivingLicenseApplicationByApplicationID);
+
+            ui.RegisterFilter(() =>
+                new frmSortAndFilter(new ucLocalDrivingLicenseApplicationsFilter(), _currentQuery));
         }
         public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal)

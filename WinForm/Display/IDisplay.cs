@@ -11,10 +11,10 @@ namespace DVLDWinForm.Display
 {
     public interface IDisplay
     {
-        void Load(clsEnums.enDisplayMode mode , IQuery query);
+        void Load(clsUIEnums.enDisplayMode mode , IQuery query);
         void NextPage();
         void PreviousPage();
-        void InitializeCRUDController();
+        void InitializeUIActionsManager();
         void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
                       Label lbTotalCount, PictureBox pbTotal);
     }

@@ -4,6 +4,7 @@ using Common.Queries;
 using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.Forms;
+using DVLDWinForm.Forms.Add_New___Update.Update;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
 using DVLDWinForm.User_Controls.Filters;
@@ -24,20 +25,29 @@ namespace DVLDWinForm.Display
         {
             _currentQuery = CurrentQuery;
         }
-        public override void Load(clsEnums.enDisplayMode DisplayMode, IQuery Query)
+        public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
             InitializeAdapter(clsDriver_BLL.GetDrivers,
                clsDriver_BLL.GetCount,
-               GetDisplayView<clsDriver_DTO>(Driver => new ucDriver(_context.CRUDController, _context.SharedContextMenu) { DriverInfo = Driver }, DisplayMode));
+               GetDisplayView<clsDriver_DTO>(Driver => new ucDriver(_context.SharedContextMenu) { DriverInfo = Driver }, DisplayMode));
 
         }
-        public override void InitializeCRUDController()
+        public override void InitializeUIActionsManager()
         {
-            _context.CRUDController.TryDelete = clsDriver_BLL.DeleteDriver;
-            _context.CRUDController.Search = () => new frmSortAndFilter(new ucDriversFilter(), _currentQuery);
-            _context.CRUDController.CreateForm = () => new frmAddNew_UpdateDriver();
-            _context.CRUDController.PrepareUpdate = Driver => new frmAddNew_UpdateDriver(Driver as clsDriver_DTO);
+            clsUIActionsManager ui = _context.UIActionsManager;
+            ui.Reset();
+
+            ui.RegisterCreate(() => new frmAddNew_UpdateDriver());
+
+            ui.RegisterUpdate(dto =>
+                 new frmAddNew_UpdateDriver(dto as clsDriver_DTO));
+
+            ui.RegisterDelete(clsDriver_BLL.DeleteDriver);
+
+            ui.RegisterFilter(() =>
+                new frmSortAndFilter(new ucDriversFilter(), _currentQuery));
+            
         }
         public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal)

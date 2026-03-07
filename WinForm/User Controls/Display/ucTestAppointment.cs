@@ -20,7 +20,6 @@ namespace DVLDWinForm.User_Controls
     public partial class ucTestAppointment : UserControl , IUserControl
     {
         private clsTestAppointment_DTO _AppointmentInfo;
-        clsCRUDController _CRUDController;
         ContextMenuStrip _sharedContextMenu;
         public clsTestAppointment_DTO AppointmentInfo
         {
@@ -39,10 +38,9 @@ namespace DVLDWinForm.User_Controls
             clsUIHelper.CornerRadius(pnlMoreInfo, 25);
             clsUIHelper.CornerRadius(pnlIDs, 25);
         }
-        public ucTestAppointment(clsCRUDController CRUDController, ContextMenuStrip SharedContextMenu)
+        public ucTestAppointment(ContextMenuStrip SharedContextMenu)
         {
             InitializeComponent();
-            _CRUDController = CRUDController;
             _sharedContextMenu = SharedContextMenu;
             Design();
         }
@@ -52,7 +50,7 @@ namespace DVLDWinForm.User_Controls
             clsUIHelper.CornerRadius(this, 25);
             clsUIHelper.CornerRadius(pnlMoreInfo, 25);
             clsUIHelper.CornerRadius(pnlIDs, 25);
-            if (_sharedContextMenu == null || _CRUDController == null)
+            if (_sharedContextMenu == null)
                 btnUpdate_Delete.Visible = false;
         }
         private void _SetAppointmentInfo(clsTestAppointment_DTO AppointmentInfo)
@@ -74,7 +72,7 @@ namespace DVLDWinForm.User_Controls
 
         private void btnUpdate_Delete_Click(object sender, EventArgs e)
         {
-            _CRUDController?.DTO = this.AppointmentInfo;
+            _sharedContextMenu.Tag = this.AppointmentInfo;
             _sharedContextMenu?.Show(btnUpdate_Delete, new Point(0, btnUpdate_Delete.Height));
         }
     }

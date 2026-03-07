@@ -1,6 +1,7 @@
 ﻿using Common.Helpers;
 using Common.Queries;
 using DVLD_BLL;
+using DVLD_DTOs;
 using DVLDWinForm.Display;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
-using static DVLDWinForm.UIHelper_Manger.clsEnums;
+using static DVLDWinForm.UIHelper_Manger.clsUIEnums;
 
 namespace DVLDWinForm
 {
@@ -21,7 +22,7 @@ namespace DVLDWinForm
         private IDisplay _display;
         public static clsCRUDController CRUDController { get; set; }
         public static ContextMenuStrip SharedContextMenu { get; private set; }
-
+        private clsUIActionsManager _uiActionsManager;
 
         public clsApplicationQuery ApplicationQuery { get; set; }
         public clsPersonQuery PersonQuery { get; set; }
@@ -43,6 +44,7 @@ namespace DVLDWinForm
         {
             
             SharedContextMenu = this.cmsUpdate_Delete;
+            _uiActionsManager = new clsUIActionsManager();
             CRUDController = new clsCRUDController(dgvDisplay, flpUserControls);
             ApplicationQuery = new clsApplicationQuery();
             PersonQuery = new clsPersonQuery();
@@ -52,7 +54,7 @@ namespace DVLDWinForm
             TestAppointmentQuery = new clsTestAppointmentQuery();
             DetainedLicenseQuery = new clsDetainedLicenseQuery();
             CRUDController.Refresh = _Refresh;
-            _context = new clsContextDisplay(this, dgvDisplay, flpUserControls, CRUDController , SharedContextMenu);
+            _context = new clsContextDisplay(this, dgvDisplay, flpUserControls, CRUDController , SharedContextMenu , _uiActionsManager);
             _currentQuery = PersonQuery;
             _display = new clsPeopleDisplay(PersonQuery, _context);
             _ShowFLP();
@@ -112,7 +114,7 @@ namespace DVLDWinForm
             dgvDisplay.Visible = true;
             _display.Load(DisplayMode , _currentQuery);
             _display.UpdateUI(cbSearchBy, lbTotalType_Titel, lbTotalCount, pbTotal);
-            _display.InitializeCRUDController();
+            _display.InitializeUIActionsManager();
         }
         private void _ShowFLP()
         {
@@ -123,7 +125,7 @@ namespace DVLDWinForm
             dgvDisplay.Visible = false;
             _display.Load(DisplayMode, _currentQuery);
             _display.UpdateUI(cbSearchBy, lbTotalType_Titel, lbTotalCount, pbTotal);
-            _display.InitializeCRUDController();
+            _display.InitializeUIActionsManager();
         }
 
         private void btnFLP_Click(object sender, EventArgs e)
@@ -204,11 +206,29 @@ namespace DVLDWinForm
                 dgvDisplay.CurrentCell = dgvDisplay.Rows[e.RowIndex].Cells[0];
             }
         }
-        private void btnAddNew_Click(object sender, EventArgs e) => CRUDController.ShowCreateForm();
-        public void updateToolStripMenuItem_Click(object sender, EventArgs e) => CRUDController.ShowUpdateForm();
+        private IDTO GetSelectedDto()
+        {
+            IDTO DTO = SharedContextMenu.Tag as IDTO ?? dgvDisplay.CurrentRow?.DataBoundItem as IDTO;
+            SharedContextMenu.Tag = null;
+            return DTO;
+        }
+        private void btnAddNew_Click(object sender, EventArgs e)
+        {
+            _uiActionsManager.Execute(clsUIEnums.enUIAction.AddNew , GetSelectedDto());
+        }
+        public void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _uiActionsManager.Execute(clsUIEnums.enUIAction.Update , GetSelectedDto());
+        }
 
-        public void deleteToolStripMenuItem_Click(object sender, EventArgs e) => CRUDController.ConfirmAndDelete();
-        private void btnSort_Filter_Click(object sender, EventArgs e) => CRUDController.ShowFilterForm();
+        public void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _uiActionsManager.Execute(clsUIEnums.enUIAction.Delete, GetSelectedDto());
+        }
+        private void btnSort_Filter_Click(object sender, EventArgs e)
+        {
+            _uiActionsManager.Execute(clsUIEnums.enUIAction.Filter, GetSelectedDto());
+        }
         private void btnSearch_Click(object sender, EventArgs e)
         {
             int ID;

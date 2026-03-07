@@ -20,14 +20,14 @@ namespace DVLDWinForm.Display
         {
             _context = Context;
         }
-        public IDisplayView<T> GetDisplayView<T>(Func<T, UserControl> ControlCeartor , clsEnums.enDisplayMode DisplayMode)
+        public IDisplayView<T> GetDisplayView<T>(Func<T, UserControl> ControlCeartor , clsUIEnums.enDisplayMode DisplayMode)
         {
-            return DisplayMode == clsEnums.enDisplayMode.DGV ?
+            return DisplayMode == clsUIEnums.enDisplayMode.DGV ?
                 new clsDGVManager<T>(_context.dgvDisplay) :
                 new clsFLPManager<T>(_context.flpUserControls, ControlCeartor);
         }
-        public virtual void Load(clsEnums.enDisplayMode DisplayMode, IQuery CurrentQuery) { }
-        public virtual void InitializeCRUDController() { }
+        public virtual void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery CurrentQuery) { }
+        public virtual void InitializeUIActionsManager() { }
         public virtual void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal) { }
         public void InitializeAdapter<T>(Func<int, int, IQuery, List<T>> fetcher, Func<IQuery, int> counter, IDisplayView<T> viewManager)

@@ -22,21 +22,29 @@ namespace DVLDWinForm.Display
         {
             _currentQuery = CurrentQuery;
         }
-        public override void Load(clsEnums.enDisplayMode DisplayMode , IQuery PersonQuery)
+        public override void Load(clsUIEnums.enDisplayMode DisplayMode , IQuery PersonQuery)
         {
             _currentQuery = PersonQuery;
             InitializeAdapter(clsPerson_BLL.GetPeople,
                 clsPerson_BLL.GetCount,
-                GetDisplayView<clsPerson_DTO>(person => new ucPerson(_context.CRUDController , _context.SharedContextMenu) { PersonInfo = person } , DisplayMode)
+                GetDisplayView<clsPerson_DTO>(person => new ucPerson( _context.SharedContextMenu) { PersonInfo = person } , DisplayMode)
             );
             
         }
-        public override void InitializeCRUDController()
+        public override void InitializeUIActionsManager()
         {
-            _context.CRUDController.CreateForm = () => new frmAddNew_UpdatePerson();
-            _context.CRUDController.PrepareUpdate = Person => new frmAddNew_UpdatePerson(Person as clsPerson_DTO);
-            _context.CRUDController.TryDelete = clsPerson_BLL.DeletePerson;
-            _context.CRUDController.Search = () => new frmSortAndFilter(new ucPeopleFilter(), _currentQuery);
+            clsUIActionsManager ui = _context.UIActionsManager;
+            ui.Reset();
+
+            ui.RegisterCreate(() => new frmAddNew_UpdatePerson());
+
+            ui.RegisterUpdate(dto =>
+                new frmAddNew_UpdatePerson(dto as clsPerson_DTO));
+
+            ui.RegisterDelete(clsPerson_BLL.DeletePerson);
+
+            ui.RegisterFilter(() =>
+                new frmSortAndFilter(new ucPeopleFilter(), _currentQuery));
         }
         public override void UpdateUI(ComboBox cbSearchBy , Label lbTotalType_Titel ,
             Label lbTotalCount , PictureBox pbTotal)
@@ -45,6 +53,13 @@ namespace DVLDWinForm.Display
             lbTotalType_Titel.Text = "People";
             lbTotalCount.Text = _paginator.TotalItems.ToString();
             pbTotal.Image = Properties.Resources.People;
+            UpdateContextMenu();
+        }
+        public void UpdateContextMenu()
+        {
+            _context.SharedContextMenu.Items.Clear();
+            _context.SharedContextMenu.Items.Add("UPDATE", Properties.Resources.Update_Person);
+            _context.SharedContextMenu.Items.Add("DELETE", Properties.Resources.Delete_Person);
         }
     }
 }

@@ -19,8 +19,8 @@ namespace DVLDWinForm.UIHelper_Manger
         public Func<int, bool> TryDelete { get; set; }
         public Func<frmSortAndFilter> Search { get; set; }
         public Action Refresh { get; set; }
-        public IUserControl iUserControl { get; set; }
         public IDTO DTO { get; set; } = null;
+
         public readonly DataGridView DataGrid;
         public readonly FlowLayoutPanel ActionsPanel;
 
@@ -68,16 +68,6 @@ namespace DVLDWinForm.UIHelper_Manger
             bool Result = TryDelete?.Invoke(dto.ID) == true;
             Refresh?.Invoke();
             return Result;
-        }
-        public bool ShowDTO(int ID)
-        {
-            if (iUserControl == null) return false;
-            ActionsPanel.Controls.Clear();
-            //iUserControl.Info = Search?.Invoke(ID).DTO;
-            if (iUserControl.Info != null)
-                ActionsPanel.Controls.Add(iUserControl as UserControl);
-            Refresh?.Invoke();
-            return true;
         }
         public bool ShowFilterForm()
         {

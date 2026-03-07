@@ -21,7 +21,6 @@ namespace DVLDWinForm.User_Controls
     {
         
         private clsApplication_DTO _ApplicationInfo;
-        clsCRUDController _CRUDController;
         ContextMenuStrip _sharedContextMenu;
         public clsApplication_DTO ApplicationInfo
         {
@@ -42,10 +41,9 @@ namespace DVLDWinForm.User_Controls
             lbPaidFees.Visible = false;
             pctrPaidFees.Visible = false;
         }
-        public ucApplication(clsCRUDController CRUDController, ContextMenuStrip SharedContextMenu)
+        public ucApplication(ContextMenuStrip SharedContextMenu)
         {
             InitializeComponent();
-            _CRUDController = CRUDController;
             _sharedContextMenu = SharedContextMenu;
             LoadDesign();
             
@@ -57,7 +55,7 @@ namespace DVLDWinForm.User_Controls
             clsUIHelper.CornerRadius(this, 25);
             lbPaidFees.Visible = false;
             pctrPaidFees.Visible = false;
-            if (_sharedContextMenu == null || _CRUDController == null)
+            if (_sharedContextMenu == null)
                 btnUpdate_Delete.Visible = false;
         }
         private void _SetApplicationInfo(clsApplication_DTO ApplicationInfo)
@@ -79,7 +77,7 @@ namespace DVLDWinForm.User_Controls
 
         private void btnUpdate_Delete_Click(object sender, EventArgs e)
         {
-            _CRUDController?.DTO = this.ApplicationInfo;
+            _sharedContextMenu.Tag = this.ApplicationInfo;
             _sharedContextMenu?.Show(btnUpdate_Delete, new Point(0, btnUpdate_Delete.Height));
         }
     }

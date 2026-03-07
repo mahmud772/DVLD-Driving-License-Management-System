@@ -28,7 +28,6 @@ namespace DVLDWinForm
         public event Action OnUnvisibleChanged;
         private clsPerson_DTO _PersonInfo;
 
-        clsCRUDController _CRUDController;
         ContextMenuStrip _sharedContextMenu;
 
         clsControlAnimateHeight Animate;
@@ -58,12 +57,11 @@ namespace DVLDWinForm
             CollapseInstantly();
         }
         
-        public ucPerson(clsCRUDController CRUDController, ContextMenuStrip SharedContextMenu)
+        public ucPerson(ContextMenuStrip SharedContextMenu)
         {
             InitializeComponent();
             Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
             CollapseInstantly();
-            _CRUDController = CRUDController;
             _sharedContextMenu = SharedContextMenu;
         }
         
@@ -102,7 +100,7 @@ namespace DVLDWinForm
             clsUIHelper.CornerRadius(pnlContacts, 25);
             clsUIHelper.CornerRadius(pnlMoreInfo, 25);
             clsUIHelper.CornerRadius(pnlIDs, 25);
-            if(_sharedContextMenu == null || _CRUDController == null)
+            if(_sharedContextMenu == null)
                 btnUpdate_Delete.Visible = false;
 
             if (this is not ucPerson)
@@ -181,12 +179,12 @@ namespace DVLDWinForm
         private void btnUpdate_Delete_Click(object sender, EventArgs e)
         {
             if (PersonInfo != null && SelectdDTO == null)
-            { 
-                _CRUDController?.DTO = this.PersonInfo; 
+            {
+                _sharedContextMenu.Tag = this.PersonInfo; 
             }
             else
             {
-                _CRUDController?.DTO = SelectdDTO?.Invoke();
+                _sharedContextMenu.Tag = SelectdDTO?.Invoke();
             }
             _sharedContextMenu.Show(btnUpdate_Delete , new Point(0,btnUpdate_Delete.Height));
         }

@@ -8,10 +8,6 @@ using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
 using DVLDWinForm.User_Controls.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DVLDWinForm.Display
@@ -24,22 +20,30 @@ namespace DVLDWinForm.Display
         {
             _currentQuery = CurrentQuery;
         }
-        public override void Load(clsEnums.enDisplayMode DisplayMode, IQuery Query)
+        public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
             InitializeAdapter(clsApplication_BLL.GetApplications,
                clsApplication_BLL.GetCount,
-               GetDisplayView<clsApplication_DTO>(application => new ucApplication(_context.CRUDController, _context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
+               GetDisplayView<clsApplication_DTO>(application => new ucApplication(_context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
 
         }
-        public override void InitializeCRUDController()
+        public override void InitializeUIActionsManager()
         {
-            _context.CRUDController.CreateForm = () => new frmCreateApplication();
-            _context.CRUDController.PrepareUpdate = Application => new frmUpdateApplication(Application as clsApplication_DTO);
-            _context.CRUDController.TryDelete = clsApplication_BLL.DeleteApplication;
-            _context.CRUDController.Search = () => new frmSortAndFilter(new ucApplicationsFilter(), _currentQuery);
-            _context.CRUDController.iUserControl = new ucApplication();
+            clsUIActionsManager ui = _context.UIActionsManager;
+            ui.Reset();
+
+            ui.RegisterCreate(() => new frmCreateApplication());
+
+            ui.RegisterUpdate(dto =>
+                new frmUpdateApplication(dto as clsApplication_DTO));
+
+            ui.RegisterDelete(clsApplication_BLL.DeleteApplication);
+
+            ui.RegisterFilter(() =>
+                new frmSortAndFilter(new ucApplicationsFilter(), _currentQuery));
         }
+        
         public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal)
         {
@@ -47,6 +51,13 @@ namespace DVLDWinForm.Display
             lbTotalType_Titel.Text = "Applications";
             lbTotalCount.Text = _paginator.TotalItems.ToString();
             pbTotal.Image = Properties.Resources.Applications;
+            UpdateContextMenu();
+        }
+        public void UpdateContextMenu()
+        {
+            _context.SharedContextMenu.Items.Clear();
+            _context.SharedContextMenu.Items.Add("UPDATE" , Properties.Resources.Update_Person);
+            _context.SharedContextMenu.Items.Add("DELETE" , Properties.Resources.Delete_Person);
         }
     }
 }

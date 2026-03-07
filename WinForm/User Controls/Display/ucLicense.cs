@@ -31,7 +31,7 @@ namespace DVLDWinForm.User_Controls
             }
         }
         public IDTO Info { get => _LicenseInfo; set => LicenseInfo = value as clsLicenseCardInfo_DTO; }
-        clsCRUDController _CRUDController;
+
         ContextMenuStrip _sharedContextMenu;
         private const int _step = 10; // مقدار التغيير في كل خطوة (سرعة الحركة)
 
@@ -46,12 +46,11 @@ namespace DVLDWinForm.User_Controls
             Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
             CollapseInstantly();
         }
-        public ucLicense(clsCRUDController CRUDController , ContextMenuStrip SharedContextMenu)
+        public ucLicense(ContextMenuStrip SharedContextMenu)
         {
             InitializeComponent();
             Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
             CollapseInstantly();
-            _CRUDController = CRUDController;
             _sharedContextMenu = SharedContextMenu;
         }
         private void LoadLicenseInfo(clsLicenseCardInfo_DTO LicenseInfo)
@@ -85,7 +84,7 @@ namespace DVLDWinForm.User_Controls
             clsUIHelper.CornerRadius(pnlMoreInfo, 25);
             clsUIHelper.CornerRadius(pnlNotes, 5);
             clsUIHelper.CornerRadius(pbIsActive, 5);
-            if (_sharedContextMenu == null || _CRUDController == null)
+            if (_sharedContextMenu == null)
                 btnUpdate_Delete.Visible = false;
         }
 
@@ -139,7 +138,7 @@ namespace DVLDWinForm.User_Controls
 
         private void btnUpdate_Delete_Click(object sender, EventArgs e)
         {
-            _CRUDController?.DTO = this.LicenseInfo;
+            _sharedContextMenu.Tag = this.LicenseInfo;
             _sharedContextMenu?.Show(btnUpdate_Delete, new Point(0, btnUpdate_Delete.Height));
         }
     }

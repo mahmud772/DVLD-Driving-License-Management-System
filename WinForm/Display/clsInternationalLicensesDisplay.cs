@@ -24,18 +24,22 @@ namespace DVLDWinForm.Display
         {
             _currentQuery = CurrentQuery;
         }
-        public override void Load(clsEnums.enDisplayMode DisplayMode, IQuery Query)
+        public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
             InitializeAdapter(clsInternationalLicense_BLL.GetInternationalLicensesCardsInfo,
                clsInternationalLicense_BLL.GetCount,
-               GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense(_context.CRUDController , _context.SharedContextMenu) { LicenseInfo = license } , DisplayMode));
+               GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense(_context.SharedContextMenu) { LicenseInfo = license } , DisplayMode));
         }
-        public override void InitializeCRUDController()
+        public override void InitializeUIActionsManager()
         {
+            clsUIActionsManager ui = _context.UIActionsManager;
+            ui.Reset();
 
-            _context.CRUDController.TryDelete = clsInternationalLicense_BLL.DeleteInternationalLicense;
-            _context.CRUDController.Search = () => new frmSortAndFilter(new ucLicensesFilter(), _currentQuery);
+            ui.RegisterDelete(clsInternationalLicense_BLL.DeleteInternationalLicense);
+
+            ui.RegisterFilter(() =>
+                new frmSortAndFilter(new ucLicensesFilter(), _currentQuery));
         }
         public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal)
