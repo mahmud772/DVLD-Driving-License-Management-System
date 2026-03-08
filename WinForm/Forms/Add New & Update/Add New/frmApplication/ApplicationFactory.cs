@@ -20,16 +20,16 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
             _cbLicenseClass = cbLicenseClass;
             _InitializeStaticDataToForm();
         }
-        public void CreateApplication(clsApplication_DTO AppInfo,clsLocalDrivingLicenseApplication_DTO localInfo,
+        public bool CreateApplication(clsApplication_DTO AppInfo,clsLocalDrivingLicenseApplication_DTO localInfo,
             int LicenseID,clsApplicationEnums.enApplicationType type,bool ExecuteLicenseOperation)
         {
             if (type == clsApplicationEnums.enApplicationType.NewLocalDrivingLicense)
             {
-                CreateLocalApplication(AppInfo, localInfo);
+                return CreateLocalApplication(AppInfo, localInfo);
             }
             else
             {
-                CreateGeneralApplication(AppInfo,LicenseID, type, ExecuteLicenseOperation);
+                return CreateGeneralApplication(AppInfo,LicenseID, type, ExecuteLicenseOperation);
             }
         }
         private void _InitializeStaticDataToForm()
@@ -41,22 +41,23 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
             _cbLicenseClass.DisplayMember = "ClassName";
             _cbLicenseClass.ValueMember = "LicenseClassID";
         }
-        private void CreateLocalApplication(clsApplication_DTO appInfo,clsLocalDrivingLicenseApplication_DTO localInfo)
+        private bool CreateLocalApplication(clsApplication_DTO appInfo,clsLocalDrivingLicenseApplication_DTO localInfo)
         {
             clsLocalDrivingLicenseApplication_BLL application = new clsLocalDrivingLicenseApplication_BLL();
 
             application.Application = appInfo;
             application.LocalApplication = localInfo;
-            application.Save();
+            return application.Save();
         }
 
-        private void CreateGeneralApplication(clsApplication_DTO appInfo , int LicenseID
+        private bool CreateGeneralApplication(clsApplication_DTO appInfo , int LicenseID
             ,clsApplicationEnums.enApplicationType type,
             bool executeLicenseOperation)
         {
+            bool IsSaved = false;
             clsApplication_BLL application = new clsApplication_BLL();
             application.Application = appInfo;
-            application.Save();
+            IsSaved = application.Save();
             int ID;
             if (type == clsApplicationEnums.enApplicationType.NewLocalDrivingLicense)
                 ID = appInfo.ApplicantPersonID;
@@ -67,6 +68,7 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
                 LicenseOperationManager manager = new LicenseOperationManager();
                 manager.ExecuteOperation(type, ID, application.Application.ApplicationID);
             }
+            return IsSaved;
         }
         public int GetPersonIDByApplicationType(int ID, clsApplicationEnums.enApplicationType type)
         {

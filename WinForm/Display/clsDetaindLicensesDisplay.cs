@@ -30,6 +30,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
+            _displayMode = DisplayMode;
             InitializeAdapter(clsDetainedLicense_BLL.GetDetainedLicensesCardsInfo,
                clsDetainedLicense_BLL.GetCount,
                GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense( _context.SharedContextMenu) { LicenseInfo = license } , DisplayMode));
@@ -39,10 +40,10 @@ namespace DVLDWinForm.Display
             clsUIActionsManager ui = _context.UIActionsManager;
             ui.Reset();
 
-            //ui.RegisterCreate(() => new frmCreateApplication());
+            ui.RegisterCreate(() => null);
 
-            //ui.RegisterUpdate(dto =>
-             //   new frmUpdateApplication(dto as clsApplication_DTO));
+            ui.RegisterUpdate(dto =>
+               null);
 
             ui.RegisterDelete(clsDetainedLicense_BLL.DeleteDetain);
 
@@ -57,6 +58,10 @@ namespace DVLDWinForm.Display
             lbTotalType_Titel.Text = "Detaind Licenses";
             lbTotalCount.Text = _paginator.TotalItems.ToString();
             pbTotal.Image = Properties.Resources.Licenses;
+        }
+        public override void UpdateContextMenu()
+        {
+            base.UpdateContextMenu();
         }
     }
 }

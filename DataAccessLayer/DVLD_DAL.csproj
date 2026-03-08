@@ -64,7 +64,7 @@
     <Compile Include="Entities\clsTestType_DAL.cs" />
     <Compile Include="Entities\clsTest_DAL.cs" />
     <Compile Include="Entities\clsUser_DAL.cs" />
-    <Compile Include="DbHelper.cs" />
+    <Compile Include="clsDbHelper.cs" />
     <Compile Include="Mappers\clsApplicationMapper.cs" />
     <Compile Include="Mappers\clsDetainedLicenseMapper.cs" />
     <Compile Include="Mappers\clsDriverMapper.cs" />

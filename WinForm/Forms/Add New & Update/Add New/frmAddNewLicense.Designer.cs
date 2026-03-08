@@ -137,6 +137,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmAddNewLicense";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add New License";
             this.Load += new System.EventHandler(this.frmAddNewLicense_Load);
             this.pnlLicense.ResumeLayout(false);

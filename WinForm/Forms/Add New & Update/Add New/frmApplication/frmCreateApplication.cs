@@ -14,11 +14,11 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms
 {
-    public partial class frmCreateApplication : Form
+    public partial class frmCreateApplication : Form , IForm
     {
         private clsApplication_DTO _applicationInfo;
         private clsLocalDrivingLicenseApplication_DTO _localInfo;
-        
+        public bool IsChange { get; set; } = false;
         clsApplicationType_DTO _CurrentApplicationType;
         clsLicenseClass_DTO _CurrentLicenseClass;
         Func<frmFind> OpenForm;
@@ -52,7 +52,7 @@ namespace DVLDWinForm.Forms
                     Convert.ToInt32(cbApplicationTypes.SelectedValue));
             int LicenseID;
             int.TryParse(tbID.Text, out LicenseID);
-            _factory.CreateApplication(_applicationInfo,_localInfo,LicenseID,type,ckbOperationLicense.Checked);
+            IsChange = _factory.CreateApplication(_applicationInfo,_localInfo,LicenseID,type,ckbOperationLicense.Checked);
 
             this.Close();
         }

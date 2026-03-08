@@ -101,7 +101,8 @@ namespace DVLD_BLL
         }
         public static string GetCountryName(int CountryID)
         {
-            return clsStaticData_BLL.Countries[CountryID].CountryName;
+            return clsStaticData_BLL.Countries
+                .FirstOrDefault(Country => Country.CountryID == CountryID).CountryName;
         }
     }
 }

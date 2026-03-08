@@ -1,4 +1,5 @@
 ﻿using Common.Queries;
+using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using System;
@@ -16,6 +17,7 @@ namespace DVLDWinForm.Display
         protected IPageableLoader _currentLoader;
         protected IQuery _currentQuery;
         protected clsPaginationManager _paginator;
+        protected clsUIEnums.enDisplayMode _displayMode;
         public clsBaseDisplay(clsContextDisplay Context)
         {
             _context = Context;
@@ -30,6 +32,11 @@ namespace DVLDWinForm.Display
         public virtual void InitializeUIActionsManager() { }
         public virtual void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
             Label lbTotalCount, PictureBox pbTotal) { }
+        public void Refresh(bool IsChanged)
+        {
+            if(IsChanged) 
+                Load(_displayMode , _currentQuery);
+        }
         public void InitializeAdapter<T>(Func<int, int, IQuery, List<T>> fetcher, Func<IQuery, int> counter, IDisplayView<T> viewManager)
         {
             _currentLoader = new clsDataDisplayAdapter<T>(fetcher, counter, viewManager);
@@ -66,6 +73,22 @@ namespace DVLDWinForm.Display
                 _paginator.PreviousPage();
                 LoadData();
             }
+        }
+        public IDTO GetSelectedDto()
+        {
+            IDTO DTO = _context.SharedContextMenu.Tag as IDTO ?? _context.dgvDisplay.CurrentRow?.DataBoundItem as IDTO;
+            _context.SharedContextMenu.Tag = null;
+            return DTO;
+        }
+        public virtual void UpdateContextMenu()
+        {
+            _context.SharedContextMenu.Items.Clear();
+
+            _context.SharedContextMenu.Items.Add("UPDATE", Properties.Resources.Update_Person ,
+                (s,e) => _context.UIActionsManager.Execute(clsUIEnums.enUIAction.Update , GetSelectedDto(), Refresh));
+
+            _context.SharedContextMenu.Items.Add("DELETE", Properties.Resources.Delete_Person,
+                (s, e) => _context.UIActionsManager.Execute(clsUIEnums.enUIAction.Delete, GetSelectedDto(), Refresh));
         }
     }
 }

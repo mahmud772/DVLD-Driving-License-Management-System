@@ -16,21 +16,21 @@ namespace DVLD_DAL
         public static int LoadCount()
         {
             string Query = "Select Count (*) From ApplicationTypes;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            return clsDbHelper.ExecuteScalar<int>(Query, null);
         }
         public static clsApplicationType_DTO LoadApplicationTypeByID(int ApplicationTypeID)
         {
             clsApplicationType_DTO ApplicationType = null;
             string Query = "SELECT ApplicationTypeTitle, ApplicationFees FROM ApplicationTypes WHERE ApplicationTypeID = @ApplicationTypeID";
-            bool IsFound = DbHelper.ExecuteReader
+            bool IsFound = clsDbHelper.ExecuteReader
                 (
                 Query,
                 Command =>
-                DbHelper.SetValue<int>(Command, "@ApplicationTypeID", ApplicationTypeID),
+                clsDbHelper.SetValue<int>(Command, "@ApplicationTypeID", ApplicationTypeID),
                 Reader => ApplicationType = new clsApplicationType_DTO
                 {
-                    ApplicationTypeTitle = DbHelper.GetValue<string>(Reader, "ApplicationTypeTitle"),
-                    ApplicationFees = DbHelper.GetValue<decimal>(Reader, "ApplicationFees")
+                    ApplicationTypeTitle = clsDbHelper.GetValue<string>(Reader, "ApplicationTypeTitle"),
+                    ApplicationFees = clsDbHelper.GetValue<decimal>(Reader, "ApplicationFees")
                 }
                 );
             return IsFound ? ApplicationType : null;
@@ -42,10 +42,10 @@ namespace DVLD_DAL
                          VALUES (@ApplicationTypeTitle, @ApplicationFees);
                          SELECT SCOPE_IDENTITY();";
 
-            return DbHelper.ExecuteNonQuery(Query, Command =>
+            return clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                DbHelper.SetValue<string>(Command, "@ApplicationTypeTitle", Model.ApplicationTypeTitle);
-                DbHelper.SetValue<decimal>(Command, "@ApplicationFees", Model.ApplicationFees);
+                clsDbHelper.SetValue<string>(Command, "@ApplicationTypeTitle", Model.ApplicationTypeTitle);
+                clsDbHelper.SetValue<decimal>(Command, "@ApplicationFees", Model.ApplicationFees);
             });
         }
         public static bool UpdateApplicationType(clsApplicationType_DTO ApplicationType)
@@ -55,14 +55,14 @@ namespace DVLD_DAL
                             ApplicationTypeTitle = @ApplicationTypeTitle
                             WHERE ApplicationTypeID = @ApplicationTypeID;";
 
-            return DbHelper.ExecuteNonQuery
+            return clsDbHelper.ExecuteNonQuery
                 (
                 Query,
                 Command =>
                 {
-                    DbHelper.SetValue<int>(Command, "@ApplicationTypeID", ApplicationType.ApplicationTypeID);
-                    DbHelper.SetValue<decimal>(Command, "@ApplicationFees", ApplicationType.ApplicationFees);
-                    DbHelper.SetValue<string>(Command, "@ApplicationTypeTitle", ApplicationType.ApplicationTypeTitle);
+                    clsDbHelper.SetValue<int>(Command, "@ApplicationTypeID", ApplicationType.ApplicationTypeID);
+                    clsDbHelper.SetValue<decimal>(Command, "@ApplicationFees", ApplicationType.ApplicationFees);
+                    clsDbHelper.SetValue<string>(Command, "@ApplicationTypeTitle", ApplicationType.ApplicationTypeTitle);
                 }
                 ) > 0;
 
@@ -75,10 +75,10 @@ namespace DVLD_DAL
             string QueryApplicationTypesTable = @"Delete From ApplicationTypes Where ApplicationTypeID = @ApplicationTypeID;";
 
 
-            bool TransactionSuccess = DbHelper.ExecuteTransaction(Command =>
+            bool TransactionSuccess = clsDbHelper.ExecuteTransaction(Command =>
             {
 
-                DbHelper.SetValue<int>(Command, "@ApplicationTypeID", ApplicationTypeID);
+                clsDbHelper.SetValue<int>(Command, "@ApplicationTypeID", ApplicationTypeID);
 
 
                 clsApplication_DAL.DeleteApplicationByTypeID(ApplicationTypeID);
@@ -96,12 +96,12 @@ namespace DVLD_DAL
         public static List<clsApplicationType_DTO> LoadAllApplicationTypes()
         {
             string Query = "SELECT * FROM ApplicationTypes;";
-            return DbHelper.ReadList(Query, null,
+            return clsDbHelper.ReadList(Query, null,
                 Reader => new clsApplicationType_DTO
                 {
-                    ApplicationTypeID = DbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
-                    ApplicationTypeTitle = DbHelper.GetValue<string>(Reader, "ApplicationTypeTitle"),
-                    ApplicationFees = DbHelper.GetValue<decimal>(Reader, "ApplicationFees")
+                    ApplicationTypeID = clsDbHelper.GetValue<int>(Reader, "ApplicationTypeID"),
+                    ApplicationTypeTitle = clsDbHelper.GetValue<string>(Reader, "ApplicationTypeTitle"),
+                    ApplicationFees = clsDbHelper.GetValue<decimal>(Reader, "ApplicationFees")
                 }
                 );
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DVLD_DAL
 {
-    internal static class DbHelper
+    internal static class clsDbHelper
     {
 
         public static T GetValue<T>(SqlDataReader reader, string column)

@@ -24,26 +24,24 @@ namespace DVLD_DAL
         {
             return new clsUser_DTO
             {
-                PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
-                NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
-                FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
-                SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
-                ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
-                LastName = DbHelper.GetValue<string>(Reader, "LastName"),
-                DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
-                Address = DbHelper.GetValue<string>(Reader, "Address"),
-                Phone = DbHelper.GetValue<string>(Reader, "Phone"),
-                Email = DbHelper.GetValue<string>(Reader, "Email"),
-                NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
-                ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
+                PersonID = clsDbHelper.GetValue<int>(Reader, "PersonID"),
+                NationalNo = clsDbHelper.GetValue<string>(Reader, "NationalNo"),
+                FirstName = clsDbHelper.GetValue<string>(Reader, "FirstName"),
+                SecondName = clsDbHelper.GetValue<string>(Reader, "SecondName"),
+                ThirdName = clsDbHelper.GetValue<string>(Reader, "ThirdName"),
+                LastName = clsDbHelper.GetValue<string>(Reader, "LastName"),
+                DateOfBirth = clsDbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
+                Gendor = clsPersonEnumConverter.ToGendor(clsDbHelper.GetValue<byte>(Reader, "Gendor")),
+                Address = clsDbHelper.GetValue<string>(Reader, "Address"),
+                Phone = clsDbHelper.GetValue<string>(Reader, "Phone"),
+                Email = clsDbHelper.GetValue<string>(Reader, "Email"),
+                NationalityCountryID = clsDbHelper.GetValue<int>(Reader, "NationalityCountryID"),
+                ImagePath = clsDbHelper.GetValue<string>(Reader, "ImagePath"),
 
 
-                UserID = DbHelper.GetValue<int>(Reader, "UserID"),
-                UserName = DbHelper.GetValue<string>(Reader, "UserName"),
-                Password = DbHelper.GetValue<string>(Reader, "Password"),
-                IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                Permissions = DbHelper.GetValue<int>(Reader, "Permissions")
+                UserID = clsDbHelper.GetValue<int>(Reader, "UserID"),
+                UserName = clsDbHelper.GetValue<string>(Reader, "UserName"),
+                IsActive = clsDbHelper.GetValue<bool>(Reader, "IsActive"),
             };
         }
         public static int LoadCount(clsUserQuery clsQuery)
@@ -55,25 +53,25 @@ namespace DVLD_DAL
 
             _ApplyUserFilter(clsQuery.Filter, ref Query);
 
-            return DbHelper.ExecuteScalar<int>(Query,
+            return clsDbHelper.ExecuteScalar<int>(Query,
                 Command =>
                 {
-                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                    clsDbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
                         IsHasValue: clsQuery.SearchValue != null);
 
-                    DbHelper.SetValue(Command, "@AgeOlderThen",
+                    clsDbHelper.SetValue(Command, "@AgeOlderThen",
                         clsQuery.Filter.AgeOlderThen,
                         clsQuery.Filter.AgeOlderThen.HasValue);
 
-                    DbHelper.SetValue(Command, "@AgeYoungerThen",
+                    clsDbHelper.SetValue(Command, "@AgeYoungerThen",
                         clsQuery.Filter.AgeYoungerThen,
                         clsQuery.Filter.AgeYoungerThen.HasValue);
 
-                    DbHelper.SetValue(Command, "@Gendor",
+                    clsDbHelper.SetValue(Command, "@Gendor",
                         clsQuery.Filter.Gendor,
                         clsQuery.Filter.Gendor.HasValue);
 
-                    DbHelper.SetValue(Command, "@NationalityCountryID",
+                    clsDbHelper.SetValue(Command, "@NationalityCountryID",
                         clsQuery.Filter.NationalityCountryID,
                         clsQuery.Filter.NationalityCountryID.HasValue);
 
@@ -92,7 +90,7 @@ namespace DVLD_DAL
                         JOIN Users U ON P.PersonID = U.PersonID
                         WHERE U.UserID = @UserID;";
             clsUser_DTO Model = null;
-            bool IsFound = DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue<int>(Command, "@UserID", UserID),
+            bool IsFound = clsDbHelper.ExecuteReader(Query, Command => clsDbHelper.SetValue<int>(Command, "@UserID", UserID),
                 Reader =>
                 {
                     Model = _Reader(Reader);
@@ -105,7 +103,7 @@ namespace DVLD_DAL
         {
             int UserID = -1;
             string Query = "Select UserID From Users Where UserName = @UserName";
-            if (!DbHelper.FindID<string>(Query, "@UserName", UserName, ref UserID))
+            if (!clsDbHelper.FindID<string>(Query, "@UserName", UserName, ref UserID))
                 return null;
             return LoadUserByID(UserID);
         }
@@ -116,14 +114,14 @@ namespace DVLD_DAL
 
             string Query = @"Select IsActive From Users 
                              Where UserID = @UserID";
-            return DbHelper.ExecuteScalar<bool>(Query, Command =>
-                DbHelper.SetValue<int>(Command, "@UserID", UserID));
+            return clsDbHelper.ExecuteScalar<bool>(Query, Command =>
+                clsDbHelper.SetValue<int>(Command, "@UserID", UserID));
         }
         public static bool GetIsActiveStatus(string UserName)
         {
             int UserID = -1;
             string Query = "Select UserID From Users Where UserName = @UserName";
-            if (!DbHelper.FindID<string>(Query, "@UserName", UserName, ref UserID))
+            if (!clsDbHelper.FindID<string>(Query, "@UserName", UserName, ref UserID))
                 return false;
             return GetIsActiveStatus(UserID);
         }
@@ -131,14 +129,14 @@ namespace DVLD_DAL
         {
             string Query = @"Select Permissions From Users 
                              Where UserID = @UserID";
-            return DbHelper.ExecuteScalar<bool>(Query, Command =>
-                DbHelper.SetValue<int>(Command, "@UserID", UserID));
+            return clsDbHelper.ExecuteScalar<bool>(Query, Command =>
+                clsDbHelper.SetValue<int>(Command, "@UserID", UserID));
         }
         public static bool GetPermissions(string UserName)
         {
             int UserID = -1;
             string Query = "Select UserID From Users Where UserName = @UserName";
-            if (!DbHelper.FindID<string>(Query, "@UserName", UserName, ref UserID))
+            if (!clsDbHelper.FindID<string>(Query, "@UserName", UserName, ref UserID))
                 return false;
             return GetPermissions(UserID);
         }
@@ -154,13 +152,13 @@ namespace DVLD_DAL
                                 SELECT SCOPE_IDENTITY();
                              ELSE
                                 SELECT -1;";
-            return DbHelper.ExecuteScalar<int>(Query, Command =>
+            return clsDbHelper.ExecuteScalar<int>(Query, Command =>
             {
-                DbHelper.SetValue<int>(Command, "@PersonID", Model.PersonID);
-                DbHelper.SetValue<string>(Command, "@UserName", Model.UserName);
-                DbHelper.SetValue<string>(Command, "@Password", Model.Password);
-                DbHelper.SetValue<bool>(Command, "@IsActive", Model.IsActive);
-                DbHelper.SetValue<int>(Command, "@Permissions", Model.Permissions);
+                clsDbHelper.SetValue<int>(Command, "@PersonID", Model.PersonID);
+                clsDbHelper.SetValue<string>(Command, "@UserName", Model.UserName);
+                clsDbHelper.SetValue<string>(Command, "@Password", Model.Password);
+                clsDbHelper.SetValue<bool>(Command, "@IsActive", Model.IsActive);
+                clsDbHelper.SetValue<int>(Command, "@Permissions", Model.Permissions);
             });
 
         }
@@ -171,12 +169,12 @@ namespace DVLD_DAL
             string Query = @"Update Users Set IsActive = @IsActive , 
                              Permissions = @Permissions
                              Where UserID = @UserID ";
-            return DbHelper.ExecuteNonQuery
+            return clsDbHelper.ExecuteNonQuery
                 (Query, Command =>
                 {
-                    DbHelper.SetValue<int>(Command, "@UserID", Model.UserID);
-                    DbHelper.SetValue<bool>(Command, "@IsActive", Model.IsActive);
-                    DbHelper.SetValue<int>(Command, "@Permissions", Model.Permissions);
+                    clsDbHelper.SetValue<int>(Command, "@UserID", Model.UserID);
+                    clsDbHelper.SetValue<bool>(Command, "@IsActive", Model.IsActive);
+                    clsDbHelper.SetValue<int>(Command, "@Permissions", Model.Permissions);
                 }
                 ) > 0;
 
@@ -190,10 +188,10 @@ namespace DVLD_DAL
             string QueryUsersTable = @"Delete From Users Where UserID = @UserID;";
 
 
-            bool TransactionSuccess = DbHelper.ExecuteTransaction(Command =>
+            bool TransactionSuccess = clsDbHelper.ExecuteTransaction(Command =>
             {
 
-                DbHelper.SetValue<int>(Command, "@UserID", UserID);
+                clsDbHelper.SetValue<int>(Command, "@UserID", UserID);
 
 
                 clsApplication_DAL.DeleteByUserID(UserID);
@@ -223,7 +221,7 @@ namespace DVLD_DAL
         {
             int UserID = -1;
             string Query = "Select UserID From Users Where UserName = @UserName";
-            if (!DbHelper.FindID<string>(Query, "@UserName", UserName, ref UserID))
+            if (!clsDbHelper.FindID<string>(Query, "@UserName", UserName, ref UserID))
                 return false;
             return DeleteUser(UserID);
         }
@@ -241,10 +239,10 @@ namespace DVLD_DAL
                         JOIN Users U ON P.PersonID = U.PersonID
                         Where UserName = @UserName And Password = @Password;";
             clsUser_DTO DTO = null;
-            DbHelper.ExecuteReader(Query, Command =>
+            clsDbHelper.ExecuteReader(Query, Command =>
             {
-                DbHelper.SetValue<string>(Command, "@UserName", UserName);
-                DbHelper.SetValue<string>(Command, "@Password", Password);
+                clsDbHelper.SetValue<string>(Command, "@UserName", UserName);
+                clsDbHelper.SetValue<string>(Command, "@Password", Password);
             },
             Reader => DTO = _Reader(Reader));
             return DTO;
@@ -254,7 +252,7 @@ namespace DVLD_DAL
         {
             int UserID = -1;
             string Query = "Select UserID From Users Where PersonID = @PersonID";
-            if (!DbHelper.FindID<int>(Query, "@PersonID", PersonID, ref UserID))
+            if (!clsDbHelper.FindID<int>(Query, "@PersonID", PersonID, ref UserID))
                 return false;
             return DeleteUser(UserID);
         }
@@ -269,7 +267,7 @@ namespace DVLD_DAL
                             U.UserID, U.UserName, U.Password, U.IsActive , U.Permissions
                         FROM People P
                         JOIN Users U ON P.PersonID = U.PersonID;";
-            return DbHelper.ReadList(Query, null,
+            return clsDbHelper.ReadList(Query, null,
                 Reader => _Reader(Reader));
         }
 
@@ -280,16 +278,16 @@ namespace DVLD_DAL
                       ORDER BY U.UserID
                       OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
 
-            return DbHelper.ReadList(Query,
+            return clsDbHelper.ReadList(Query,
                 Command => {
-                    DbHelper.SetValue(Command, "@Offset", Offset);
-                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                    clsDbHelper.SetValue(Command, "@Offset", Offset);
+                    clsDbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
                 Reader => _Reader(Reader));
         }
         public static List<clsUser_DTO> LoadUsers(int Offset, int CountRows , clsUserQuery clsQuery)
         {
-            string Query = $@"SELECT P.*, U.UserID, U.UserName, U.Password, U.IsActive, U.Permissions
+            string Query = $@"SELECT P.*, U.UserID, U.UserName, U.IsActive
                       FROM People P JOIN Users U ON P.PersonID = U.PersonID
                       Where 1 = 1 ";
 
@@ -303,30 +301,30 @@ namespace DVLD_DAL
                  {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}
                  OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
 
-            return DbHelper.ReadList(Query,
+            return clsDbHelper.ReadList(Query,
                 Command =>
                 {
-                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                    clsDbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
                         IsHasValue: clsQuery.SearchValue != null);
 
-                    DbHelper.SetValue(Command, "@AgeOlderThen",
+                    clsDbHelper.SetValue(Command, "@AgeOlderThen",
                         clsQuery.Filter.AgeOlderThen,
                         clsQuery.Filter.AgeOlderThen.HasValue);
 
-                    DbHelper.SetValue(Command, "@AgeYoungerThen",
+                    clsDbHelper.SetValue(Command, "@AgeYoungerThen",
                         clsQuery.Filter.AgeYoungerThen,
                         clsQuery.Filter.AgeYoungerThen.HasValue);
 
-                    DbHelper.SetValue(Command, "@Gendor",
+                    clsDbHelper.SetValue(Command, "@Gendor",
                         clsQuery.Filter.Gendor,
                         clsQuery.Filter.Gendor.HasValue);
 
-                    DbHelper.SetValue(Command, "@NationalityCountryID",
+                    clsDbHelper.SetValue(Command, "@NationalityCountryID",
                         clsQuery.Filter.NationalityCountryID,
                         clsQuery.Filter.NationalityCountryID.HasValue);
 
-                    DbHelper.SetValue(Command, "@Offset", Offset);
-                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                    clsDbHelper.SetValue(Command, "@Offset", Offset);
+                    clsDbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
                 Reader => _Reader(Reader));
         }
@@ -340,7 +338,7 @@ namespace DVLD_DAL
         public static bool IsPersonIsUser(int PersonID)
         {
             string Query = @"Select 1 From Users Where PersonID = @PersonID;";
-            return DbHelper.Exists(Query , Command => DbHelper.SetValue(Command , "@PersonID" , PersonID));
+            return clsDbHelper.Exists(Query , Command => clsDbHelper.SetValue(Command , "@PersonID" , PersonID));
         }
     }
 }

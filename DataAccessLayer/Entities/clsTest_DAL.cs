@@ -15,7 +15,7 @@ namespace DVLD_DAL
         public static int LoadCount()
         {
             string Query = "Select Count (*) From Tests;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            return clsDbHelper.ExecuteScalar<int>(Query, null);
         }
 
         public static clsTest_DTO LoadTestByID(int TestID)
@@ -23,16 +23,16 @@ namespace DVLD_DAL
             clsTest_DTO Model = null;
             string Query = "SELECT * FROM Tests WHERE TestID = @TestID";
 
-            DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue(Command, "@TestID", TestID),
+            clsDbHelper.ExecuteReader(Query, Command => clsDbHelper.SetValue(Command, "@TestID", TestID),
                 Reader =>
                 {
                     Model = new clsTest_DTO
                     {
                         TestID = TestID,
-                        TestAppointmentID = DbHelper.GetValue<int>(Reader, "TestAppointmentID"),
-                        TestResult = DbHelper.GetValue<bool>(Reader, "TestResult"),
-                        Notes = DbHelper.GetValue<string>(Reader, "Notes"),
-                        CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
+                        TestAppointmentID = clsDbHelper.GetValue<int>(Reader, "TestAppointmentID"),
+                        TestResult = clsDbHelper.GetValue<bool>(Reader, "TestResult"),
+                        Notes = clsDbHelper.GetValue<string>(Reader, "Notes"),
+                        CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID")
                     };
                 });
             return Model;
@@ -45,12 +45,12 @@ namespace DVLD_DAL
                          VALUES (@TestAppointmentID, @TestResult, @Notes, @CreatedByUserID);
                          SELECT SCOPE_IDENTITY();";
 
-            return DbHelper.ExecuteScalar<int>(Query, Command =>
+            return clsDbHelper.ExecuteScalar<int>(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@TestAppointmentID", Model.TestAppointmentID);
-                DbHelper.SetValue(Command, "@TestResult", Model.TestResult);
-                DbHelper.SetValue(Command, "@Notes", Model.Notes, AllowNull: true);
-                DbHelper.SetValue(Command, "@CreatedByUserID", Model.CreatedByUserID);
+                clsDbHelper.SetValue(Command, "@TestAppointmentID", Model.TestAppointmentID);
+                clsDbHelper.SetValue(Command, "@TestResult", Model.TestResult);
+                clsDbHelper.SetValue(Command, "@Notes", Model.Notes, AllowNull: true);
+                clsDbHelper.SetValue(Command, "@CreatedByUserID", Model.CreatedByUserID);
             });
         }
 
@@ -61,10 +61,10 @@ namespace DVLD_DAL
                          Notes = @Notes
                          WHERE TestID = @TestID";
 
-            int RowsAffected = DbHelper.ExecuteNonQuery(Query, Command =>
+            int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@TestID", Model.TestID); // شرط التحديث
-                DbHelper.SetValue(Command, "@Notes", Model.Notes, AllowNull: true);
+                clsDbHelper.SetValue(Command, "@TestID", Model.TestID); // شرط التحديث
+                clsDbHelper.SetValue(Command, "@Notes", Model.Notes, AllowNull: true);
             });
             return RowsAffected > 0;
         }
@@ -73,7 +73,7 @@ namespace DVLD_DAL
         public static bool DeleteTest(int TestID)
         {
             string Query = "DELETE FROM Tests WHERE TestID = @TestID";
-            int RowsAffected = DbHelper.ExecuteNonQuery(Query, Command => DbHelper.SetValue(Command, "@TestID", TestID));
+            int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command => clsDbHelper.SetValue(Command, "@TestID", TestID));
             return RowsAffected > 0;
         }
 
@@ -82,9 +82,9 @@ namespace DVLD_DAL
             int RowsAffected = 0;
             string QueryLicensesTable = @"Delete From Tests Where CreatedByUserID = @CreatedByUserID;";
 
-            RowsAffected = DbHelper.ExecuteNonQuery(QueryLicensesTable, Command =>
+            RowsAffected = clsDbHelper.ExecuteNonQuery(QueryLicensesTable, Command =>
             {
-                DbHelper.SetValue<int>(Command, "@CreatedByUserID", CreatedByUserID);
+                clsDbHelper.SetValue<int>(Command, "@CreatedByUserID", CreatedByUserID);
             });
 
             return RowsAffected > 0;
@@ -94,7 +94,7 @@ namespace DVLD_DAL
         {
             string Query = "Select TestResult From Tests Where TestAppointmentID = @TestAppointmentID;";
 
-            return DbHelper.ExecuteScalar<bool>(Query, Command => DbHelper.SetValue(Command, "@TestAppointmentID", TestAppointmentID));
+            return clsDbHelper.ExecuteScalar<bool>(Query, Command => clsDbHelper.SetValue(Command, "@TestAppointmentID", TestAppointmentID));
         }
 
         public static bool IsPersonPassedInAllTests(int PersonID, clsApplicationEnums.enApplicationType ApplicationType)
@@ -106,25 +106,25 @@ namespace DVLD_DAL
                             Where A.ApplicantPersonID = @ApplicantPersonID
                             And TA.TestTypeID = @TestTypeID
                             And A.ApplicationTypeID = @ApplicationTypeID;";
-            return DbHelper.Exists(Query, (Action<System.Data.SqlClient.SqlCommand>)(Command =>
+            return clsDbHelper.Exists(Query, (Action<System.Data.SqlClient.SqlCommand>)(Command =>
             {
-                DbHelper.SetValue(Command, "@ApplicantPersonID", PersonID);
-                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
-                DbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(ApplicationType));
+                clsDbHelper.SetValue(Command, "@ApplicantPersonID", PersonID);
+                clsDbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
+                clsDbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(ApplicationType));
             }));
         }
 
         public static List<clsTest_DTO> LoadTests()
         {
             string Query = "Select * From Tests;";
-            return DbHelper.ReadList(Query, null,
+            return clsDbHelper.ReadList(Query, null,
                 Reader => new clsTest_DTO
                 {
-                    TestID = DbHelper.GetValue<int>(Reader, "TestID"),
-                    TestAppointmentID = DbHelper.GetValue<int>(Reader, "TestAppointmentID"),
-                    TestResult = DbHelper.GetValue<bool>(Reader, "TestResult"),
-                    Notes = DbHelper.GetValue<string>(Reader, "Notes"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
+                    TestID = clsDbHelper.GetValue<int>(Reader, "TestID"),
+                    TestAppointmentID = clsDbHelper.GetValue<int>(Reader, "TestAppointmentID"),
+                    TestResult = clsDbHelper.GetValue<bool>(Reader, "TestResult"),
+                    Notes = clsDbHelper.GetValue<string>(Reader, "Notes"),
+                    CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID")
                 });
         }
 
@@ -134,18 +134,18 @@ namespace DVLD_DAL
                       ORDER BY TestID
                       OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
 
-            return DbHelper.ReadList(Query,
+            return clsDbHelper.ReadList(Query,
                 Command => {
-                    DbHelper.SetValue(Command, "@Offset", Offset);
-                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                    clsDbHelper.SetValue(Command, "@Offset", Offset);
+                    clsDbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
                 Reader => new clsTest_DTO
                 {
-                    TestID = DbHelper.GetValue<int>(Reader, "TestID"),
-                    TestAppointmentID = DbHelper.GetValue<int>(Reader, "TestAppointmentID"),
-                    TestResult = DbHelper.GetValue<bool>(Reader, "TestResult"),
-                    Notes = DbHelper.GetValue<string>(Reader, "Notes"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
+                    TestID = clsDbHelper.GetValue<int>(Reader, "TestID"),
+                    TestAppointmentID = clsDbHelper.GetValue<int>(Reader, "TestAppointmentID"),
+                    TestResult = clsDbHelper.GetValue<bool>(Reader, "TestResult"),
+                    Notes = clsDbHelper.GetValue<string>(Reader, "Notes"),
+                    CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID")
                 });
         }
 
@@ -171,11 +171,11 @@ namespace DVLD_DAL
                         ELSE
                             SELECT 0;
                         ";
-            return DbHelper.Exists(Query, Command =>
+            return clsDbHelper.Exists(Query, Command =>
             {
-                DbHelper.SetValue<int>(Command, "@DriverID", DriverID);
-                DbHelper.SetValue<int>(Command, "@LicenseClassID", LicenseClassID);
-                DbHelper.SetValue<int>(Command, "@FinalTestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
+                clsDbHelper.SetValue<int>(Command, "@DriverID", DriverID);
+                clsDbHelper.SetValue<int>(Command, "@LicenseClassID", LicenseClassID);
+                clsDbHelper.SetValue<int>(Command, "@FinalTestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
             }
             );
         }

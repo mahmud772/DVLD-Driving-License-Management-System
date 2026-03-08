@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.pnlUserInfo = new System.Windows.Forms.Panel();
-            this.ckcbPermissions = new CheckedComboBox();
+            this.rbDeactivate = new System.Windows.Forms.RadioButton();
+            this.rbActive = new System.Windows.Forms.RadioButton();
+            this.lbIsActive_Titel = new System.Windows.Forms.Label();
             this.lbLicenseClass = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.lbIsActive_Titel = new System.Windows.Forms.Label();
-            this.rbDeactivate = new System.Windows.Forms.RadioButton();
-            this.rbActive = new System.Windows.Forms.RadioButton();
+            this.ckcbPermissions = new CheckedComboBox();
             this.pnlUserInfo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,15 +52,33 @@
             this.pnlUserInfo.Size = new System.Drawing.Size(330, 86);
             this.pnlUserInfo.TabIndex = 56;
             // 
-            // ckcbPermissions
+            // rbDeactivate
             // 
-            this.ckcbPermissions.DropDownHeight = 1;
-            this.ckcbPermissions.FormattingEnabled = true;
-            this.ckcbPermissions.IntegralHeight = false;
-            this.ckcbPermissions.Location = new System.Drawing.Point(123, 45);
-            this.ckcbPermissions.Name = "ckcbPermissions";
-            this.ckcbPermissions.Size = new System.Drawing.Size(195, 21);
-            this.ckcbPermissions.TabIndex = 54;
+            this.rbDeactivate.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.rbDeactivate.Location = new System.Drawing.Point(217, 13);
+            this.rbDeactivate.Name = "rbDeactivate";
+            this.rbDeactivate.Size = new System.Drawing.Size(88, 24);
+            this.rbDeactivate.TabIndex = 57;
+            this.rbDeactivate.Text = "Deactivate";
+            // 
+            // rbActive
+            // 
+            this.rbActive.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.rbActive.Location = new System.Drawing.Point(124, 13);
+            this.rbActive.Name = "rbActive";
+            this.rbActive.Size = new System.Drawing.Size(74, 24);
+            this.rbActive.TabIndex = 56;
+            this.rbActive.Text = "Active";
+            // 
+            // lbIsActive_Titel
+            // 
+            this.lbIsActive_Titel.AutoSize = true;
+            this.lbIsActive_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIsActive_Titel.Location = new System.Drawing.Point(5, 15);
+            this.lbIsActive_Titel.Name = "lbIsActive_Titel";
+            this.lbIsActive_Titel.Size = new System.Drawing.Size(106, 17);
+            this.lbIsActive_Titel.TabIndex = 55;
+            this.lbIsActive_Titel.Text = "Active Status    :";
             // 
             // lbLicenseClass
             // 
@@ -94,33 +112,15 @@
             this.lbTitel.TabIndex = 54;
             this.lbTitel.Text = "UPDATE USER";
             // 
-            // lbIsActive_Titel
+            // ckcbPermissions
             // 
-            this.lbIsActive_Titel.AutoSize = true;
-            this.lbIsActive_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbIsActive_Titel.Location = new System.Drawing.Point(5, 15);
-            this.lbIsActive_Titel.Name = "lbIsActive_Titel";
-            this.lbIsActive_Titel.Size = new System.Drawing.Size(106, 17);
-            this.lbIsActive_Titel.TabIndex = 55;
-            this.lbIsActive_Titel.Text = "Active Status    :";
-            // 
-            // rbDeactivate
-            // 
-            this.rbDeactivate.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.rbDeactivate.Location = new System.Drawing.Point(217, 13);
-            this.rbDeactivate.Name = "rbDeactivate";
-            this.rbDeactivate.Size = new System.Drawing.Size(88, 24);
-            this.rbDeactivate.TabIndex = 57;
-            this.rbDeactivate.Text = "Deactivate";
-            // 
-            // rbActive
-            // 
-            this.rbActive.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.rbActive.Location = new System.Drawing.Point(124, 13);
-            this.rbActive.Name = "rbActive";
-            this.rbActive.Size = new System.Drawing.Size(74, 24);
-            this.rbActive.TabIndex = 56;
-            this.rbActive.Text = "Active";
+            this.ckcbPermissions.DropDownHeight = 1;
+            this.ckcbPermissions.FormattingEnabled = true;
+            this.ckcbPermissions.IntegralHeight = false;
+            this.ckcbPermissions.Location = new System.Drawing.Point(123, 45);
+            this.ckcbPermissions.Name = "ckcbPermissions";
+            this.ckcbPermissions.Size = new System.Drawing.Size(195, 21);
+            this.ckcbPermissions.TabIndex = 54;
             // 
             // frmUpdateUser
             // 
@@ -132,6 +132,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmUpdateUser";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update User";
             this.Load += new System.EventHandler(this.frmUpdateUser_Load);
             this.pnlUserInfo.ResumeLayout(false);

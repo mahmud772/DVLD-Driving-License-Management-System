@@ -15,7 +15,7 @@ namespace DVLD_DAL
         public static int LoadCount()
         {
             string Query = "Select Count (*) From LicenseClasses;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            return clsDbHelper.ExecuteScalar<int>(Query, null);
         }
 
 
@@ -24,17 +24,17 @@ namespace DVLD_DAL
             clsLicenseClass_DTO Model = null;
             string Query = "SELECT * FROM LicenseClasses WHERE LicenseClassID = @LicenseClassID";
 
-            DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID),
+            clsDbHelper.ExecuteReader(Query, Command => clsDbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID),
                 Reader =>
                 {
                     Model = new clsLicenseClass_DTO
                     {
                         LicenseClassID = LicenseClassID,
-                        ClassName = DbHelper.GetValue<string>(Reader, "ClassName"),
-                        ClassDescription = DbHelper.GetValue<string>(Reader, "ClassDescription"),
-                        MinimumAllowedAge = DbHelper.GetValue<byte>(Reader, "MinimumAllowedAge"),
-                        DefaultValidityLength = DbHelper.GetValue<byte>(Reader, "DefaultValidityLength"),
-                        ClassFees = DbHelper.GetValue<decimal>(Reader, "ClassFees")
+                        ClassName = clsDbHelper.GetValue<string>(Reader, "ClassName"),
+                        ClassDescription = clsDbHelper.GetValue<string>(Reader, "ClassDescription"),
+                        MinimumAllowedAge = clsDbHelper.GetValue<byte>(Reader, "MinimumAllowedAge"),
+                        DefaultValidityLength = clsDbHelper.GetValue<byte>(Reader, "DefaultValidityLength"),
+                        ClassFees = clsDbHelper.GetValue<decimal>(Reader, "ClassFees")
                     };
                 });
             return Model;
@@ -47,13 +47,13 @@ namespace DVLD_DAL
                          VALUES (@ClassName, @ClassDescription, @MinimumAllowedAge, @DefaultValidityLength, @ClassFees);
                          SELECT SCOPE_IDENTITY();";
 
-            return DbHelper.ExecuteNonQuery(Query, Command =>
+            return clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@ClassName", Model.ClassName);
-                DbHelper.SetValue(Command, "@ClassDescription", Model.ClassDescription);
-                DbHelper.SetValue(Command, "@MinimumAllowedAge", Model.MinimumAllowedAge);
-                DbHelper.SetValue(Command, "@DefaultValidityLength", Model.DefaultValidityLength);
-                DbHelper.SetValue(Command, "@ClassFees", Model.ClassFees);
+                clsDbHelper.SetValue(Command, "@ClassName", Model.ClassName);
+                clsDbHelper.SetValue(Command, "@ClassDescription", Model.ClassDescription);
+                clsDbHelper.SetValue(Command, "@MinimumAllowedAge", Model.MinimumAllowedAge);
+                clsDbHelper.SetValue(Command, "@DefaultValidityLength", Model.DefaultValidityLength);
+                clsDbHelper.SetValue(Command, "@ClassFees", Model.ClassFees);
             });
         }
 
@@ -66,14 +66,14 @@ namespace DVLD_DAL
                          ClassFees = @ClassFees
                          WHERE LicenseClassID = @LicenseClassID";
 
-            int RowsAffected = DbHelper.ExecuteNonQuery(Query, Command =>
+            int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@LicenseClassID", Model.LicenseClassID); // شرط التحديث
-                DbHelper.SetValue(Command, "@ClassName", Model.ClassName);
-                DbHelper.SetValue(Command, "@ClassDescription", Model.ClassDescription);
-                DbHelper.SetValue(Command, "@MinimumAllowedAge", Model.MinimumAllowedAge);
-                DbHelper.SetValue(Command, "@DefaultValidityLength", Model.DefaultValidityLength);
-                DbHelper.SetValue(Command, "@ClassFees", Model.ClassFees);
+                clsDbHelper.SetValue(Command, "@LicenseClassID", Model.LicenseClassID); // شرط التحديث
+                clsDbHelper.SetValue(Command, "@ClassName", Model.ClassName);
+                clsDbHelper.SetValue(Command, "@ClassDescription", Model.ClassDescription);
+                clsDbHelper.SetValue(Command, "@MinimumAllowedAge", Model.MinimumAllowedAge);
+                clsDbHelper.SetValue(Command, "@DefaultValidityLength", Model.DefaultValidityLength);
+                clsDbHelper.SetValue(Command, "@ClassFees", Model.ClassFees);
             });
             return RowsAffected > 0;
         }
@@ -84,9 +84,9 @@ namespace DVLD_DAL
             int DeletedLicenseCount = 0;
             string Query = "DELETE FROM LicenseClasses WHERE LicenseClassID = @LicenseClassID";
 
-            bool TransactionSuccess = DbHelper.ExecuteTransaction(Command =>
+            bool TransactionSuccess = clsDbHelper.ExecuteTransaction(Command =>
             {
-                DbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID);
+                clsDbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID);
 
                 clsLicense_DAL.DeleteLicenseByLicenseClassID(LicenseClassID);
 
@@ -100,15 +100,15 @@ namespace DVLD_DAL
         public static List<clsLicenseClass_DTO> LoadAllLicenseClasses()
         {
             string Query = "Select * From LicenseClasses;";
-            return DbHelper.ReadList(Query, null,
+            return clsDbHelper.ReadList(Query, null,
                 Reader => new clsLicenseClass_DTO
                 {
-                    LicenseClassID = DbHelper.GetValue<int>(Reader, "LicenseClassID"),
-                    ClassName = DbHelper.GetValue<string>(Reader, "ClassName"),
-                    MinimumAllowedAge = DbHelper.GetValue<byte>(Reader, "MinimumAllowedAge"),
-                    DefaultValidityLength = DbHelper.GetValue<byte>(Reader, "DefaultValidityLength"),
-                    ClassFees = DbHelper.GetValue<decimal>(Reader, "ClassFees"),
-                    ClassDescription = DbHelper.GetValue<string>(Reader, "ClassDescription")
+                    LicenseClassID = clsDbHelper.GetValue<int>(Reader, "LicenseClassID"),
+                    ClassName = clsDbHelper.GetValue<string>(Reader, "ClassName"),
+                    MinimumAllowedAge = clsDbHelper.GetValue<byte>(Reader, "MinimumAllowedAge"),
+                    DefaultValidityLength = clsDbHelper.GetValue<byte>(Reader, "DefaultValidityLength"),
+                    ClassFees = clsDbHelper.GetValue<decimal>(Reader, "ClassFees"),
+                    ClassDescription = clsDbHelper.GetValue<string>(Reader, "ClassDescription")
                 }
                 );
         }

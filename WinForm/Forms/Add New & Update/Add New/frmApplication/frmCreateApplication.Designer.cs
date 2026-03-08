@@ -65,13 +65,13 @@
             this.pnlApplication.Size = new System.Drawing.Size(373, 149);
             this.pnlApplication.TabIndex = 44;
             // 
-            // lbPaidFees2
+            // lbPaidFeesLicenseClass
             // 
             this.lbPaidFeesLicenseClass.AutoSize = true;
             this.lbPaidFeesLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             this.lbPaidFeesLicenseClass.ForeColor = System.Drawing.Color.MediumTurquoise;
             this.lbPaidFeesLicenseClass.Location = new System.Drawing.Point(172, 46);
-            this.lbPaidFeesLicenseClass.Name = "lbPaidFees2";
+            this.lbPaidFeesLicenseClass.Name = "lbPaidFeesLicenseClass";
             this.lbPaidFeesLicenseClass.Size = new System.Drawing.Size(28, 17);
             this.lbPaidFeesLicenseClass.TabIndex = 51;
             this.lbPaidFeesLicenseClass.Text = "+ 0";
@@ -215,6 +215,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmCreateApplication";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Create Application";
             this.Load += new System.EventHandler(this.frmCreateApplication_Load);
             this.pnlApplication.ResumeLayout(false);

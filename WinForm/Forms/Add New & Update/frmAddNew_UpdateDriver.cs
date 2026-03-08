@@ -11,8 +11,9 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms
 {
-    public partial class frmAddNew_UpdateDriver : Form
+    public partial class frmAddNew_UpdateDriver : Form , IForm
     {
+        public bool IsChange { get; set; } = false;
         public frmAddNew_UpdateDriver(clsDriver_DTO DriverInfo)
         {
             InitializeComponent();

@@ -27,6 +27,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
+            _displayMode = DisplayMode;
             InitializeAdapter(clsTestAppointment_BLL.GetTestAppointments,
               clsTestAppointment_BLL.GetCount,
               GetDisplayView<clsTestAppointment_DTO>(Appointment => new ucTestAppointment( _context.SharedContextMenu) { AppointmentInfo = Appointment } , DisplayMode));
@@ -54,6 +55,9 @@ namespace DVLDWinForm.Display
             lbTotalCount.Text = _paginator.TotalItems.ToString();
             pbTotal.Image = Properties.Resources.TestAppointment;
         }
-
+        public override void UpdateContextMenu()
+        {
+            base.UpdateContextMenu();
+        }
     }
 }

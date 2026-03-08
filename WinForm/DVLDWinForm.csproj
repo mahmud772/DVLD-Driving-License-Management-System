@@ -128,18 +128,13 @@
     <Compile Include="Forms\frmFind.Designer.cs">
       <DependentUpon>frmFind.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmFindPerson.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmFindPerson.Designer.cs">
-      <DependentUpon>frmFindPerson.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmSortAndFilter.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmSortAndFilter.Designer.cs">
       <DependentUpon>frmSortAndFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\IForm.cs" />
     <Compile Include="UIHelper_Manger\clsControlAnimateHeight.cs" />
     <Compile Include="UIHelper_Manger\clsUIEnums.cs" />
     <Compile Include="UIHelper_Manger\clsFormLayoutHelper.cs" />
@@ -265,8 +260,14 @@
     <Compile Include="User Controls\ucLogout.Designer.cs">
       <DependentUpon>ucLogout.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.resx">
+      <DependentUpon>frmAddNewLicense.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdateAppointment.resx">
       <DependentUpon>frmAddNew_UpdateAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdateDriver.resx">
+      <DependentUpon>frmAddNew_UpdateDriver.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.resx">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
@@ -277,14 +278,14 @@
     <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmAddNewUser.resx">
       <DependentUpon>frmAddNewUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateApplication.resx">
+      <DependentUpon>frmUpdateApplication.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateUser.resx">
       <DependentUpon>frmUpdateUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFind.resx">
       <DependentUpon>frmFind.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmFindPerson.resx">
-      <DependentUpon>frmFindPerson.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
@@ -487,6 +488,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\LoginLicense.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\InternationalLicense.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

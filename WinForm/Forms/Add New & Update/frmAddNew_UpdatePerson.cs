@@ -15,12 +15,12 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms
 {
-    public partial class frmAddNew_UpdatePerson : Form
+    public partial class frmAddNew_UpdatePerson : Form , IForm
     {
         enum enMode { AddNew = 1 , Update = 2 } 
         enMode Mode = enMode.AddNew;
         private clsPerson_DTO _PersonInfo;
-        
+        public bool IsChange { get; set; } = false;
         public frmAddNew_UpdatePerson()
         {
             InitializeComponent();
@@ -43,17 +43,6 @@ namespace DVLDWinForm.Forms
         private void _LoadDesign()
         {
             
-            /*clsUIHelper.CornerRadius(tbNationalNo, 5);
-            clsUIHelper.CornerRadius(tbFirstName, 5);
-            clsUIHelper.CornerRadius(tbSecondName, 5);
-            clsUIHelper.CornerRadius(tbThirdName, 5);
-            clsUIHelper.CornerRadius(tbLastName, 5);
-            clsUIHelper.CornerRadius(tbPhone, 5);
-            clsUIHelper.CornerRadius(tbEmail, 5);
-            clsUIHelper.CornerRadius(tbAddress, 5);
-            clsUIHelper.CornerRadius(rdbtnMale, 5);
-            clsUIHelper.CornerRadius(rdbtnFemale, 5);
-            clsUIHelper.CornerRadius(cbCountry, 5);*/
             clsUIHelper.CornerRadius(dtpDateOfBirth, 5);
             clsUIHelper.CornerRadius(pnlName, 15);
             clsUIHelper.CornerRadius(pnlContacts, 15);
@@ -70,16 +59,12 @@ namespace DVLDWinForm.Forms
 
         private void _SetPersonInfo()
         {
-            // جلب القائمة أولاً (Fetch the list first)
-            var countriesList = clsStaticData_BLL.Countries;
+            List<clsCountry_DTO> countriesList = clsStaticData_BLL.Countries;
 
-            // ربط القائمة بالـ ComboBox (Bind the list to the ComboBox)
             cbCountry.DataSource = countriesList;
 
-            // تحديد ما يظهر للمستخدم وما يتم تخزينه برمجياً
-            // Define what is displayed to the user and what is stored programmatically
-            cbCountry.DisplayMember = "CountryName"; // النص الذي يظهر (The displayed text)
-            cbCountry.ValueMember = "CountryID";     // القيمة المخفية (The hidden value)
+            cbCountry.DisplayMember = "CountryName"; 
+            cbCountry.ValueMember = "CountryID";     
             if (_PersonInfo == null) return;
             
             tbNationalNo.Text = _PersonInfo.NationalNo;
@@ -143,7 +128,7 @@ namespace DVLDWinForm.Forms
             {
                 clsPerson_BLL Person = (Mode == enMode.AddNew) ? new clsPerson_BLL() : clsPerson_BLL.Find(_PersonInfo.PersonID);
                 Person.Person = _PersonInfo;
-                Person.Save();
+                IsChange = Person.Save();
                 this.Close();
             }
             else

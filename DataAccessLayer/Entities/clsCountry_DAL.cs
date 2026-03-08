@@ -15,7 +15,7 @@ namespace DVLD_DAL
         public static int LoadCount()
         {
             string Query = "Select Count (*) From Countries;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            return clsDbHelper.ExecuteScalar<int>(Query, null);
         }
 
         public static clsCountry_DTO LoadCountryNameByID(int CountryID)
@@ -24,13 +24,13 @@ namespace DVLD_DAL
 
             clsCountry_DTO Country = null;
             string Query = "SELECT CountryName FROM Countries WHERE CountryID = @CountryID";
-            IsFound = DbHelper.ExecuteReader
+            IsFound = clsDbHelper.ExecuteReader
                 (
                 Query,
-                Command => DbHelper.SetValue<int>(Command, "@CountryID", CountryID),
+                Command => clsDbHelper.SetValue<int>(Command, "@CountryID", CountryID),
                 Reader => Country = new clsCountry_DTO
                 {
-                    CountryName = DbHelper.GetValue<string>(Reader, "CountryName")
+                    CountryName = clsDbHelper.GetValue<string>(Reader, "CountryName")
                 }
                 );
 
@@ -42,10 +42,10 @@ namespace DVLD_DAL
             int RowsEffected = -1;
             string Query =
                 "INSERT INTO Countries (CountryName) VALUES (@CountryName); SELECT SCOPE_IDENTITY();";
-            RowsEffected = DbHelper.ExecuteNonQuery
+            RowsEffected = clsDbHelper.ExecuteNonQuery
                 (
                 Query,
-                Command => DbHelper.SetValue<string>(Command, "@CountryName", Country.CountryName));
+                Command => clsDbHelper.SetValue<string>(Command, "@CountryName", Country.CountryName));
             return RowsEffected;
         }
 
@@ -55,13 +55,13 @@ namespace DVLD_DAL
             string Query =
                 "UPDATE Countries SET CountryName = @CountryName WHERE CountryID = @CountryID";
 
-            RowsAffected = DbHelper.ExecuteNonQuery
+            RowsAffected = clsDbHelper.ExecuteNonQuery
                 (
                 Query,
                 Command =>
                 {
-                    DbHelper.SetValue<int>(Command, "@CountryID", Country.CountryID);
-                    DbHelper.SetValue<string>(Command, "@CountryName", Country.CountryName);
+                    clsDbHelper.SetValue<int>(Command, "@CountryID", Country.CountryID);
+                    clsDbHelper.SetValue<string>(Command, "@CountryName", Country.CountryName);
                 });
             return RowsAffected > -1;
         }
@@ -73,10 +73,10 @@ namespace DVLD_DAL
             string QueryCountriesTable = @"Delete From Countries Where CountryID = @CountryID;";
 
 
-            bool TransactionSuccess = DbHelper.ExecuteTransaction(Command =>
+            bool TransactionSuccess = clsDbHelper.ExecuteTransaction(Command =>
             {
 
-                DbHelper.SetValue<int>(Command, "@CountryID", CountryID);
+                clsDbHelper.SetValue<int>(Command, "@CountryID", CountryID);
 
 
                 clsPerson_DAL.DeletePersonByCountryID(CountryID);
@@ -96,11 +96,11 @@ namespace DVLD_DAL
 
 
             string Query = "SELECT * FROM Countries;";
-            return DbHelper.ReadList<clsCountry_DTO>(Query, null,
+            return clsDbHelper.ReadList<clsCountry_DTO>(Query, null,
                 Reader => new clsCountry_DTO
                 {
-                    CountryID = DbHelper.GetValue<int>(Reader, "CountryID"),
-                    CountryName = DbHelper.GetValue<string>(Reader, "CountryName")
+                    CountryID = clsDbHelper.GetValue<int>(Reader, "CountryID"),
+                    CountryName = clsDbHelper.GetValue<string>(Reader, "CountryName")
                 }
                 );
 

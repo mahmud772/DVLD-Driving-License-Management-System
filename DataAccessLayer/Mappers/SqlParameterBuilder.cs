@@ -21,7 +21,7 @@ namespace DVLD_DAL.Mappers
             if (!condition)
                 return this;
 
-            DbHelper.SetValue(_command, name, value, allowNull);
+            clsDbHelper.SetValue(_command, name, value, allowNull);
             return this;
         }
     }

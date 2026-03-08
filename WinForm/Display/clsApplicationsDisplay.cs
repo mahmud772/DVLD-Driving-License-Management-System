@@ -23,6 +23,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
+            _displayMode = DisplayMode;
             InitializeAdapter(clsApplication_BLL.GetApplications,
                clsApplication_BLL.GetCount,
                GetDisplayView<clsApplication_DTO>(application => new ucApplication(_context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
@@ -53,11 +54,9 @@ namespace DVLDWinForm.Display
             pbTotal.Image = Properties.Resources.Applications;
             UpdateContextMenu();
         }
-        public void UpdateContextMenu()
+        public override void UpdateContextMenu()
         {
-            _context.SharedContextMenu.Items.Clear();
-            _context.SharedContextMenu.Items.Add("UPDATE" , Properties.Resources.Update_Person);
-            _context.SharedContextMenu.Items.Add("DELETE" , Properties.Resources.Delete_Person);
+            base.UpdateContextMenu();
         }
     }
 }

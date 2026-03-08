@@ -17,11 +17,12 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms
 {
-    public partial class frmSortAndFilter : Form
+    public partial class frmSortAndFilter : Form , IForm
     {
         UserControl _control;
         IUserControlFilter _icontrol;
         IQuery _Query;
+        public bool IsChange { get; set; } = false;
         public frmSortAndFilter(IUserControlFilter icontrol , IQuery Query)
         {
             InitializeComponent();
@@ -80,6 +81,7 @@ namespace DVLDWinForm.Forms
 
             if (cbSortBy.SelectedItem is Enum orderBy)
                 _Query.OrderBy = orderBy;
+            IsChange = true;
             this.Close();
         }
 

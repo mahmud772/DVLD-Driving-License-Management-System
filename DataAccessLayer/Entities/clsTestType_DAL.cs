@@ -15,7 +15,7 @@ namespace DVLD_DAL
         public static int LoadCount()
         {
             string Query = "Select Count (*) From TestTypes;";
-            return DbHelper.ExecuteScalar<int>(Query, null);
+            return clsDbHelper.ExecuteScalar<int>(Query, null);
         }
 
         public static clsTestType_DTO LoadTestTypeByID(int TestTypeID)
@@ -23,15 +23,15 @@ namespace DVLD_DAL
             clsTestType_DTO Model = null;
             string Query = "SELECT * FROM TestTypes WHERE TestTypeID = @TestTypeID";
 
-            DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue(Command, "@TestTypeID", TestTypeID),
+            clsDbHelper.ExecuteReader(Query, Command => clsDbHelper.SetValue(Command, "@TestTypeID", TestTypeID),
                 Reader =>
                 {
                     Model = new clsTestType_DTO
                     {
                         TestTypeID = TestTypeID,
-                        TestTypeTitle = DbHelper.GetValue<string>(Reader, "TestTypeTitle"),
-                        TestTypeDescription = DbHelper.GetValue<string>(Reader, "TestTypeDescription"),
-                        TestTypeFees = DbHelper.GetValue<int>(Reader, "TestTypeFees")
+                        TestTypeTitle = clsDbHelper.GetValue<string>(Reader, "TestTypeTitle"),
+                        TestTypeDescription = clsDbHelper.GetValue<string>(Reader, "TestTypeDescription"),
+                        TestTypeFees = clsDbHelper.GetValue<int>(Reader, "TestTypeFees")
                     };
                 });
             return Model;
@@ -44,11 +44,11 @@ namespace DVLD_DAL
                          VALUES (@TestTypeTitle, @TestTypeDescription, @TestTypeFees);
                          SELECT SCOPE_IDENTITY();";
 
-            return DbHelper.ExecuteNonQuery(Query, Command =>
+            return clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@TestTypeTitle", Model.TestTypeTitle);
-                DbHelper.SetValue(Command, "@TestTypeDescription", Model.TestTypeDescription);
-                DbHelper.SetValue(Command, "@TestTypeFees", Model.TestTypeFees);
+                clsDbHelper.SetValue(Command, "@TestTypeTitle", Model.TestTypeTitle);
+                clsDbHelper.SetValue(Command, "@TestTypeDescription", Model.TestTypeDescription);
+                clsDbHelper.SetValue(Command, "@TestTypeFees", Model.TestTypeFees);
             });
         }
 
@@ -60,12 +60,12 @@ namespace DVLD_DAL
                          TestTypeFees = @TestTypeFees
                          WHERE TestTypeID = @TestTypeID";
 
-            int RowsAffected = DbHelper.ExecuteNonQuery(Query, Command =>
+            int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@TestTypeID", Model.TestTypeID); // شرط التحديث
-                DbHelper.SetValue(Command, "@TestTypeTitle", Model.TestTypeTitle);
-                DbHelper.SetValue(Command, "@TestTypeDescription", Model.TestTypeDescription);
-                DbHelper.SetValue(Command, "@TestTypeFees", Model.TestTypeFees);
+                clsDbHelper.SetValue(Command, "@TestTypeID", Model.TestTypeID); // شرط التحديث
+                clsDbHelper.SetValue(Command, "@TestTypeTitle", Model.TestTypeTitle);
+                clsDbHelper.SetValue(Command, "@TestTypeDescription", Model.TestTypeDescription);
+                clsDbHelper.SetValue(Command, "@TestTypeFees", Model.TestTypeFees);
             });
             return RowsAffected > 0;
         }
@@ -77,9 +77,9 @@ namespace DVLD_DAL
 
             string QueryTestTypesTable = "DELETE FROM TestTypes WHERE TestTypeID = @TestTypeID";
 
-            bool TransactionSuccess = DbHelper.ExecuteTransaction(Command =>
+            bool TransactionSuccess = clsDbHelper.ExecuteTransaction(Command =>
             {
-                DbHelper.SetValue(Command, "@TestTypeID", TestTypeID);
+                clsDbHelper.SetValue(Command, "@TestTypeID", TestTypeID);
 
                 clsTestAppointment_DAL.DeleteTestAppointmentByTestType(TestTypeID);
 
@@ -99,13 +99,13 @@ namespace DVLD_DAL
         public static List<clsTestType_DTO> LoadAllTestTypes()
         {
             string Query = "SELECT * FROM TestTypes;";
-            return DbHelper.ReadList<clsTestType_DTO>(Query, null,
+            return clsDbHelper.ReadList<clsTestType_DTO>(Query, null,
                 Reader => new clsTestType_DTO
                 {
-                    TestTypeID = DbHelper.GetValue<int>(Reader, "TestTypeID"),
-                    TestTypeTitle = DbHelper.GetValue<string>(Reader, "TestTypeTitle"),
-                    TestTypeFees = DbHelper.GetValue<decimal>(Reader, "TestTypeFees"),
-                    TestTypeDescription = DbHelper.GetValue<string>(Reader, "TestTypeDescription")
+                    TestTypeID = clsDbHelper.GetValue<int>(Reader, "TestTypeID"),
+                    TestTypeTitle = clsDbHelper.GetValue<string>(Reader, "TestTypeTitle"),
+                    TestTypeFees = clsDbHelper.GetValue<decimal>(Reader, "TestTypeFees"),
+                    TestTypeDescription = clsDbHelper.GetValue<string>(Reader, "TestTypeDescription")
                 }
                 );
 

@@ -486,6 +486,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmAddNew_UpdatePerson";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add New Person";
             this.Load += new System.EventHandler(this.frmAddNew_UpdatePerson_Load);
             this.pnlNationalNo.ResumeLayout(false);

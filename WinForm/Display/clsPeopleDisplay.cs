@@ -25,6 +25,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode , IQuery PersonQuery)
         {
             _currentQuery = PersonQuery;
+            _displayMode = DisplayMode;
             InitializeAdapter(clsPerson_BLL.GetPeople,
                 clsPerson_BLL.GetCount,
                 GetDisplayView<clsPerson_DTO>(person => new ucPerson( _context.SharedContextMenu) { PersonInfo = person } , DisplayMode)
@@ -55,11 +56,9 @@ namespace DVLDWinForm.Display
             pbTotal.Image = Properties.Resources.People;
             UpdateContextMenu();
         }
-        public void UpdateContextMenu()
+        public override void UpdateContextMenu()
         {
-            _context.SharedContextMenu.Items.Clear();
-            _context.SharedContextMenu.Items.Add("UPDATE", Properties.Resources.Update_Person);
-            _context.SharedContextMenu.Items.Add("DELETE", Properties.Resources.Delete_Person);
+            base.UpdateContextMenu();
         }
     }
 }

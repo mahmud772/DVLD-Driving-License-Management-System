@@ -27,6 +27,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
+            _displayMode = DisplayMode;
             InitializeAdapter(clsInternationalLicense_BLL.GetInternationalLicensesCardsInfo,
                clsInternationalLicense_BLL.GetCount,
                GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense(_context.SharedContextMenu) { LicenseInfo = license } , DisplayMode));
@@ -35,7 +36,10 @@ namespace DVLDWinForm.Display
         {
             clsUIActionsManager ui = _context.UIActionsManager;
             ui.Reset();
+            ui.RegisterCreate(() => null);
 
+            ui.RegisterUpdate(dto =>
+               null);
             ui.RegisterDelete(clsInternationalLicense_BLL.DeleteInternationalLicense);
 
             ui.RegisterFilter(() =>
@@ -48,6 +52,10 @@ namespace DVLDWinForm.Display
             lbTotalType_Titel.Text = "International Licenses";
             lbTotalCount.Text = _paginator.TotalItems.ToString();
             pbTotal.Image = Properties.Resources.Licenses;
+        }
+        public override void UpdateContextMenu()
+        {
+            base.UpdateContextMenu();
         }
     }
 }

@@ -27,6 +27,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
+            _displayMode = DisplayMode;
             InitializeAdapter(clsLocalDrivingLicenseApplication_BLL.GetLocalDrivingLicenseApplications,
                clsLocalDrivingLicenseApplication_BLL.GetCount,
                GetDisplayView<clsLocalDrivingLicenseApplication_DTO>(application => new ucApplication( _context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
@@ -55,6 +56,10 @@ namespace DVLDWinForm.Display
             lbTotalType_Titel.Text = "Local License App";
             lbTotalCount.Text = _paginator.TotalItems.ToString();
             pbTotal.Image = Properties.Resources.Applications;
+        }
+        public override void UpdateContextMenu()
+        {
+            base.UpdateContextMenu();
         }
     }
 }

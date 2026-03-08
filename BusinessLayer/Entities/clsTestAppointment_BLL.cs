@@ -161,6 +161,13 @@ namespace DVLD_BLL
         {
             return clsTestAppointment_DAL.LoadPersonIDByTestAppointmentID(TestAppointmentID);
         }
-
+        public static decimal GetPaidFeesByTestAppointmentID(int TestAppointmentID)
+        {
+            return clsTestAppointment_DAL.LoadPaidFeesByTestAppointmentID(TestAppointmentID) ;
+        }
+        public static clsTestEnums.enTestTypes GetLastTestType(int TestAppointmentID)
+        {
+            return clsTestEnumConverter.ConvertTestTypeToEnum(clsTestAppointment_DAL.LoadLastTestType(TestAppointmentID));
+        }
     }
 }

@@ -16,10 +16,11 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms.Add_New___Update.Add_New
 {
-    public partial class frmAddNewLicense : Form
+    public partial class frmAddNewLicense : Form , IForm
     {
         clsLicense_DTO _License;
         List<clsLicenseClass_DTO> _LicenseClassesList;
+        public bool IsChange { get; set; } = false;
         public frmAddNewLicense()
         {
             InitializeComponent();
@@ -63,7 +64,7 @@ namespace DVLDWinForm.Forms.Add_New___Update.Add_New
             {
                 clsLicense_BLL License = new clsLicense_BLL();
                 License.License = _License;
-                License.Save();
+                IsChange = License.Save();
                 this.Close();
 
             }

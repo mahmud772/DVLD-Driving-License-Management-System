@@ -1,4 +1,5 @@
 ﻿using Common.Queries;
+using DVLD_DTOs;
 using DVLDWinForm.UIHelper_Manger;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,7 @@ namespace DVLDWinForm.Display
         void InitializeUIActionsManager();
         void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
                       Label lbTotalCount, PictureBox pbTotal);
+        IDTO GetSelectedDto();
+        void Refresh(bool IsChanged);
     }
 }

@@ -30,6 +30,8 @@
         {
             this.dtpAppointmentDate = new System.Windows.Forms.DateTimePicker();
             this.pnlAppointment = new System.Windows.Forms.Panel();
+            this.lbPaidFees = new System.Windows.Forms.Label();
+            this.lbPaidFees_Titel = new System.Windows.Forms.Label();
             this.lbType = new System.Windows.Forms.Label();
             this.lbLicenseClass = new System.Windows.Forms.Label();
             this.pbSelectedID = new System.Windows.Forms.PictureBox();
@@ -38,8 +40,6 @@
             this.lbAppointmentType = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.lbPaidFees = new System.Windows.Forms.Label();
-            this.lbPaidFees_Titel = new System.Windows.Forms.Label();
             this.pnlAppointment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             this.SuspendLayout();
@@ -70,12 +70,34 @@
             this.pnlAppointment.Size = new System.Drawing.Size(319, 147);
             this.pnlAppointment.TabIndex = 47;
             // 
+            // lbPaidFees
+            // 
+            this.lbPaidFees.AutoSize = true;
+            this.lbPaidFees.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFees.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbPaidFees.Location = new System.Drawing.Point(144, 121);
+            this.lbPaidFees.Name = "lbPaidFees";
+            this.lbPaidFees.Size = new System.Drawing.Size(15, 17);
+            this.lbPaidFees.TabIndex = 52;
+            this.lbPaidFees.Text = "0";
+            // 
+            // lbPaidFees_Titel
+            // 
+            this.lbPaidFees_Titel.AutoSize = true;
+            this.lbPaidFees_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFees_Titel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbPaidFees_Titel.Location = new System.Drawing.Point(5, 120);
+            this.lbPaidFees_Titel.Name = "lbPaidFees_Titel";
+            this.lbPaidFees_Titel.Size = new System.Drawing.Size(132, 17);
+            this.lbPaidFees_Titel.TabIndex = 51;
+            this.lbPaidFees_Titel.Text = "PaidFees                 :";
+            // 
             // lbType
             // 
             this.lbType.AutoSize = true;
             this.lbType.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbType.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.lbType.Location = new System.Drawing.Point(141, 96);
+            this.lbType.Location = new System.Drawing.Point(141, 91);
             this.lbType.Name = "lbType";
             this.lbType.Size = new System.Drawing.Size(45, 21);
             this.lbType.TabIndex = 49;
@@ -126,7 +148,7 @@
             // 
             this.lbAppointmentType.AutoSize = true;
             this.lbAppointmentType.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAppointmentType.Location = new System.Drawing.Point(4, 96);
+            this.lbAppointmentType.Location = new System.Drawing.Point(4, 91);
             this.lbAppointmentType.Name = "lbAppointmentType";
             this.lbAppointmentType.Size = new System.Drawing.Size(135, 17);
             this.lbAppointmentType.TabIndex = 0;
@@ -154,28 +176,6 @@
             this.lbTitel.TabIndex = 45;
             this.lbTitel.Text = "ADD NEW APPOINTMENT";
             // 
-            // lbPaidFees
-            // 
-            this.lbPaidFees.AutoSize = true;
-            this.lbPaidFees.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbPaidFees.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbPaidFees.Location = new System.Drawing.Point(144, 121);
-            this.lbPaidFees.Name = "lbPaidFees";
-            this.lbPaidFees.Size = new System.Drawing.Size(15, 17);
-            this.lbPaidFees.TabIndex = 52;
-            this.lbPaidFees.Text = "0";
-            // 
-            // lbPaidFees_Titel
-            // 
-            this.lbPaidFees_Titel.AutoSize = true;
-            this.lbPaidFees_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbPaidFees_Titel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbPaidFees_Titel.Location = new System.Drawing.Point(5, 120);
-            this.lbPaidFees_Titel.Name = "lbPaidFees_Titel";
-            this.lbPaidFees_Titel.Size = new System.Drawing.Size(132, 17);
-            this.lbPaidFees_Titel.TabIndex = 51;
-            this.lbPaidFees_Titel.Text = "PaidFees                 :";
-            // 
             // frmAddNew_UpdateAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,6 +186,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmAddNew_UpdateAppointment";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add New Appointment";
             this.Load += new System.EventHandler(this.frmAddNewAppointment_Load);
             this.pnlAppointment.ResumeLayout(false);

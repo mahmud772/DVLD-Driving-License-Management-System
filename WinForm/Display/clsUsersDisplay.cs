@@ -27,6 +27,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
+            _displayMode = DisplayMode;
             InitializeAdapter(clsUser_BLL.GetUsers,
                clsUser_BLL.GetCount,
                GetDisplayView<clsUser_DTO>(user => new ucUser(_context.SharedContextMenu) { UserInfo = user }, DisplayMode));
@@ -54,6 +55,10 @@ namespace DVLDWinForm.Display
             lbTotalType_Titel.Text = "Users";
             lbTotalCount.Text = _paginator.TotalItems.ToString();
             pbTotal.Image = Properties.Resources.Users;
+        }
+        public override void UpdateContextMenu()
+        {
+            base.UpdateContextMenu();
         }
     }
 }

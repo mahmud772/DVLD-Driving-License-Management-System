@@ -19,21 +19,21 @@ namespace DVLD_DAL
         {
             return new clsLicenseCardInfo_DTO
             {
-                LicenseID = DbHelper.GetValue<int>(Reader, "LicenseID"),
-                FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
-                SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
-                ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
-                LastName = DbHelper.GetValue<string>(Reader, "LastName"),
-                ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
-                NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
-                DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                LicenseClass = clsLicenseEnumConverter.ToClass(DbHelper.GetValue<int>(Reader, "LicenseClassID")),
-                IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                IssueReason = clsLicenseEnumConverter.ToIssueReason(DbHelper.GetValue<byte>(Reader, "IssueReason")),
-                IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
-                ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
-                Notes = DbHelper.GetValue<string>(Reader, "Notes"),
-                DriverID = DbHelper.GetValue<int>(Reader, "DriverID")
+                LicenseID = clsDbHelper.GetValue<int>(Reader, "LicenseID"),
+                FirstName = clsDbHelper.GetValue<string>(Reader, "FirstName"),
+                SecondName = clsDbHelper.GetValue<string>(Reader, "SecondName"),
+                ThirdName = clsDbHelper.GetValue<string>(Reader, "ThirdName"),
+                LastName = clsDbHelper.GetValue<string>(Reader, "LastName"),
+                ImagePath = clsDbHelper.GetValue<string>(Reader, "ImagePath"),
+                NationalNo = clsDbHelper.GetValue<string>(Reader, "NationalNo"),
+                DateOfBirth = clsDbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
+                LicenseClass = clsLicenseEnumConverter.ToClass(clsDbHelper.GetValue<int>(Reader, "LicenseClassID")),
+                IsActive = clsDbHelper.GetValue<bool>(Reader, "IsActive"),
+                IssueReason = clsLicenseEnumConverter.ToIssueReason(clsDbHelper.GetValue<byte>(Reader, "IssueReason")),
+                IssueDate = clsDbHelper.GetValue<DateTime>(Reader, "IssueDate"),
+                ExpirationDate = clsDbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
+                Notes = clsDbHelper.GetValue<string>(Reader, "Notes"),
+                DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID")
             };
         }
         public static int LoadCount(clsLicenseQuery clsQuery)
@@ -44,37 +44,37 @@ namespace DVLD_DAL
                 : "";
 
             _ApplyLicenseFilter(clsQuery.Filter, ref Query);
-            return DbHelper.ExecuteScalar<int>(Query,
+            return clsDbHelper.ExecuteScalar<int>(Query,
                 Command =>
                 {
-                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                    clsDbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
                         IsHasValue: clsQuery.SearchValue != null);
 
-                    DbHelper.SetValue(Command, "@FromIssueDate",
+                    clsDbHelper.SetValue(Command, "@FromIssueDate",
                         clsQuery.Filter.FromIssueDate,
                         clsQuery.Filter.FromIssueDate.HasValue);
 
-                    DbHelper.SetValue(Command, "@ToIssueDate",
+                    clsDbHelper.SetValue(Command, "@ToIssueDate",
                         clsQuery.Filter.ToIssueDate,
                         clsQuery.Filter.ToIssueDate.HasValue);
 
-                    DbHelper.SetValue(Command, "@IsActive",
+                    clsDbHelper.SetValue(Command, "@IsActive",
                         clsQuery.Filter.IsActive,
                         clsQuery.Filter.IsActive.HasValue);
 
-                    DbHelper.SetValue(Command, "@FromExpirationDate",
+                    clsDbHelper.SetValue(Command, "@FromExpirationDate",
                         clsQuery.Filter.FromExpirationDate,
                         clsQuery.Filter.FromExpirationDate.HasValue);
 
-                    DbHelper.SetValue(Command, "@ToExpirationDate",
+                    clsDbHelper.SetValue(Command, "@ToExpirationDate",
                         clsQuery.Filter.ToExpirationDate,
                         clsQuery.Filter.ToExpirationDate.HasValue);
 
-                    DbHelper.SetValue(Command, "@LicenseClassID",
+                    clsDbHelper.SetValue(Command, "@LicenseClassID",
                         clsQuery.Filter.LicenseClassID,
                         clsQuery.Filter.LicenseClassID.HasValue);
 
-                    DbHelper.SetValue(Command, "@IssueReason",
+                    clsDbHelper.SetValue(Command, "@IssueReason",
                         clsQuery.Filter.IssueReason,
                         clsQuery.Filter.IssueReason.HasValue);
                 });
@@ -89,21 +89,21 @@ namespace DVLD_DAL
             string Query = @"SELECT * FROM InternationalLicenses 
                      WHERE InternationalLicenseID = @InternationalLicenseID";
 
-            DbHelper.ExecuteReader(Query,
-                Command => DbHelper.SetValue(Command, "@InternationalLicenseID", InternationalLicenseID),
+            clsDbHelper.ExecuteReader(Query,
+                Command => clsDbHelper.SetValue(Command, "@InternationalLicenseID", InternationalLicenseID),
                 Reader =>
                 {
                     Model = new clsInternationalLicense_DTO
                     {
 
                         InternationalLicenseID = InternationalLicenseID,
-                        ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
-                        DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                        IssuedUsingLocalLicenseID = DbHelper.GetValue<int>(Reader, "IssuedUsingLocalLicenseID"),
-                        IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
-                        ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
-                        IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                        CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID")
+                        ApplicationID = clsDbHelper.GetValue<int>(Reader, "ApplicationID"),
+                        DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID"),
+                        IssuedUsingLocalLicenseID = clsDbHelper.GetValue<int>(Reader, "IssuedUsingLocalLicenseID"),
+                        IssueDate = clsDbHelper.GetValue<DateTime>(Reader, "IssueDate"),
+                        ExpirationDate = clsDbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
+                        IsActive = clsDbHelper.GetValue<bool>(Reader, "IsActive"),
+                        CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID")
 
 
                     };
@@ -125,16 +125,16 @@ namespace DVLD_DAL
 							SELECT -1
                          ;";
 
-            return DbHelper.ExecuteScalar<int>(Query, Command =>
+            return clsDbHelper.ExecuteScalar<int>(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@ApplicationID", Model.ApplicationID);
-                DbHelper.SetValue(Command, "@DriverID", Model.DriverID);
-                DbHelper.SetValue(Command, "@IssuedUsingLocalLicenseID", Model.IssuedUsingLocalLicenseID);
-                DbHelper.SetValue(Command, "@IssueDate", Model.IssueDate);
-                DbHelper.SetValue(Command, "@ExpirationDate", Model.ExpirationDate);
-                DbHelper.SetValue(Command, "@IsActive", Model.IsActive);
-                DbHelper.SetValue(Command, "@CreatedByUserID", Model.CreatedByUserID);
-                DbHelper.SetValue(Command, "@LicenseClassID", clsLicenseEnumConverter.ToInt(clsLicenseEnums.enLicenseClasses.OrdinaryDrivingLicense));
+                clsDbHelper.SetValue(Command, "@ApplicationID", Model.ApplicationID);
+                clsDbHelper.SetValue(Command, "@DriverID", Model.DriverID);
+                clsDbHelper.SetValue(Command, "@IssuedUsingLocalLicenseID", Model.IssuedUsingLocalLicenseID);
+                clsDbHelper.SetValue(Command, "@IssueDate", Model.IssueDate);
+                clsDbHelper.SetValue(Command, "@ExpirationDate", Model.ExpirationDate);
+                clsDbHelper.SetValue(Command, "@IsActive", Model.IsActive);
+                clsDbHelper.SetValue(Command, "@CreatedByUserID", Model.CreatedByUserID);
+                clsDbHelper.SetValue(Command, "@LicenseClassID", clsLicenseEnumConverter.ToInt(clsLicenseEnums.enLicenseClasses.OrdinaryDrivingLicense));
             });
         }
 
@@ -145,11 +145,11 @@ namespace DVLD_DAL
                          IsActive = @IsActive
                          WHERE InternationalLicenseID = @InternationalLicenseID";
 
-            int RowsAffected = DbHelper.ExecuteNonQuery(Query, Command =>
+            int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                DbHelper.SetValue(Command, "@InternationalLicenseID", Model.InternationalLicenseID); // شرط التحديث
+                clsDbHelper.SetValue(Command, "@InternationalLicenseID", Model.InternationalLicenseID); // شرط التحديث
 
-                DbHelper.SetValue(Command, "@IsActive", Model.IsActive);
+                clsDbHelper.SetValue(Command, "@IsActive", Model.IsActive);
 
             });
             return RowsAffected > 0;
@@ -158,17 +158,17 @@ namespace DVLD_DAL
         public static List<clsInternationalLicense_DTO> LoadInternationalLicenses()
         {
             string Query = "Select * From InternationalLicenses;";
-            return DbHelper.ReadList<clsInternationalLicense_DTO>(Query, null,
+            return clsDbHelper.ReadList<clsInternationalLicense_DTO>(Query, null,
                 Reader => new clsInternationalLicense_DTO
                 {
-                    InternationalLicenseID = DbHelper.GetValue<int>(Reader, "InternationalLicenseID"),
-                    ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
-                    DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                    IssuedUsingLocalLicenseID = DbHelper.GetValue<int>(Reader, "IssuedUsingLocalLicenseID"),
-                    IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
-                    ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
-                    IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
+                    InternationalLicenseID = clsDbHelper.GetValue<int>(Reader, "InternationalLicenseID"),
+                    ApplicationID = clsDbHelper.GetValue<int>(Reader, "ApplicationID"),
+                    DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID"),
+                    IssuedUsingLocalLicenseID = clsDbHelper.GetValue<int>(Reader, "IssuedUsingLocalLicenseID"),
+                    IssueDate = clsDbHelper.GetValue<DateTime>(Reader, "IssueDate"),
+                    ExpirationDate = clsDbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
+                    IsActive = clsDbHelper.GetValue<bool>(Reader, "IsActive"),
+                    CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID"),
                 });
         }
 
@@ -178,21 +178,21 @@ namespace DVLD_DAL
                       ORDER BY InternationalLicenseID
                       OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
 
-            return DbHelper.ReadList(Query,
+            return clsDbHelper.ReadList(Query,
                 Command => {
-                    DbHelper.SetValue(Command, "@Offset", Offset);
-                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                    clsDbHelper.SetValue(Command, "@Offset", Offset);
+                    clsDbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
                 Reader => new clsInternationalLicense_DTO
                 {
-                    InternationalLicenseID = DbHelper.GetValue<int>(Reader, "InternationalLicenseID"),
-                    ApplicationID = DbHelper.GetValue<int>(Reader, "ApplicationID"),
-                    DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                    IssuedUsingLocalLicenseID = DbHelper.GetValue<int>(Reader, "IssuedUsingLocalLicenseID"),
-                    IssueDate = DbHelper.GetValue<DateTime>(Reader, "IssueDate"),
-                    ExpirationDate = DbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
-                    IsActive = DbHelper.GetValue<bool>(Reader, "IsActive"),
-                    CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
+                    InternationalLicenseID = clsDbHelper.GetValue<int>(Reader, "InternationalLicenseID"),
+                    ApplicationID = clsDbHelper.GetValue<int>(Reader, "ApplicationID"),
+                    DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID"),
+                    IssuedUsingLocalLicenseID = clsDbHelper.GetValue<int>(Reader, "IssuedUsingLocalLicenseID"),
+                    IssueDate = clsDbHelper.GetValue<DateTime>(Reader, "IssueDate"),
+                    ExpirationDate = clsDbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
+                    IsActive = clsDbHelper.GetValue<bool>(Reader, "IsActive"),
+                    CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID"),
 
                 });
         }
@@ -209,10 +209,10 @@ namespace DVLD_DAL
                         ORDER BY LicenseID
                         OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;"; ;
 
-            return DbHelper.ReadList(Query,
+            return clsDbHelper.ReadList(Query,
                 Command => {
-                    DbHelper.SetValue(Command, "@Offset", Offset);
-                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                    clsDbHelper.SetValue(Command, "@Offset", Offset);
+                    clsDbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
                 Reader => _CardReader(Reader));
         }
@@ -238,42 +238,42 @@ namespace DVLD_DAL
                  {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}
                  OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
 
-            return DbHelper.ReadList(Query,
+            return clsDbHelper.ReadList(Query,
                 Command =>
                 {
-                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                    clsDbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
                         IsHasValue: clsQuery.SearchValue != null);
 
-                    DbHelper.SetValue(Command, "@FromIssueDate",
+                    clsDbHelper.SetValue(Command, "@FromIssueDate",
                         clsQuery.Filter.FromIssueDate,
                         clsQuery.Filter.FromIssueDate.HasValue);
 
-                    DbHelper.SetValue(Command, "@ToIssueDate",
+                    clsDbHelper.SetValue(Command, "@ToIssueDate",
                         clsQuery.Filter.ToIssueDate,
                         clsQuery.Filter.ToIssueDate.HasValue);
 
-                    DbHelper.SetValue(Command, "@IsActive",
+                    clsDbHelper.SetValue(Command, "@IsActive",
                         clsQuery.Filter.IsActive,
                         clsQuery.Filter.IsActive.HasValue);
 
-                    DbHelper.SetValue(Command, "@FromExpirationDate",
+                    clsDbHelper.SetValue(Command, "@FromExpirationDate",
                         clsQuery.Filter.FromExpirationDate,
                         clsQuery.Filter.FromExpirationDate.HasValue);
 
-                    DbHelper.SetValue(Command, "@ToExpirationDate",
+                    clsDbHelper.SetValue(Command, "@ToExpirationDate",
                         clsQuery.Filter.ToExpirationDate,
                         clsQuery.Filter.ToExpirationDate.HasValue);
 
-                    DbHelper.SetValue(Command, "@LicenseClassID",
+                    clsDbHelper.SetValue(Command, "@LicenseClassID",
                         clsQuery.Filter.LicenseClassID,
                         clsQuery.Filter.LicenseClassID.HasValue);
 
-                    DbHelper.SetValue(Command, "@IssueReason",
+                    clsDbHelper.SetValue(Command, "@IssueReason",
                         clsQuery.Filter.IssueReason,
                         clsQuery.Filter.IssueReason.HasValue);
 
-                    DbHelper.SetValue(Command, "@Offset", Offset);
-                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                    clsDbHelper.SetValue(Command, "@Offset", Offset);
+                    clsDbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
                 Reader => _CardReader(Reader));
         }
@@ -304,7 +304,7 @@ namespace DVLD_DAL
         public static bool DeleteInternationalLicenseByID(int InternationalLicenseID)
         {
             string Query = "DELETE FROM InternationalLicenses WHERE InternationalLicenseID = @InternationalLicenseID";
-            int RowsAffected = DbHelper.ExecuteNonQuery(Query, Command => DbHelper.SetValue(Command, "@InternationalLicenseID", InternationalLicenseID));
+            int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command => clsDbHelper.SetValue(Command, "@InternationalLicenseID", InternationalLicenseID));
             return RowsAffected > 0;
         }
 
@@ -313,9 +313,9 @@ namespace DVLD_DAL
             int RowsAffected = 0;
             string QueryLicensesTable = @"Delete From InternationalLicenses Where CreatedByUserID = @CreatedByUserID;";
 
-            RowsAffected = DbHelper.ExecuteNonQuery(QueryLicensesTable, Command =>
+            RowsAffected = clsDbHelper.ExecuteNonQuery(QueryLicensesTable, Command =>
             {
-                DbHelper.SetValue<int>(Command, "@CreatedByUserID", CreatedByUserID);
+                clsDbHelper.SetValue<int>(Command, "@CreatedByUserID", CreatedByUserID);
             });
 
             return RowsAffected > 0;
@@ -325,7 +325,7 @@ namespace DVLD_DAL
             string Query = @"Select D.PersonID From InternationalLicenses IL
                         Join Drivers D ON D.DriverID = IL.DriverID
                         Where InternationalLicenseID = @InternationalLicenseID;";
-            return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue(Command, "@InternationalLicenseID", InternationalLicenseID));
+            return clsDbHelper.ExecuteScalar<int>(Query, Command => clsDbHelper.SetValue(Command, "@InternationalLicenseID", InternationalLicenseID));
         }
     }
 }

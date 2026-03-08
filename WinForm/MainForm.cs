@@ -20,11 +20,11 @@ namespace DVLDWinForm
         private IQuery _currentQuery;
         enDisplayMode DisplayMode = enDisplayMode.FLP;
         private IDisplay _display;
-        public static clsCRUDController CRUDController { get; set; }
         public static ContextMenuStrip SharedContextMenu { get; private set; }
         private clsUIActionsManager _uiActionsManager;
 
         public clsApplicationQuery ApplicationQuery { get; set; }
+        public clsLocalDrivingLicenseApplicationQuery LocalLicenseAppQuery { get; set; }
         public clsPersonQuery PersonQuery { get; set; }
         public clsDetainedLicenseQuery DetainedLicenseQuery { get; set; }
         public clsDriverQuery DriverQuery { get; set; }
@@ -42,39 +42,27 @@ namespace DVLDWinForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-            SharedContextMenu = this.cmsUpdate_Delete;
+            SharedContextMenu = new ContextMenuStrip();
             _uiActionsManager = new clsUIActionsManager();
-            CRUDController = new clsCRUDController(dgvDisplay, flpUserControls);
             ApplicationQuery = new clsApplicationQuery();
+            LocalLicenseAppQuery = new clsLocalDrivingLicenseApplicationQuery();
             PersonQuery = new clsPersonQuery();
             DriverQuery = new clsDriverQuery();
             LicenseQuery = new clsLicenseQuery();
             UserQuery = new clsUserQuery();
             TestAppointmentQuery = new clsTestAppointmentQuery();
             DetainedLicenseQuery = new clsDetainedLicenseQuery();
-            CRUDController.Refresh = _Refresh;
-            _context = new clsContextDisplay(this, dgvDisplay, flpUserControls, CRUDController , SharedContextMenu , _uiActionsManager);
+            _context = new clsContextDisplay(this, dgvDisplay, flpUserControls, SharedContextMenu , _uiActionsManager);
             _currentQuery = PersonQuery;
             _display = new clsPeopleDisplay(PersonQuery, _context);
+            dgvDisplay.ContextMenuStrip = SharedContextMenu;
             _ShowFLP();
-            //Test1 form1 = new Test1();
-            //form1.ShowDialog();
-
-
-            //Test1 form1 = new Test1();
-            //form1.ShowDialog();
-            //btnDGV.Parent = btnFLP;
-            //btnDGV.Location = new Point(10, 10);
-
-
         }
         
         private void _LoadDesign()
         {
             clsUIHelper.CornerRadius(pnlMainMenu, 25);
             clsUIHelper.CornerRadius(pnlTopForm, 25);
-            //clsUIHelper.CornerRadius(pnlMain, 25);
             clsUIHelper.CornerRadius(pnlDisplayMethod, 15);
             clsUIHelper.CornerRadius(pnlTypes, 15);
             clsUIHelper.CornerRadius(btnPeople, 5);
@@ -86,25 +74,19 @@ namespace DVLDWinForm
                 pnlTopForm.BackgroundImage = new Bitmap(tempImage);
             }
         }
-        private void _Refresh()
+        private void RefreshDisplay()
         {
             _display.Load(DisplayMode, _currentQuery);
         }
 
-        public void SetPageNumber(int pageNumber)
-        {
-            lbPageNumber.Text = pageNumber.ToString();
-        }
+        public void SetPageNumber(int pageNumber) => lbPageNumber.Text = pageNumber.ToString();
+        
 
-        public void SetNextButtonVisible(bool visible)
-        {
-            btnNextPage.Visible = visible;
-        }
+        public void SetNextButtonVisible(bool visible) => btnNextPage.Visible = visible;
+        
 
-        public void SetPreviousButtonVisible(bool visible)
-        {
-            btnPreviousPage.Visible = visible;
-        }
+        public void SetPreviousButtonVisible(bool visible) => btnPreviousPage.Visible = visible;
+        
         private void _ShowDGV()
         {
             btnFLP.BackgroundImage = Properties.Resources.Menu_Gray_FLP;
@@ -130,25 +112,19 @@ namespace DVLDWinForm
 
         private void btnFLP_Click(object sender, EventArgs e)
         {
-
             _ShowFLP();
         }
 
         private void btnDGV_Click(object sender, EventArgs e)
         {
-
             _ShowDGV();
         }
 
-        private void btnNextPage_Click(object sender, EventArgs e)
-        {
-            _display.NextPage();
-        }
+        private void btnNextPage_Click(object sender, EventArgs e) => _display.NextPage();
+        
 
-        private void btnPreviousPage_Click(object sender, EventArgs e)
-        {
-            _display.PreviousPage();
-        }
+        private void btnPreviousPage_Click(object sender, EventArgs e) => _display.PreviousPage();
+        
 
 
 
@@ -195,7 +171,26 @@ namespace DVLDWinForm
             _display = new clsLicensesDisplay(LicenseQuery, _context);
             _ShowFLP();
         }
+        private void btnLocalLicenseApp_Click(object sender, EventArgs e)
+        {
+            _currentQuery = LocalLicenseAppQuery;
+            _display = new clsLocalDrivingLicenseApplicationsDisplay(LocalLicenseAppQuery, _context);
+            _ShowFLP();
+        }
 
+        private void btnInternationalLicenses_Click(object sender, EventArgs e)
+        {
+            _currentQuery = LicenseQuery;
+            _display = new clsInternationalLicensesDisplay(LicenseQuery, _context);
+            _ShowFLP();
+        }
+
+        private void btnDetainedLicenses_Click(object sender, EventArgs e)
+        {
+            _currentQuery = DetainedLicenseQuery;
+            _display = new clsDetaindLicensesDisplay(DetainedLicenseQuery, _context);
+            _ShowFLP();
+        }
 
         private void dgvData_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -206,28 +201,14 @@ namespace DVLDWinForm
                 dgvDisplay.CurrentCell = dgvDisplay.Rows[e.RowIndex].Cells[0];
             }
         }
-        private IDTO GetSelectedDto()
-        {
-            IDTO DTO = SharedContextMenu.Tag as IDTO ?? dgvDisplay.CurrentRow?.DataBoundItem as IDTO;
-            SharedContextMenu.Tag = null;
-            return DTO;
-        }
+        
         private void btnAddNew_Click(object sender, EventArgs e)
         {
-            _uiActionsManager.Execute(clsUIEnums.enUIAction.AddNew , GetSelectedDto());
-        }
-        public void updateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _uiActionsManager.Execute(clsUIEnums.enUIAction.Update , GetSelectedDto());
-        }
-
-        public void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _uiActionsManager.Execute(clsUIEnums.enUIAction.Delete, GetSelectedDto());
+            _uiActionsManager.Execute(clsUIEnums.enUIAction.AddNew ,null , _display.Refresh);
         }
         private void btnSort_Filter_Click(object sender, EventArgs e)
         {
-            _uiActionsManager.Execute(clsUIEnums.enUIAction.Filter, GetSelectedDto());
+            _uiActionsManager.Execute(clsUIEnums.enUIAction.Filter, null , _display.Refresh);
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -237,7 +218,6 @@ namespace DVLDWinForm
             _currentQuery.SearchValue = clsSearchType.IsTypeEnumString(_currentQuery.SearchBy) ?
                 ID : tbSearch.Text;
             _display.Load(DisplayMode, _currentQuery);
-            _currentQuery.SearchBy = null;
             _currentQuery.SearchValue = null;
         }
 

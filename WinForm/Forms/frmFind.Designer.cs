@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.pnlFind = new System.Windows.Forms.Panel();
-            this.cbFindBy = new System.Windows.Forms.ComboBox();
             this.tbFindBy = new System.Windows.Forms.TextBox();
             this.pbSearch = new System.Windows.Forms.PictureBox();
             this.pnlContainer = new System.Windows.Forms.Panel();
@@ -40,22 +39,12 @@
             // pnlFind
             // 
             this.pnlFind.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.pnlFind.Controls.Add(this.cbFindBy);
             this.pnlFind.Controls.Add(this.tbFindBy);
             this.pnlFind.Controls.Add(this.pbSearch);
             this.pnlFind.Location = new System.Drawing.Point(12, 12);
             this.pnlFind.Name = "pnlFind";
             this.pnlFind.Size = new System.Drawing.Size(225, 40);
             this.pnlFind.TabIndex = 2;
-            // 
-            // cbFindBy
-            // 
-            this.cbFindBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFindBy.FormattingEnabled = true;
-            this.cbFindBy.Location = new System.Drawing.Point(164, 9);
-            this.cbFindBy.Name = "cbFindBy";
-            this.cbFindBy.Size = new System.Drawing.Size(15, 21);
-            this.cbFindBy.TabIndex = 2;
             // 
             // tbFindBy
             // 
@@ -80,18 +69,19 @@
             // 
             this.pnlContainer.Location = new System.Drawing.Point(12, 68);
             this.pnlContainer.Name = "pnlContainer";
-            this.pnlContainer.Size = new System.Drawing.Size(448, 217);
+            this.pnlContainer.Size = new System.Drawing.Size(448, 165);
             this.pnlContainer.TabIndex = 3;
             // 
             // frmFind
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 334);
+            this.ClientSize = new System.Drawing.Size(476, 246);
             this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.pnlFind);
             this.Name = "frmFind";
-            this.Text = "frmFind";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Find";
             this.Load += new System.EventHandler(this.frmFind_Load);
             this.pnlFind.ResumeLayout(false);
             this.pnlFind.PerformLayout();
@@ -103,7 +93,6 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlFind;
-        private System.Windows.Forms.ComboBox cbFindBy;
         private System.Windows.Forms.TextBox tbFindBy;
         private System.Windows.Forms.PictureBox pbSearch;
         private System.Windows.Forms.Panel pnlContainer;

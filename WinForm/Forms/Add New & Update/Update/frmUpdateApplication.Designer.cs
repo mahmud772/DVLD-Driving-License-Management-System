@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.pnlApplication = new System.Windows.Forms.Panel();
+            this.cbLicenseClass = new System.Windows.Forms.ComboBox();
+            this.lbLicenseClass = new System.Windows.Forms.Label();
+            this.lbApplicationStatus = new System.Windows.Forms.Label();
+            this.chbCancel = new System.Windows.Forms.CheckBox();
+            this.lbPaidFeesValue = new System.Windows.Forms.Label();
             this.cbApplicationTypes = new System.Windows.Forms.ComboBox();
             this.lbPaidFees = new System.Windows.Forms.Label();
             this.lbApplicationType = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.lbPaidFeesValue = new System.Windows.Forms.Label();
-            this.chbCancel = new System.Windows.Forms.CheckBox();
-            this.lbApplicationStatus = new System.Windows.Forms.Label();
-            this.cbLicenseClass = new System.Windows.Forms.ComboBox();
-            this.lbLicenseClass = new System.Windows.Forms.Label();
             this.pnlApplication.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +57,59 @@
             this.pnlApplication.Name = "pnlApplication";
             this.pnlApplication.Size = new System.Drawing.Size(370, 150);
             this.pnlApplication.TabIndex = 47;
+            // 
+            // cbLicenseClass
+            // 
+            this.cbLicenseClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLicenseClass.FormattingEnabled = true;
+            this.cbLicenseClass.Location = new System.Drawing.Point(141, 48);
+            this.cbLicenseClass.Name = "cbLicenseClass";
+            this.cbLicenseClass.Size = new System.Drawing.Size(206, 21);
+            this.cbLicenseClass.TabIndex = 52;
+            // 
+            // lbLicenseClass
+            // 
+            this.lbLicenseClass.AutoSize = true;
+            this.lbLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLicenseClass.Location = new System.Drawing.Point(2, 48);
+            this.lbLicenseClass.Name = "lbLicenseClass";
+            this.lbLicenseClass.Size = new System.Drawing.Size(136, 17);
+            this.lbLicenseClass.TabIndex = 51;
+            this.lbLicenseClass.Text = "License Class            :";
+            // 
+            // lbApplicationStatus
+            // 
+            this.lbApplicationStatus.AutoSize = true;
+            this.lbApplicationStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbApplicationStatus.Location = new System.Drawing.Point(3, 80);
+            this.lbApplicationStatus.Name = "lbApplicationStatus";
+            this.lbApplicationStatus.Size = new System.Drawing.Size(137, 17);
+            this.lbApplicationStatus.TabIndex = 50;
+            this.lbApplicationStatus.Text = "Application Status    :";
+            // 
+            // chbCancel
+            // 
+            this.chbCancel.AutoSize = true;
+            this.chbCancel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.chbCancel.Location = new System.Drawing.Point(149, 77);
+            this.chbCancel.Name = "chbCancel";
+            this.chbCancel.Size = new System.Drawing.Size(77, 25);
+            this.chbCancel.TabIndex = 49;
+            this.chbCancel.Text = "Cancel";
+            this.chbCancel.UseVisualStyleBackColor = true;
+            // 
+            // lbPaidFeesValue
+            // 
+            this.lbPaidFeesValue.AutoSize = true;
+            this.lbPaidFeesValue.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPaidFeesValue.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.lbPaidFeesValue.Location = new System.Drawing.Point(147, 114);
+            this.lbPaidFeesValue.Name = "lbPaidFeesValue";
+            this.lbPaidFeesValue.Size = new System.Drawing.Size(57, 21);
+            this.lbPaidFeesValue.TabIndex = 48;
+            this.lbPaidFeesValue.Text = "VALUE";
             // 
             // cbApplicationTypes
             // 
@@ -111,59 +164,6 @@
             this.lbTitel.TabIndex = 45;
             this.lbTitel.Text = "UPDATE APPLICATION";
             // 
-            // lbPaidFeesValue
-            // 
-            this.lbPaidFeesValue.AutoSize = true;
-            this.lbPaidFeesValue.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPaidFeesValue.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.lbPaidFeesValue.Location = new System.Drawing.Point(147, 114);
-            this.lbPaidFeesValue.Name = "lbPaidFeesValue";
-            this.lbPaidFeesValue.Size = new System.Drawing.Size(57, 21);
-            this.lbPaidFeesValue.TabIndex = 48;
-            this.lbPaidFeesValue.Text = "VALUE";
-            // 
-            // chbCancel
-            // 
-            this.chbCancel.AutoSize = true;
-            this.chbCancel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.chbCancel.Location = new System.Drawing.Point(149, 77);
-            this.chbCancel.Name = "chbCancel";
-            this.chbCancel.Size = new System.Drawing.Size(77, 25);
-            this.chbCancel.TabIndex = 49;
-            this.chbCancel.Text = "Cancel";
-            this.chbCancel.UseVisualStyleBackColor = true;
-            // 
-            // lbApplicationStatus
-            // 
-            this.lbApplicationStatus.AutoSize = true;
-            this.lbApplicationStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbApplicationStatus.Location = new System.Drawing.Point(3, 80);
-            this.lbApplicationStatus.Name = "lbApplicationStatus";
-            this.lbApplicationStatus.Size = new System.Drawing.Size(137, 17);
-            this.lbApplicationStatus.TabIndex = 50;
-            this.lbApplicationStatus.Text = "Application Status    :";
-            // 
-            // cbLicenseClass
-            // 
-            this.cbLicenseClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbLicenseClass.FormattingEnabled = true;
-            this.cbLicenseClass.Location = new System.Drawing.Point(141, 48);
-            this.cbLicenseClass.Name = "cbLicenseClass";
-            this.cbLicenseClass.Size = new System.Drawing.Size(206, 21);
-            this.cbLicenseClass.TabIndex = 52;
-            // 
-            // lbLicenseClass
-            // 
-            this.lbLicenseClass.AutoSize = true;
-            this.lbLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLicenseClass.Location = new System.Drawing.Point(2, 48);
-            this.lbLicenseClass.Name = "lbLicenseClass";
-            this.lbLicenseClass.Size = new System.Drawing.Size(136, 17);
-            this.lbLicenseClass.TabIndex = 51;
-            this.lbLicenseClass.Text = "License Class            :";
-            // 
             // frmUpdateApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,6 +174,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmUpdateApplication";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Application";
             this.Load += new System.EventHandler(this.frmUpdateApplication_Load);
             this.pnlApplication.ResumeLayout(false);

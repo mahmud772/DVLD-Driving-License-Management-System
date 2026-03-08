@@ -4,7 +4,6 @@ using Common.Helpers;
 using Common.Queries;
 using DVLD_DAL.Mappers;
 using DVLD_DTOs;
-using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,24 +22,24 @@ namespace DVLD_DAL
             return new clsDriver_DTO
             {
                 // الخصائص الموروثة من clsPerson_DTO
-                PersonID = DbHelper.GetValue<int>(Reader, "PersonID"),
-                NationalNo = DbHelper.GetValue<string>(Reader, "NationalNo"),
-                FirstName = DbHelper.GetValue<string>(Reader, "FirstName"),
-                SecondName = DbHelper.GetValue<string>(Reader, "SecondName"),
-                ThirdName = DbHelper.GetValue<string>(Reader, "ThirdName"),
-                LastName = DbHelper.GetValue<string>(Reader, "LastName"),
-                DateOfBirth = DbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
-                Gendor = clsPersonEnumConverter.ToGendor(DbHelper.GetValue<byte>(Reader, "Gendor")),
-                Address = DbHelper.GetValue<string>(Reader, "Address"),
-                Phone = DbHelper.GetValue<string>(Reader, "Phone"),
-                Email = DbHelper.GetValue<string>(Reader, "Email"),
-                NationalityCountryID = DbHelper.GetValue<int>(Reader, "NationalityCountryID"),
-                ImagePath = DbHelper.GetValue<string>(Reader, "ImagePath"),
+                PersonID = clsDbHelper.GetValue<int>(Reader, "PersonID"),
+                NationalNo = clsDbHelper.GetValue<string>(Reader, "NationalNo"),
+                FirstName = clsDbHelper.GetValue<string>(Reader, "FirstName"),
+                SecondName = clsDbHelper.GetValue<string>(Reader, "SecondName"),
+                ThirdName = clsDbHelper.GetValue<string>(Reader, "ThirdName"),
+                LastName = clsDbHelper.GetValue<string>(Reader, "LastName"),
+                DateOfBirth = clsDbHelper.GetValue<DateTime>(Reader, "DateOfBirth"),
+                Gendor = clsPersonEnumConverter.ToGendor(clsDbHelper.GetValue<byte>(Reader, "Gendor")),
+                Address = clsDbHelper.GetValue<string>(Reader, "Address"),
+                Phone = clsDbHelper.GetValue<string>(Reader, "Phone"),
+                Email = clsDbHelper.GetValue<string>(Reader, "Email"),
+                NationalityCountryID = clsDbHelper.GetValue<int>(Reader, "NationalityCountryID"),
+                ImagePath = clsDbHelper.GetValue<string>(Reader, "ImagePath"),
 
                 // الخصائص الخاصة بـ clsDriver_DTO
-                DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
-                CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
-                CreatedDate = DbHelper.GetValue<DateTime>(Reader, "CreatedDate")
+                DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID"),
+                CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID"),
+                CreatedDate = clsDbHelper.GetValue<DateTime>(Reader, "CreatedDate")
             };
         }
         public static int LoadCount(clsDriverQuery clsQuery)
@@ -52,25 +51,25 @@ namespace DVLD_DAL
 
             _ApplyDriverFilter(clsQuery.Filter, ref Query);
 
-            return DbHelper.ExecuteScalar<int>(Query,
+            return clsDbHelper.ExecuteScalar<int>(Query,
                 Command =>
                 {
-                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                    clsDbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
                         IsHasValue: clsQuery.SearchValue != null);
 
-                    DbHelper.SetValue(Command, "@AgeOlderThen",
+                    clsDbHelper.SetValue(Command, "@AgeOlderThen",
                         clsQuery.Filter.AgeOlderThen,
                         clsQuery.Filter.AgeOlderThen.HasValue);
 
-                    DbHelper.SetValue(Command, "@AgeYoungerThen",
+                    clsDbHelper.SetValue(Command, "@AgeYoungerThen",
                         clsQuery.Filter.AgeYoungerThen,
                         clsQuery.Filter.AgeYoungerThen.HasValue);
 
-                    DbHelper.SetValue(Command, "@Gendor",
+                    clsDbHelper.SetValue(Command, "@Gendor",
                         clsQuery.Filter.Gendor,
                         clsQuery.Filter.Gendor.HasValue);
 
-                    DbHelper.SetValue(Command, "@NationalityCountryID",
+                    clsDbHelper.SetValue(Command, "@NationalityCountryID",
                         clsQuery.Filter.NationalityCountryID,
                         clsQuery.Filter.NationalityCountryID.HasValue);
 
@@ -93,7 +92,7 @@ namespace DVLD_DAL
             clsDriver_DTO Model = null;
 
 
-            bool IsFound = DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue<int>(Command, "@DriverID", DriverID),
+            bool IsFound = clsDbHelper.ExecuteReader(Query, Command => clsDbHelper.SetValue<int>(Command, "@DriverID", DriverID),
                 Reader =>
                 {
                     Model = _Reader(Reader);
@@ -108,15 +107,15 @@ namespace DVLD_DAL
             clsDriver_DTO Model = null;
             string Query = "SELECT * FROM Drivers WHERE PersonID = @PersonID";
 
-            bool IsFound = DbHelper.ExecuteReader(Query, Command => DbHelper.SetValue<int>(Command, "@PersonID", PersonID),
+            bool IsFound = clsDbHelper.ExecuteReader(Query, Command => clsDbHelper.SetValue<int>(Command, "@PersonID", PersonID),
                 Reader =>
                 {
                     Model = new clsDriver_DTO
                     {
-                        DriverID = DbHelper.GetValue<int>(Reader, "DriverID"),
+                        DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID"),
                         PersonID = PersonID,
-                        CreatedByUserID = DbHelper.GetValue<int>(Reader, "CreatedByUserID"),
-                        CreatedDate = DbHelper.GetValue<DateTime>(Reader, "CreatedDate")
+                        CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID"),
+                        CreatedDate = clsDbHelper.GetValue<DateTime>(Reader, "CreatedDate")
                     };
                 });
             return IsFound ? Model : null;
@@ -124,7 +123,7 @@ namespace DVLD_DAL
         public static int LoadPersonIDByDriverID(int DriverID)
         {
             string Query = "Select PersonID From Drivers Where DriverID = @DriverID;";
-            return DbHelper.ExecuteScalar<int>(Query, Command => DbHelper.SetValue<int>(Command, "@DriverID", DriverID));
+            return clsDbHelper.ExecuteScalar<int>(Query, Command => clsDbHelper.SetValue<int>(Command, "@DriverID", DriverID));
         }
 
         public static int AddNewDriver(clsDriver_DTO Model)
@@ -138,11 +137,11 @@ namespace DVLD_DAL
                             ELSE
                                 SELECT -1;";
 
-            return DbHelper.ExecuteScalar<int>(Query, Command =>
+            return clsDbHelper.ExecuteScalar<int>(Query, Command =>
             {
-                DbHelper.SetValue<int>(Command, "@PersonID", Model.PersonID);
-                DbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
-                DbHelper.SetValue<DateTime>(Command, "@CreatedDate", Model.CreatedDate);
+                clsDbHelper.SetValue<int>(Command, "@PersonID", Model.PersonID);
+                clsDbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
+                clsDbHelper.SetValue<DateTime>(Command, "@CreatedDate", Model.CreatedDate);
             });
         }
 
@@ -153,12 +152,12 @@ namespace DVLD_DAL
                          PersonID = @PersonID
                          WHERE DriverID = @DriverID";
 
-            int RowsAffected = DbHelper.ExecuteNonQuery(Query, Command =>
+            int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                DbHelper.SetValue<int>(Command, "@DriverID", Model.DriverID); // شرط التحديث
-                DbHelper.SetValue<int>(Command, "@PersonID", Model.PersonID);
-                DbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
-                DbHelper.SetValue<DateTime>(Command, "@CreatedDate", Model.CreatedDate);
+                clsDbHelper.SetValue<int>(Command, "@DriverID", Model.DriverID); // شرط التحديث
+                clsDbHelper.SetValue<int>(Command, "@PersonID", Model.PersonID);
+                clsDbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
+                clsDbHelper.SetValue<DateTime>(Command, "@CreatedDate", Model.CreatedDate);
             });
             return RowsAffected > 0;
         }
@@ -167,14 +166,14 @@ namespace DVLD_DAL
         {
             string QueryDriversTable = @"Delete From Drivers Where DriverID = @DriverID;";
 
-            int DeletedDriverCount = DbHelper.ExecuteNonQuery(QueryDriversTable, Command => DbHelper.SetValue<int>(Command, "@DriverID", DriverID));
+            int DeletedDriverCount = clsDbHelper.ExecuteNonQuery(QueryDriversTable, Command => clsDbHelper.SetValue<int>(Command, "@DriverID", DriverID));
             return (DeletedDriverCount > 0);
         }
         public static bool DeleteDriverByPersonID(int PersonID)
         {
             string QueryDriversTable = @"Delete From Drivers Where PersonID = @PersonID;";
 
-            int DeletedDriverCount = DbHelper.ExecuteNonQuery(QueryDriversTable, Command => DbHelper.SetValue<int>(Command, "@PersonID", PersonID));
+            int DeletedDriverCount = clsDbHelper.ExecuteNonQuery(QueryDriversTable, Command => clsDbHelper.SetValue<int>(Command, "@PersonID", PersonID));
             return (DeletedDriverCount > 0);
         }
         public static bool DeleteByUserID(int CreatedByUserID)
@@ -182,9 +181,9 @@ namespace DVLD_DAL
             int RowsAffected = 0;
             string QueryLicensesTable = @"Delete From Drivers Where CreatedByUserID = @CreatedByUserID;";
 
-            RowsAffected = DbHelper.ExecuteNonQuery(QueryLicensesTable, Command =>
+            RowsAffected = clsDbHelper.ExecuteNonQuery(QueryLicensesTable, Command =>
             {
-                DbHelper.SetValue<int>(Command, "@CreatedByUserID", CreatedByUserID);
+                clsDbHelper.SetValue<int>(Command, "@CreatedByUserID", CreatedByUserID);
             });
 
             return RowsAffected > 0;
@@ -196,7 +195,7 @@ namespace DVLD_DAL
         public static bool IsPersonIsDriver(int PersonID)
         {
             string Query = "Select DriverID From Drivers Where PersonID = @PersonID;";
-            return DbHelper.Exists(Query, Command => DbHelper.SetValue<int>(Command, "@PersonID", PersonID));
+            return clsDbHelper.Exists(Query, Command => clsDbHelper.SetValue<int>(Command, "@PersonID", PersonID));
         }
 
         public static int LoadLocalApplicationIDByDriverID(int DriverID, int LicenseClassID)
@@ -207,13 +206,13 @@ namespace DVLD_DAL
                         Join Applications A ON A.ApplicationID = LDLA.ApplicationID
                         Join Drivers D ON D.PersonID = A.ApplicantPersonID
                         Where D.DriverID = @DriverID And TA.TestTypeID = @TestTypeID And A.ApplicationTypeID = @ApplicationTypeID And LDLA.LicenseClassID = @LicenseClassID And A.ApplicationStatus = @ApplicationStatus;";
-            return DbHelper.ExecuteScalar<int>(Query, (Action<SqlCommand>)(Command =>
+            return clsDbHelper.ExecuteScalar<int>(Query, (Action<SqlCommand>)(Command =>
             {
-                DbHelper.SetValue(Command, "@DriverID", DriverID);
-                DbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
-                DbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.NewLocalDrivingLicense));
-                DbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID);
-                DbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Completed));
+                clsDbHelper.SetValue(Command, "@DriverID", DriverID);
+                clsDbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
+                clsDbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.NewLocalDrivingLicense));
+                clsDbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID);
+                clsDbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Completed));
             }));
         }
 
@@ -225,12 +224,12 @@ namespace DVLD_DAL
                         Join Licenses L ON L.LicenseID = IL.IssuedUsingLocalLicenseID
                         Where D.DriverID = @DriverID And A.ApplicationTypeID = @ApplicationTypeID
                         And A.ApplicationStatus = @ApplicationStatus And L.LicenseClassID = @LicenseClassID;";
-            return DbHelper.ExecuteScalar<int>(Query, (Action<SqlCommand>)(Command =>
+            return clsDbHelper.ExecuteScalar<int>(Query, (Action<SqlCommand>)(Command =>
             {
-                DbHelper.SetValue(Command, "@DriverID", DriverID);
-                DbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.NewInternationalLicense));
-                DbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID);
-                DbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Completed));
+                clsDbHelper.SetValue(Command, "@DriverID", DriverID);
+                clsDbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.NewInternationalLicense));
+                clsDbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID);
+                clsDbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Completed));
             }));
         }
         public static List<clsDriver_DTO> LoadDrivers()
@@ -240,7 +239,7 @@ namespace DVLD_DAL
                                 D.DriverID, D.CreatedByUserID, D.CreatedDate 
                             FROM People P
                             INNER JOIN Drivers D ON P.PersonID = D.PersonID;";
-            return DbHelper.ReadList(Query, null,
+            return clsDbHelper.ReadList(Query, null,
                 Reader => _Reader(Reader));
         }
         public static List<clsDriver_DTO> LoadDrivers(int Offset, int CountRows)
@@ -253,10 +252,10 @@ namespace DVLD_DAL
                       ORDER BY D.DriverID
                       OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
 
-            return DbHelper.ReadList(Query,
+            return clsDbHelper.ReadList(Query,
                 Command => {
-                    DbHelper.SetValue(Command, "@Offset", Offset);
-                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                    clsDbHelper.SetValue(Command, "@Offset", Offset);
+                    clsDbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
                 Reader => _Reader(Reader));
         }
@@ -279,30 +278,30 @@ namespace DVLD_DAL
                  {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}
                  OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
 
-            return DbHelper.ReadList(Query,
+            return clsDbHelper.ReadList(Query,
                 Command =>
                 {
-                    DbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
+                    clsDbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue,
                         IsHasValue: clsQuery.SearchValue != null);
 
-                    DbHelper.SetValue(Command, "@AgeOlderThen",
+                    clsDbHelper.SetValue(Command, "@AgeOlderThen",
                         clsQuery.Filter.AgeOlderThen,
                         clsQuery.Filter.AgeOlderThen.HasValue);
 
-                    DbHelper.SetValue(Command, "@AgeYoungerThen",
+                    clsDbHelper.SetValue(Command, "@AgeYoungerThen",
                         clsQuery.Filter.AgeYoungerThen,
                         clsQuery.Filter.AgeYoungerThen.HasValue);
 
-                    DbHelper.SetValue(Command, "@Gendor",
+                    clsDbHelper.SetValue(Command, "@Gendor",
                         clsQuery.Filter.Gendor,
                         clsQuery.Filter.Gendor.HasValue);
 
-                    DbHelper.SetValue(Command, "@NationalityCountryID",
+                    clsDbHelper.SetValue(Command, "@NationalityCountryID",
                         clsQuery.Filter.NationalityCountryID,
                         clsQuery.Filter.NationalityCountryID.HasValue);
 
-                    DbHelper.SetValue(Command, "@Offset", Offset);
-                    DbHelper.SetValue(Command, "@CountRows", CountRows);
+                    clsDbHelper.SetValue(Command, "@Offset", Offset);
+                    clsDbHelper.SetValue(Command, "@CountRows", CountRows);
                 },
                 Reader => _Reader(Reader));
         }

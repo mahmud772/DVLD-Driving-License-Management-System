@@ -1,4 +1,5 @@
 ﻿using DVLD_DTOs;
+using DVLDWinForm.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,14 @@ namespace DVLDWinForm.UIHelper_Manger
         {
             Actions.Add(action);
         }
-        public void Execute(clsUIEnums.enUIAction ActionType, IDTO dto)
+        public void Execute(clsUIEnums.enUIAction ActionType, IDTO dto , Action<bool> Refresh)
         {
             var action = Actions.FirstOrDefault(a => a.ActionType == ActionType);
 
             if (action == null) return;
 
             if (action.CanExecute == null || action.CanExecute(dto))
-                action.Execute(dto);
+                Refresh?.Invoke(action.Execute(dto));
         }
         public void RegisterDelete(Func<int, bool> deleteFunc)
         {
@@ -33,48 +34,69 @@ namespace DVLDWinForm.UIHelper_Manger
                 ActionType = clsUIEnums.enUIAction.Delete,
                 Execute = dto =>
                 {
-                    return deleteFunc(dto.ID);
+                    if (MessageBox.Show("Are you sure?", "Warning",
+                        MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                        return false;
+                    return deleteFunc?.Invoke(dto.ID) != null;
                 },
                 CanExecute = dto => dto != null
             });
         }
 
-        public void RegisterCreate(Func<Form> createForm)
+        public void RegisterCreate(Func<IForm> createForm)
         {
             Register(new clsUIAction
             {
                 ActionType = clsUIEnums.enUIAction.AddNew,
                 Execute = dto =>
                 {
-                    createForm().ShowDialog();
-                    return true;
+                    if (createForm == null) return false;
+
+                    IForm form = createForm.Invoke();
+
+                    Form frm = form as Form;
+                    frm.ShowDialog();
+
+                    return form.IsChange;
                 }
             });
         }
 
-        public void RegisterUpdate(Func<IDTO, Form> updateForm)
+        public void RegisterUpdate(Func<IDTO, IForm> updateForm)
         {
             Register(new clsUIAction
             {
                 ActionType = clsUIEnums.enUIAction.Update,
                 Execute = dto =>
                 {
-                    updateForm(dto).ShowDialog();
-                    return true;
+                    if (updateForm == null) return false;
+
+                    IForm form = updateForm.Invoke(dto);
+
+                    Form frm = form as Form;
+                    frm.ShowDialog();
+
+                    return form.IsChange;
                 },
                 CanExecute = dto => dto != null
             });
         }
 
-        public void RegisterFilter(Func<Form> filterForm)
+        public void RegisterFilter(Func<IForm> filterForm)
         {
             Register(new clsUIAction
             {
                 ActionType = clsUIEnums.enUIAction.Filter,
                 Execute = dto =>
                 {
-                    filterForm().ShowDialog();
-                    return true;
+                    if (filterForm == null) return false;
+
+                    IForm form = filterForm.Invoke();
+
+                    Form frm = form as Form;
+                    frm.ShowDialog();
+
+                    return form.IsChange;
                 }
             });
         }

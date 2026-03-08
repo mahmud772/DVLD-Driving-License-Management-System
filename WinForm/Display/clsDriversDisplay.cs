@@ -28,6 +28,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
+            _displayMode = DisplayMode;
             InitializeAdapter(clsDriver_BLL.GetDrivers,
                clsDriver_BLL.GetCount,
                GetDisplayView<clsDriver_DTO>(Driver => new ucDriver(_context.SharedContextMenu) { DriverInfo = Driver }, DisplayMode));
@@ -56,6 +57,10 @@ namespace DVLDWinForm.Display
             lbTotalType_Titel.Text = "Drivers";
             lbTotalCount.Text = _paginator.TotalItems.ToString();
             pbTotal.Image = Properties.Resources.Drivers;
+        }
+        public override void UpdateContextMenu()
+        {
+            base.UpdateContextMenu();
         }
     }
 }

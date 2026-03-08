@@ -14,7 +14,6 @@ namespace DVLDWinForm.UIHelper_Manger
         private DataGridView _DGV;
         
 
-        // نمرر دالة تفوض إنشاء الكونترول ليكون الكود مرناً
         public clsDGVManager(DataGridView DGV)
         {
             _DGV = DGV;
@@ -31,7 +30,6 @@ namespace DVLDWinForm.UIHelper_Manger
             {
                 _DGV.SuspendLayout();
 
-                // 2. ربط البيانات الجديدة
                 _DGV.DataSource = Data;
 
                 _DGV.ResumeLayout();

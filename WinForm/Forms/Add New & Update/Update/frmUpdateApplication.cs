@@ -15,12 +15,12 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms.Add_New___Update.Update
 {
-    public partial class frmUpdateApplication : Form
+    public partial class frmUpdateApplication : Form , IForm
     {
         private clsApplication_DTO _ApplicationInfo;
         private clsLocalDrivingLicenseApplication_DTO _LocalApplicationInfo;
-
-        private Action _SaveAction;
+        public bool IsChange { get; set; } = false;
+        private Func<bool> _SaveAction;
 
         private List<clsApplicationType_DTO> _ApplicationTypesList;
         private List<clsLicenseClass_DTO> _LicenseClassesList;
@@ -49,7 +49,7 @@ namespace DVLDWinForm.Forms.Add_New___Update.Update
             _BindControls();
             _LoadCurrentValues();
             _LoadDesign();
-            _SetSaveAction(); 
+            SetSaveAction(); 
         }
 
         private void _LoadLists()
@@ -96,24 +96,24 @@ namespace DVLDWinForm.Forms.Add_New___Update.Update
 
         private void cbApplicationTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _UpdateUIByApplicationType();
+            UpdateUIByApplicationType();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!_CollectDataFromUI())
+            if (!CollectDataFromUI())
             {
                 MessageBox.Show("The Data Is Not Valid.", "Warning",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            _SaveAction?.Invoke();
+            if(_SaveAction == null) return;
+            IsChange = _SaveAction.Invoke() ;
             this.Close();
         }
 
 
-        private void _UpdateUIByApplicationType()
+        private void UpdateUIByApplicationType()
         {
             if (cbApplicationTypes.SelectedItem is not clsApplicationType_DTO selectedType)
                 return;
@@ -126,17 +126,17 @@ namespace DVLDWinForm.Forms.Add_New___Update.Update
             lbLicenseClass.Visible = isLocal;
             cbLicenseClass.Visible = isLocal;
 
-            _SaveAction = isLocal ? _SaveLocalApplication : _SaveApplication;
+            _SaveAction = isLocal ? SaveLocalApplication : SaveApplication;
         }
 
-        private void _SetSaveAction()
+        private void SetSaveAction()
         {
-            _UpdateUIByApplicationType();
+            UpdateUIByApplicationType();
         }
 
 
 
-        private bool _CollectDataFromUI()
+        private bool CollectDataFromUI()
         {
             if (_ApplicationInfo == null)
                 return false;
@@ -165,21 +165,21 @@ namespace DVLDWinForm.Forms.Add_New___Update.Update
         }
 
 
-        private void _SaveApplication()
+        private bool SaveApplication()
         {
             clsApplication_BLL app = clsApplication_BLL.FindByApplicationID(_ApplicationInfo.ApplicationID);
             app.Application = _ApplicationInfo;
-            app.Save();
+            return app.Save();
         }
 
-        private void _SaveLocalApplication()
+        private bool SaveLocalApplication()
         {
             clsLocalDrivingLicenseApplication_BLL app = clsLocalDrivingLicenseApplication_BLL
                 .FindByLocaLicenseApplicationlID(_LocalApplicationInfo.LocalDrivingLicenseApplicationID);
 
             app.Application = _ApplicationInfo;
             app.LocalApplication = _LocalApplicationInfo;
-            app.Save();
+            return app.Save();
         }
 
     }

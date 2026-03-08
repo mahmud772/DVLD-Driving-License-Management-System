@@ -1,25 +1,22 @@
-﻿using DVLD_BLL;
+﻿using Common;
+using Common.Helpers;
+using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms.Add_New___Update
 {
-    public partial class frmAddNew_UpdateAppointment : Form
+    public partial class frmAddNew_UpdateAppointment : Form , IForm
     {
         clsTestAppointment_DTO _AppointmentInfo;
         enum enMode { AddNew = 1, Update = 2 };
         enMode Mode = enMode.AddNew;
+        public bool IsChange { get; set; } = false;
         public frmAddNew_UpdateAppointment()
         {
             InitializeComponent();
@@ -36,14 +33,14 @@ namespace DVLDWinForm.Forms.Add_New___Update
 
         private void frmAddNewAppointment_Load(object sender, EventArgs e)
         {
-            _SetApplicationInfo();
-            _LoadDesign();
+            SetApplicationInfo();
+            LoadDesign();
         }
-        private void _LoadDesign()
+        private void LoadDesign()
         {
             clsUIHelper.CornerRadius(pnlAppointment, 5);
         }
-        private void _SetApplicationInfo()
+        private void SetApplicationInfo()
         {
             if (Mode == enMode.Update && _AppointmentInfo != null)
             {
@@ -56,7 +53,7 @@ namespace DVLDWinForm.Forms.Add_New___Update
                 lbPaidFees.Text = _AppointmentInfo.PaidFees.ToString();
             }
         }
-        private bool _GetApplicationInfo()
+        private bool GetApplicationInfo()
         {
             clsValidation.ep.Clear();
             if (clsValidation.IsEmpty(tbID, "Select a valid ID")) return false;
@@ -71,13 +68,13 @@ namespace DVLDWinForm.Forms.Add_New___Update
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-            if (_GetApplicationInfo())
+            if (GetApplicationInfo())
             {
                 clsTestAppointment_BLL Appointment = Mode == enMode.AddNew ?
                     new clsTestAppointment_BLL()
                     : clsTestAppointment_BLL.FindByID(_AppointmentInfo.TestAppointmentID);
                 Appointment.Appointment = _AppointmentInfo;
-                Appointment.Save();
+                IsChange = Appointment.Save();
                 this.Close();
             }
             else
@@ -91,7 +88,18 @@ namespace DVLDWinForm.Forms.Add_New___Update
             frmFind frm = new frmFind(new ucApplication(), clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);
             frm?.ShowDialog();
             tbID.Text = frm?.SelectedID;
-
+            int ID;
+            int.TryParse(tbID.Text, out ID);
+            if (ID == 0) return;
+            UpdateFormAfterSelectedLDLA(ID);
+        }
+        private void UpdateFormAfterSelectedLDLA(int ID)
+        {
+            clsTestEnums.enTestTypes eTestType = clsTestAppointment_BLL.GetLastTestType(ID);
+            int TestType = clsTestEnumConverter.ConvertTestTypeToInt(eTestType);
+            if (eTestType == clsTestEnums.enTestTypes.PracticalTest) TestType--;
+            lbType.Text = clsTestEnumConverter.ConvertTestTypeToEnum( TestType + 1).ToString().Split(' ')[0];
+            lbPaidFees.Text = clsTestType_BLL.GetPaidFees(TestType + 1).ToString("F1");
         }
     }
 }

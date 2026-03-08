@@ -23,7 +23,7 @@ namespace DVLD_BLL
                 ClassName = string.Empty,
                 ClassDescription = string.Empty,
                 MinimumAllowedAge = 0,
-                DefaultValidityLength = 0, // عدد سنوات الصلاحية
+                DefaultValidityLength = 0, 
                 ClassFees = 0
             };
             this.Mode = enMode.Create;
@@ -58,18 +58,15 @@ namespace DVLD_BLL
             return true;
         }
 
-        // --- منطق الحفظ والتحديث ---
 
         private bool _AddNewLicenseClass()
         {
-            // 💡 يفترض وجود دالة AddNewLicenseClass في DAL تعيد الـ ID
             this.LicenseClass.LicenseClassID = clsLicenseClass_DAL.AddNewLicenseClass(this.LicenseClass);
             return (this.LicenseClass.LicenseClassID > -1);
         }
 
         private bool _UpdateLicenseClass()
         {
-            // 💡 يفترض وجود دالة UpdateLicenseClass في DAL
             return clsLicenseClass_DAL.UpdateLicenseClass(this.LicenseClass);
         }
 
