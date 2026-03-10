@@ -84,7 +84,7 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
                     return clsLicense_BLL.GetPersonIDByLicenseID(ID);
 
                 case clsApplicationEnums.enApplicationType.ReleaseDetainedDrivingLicsense:
-                    return clsDetainedLicense_BLL.GetPersonIDByDetainID(ID);
+                    return clsLicense_BLL.GetPersonIDByLicenseID(ID);
 
                 case clsApplicationEnums.enApplicationType.NewInternationalLicense:
                     return clsInternationalLicense_BLL.GetPersonIDByInternationalLicenseID(ID);

@@ -22,6 +22,18 @@ namespace Common
             CreatedByUserID = 4,
             IsLocked = 5
         }
+        public enum enTestSearchBy
+        {
+            TestAppointmentID = 1,
+            TestID = 2,
+            CreatedByUserID = 3
+        }
+        public enum enTestOrderBy
+        {
+            TestAppointmentID = 1,
+            TestID = 2,
+            TestResult = 3
+        }
 
 
         public enum enTestTypes { VisionTest = 1 , WrittenTest = 2 , PracticalTest = 3 }

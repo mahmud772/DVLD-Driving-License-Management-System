@@ -15,10 +15,9 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms.Add_New___Update.Update
 {
-    public partial class frmUpdateUser : Form , IForm
+    public partial class frmUpdateUser : Form
     {
         clsUser_DTO _User;
-        public bool IsChange { get; set; } = false;
         public frmUpdateUser(clsUser_DTO User)
         {
             InitializeComponent();
@@ -101,9 +100,9 @@ namespace DVLDWinForm.Forms.Add_New___Update.Update
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            IsChange = true;
             MessageBox.Show("Saved successfully", "Information",
                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DialogResult = DialogResult.OK;
             this.Close();
         }
     }

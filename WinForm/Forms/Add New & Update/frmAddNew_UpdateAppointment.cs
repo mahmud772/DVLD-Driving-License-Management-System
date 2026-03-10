@@ -11,12 +11,11 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms.Add_New___Update
 {
-    public partial class frmAddNew_UpdateAppointment : Form , IForm
+    public partial class frmAddNew_UpdateAppointment : Form
     {
         clsTestAppointment_DTO _AppointmentInfo;
         enum enMode { AddNew = 1, Update = 2 };
         enMode Mode = enMode.AddNew;
-        public bool IsChange { get; set; } = false;
         public frmAddNew_UpdateAppointment()
         {
             InitializeComponent();
@@ -74,15 +73,22 @@ namespace DVLDWinForm.Forms.Add_New___Update
                     new clsTestAppointment_BLL()
                     : clsTestAppointment_BLL.FindByID(_AppointmentInfo.TestAppointmentID);
                 Appointment.Appointment = _AppointmentInfo;
-                IsChange = Appointment.Save();
-                this.Close();
+                if(Appointment.Save())
+                {
+                    lbPaidFeesRetakeTest.Text = Appointment.IsRetakeTest ? 
+                        clsApplicationType_BLL.GetApplicationFees(
+                            clsApplicationEnumConverter.ToInt(
+                                clsApplicationEnums.enApplicationType.RetakeTest)).ToString("F1") 
+                        : "0";
+                    DialogResult = DialogResult.OK;
+                }
+                
             }
             else
             {
                 MessageBox.Show("The Data Is Not Valid .", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
         private void pbSelectedID_Click(object sender, EventArgs e)
         {
             frmFind frm = new frmFind(new ucApplication(), clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);

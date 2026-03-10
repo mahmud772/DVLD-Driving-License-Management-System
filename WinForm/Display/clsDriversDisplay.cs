@@ -39,10 +39,10 @@ namespace DVLDWinForm.Display
             clsUIActionsManager ui = _context.UIActionsManager;
             ui.Reset();
 
-            ui.RegisterCreate(() => new frmAddNew_UpdateDriver());
+            ui.RegisterCreate(() => new frmAddNewDriver());
 
             ui.RegisterUpdate(dto =>
-                 new frmAddNew_UpdateDriver(dto as clsDriver_DTO));
+                 new frmAddNew_UpdatePerson(dto as clsDriver_DTO));
 
             ui.RegisterDelete(clsDriver_BLL.DeleteDriver);
 

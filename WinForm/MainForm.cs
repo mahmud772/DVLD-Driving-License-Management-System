@@ -31,7 +31,7 @@ namespace DVLDWinForm
         public clsLicenseQuery LicenseQuery { get; set; }
         public clsTestAppointmentQuery TestAppointmentQuery { get; set; }
         public clsUserQuery UserQuery { get; set; }
-
+        public clsTestQuery TestQuery { get; set; }
         private clsContextDisplay _context { get; set; }
         public MainForm()
         {
@@ -52,6 +52,7 @@ namespace DVLDWinForm
             UserQuery = new clsUserQuery();
             TestAppointmentQuery = new clsTestAppointmentQuery();
             DetainedLicenseQuery = new clsDetainedLicenseQuery();
+            TestQuery = new clsTestQuery();
             _context = new clsContextDisplay(this, dgvDisplay, flpUserControls, SharedContextMenu , _uiActionsManager);
             _currentQuery = PersonQuery;
             _display = new clsPeopleDisplay(PersonQuery, _context);
@@ -192,6 +193,12 @@ namespace DVLDWinForm
             _ShowFLP();
         }
 
+        private void btnTests_Click(object sender, EventArgs e)
+        {
+            _currentQuery = TestQuery;
+            _display = new clsTestDisplay(TestQuery , _context);
+            _ShowFLP();
+        }
         private void dgvData_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
@@ -220,7 +227,6 @@ namespace DVLDWinForm
             _display.Load(DisplayMode, _currentQuery);
             _currentQuery.SearchValue = null;
         }
-
 
     }
 }

@@ -40,6 +40,7 @@
             this.lbAppointmentType = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
+            this.lbPaidFeesRetakeTest = new System.Windows.Forms.Label();
             this.pnlAppointment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             this.SuspendLayout();
@@ -56,6 +57,7 @@
             // pnlAppointment
             // 
             this.pnlAppointment.BackColor = System.Drawing.Color.White;
+            this.pnlAppointment.Controls.Add(this.lbPaidFeesRetakeTest);
             this.pnlAppointment.Controls.Add(this.lbPaidFees);
             this.pnlAppointment.Controls.Add(this.lbPaidFees_Titel);
             this.pnlAppointment.Controls.Add(this.lbType);
@@ -86,18 +88,18 @@
             this.lbPaidFees_Titel.AutoSize = true;
             this.lbPaidFees_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             this.lbPaidFees_Titel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbPaidFees_Titel.Location = new System.Drawing.Point(5, 120);
+            this.lbPaidFees_Titel.Location = new System.Drawing.Point(4, 120);
             this.lbPaidFees_Titel.Name = "lbPaidFees_Titel";
-            this.lbPaidFees_Titel.Size = new System.Drawing.Size(132, 17);
+            this.lbPaidFees_Titel.Size = new System.Drawing.Size(136, 17);
             this.lbPaidFees_Titel.TabIndex = 51;
-            this.lbPaidFees_Titel.Text = "PaidFees                 :";
+            this.lbPaidFees_Titel.Text = "PaidFees                  :";
             // 
             // lbType
             // 
             this.lbType.AutoSize = true;
             this.lbType.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbType.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.lbType.Location = new System.Drawing.Point(141, 91);
+            this.lbType.Location = new System.Drawing.Point(141, 90);
             this.lbType.Name = "lbType";
             this.lbType.Size = new System.Drawing.Size(45, 21);
             this.lbType.TabIndex = 49;
@@ -148,7 +150,7 @@
             // 
             this.lbAppointmentType.AutoSize = true;
             this.lbAppointmentType.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAppointmentType.Location = new System.Drawing.Point(4, 91);
+            this.lbAppointmentType.Location = new System.Drawing.Point(4, 90);
             this.lbAppointmentType.Name = "lbAppointmentType";
             this.lbAppointmentType.Size = new System.Drawing.Size(135, 17);
             this.lbAppointmentType.TabIndex = 0;
@@ -175,6 +177,17 @@
             this.lbTitel.Size = new System.Drawing.Size(207, 21);
             this.lbTitel.TabIndex = 45;
             this.lbTitel.Text = "ADD NEW APPOINTMENT";
+            // 
+            // lbPaidFeesRetakeTest
+            // 
+            this.lbPaidFeesRetakeTest.AutoSize = true;
+            this.lbPaidFeesRetakeTest.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFeesRetakeTest.ForeColor = System.Drawing.Color.MediumTurquoise;
+            this.lbPaidFeesRetakeTest.Location = new System.Drawing.Point(167, 121);
+            this.lbPaidFeesRetakeTest.Name = "lbPaidFeesRetakeTest";
+            this.lbPaidFeesRetakeTest.Size = new System.Drawing.Size(28, 17);
+            this.lbPaidFeesRetakeTest.TabIndex = 53;
+            this.lbPaidFeesRetakeTest.Text = "+ 0";
             // 
             // frmAddNew_UpdateAppointment
             // 
@@ -211,5 +224,6 @@
         private System.Windows.Forms.Label lbType;
         private System.Windows.Forms.Label lbPaidFees;
         private System.Windows.Forms.Label lbPaidFees_Titel;
+        private System.Windows.Forms.Label lbPaidFeesRetakeTest;
     }
 }

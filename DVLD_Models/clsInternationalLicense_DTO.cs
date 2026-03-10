@@ -18,5 +18,6 @@ namespace DVLD_DTOs
         public DateTime ExpirationDate { get; set; }
         public bool IsActive { get; set; }
         public int CreatedByUserID { get; set; }
+
     }
 }

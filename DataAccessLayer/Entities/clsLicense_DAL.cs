@@ -213,20 +213,23 @@ namespace DVLD_DAL
         public static bool UpdateLicense(clsLicense_DTO Model)
         {
             string Query = @"
-                        UPDATE Licenses SET Notes = @Notes,
-                            PaidFees = @PaidFees, IsActive = @IsActive
-                        WHERE LicenseID = @LicenseID";
-
-
+                        UPDATE Licenses SET Notes = @Notes, IsActive = @IsActive
+                        WHERE LicenseID = @LicenseID And Not Exists 
+                        ( Select 1 From Licenses
+                        Where DriverID = @DriverID 
+                        And LicenseClassID = @LicenseClassID
+                        And IsActive = 1
+                        AND LicenseID <> @LicenseID)";
             int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
 
                 clsDbHelper.SetValue<int>(Command, "@LicenseID", Model.LicenseID);
 
                 clsDbHelper.SetValue<string>(Command, "@Notes", Model.Notes, AllowNull: true);
-                clsDbHelper.SetValue<decimal>(Command, "@PaidFees", Model.PaidFees);
                 clsDbHelper.SetValue<bool>(Command, "@IsActive", Model.IsActive);
                 clsDbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
+                clsDbHelper.SetValue<int>(Command, "@DriverID", Model.DriverID);
+                clsDbHelper.SetValue<int>(Command, "@LicenseClassID", Model.LicenseClassID);
             });
 
             return RowsAffected > 0;

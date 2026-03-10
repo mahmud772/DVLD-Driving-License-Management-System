@@ -4,6 +4,7 @@ using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.Forms.Add_New___Update.Add_New;
+using DVLDWinForm.Forms.Add_New___Update.Update;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
 using DVLDWinForm.User_Controls.Filters;
@@ -34,7 +35,7 @@ namespace DVLDWinForm.Display
             ui.Reset();
 
             ui.RegisterCreate(() => new frmAddNewLicense());
-
+            ui.RegisterUpdate(dto => new frmUpdateLicense(dto as clsLicenseCardInfo_DTO));
             ui.RegisterDelete(clsLicense_BLL.DeleteLicense);
 
             ui.RegisterFilter(() =>

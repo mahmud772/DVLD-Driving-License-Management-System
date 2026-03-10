@@ -14,11 +14,10 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms
 {
-    public partial class frmCreateApplication : Form , IForm
+    public partial class frmCreateApplication : Form
     {
         private clsApplication_DTO _applicationInfo;
         private clsLocalDrivingLicenseApplication_DTO _localInfo;
-        public bool IsChange { get; set; } = false;
         clsApplicationType_DTO _CurrentApplicationType;
         clsLicenseClass_DTO _CurrentLicenseClass;
         Func<frmFind> OpenForm;
@@ -47,13 +46,12 @@ namespace DVLDWinForm.Forms
                 MessageBox.Show("Invalid Data");
                 return;
             }
-
             clsApplicationEnums.enApplicationType type = clsApplicationEnumConverter.ToType(
                     Convert.ToInt32(cbApplicationTypes.SelectedValue));
             int LicenseID;
             int.TryParse(tbID.Text, out LicenseID);
-            IsChange = _factory.CreateApplication(_applicationInfo,_localInfo,LicenseID,type,ckbOperationLicense.Checked);
-
+            if(_factory.CreateApplication(_applicationInfo,_localInfo,LicenseID,type,ckbOperationLicense.Checked))
+                DialogResult = DialogResult.OK;
             this.Close();
         }
         

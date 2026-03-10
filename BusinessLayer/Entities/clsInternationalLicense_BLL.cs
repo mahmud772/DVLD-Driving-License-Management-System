@@ -61,7 +61,6 @@ namespace DVLD_BLL
             return true;
         }
 
-        
 
         private bool _AddNewInternationalLicense()
         {
@@ -84,6 +83,7 @@ namespace DVLD_BLL
                     if (_AddNewInternationalLicense())
                     {
                         Mode = enMode.Update;
+                        clsApplication_BLL.SetComplete(this.InternationalLicense.ApplicationID);
                         return true;
                     }
                     break;

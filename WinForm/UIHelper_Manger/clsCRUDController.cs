@@ -1,13 +1,6 @@
-﻿using Common.Queries;
-using DVLD_BLL;
-using DVLD_DTOs;
+﻿using DVLD_DTOs;
 using DVLDWinForm.Forms;
-using DVLDWinForm.User_Controls.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DVLDWinForm.UIHelper_Manger
@@ -17,22 +10,22 @@ namespace DVLDWinForm.UIHelper_Manger
         public Func<Form> CreateForm { get; set; }
         public Func<IDTO , Form> PrepareUpdate { get; set; }
         public Func<int, bool> TryDelete { get; set; }
-        public Func<frmSortAndFilter> Search { get; set; }
+        public Func<frmSortAndFilter> Filter { get; set; }
         public Action Refresh { get; set; }
         public IDTO DTO { get; set; } = null;
 
-        public readonly DataGridView DataGrid;
-        public readonly FlowLayoutPanel ActionsPanel;
+        public readonly DataGridView DGV;
+        public readonly FlowLayoutPanel FLP;
 
         public clsCRUDController(DataGridView dgv, FlowLayoutPanel flp)
         {
-            DataGrid = dgv;
-            ActionsPanel = flp;
+            DGV = dgv;
+            FLP = flp;
         }
 
         public IDTO GetSelectedDto()
         {
-            return DTO == null ? DataGrid.CurrentRow?.DataBoundItem as IDTO : DTO;
+            return DTO == null ? DGV.CurrentRow?.DataBoundItem as IDTO : DTO;
         }
         
         public bool ShowCreateForm()
@@ -72,7 +65,7 @@ namespace DVLDWinForm.UIHelper_Manger
         public bool ShowFilterForm()
         {
 
-            Form frm = Search?.Invoke();
+            Form frm = Filter?.Invoke();
             frm?.ShowDialog();
             DTO = null;
             Refresh?.Invoke();

@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\clsApplicationEnums.cs" />
-    <Compile Include="clsEnSearchBy.cs" />
     <Compile Include="Enums\clsDetainedLicenseEnums.cs" />
     <Compile Include="Enums\clsDriverEnums.cs" />
     <Compile Include="Enums\clsLicenseEnums.cs" />
@@ -66,6 +65,7 @@
     <Compile Include="Filters\clsLicenseFilter.cs" />
     <Compile Include="Filters\clsPersonFilter.cs" />
     <Compile Include="Filters\clsTestAppointmentFilter.cs" />
+    <Compile Include="Filters\clsTestFilter.cs" />
     <Compile Include="Filters\clsUserFilter.cs" />
     <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Helpers\clsApplicationEnumConverter.cs" />
@@ -82,6 +82,7 @@
     <Compile Include="Queries\clsLocalDrivingLicenseApplicationQuery.cs" />
     <Compile Include="Queries\clsTestAppointmentQuery.cs" />
     <Compile Include="Queries\clsPersonQuery.cs" />
+    <Compile Include="Queries\clsTestQuery.cs" />
     <Compile Include="Queries\clsUserQuery.cs" />
     <Compile Include="Queries\IQuery.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

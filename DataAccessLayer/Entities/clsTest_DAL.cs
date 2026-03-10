@@ -1,5 +1,8 @@
 ﻿using Common;
+using Common.Filters;
 using Common.Helpers;
+using Common.Queries;
+using DVLD_DAL.Mappers;
 using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
@@ -16,6 +19,23 @@ namespace DVLD_DAL
         {
             string Query = "Select Count (*) From Tests;";
             return clsDbHelper.ExecuteScalar<int>(Query, null);
+        }
+        public static int LoadCount(clsTestQuery clsQuery)
+        {
+            string Query = "Select Count (*) From Tests Where 1 = 1 ";
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+               ? $" AND {clsTestMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+               : "";
+
+            ApplyTestFilter(clsQuery.Filter, ref Query);
+
+            return clsDbHelper.ExecuteScalar<int>(Query,
+                Command =>
+                {
+                    clsDbHelper.SetValue(Command, "@ApplicationStatus", clsQuery.Filter.TestResult, IsHasValue: clsQuery.Filter.TestResult.HasValue);
+
+                    clsDbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue, IsHasValue: clsQuery.SearchValue != null);
+                });
         }
 
         public static clsTest_DTO LoadTestByID(int TestID)
@@ -38,12 +58,21 @@ namespace DVLD_DAL
             return Model;
         }
 
-        // إضافة اختبار جديد
         public static int AddNewTest(clsTest_DTO Model)
         {
             string Query = @"INSERT INTO Tests (TestAppointmentID, TestResult, Notes, CreatedByUserID)
-                         VALUES (@TestAppointmentID, @TestResult, @Notes, @CreatedByUserID);
-                         SELECT SCOPE_IDENTITY();";
+                         SELECT  @TestAppointmentID, @TestResult, @Notes, @CreatedByUserID
+                         Where NOT EXISTS 
+                            (
+                                SELECT 1 
+                                FROM Tests 
+                                WHERE TestAppointmentID = @TestAppointmentID 
+                            )
+                            ;
+                         IF @@ROWCOUNT > 0
+                                SELECT SCOPE_IDENTITY();
+                            ELSE
+                                SELECT -1;";
 
             return clsDbHelper.ExecuteScalar<int>(Query, Command =>
             {
@@ -54,7 +83,6 @@ namespace DVLD_DAL
             });
         }
 
-        // تحديث اختبار
         public static bool UpdateTest(clsTest_DTO Model)
         {
             string Query = @"UPDATE Tests SET
@@ -63,13 +91,12 @@ namespace DVLD_DAL
 
             int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                clsDbHelper.SetValue(Command, "@TestID", Model.TestID); // شرط التحديث
+                clsDbHelper.SetValue(Command, "@TestID", Model.TestID); 
                 clsDbHelper.SetValue(Command, "@Notes", Model.Notes, AllowNull: true);
             });
             return RowsAffected > 0;
         }
 
-        // حذف اختبار
         public static bool DeleteTest(int TestID)
         {
             string Query = "DELETE FROM Tests WHERE TestID = @TestID";
@@ -148,6 +175,38 @@ namespace DVLD_DAL
                     CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID")
                 });
         }
+        public static List<clsTest_DTO> LoadTests(int Offset, int CountRows , clsTestQuery clsQuery)
+        {
+
+            string Query = $@"SELECT * FROM Tests  Where 1 = 1 ";
+
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
+               ? $" AND {clsTestMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+               : "";
+
+            ApplyTestFilter(clsQuery.Filter, ref Query);
+
+            Query += $@" Order By {clsTestMapper.MapOrderBy(clsQuery.OrderBy)} 
+                                 {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}";
+            Query += " OFFSET @Offset ROWS FETCH NEXT @CountRows ROWS ONLY;";
+            return clsDbHelper.ReadList(Query,
+                Command => {
+                    clsDbHelper.SetValue(Command, "@ApplicationStatus", clsQuery.Filter.TestResult, IsHasValue: clsQuery.Filter.TestResult.HasValue);
+
+                    clsDbHelper.SetValue(Command, "@SearchValue", clsQuery.SearchValue, IsHasValue: clsQuery.SearchValue != null);
+
+                    clsDbHelper.SetValue(Command, "@Offset", Offset);
+                    clsDbHelper.SetValue(Command, "@CountRows", CountRows);
+                },
+                Reader => new clsTest_DTO
+                {
+                    TestID = clsDbHelper.GetValue<int>(Reader, "TestID"),
+                    TestAppointmentID = clsDbHelper.GetValue<int>(Reader, "TestAppointmentID"),
+                    TestResult = clsDbHelper.GetValue<bool>(Reader, "TestResult"),
+                    Notes = clsDbHelper.GetValue<string>(Reader, "Notes"),
+                    CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID")
+                });
+        }
 
         public static bool IsDriverPassedInAllTests(int DriverID, int LicenseClassID)
         {
@@ -178,6 +237,14 @@ namespace DVLD_DAL
                 clsDbHelper.SetValue<int>(Command, "@FinalTestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
             }
             );
+        }
+        public static void ApplyTestFilter(clsTestFilter filter, ref string query)
+        {
+            if (filter == null) return;
+
+            MappingHelper.AddCondition(filter.TestResult.HasValue,
+                "TestResult = @TestResult",
+                ref query);
         }
     }
 }

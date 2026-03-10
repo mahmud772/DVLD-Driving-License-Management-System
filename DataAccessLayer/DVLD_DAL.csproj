@@ -72,6 +72,7 @@
     <Compile Include="Mappers\clsOrderDirectionMapper.cs" />
     <Compile Include="Mappers\clsPersonMapper.cs" />
     <Compile Include="Mappers\clsTestAppointmentMapper.cs" />
+    <Compile Include="Mappers\clsTestMapper.cs" />
     <Compile Include="Mappers\clsUserMapper.cs" />
     <Compile Include="Mappers\MappingHelper.cs" />
     <Compile Include="Mappers\SqlParameterBuilder.cs" />

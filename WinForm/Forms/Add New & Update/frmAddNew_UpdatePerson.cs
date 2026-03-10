@@ -15,12 +15,11 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms
 {
-    public partial class frmAddNew_UpdatePerson : Form , IForm
+    public partial class frmAddNew_UpdatePerson : Form
     {
         enum enMode { AddNew = 1 , Update = 2 } 
         enMode Mode = enMode.AddNew;
         private clsPerson_DTO _PersonInfo;
-        public bool IsChange { get; set; } = false;
         public frmAddNew_UpdatePerson()
         {
             InitializeComponent();
@@ -128,7 +127,7 @@ namespace DVLDWinForm.Forms
             {
                 clsPerson_BLL Person = (Mode == enMode.AddNew) ? new clsPerson_BLL() : clsPerson_BLL.Find(_PersonInfo.PersonID);
                 Person.Person = _PersonInfo;
-                IsChange = Person.Save();
+                if(Person.Save()) DialogResult = DialogResult.OK;
                 this.Close();
             }
             else

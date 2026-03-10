@@ -1,29 +1,15 @@
-﻿using Common;
-using DVLD_BLL;
+﻿using DVLD_BLL;
 using DVLD_DTOs;
-using DVLDWinForm;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
-using DVLDWinForm.User_Controls;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.Expando;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace DVLDWinForm
 {
     public partial class ucPerson : UserControl , IUserControl
     {
-        bool IsPersonSelectd ;
         public event Action OnVisibleChanged;
         public event Action OnUnvisibleChanged;
         private clsPerson_DTO _PersonInfo;
@@ -37,10 +23,10 @@ namespace DVLDWinForm
             set
             {
                 _PersonInfo = value;      
-                _SetPersonInfo(value);  
+                SetPersonInfo(value);  
             }
         }
-        public IDTO Info { get => PersonInfo; set => PersonInfo = value as clsPerson_DTO; }
+        IDTO IUserControl.Info { get => PersonInfo; set => PersonInfo = value as clsPerson_DTO; }
 
 
         public Func<IDTO> SelectdDTO;
@@ -59,20 +45,19 @@ namespace DVLDWinForm
         
         public ucPerson(ContextMenuStrip SharedContextMenu)
         {
+            _sharedContextMenu = SharedContextMenu;
             InitializeComponent();
             Animate = new clsControlAnimateHeight(this, _expandedHeight, _collapsedHeight, _step);
             CollapseInstantly();
-            _sharedContextMenu = SharedContextMenu;
         }
         
 
-        private bool _SetPersonInfo(clsPerson_DTO PersonInfo)
+        private bool SetPersonInfo(clsPerson_DTO PersonInfo)
         {
 
             if (PersonInfo == null)
             {
                 //MessageBox.Show("This is Person Is Not Found !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                IsPersonSelectd = true;
                 return false;
 
             }
@@ -103,13 +88,13 @@ namespace DVLDWinForm
             if(_sharedContextMenu == null)
                 btnUpdate_Delete.Visible = false;
 
-            if (this is not ucPerson)
-            {
-                lbNationalNo.Visible = false;
-                lbNationalNo_Titel.Visible = false;
-            }
+            
         }
-
+        public void UnvisibleComponents()
+        {
+            lbNationalNo.Visible = false;
+            lbNationalNo_Titel.Visible = false;
+        }
         public void CollapseInstantly()
         {
             Animate.OnCollapse -= _Collapse;

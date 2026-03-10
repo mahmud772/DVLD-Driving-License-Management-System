@@ -16,7 +16,9 @@ namespace DVLDWinForm.UIHelper_Manger
             Delete = 3,
             Filter = 4,
             DetainLicense = 5,
-            ReleaseLicense = 6
+            ReleaseLicense = 6,
+            PassedTest = 7,
+            FailedTest = 8,
         }
     }
 }

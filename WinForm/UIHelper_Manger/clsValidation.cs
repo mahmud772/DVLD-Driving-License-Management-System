@@ -23,7 +23,7 @@ namespace DVLDWinForm.UIHelper_Manger
         }
         public static bool _IsNumber(TextBox tb)
         {
-            return (_IsEmpty(tb) || !int.TryParse(tb.Text.Trim(), out int value)) ;
+            return (!_IsEmpty(tb) && int.TryParse(tb.Text.Trim(), out int value)) ;
             
         }
         public static bool IsEmpty(TextBox tb , string ErrorMessage)
@@ -125,7 +125,16 @@ namespace DVLDWinForm.UIHelper_Manger
         {
             if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^\S{8,}$"))
             {
-                ep?.SetError(tb, "Enter a valid User Name.");
+                ep?.SetError(tb, "Enter a valid Password.");
+                return false;
+            }
+            return true;
+        }
+        public static bool IsValidPaidFees(TextBox tb)
+        {
+            if (_IsEmpty(tb) || !decimal.TryParse(tb.Text , out decimal PaidFees))
+            {
+                ep?.SetError(tb, "Enter a valid PaidFees.");
                 return false;
             }
             return true;

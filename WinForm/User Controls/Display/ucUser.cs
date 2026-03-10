@@ -82,6 +82,7 @@ namespace DVLDWinForm.User_Controls
         {
             ctrlPerson1.OnVisibleChanged += VisibleComponents;
             ctrlPerson1.OnUnvisibleChanged += UnvisibleComponents;
+            ctrlPerson1.UnvisibleComponents();
             ctrlPerson1.SelectdDTO = () => _UserInfo;
         }
         private void VisibleComponents()

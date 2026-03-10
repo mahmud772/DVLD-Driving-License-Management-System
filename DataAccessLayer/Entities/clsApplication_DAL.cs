@@ -4,15 +4,9 @@ using Common.Helpers;
 using Common.Queries;
 using DVLD_DAL.Mappers;
 using DVLD_DTOs;
-using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace DVLD_DAL
@@ -68,7 +62,7 @@ namespace DVLD_DAL
             string Query = "Select * From Applications Where ApplicationID = @ApplicationID";
             IsFound = clsDbHelper.ExecuteReader(Query,
                 Command => clsDbHelper.SetValue<int>(Command, "@ApplicationID", ApplicationID),
-                Reader => { DTO = _Reader(Reader); });
+                Reader => { DTO = clsApplication_DAL._Reader(Reader); });
             return DTO ;
         }
 

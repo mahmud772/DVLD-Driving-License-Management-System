@@ -28,10 +28,10 @@ namespace DVLDWinForm.User_Controls
             set
             {
                 _ApplicationInfo = value;
-                _SetApplicationInfo(value);
+                SetApplicationInfo(value);
             }
         }
-        public IDTO Info { get => _ApplicationInfo; set => ApplicationInfo = value as clsApplication_DTO; }
+        IDTO IUserControl.Info { get => _ApplicationInfo; set => ApplicationInfo = value as clsApplication_DTO; }
         public ucApplication()
         {
             InitializeComponent();
@@ -58,7 +58,7 @@ namespace DVLDWinForm.User_Controls
             if (_sharedContextMenu == null)
                 btnUpdate_Delete.Visible = false;
         }
-        private void _SetApplicationInfo(clsApplication_DTO ApplicationInfo)
+        private void SetApplicationInfo(clsApplication_DTO ApplicationInfo)
         {
             if (ApplicationInfo == null)
             {

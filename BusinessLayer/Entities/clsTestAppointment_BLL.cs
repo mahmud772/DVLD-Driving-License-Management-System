@@ -18,7 +18,7 @@ namespace DVLD_BLL
         public bool IsNew => Mode == enMode.Create;
         public bool IsRetakeTest { get; private set; }
         public clsTestAppointment_DTO Appointment { get; set; }
-        public IDTO DTO { get => Appointment; set => value = Appointment; }
+        IDTO IBLL.DTO { get => Appointment; set => value = Appointment; }
 
         public clsTestAppointment_BLL()
         {
@@ -107,6 +107,7 @@ namespace DVLD_BLL
                 this.Appointment.RetakeTestApplicationID = Application.Application.ApplicationID;
                 this.IsRetakeTest = true;
                 PaidFeesApplication = Application.Application.PaidFees;
+                clsApplication_BLL.SetComplete(Application.Application.ApplicationID);
             }
             this.Appointment.PaidFees = clsTestType_BLL.GetPaidFees(clsTestEnumConverter.ConvertTestTypeToInt(this.Appointment.TestType));
 
@@ -164,6 +165,10 @@ namespace DVLD_BLL
         public static decimal GetPaidFeesByTestAppointmentID(int TestAppointmentID)
         {
             return clsTestAppointment_DAL.LoadPaidFeesByTestAppointmentID(TestAppointmentID) ;
+        }
+        public static int GetApplicationIDByTestAppointmentID(int TestAppointmentID)
+        {
+            return clsTestAppointment_DAL.LoadApplicationIDByTestAppointmentID(TestAppointmentID) ;
         }
         public static clsTestEnums.enTestTypes GetLastTestType(int TestAppointmentID)
         {

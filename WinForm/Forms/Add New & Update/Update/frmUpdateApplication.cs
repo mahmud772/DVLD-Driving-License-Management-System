@@ -15,11 +15,10 @@ using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms.Add_New___Update.Update
 {
-    public partial class frmUpdateApplication : Form , IForm
+    public partial class frmUpdateApplication : Form 
     {
         private clsApplication_DTO _ApplicationInfo;
         private clsLocalDrivingLicenseApplication_DTO _LocalApplicationInfo;
-        public bool IsChange { get; set; } = false;
         private Func<bool> _SaveAction;
 
         private List<clsApplicationType_DTO> _ApplicationTypesList;
@@ -108,7 +107,7 @@ namespace DVLDWinForm.Forms.Add_New___Update.Update
                 return;
             }
             if(_SaveAction == null) return;
-            IsChange = _SaveAction.Invoke() ;
+            if(_SaveAction.Invoke()) DialogResult = DialogResult.OK;
             this.Close();
         }
 

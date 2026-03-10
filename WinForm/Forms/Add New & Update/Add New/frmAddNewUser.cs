@@ -14,9 +14,8 @@ using DVLD_BLL;
 using DVLDWinForm.UIHelper_Manger;
 namespace DVLDWinForm.Forms.Add_New___Update
 {
-    public partial class frmAddNewUser : Form , IForm
+    public partial class frmAddNewUser : Form
     {
-        public bool IsChange { get; set; } = false;
         public frmAddNewUser()
         {
             InitializeComponent();
@@ -99,9 +98,9 @@ namespace DVLDWinForm.Forms.Add_New___Update
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            IsChange = true;
             MessageBox.Show("Saved successfully", "Information",
                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DialogResult = DialogResult.OK;
             this.Close();
         }
     }

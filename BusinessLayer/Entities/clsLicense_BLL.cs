@@ -95,7 +95,7 @@ namespace DVLD_BLL
 
         private bool _UpdateLicense()
         {
-            this.License.PaidFees = clsLicenseClass_BLL.GetClassFees(clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
+            
 
             return clsLicense_DAL.UpdateLicense(this.License);
         }
@@ -163,8 +163,14 @@ namespace DVLD_BLL
             //NewLicense = OldLicense;
             NewLicense.License.IssueReason = IssueReason;
             NewLicense.License.IsActive = true;
-
-            return NewLicense.Save();
+            NewLicense.License.ExpirationDate = OldLicense.License.ExpirationDate;
+            if(NewLicense.Save())
+            {
+                clsApplication_BLL.SetComplete(ApplicationID);
+                return true;
+            }
+            else
+                return false;
 
         }
         public static bool RenewLicense(int LicenseID, int ApplicationID)

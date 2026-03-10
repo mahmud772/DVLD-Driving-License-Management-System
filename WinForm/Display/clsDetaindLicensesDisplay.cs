@@ -5,6 +5,7 @@ using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.Forms.Add_New___Update;
+using DVLDWinForm.Forms.Add_New___Update.Add_New;
 using DVLDWinForm.Forms.Add_New___Update.Update;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
@@ -40,10 +41,10 @@ namespace DVLDWinForm.Display
             clsUIActionsManager ui = _context.UIActionsManager;
             ui.Reset();
 
-            ui.RegisterCreate(() => null);
+            ui.RegisterCreate(() => new frmReserveLicense());
 
             ui.RegisterUpdate(dto =>
-               null);
+               new frmReleaseLicense(dto as clsLicenseCardInfo_DTO));
 
             ui.RegisterDelete(clsDetainedLicense_BLL.DeleteDetain);
 

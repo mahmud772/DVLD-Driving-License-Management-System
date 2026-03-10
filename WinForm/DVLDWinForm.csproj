@@ -65,6 +65,7 @@
     <Compile Include="Display\clsLocalDrivingLicenseApplicationsDisplay.cs" />
     <Compile Include="Display\clsPeopleDisplay.cs" />
     <Compile Include="Display\clsTestAppointmentsDisplay.cs" />
+    <Compile Include="Display\clsTestDisplay.cs" />
     <Compile Include="Display\clsUsersDisplay.cs" />
     <Compile Include="Display\IDisplay.cs" />
     <Compile Include="Display\IPaginationView.cs" />
@@ -74,17 +75,47 @@
     <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.Designer.cs">
       <DependentUpon>frmAddNewLicense.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewTest.Designer.cs">
+      <DependentUpon>frmAddNewTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmReserveLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmReserveLicense.Designer.cs">
+      <DependentUpon>frmReserveLicense.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateAppointment.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateAppointment.Designer.cs">
       <DependentUpon>frmAddNew_UpdateAppointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmReleaseLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmReleaseLicense.Designer.cs">
+      <DependentUpon>frmReleaseLicense.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateApplication.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateApplication.Designer.cs">
       <DependentUpon>frmUpdateApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateLicense.Designer.cs">
+      <DependentUpon>frmUpdateLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateTest.Designer.cs">
+      <DependentUpon>frmUpdateTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateUser.cs">
       <SubType>Form</SubType>
@@ -98,11 +129,11 @@
     <Compile Include="Forms\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateDriver.cs">
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewDriver.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdateDriver.Designer.cs">
-      <DependentUpon>frmAddNew_UpdateDriver.cs</DependentUpon>
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewDriver.Designer.cs">
+      <DependentUpon>frmAddNewDriver.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.cs">
       <SubType>Form</SubType>
@@ -134,7 +165,6 @@
     <Compile Include="Forms\frmSortAndFilter.Designer.cs">
       <DependentUpon>frmSortAndFilter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\IForm.cs" />
     <Compile Include="UIHelper_Manger\clsControlAnimateHeight.cs" />
     <Compile Include="UIHelper_Manger\clsUIEnums.cs" />
     <Compile Include="UIHelper_Manger\clsFormLayoutHelper.cs" />
@@ -193,6 +223,12 @@
       <DependentUpon>Test1.cs</DependentUpon>
     </Compile>
     <Compile Include="UIHelper_Manger\clsUIHelper.cs" />
+    <Compile Include="User Controls\Display\ucTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\Display\ucTest.Designer.cs">
+      <DependentUpon>ucTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="User Controls\Display\ucTestAppointment.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -248,6 +284,12 @@
     <Compile Include="User Controls\Filters\ucTestAppointmentsFilter.Designer.cs">
       <DependentUpon>ucTestAppointmentsFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\Filters\ucTestsFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\Filters\ucTestsFilter.Designer.cs">
+      <DependentUpon>ucTestsFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="User Controls\Filters\ucUsersFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -263,11 +305,17 @@
     <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.resx">
       <DependentUpon>frmAddNewLicense.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmAddNewTest.resx">
+      <DependentUpon>frmAddNewTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmReserveLicense.resx">
+      <DependentUpon>frmReserveLicense.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdateAppointment.resx">
       <DependentUpon>frmAddNew_UpdateAppointment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdateDriver.resx">
-      <DependentUpon>frmAddNew_UpdateDriver.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmAddNewDriver.resx">
+      <DependentUpon>frmAddNewDriver.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\frmAddNew_UpdatePerson.resx">
       <DependentUpon>frmAddNew_UpdatePerson.cs</DependentUpon>
@@ -278,8 +326,17 @@
     <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmAddNewUser.resx">
       <DependentUpon>frmAddNewUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmReleaseLicense.resx">
+      <DependentUpon>frmReleaseLicense.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateApplication.resx">
       <DependentUpon>frmUpdateApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateLicense.resx">
+      <DependentUpon>frmUpdateLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateTest.resx">
+      <DependentUpon>frmUpdateTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateUser.resx">
       <DependentUpon>frmUpdateUser.cs</DependentUpon>
@@ -321,6 +378,9 @@
     <EmbeddedResource Include="Tests\Test1.resx">
       <DependentUpon>Test1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\Display\ucTest.resx">
+      <DependentUpon>ucTest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="User Controls\Display\ucTestAppointment.resx">
       <DependentUpon>ucTestAppointment.cs</DependentUpon>
     </EmbeddedResource>
@@ -347,6 +407,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\Filters\ucTestAppointmentsFilter.resx">
       <DependentUpon>ucTestAppointmentsFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\Filters\ucTestsFilter.resx">
+      <DependentUpon>ucTestsFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\Filters\ucUsersFilter.resx">
       <DependentUpon>ucUsersFilter.cs</DependentUpon>

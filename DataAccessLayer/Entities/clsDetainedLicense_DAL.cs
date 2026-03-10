@@ -4,16 +4,9 @@ using Common.Helpers;
 using Common.Queries;
 using DVLD_DAL.Mappers;
 using DVLD_DTOs;
-using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace DVLD_DAL
 {
@@ -27,7 +20,7 @@ namespace DVLD_DAL
                 LicenseID = clsDbHelper.GetValue<int>(Reader, "LicenseID"),
                 ReleaseDate = clsDbHelper.GetValue<DateTime>(Reader, "ReleaseDate"),
                 IsReleased = clsDbHelper.GetValue<bool>(Reader, "IsReleased"),
-                PaidFees = clsDbHelper.GetValue<decimal>(Reader, "PaidFees"),
+                PaidFees = clsDbHelper.GetValue<decimal>(Reader, "FineFees"),
                 DetainDate = clsDbHelper.GetValue<DateTime>(Reader, "DetainDate"),
                 CreatedByUserID = clsDbHelper.GetValue<int>(Reader, "CreatedByUserID"),
                 ReleaseApplicationID = clsDbHelper.GetValue<int>(Reader, "ReleaseApplicationID"),
@@ -119,7 +112,6 @@ namespace DVLD_DAL
             return Model;
         }
 
-        // إضافة احتجاز رخصة جديدة
         public static int AddNewDetainedLicense(clsDetainedLicense_DTO Model)
         {
             string Query = @"INSERT INTO DetainedLicenses (LicenseID, DetainDate, FineFees, CreatedByUserID, IsReleased)

@@ -345,6 +345,16 @@ namespace DVLD_DAL
             string Query = "Select PaidFees From TestAppointments Where TestAppointmentID = @TestAppointmentID";
             return clsDbHelper.ExecuteScalar<decimal>(Query, Command => clsDbHelper.SetValue(Command, "@TestAppointmentID", TestAppointmentID));
         }
+        public static int LoadApplicationIDByTestAppointmentID(int TestAppointmentID)
+        {
+            string Query = @"Select LDLA.ApplicationID From TestAppointments TA
+                            Join LocalDrivingLicenseApplications LDLA ON 
+                            LDLA.LocalDrivingLicenseApplicationID = TA.LocalDrivingLicenseApplicationID 
+                            
+                            Where TestAppointmentID = @TestAppointmentID";
+            
+            return clsDbHelper.ExecuteScalar<int>(Query, Command => clsDbHelper.SetValue(Command, "@TestAppointmentID", TestAppointmentID));
+        }
 
     }
 }

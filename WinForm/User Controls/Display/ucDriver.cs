@@ -64,7 +64,7 @@ namespace DVLDWinForm
         {
             ctrlPerson1.OnVisibleChanged += VisibleComponents;
             ctrlPerson1.OnUnvisibleChanged += UnvisibleComponents;
-            
+            ctrlPerson1.UnvisibleComponents();
             ctrlPerson1.SelectdDTO = () => _DriverInfo;
         }
         private void VisibleComponents()

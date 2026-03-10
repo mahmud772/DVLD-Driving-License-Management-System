@@ -1,4 +1,5 @@
-﻿using DVLD_DTOs;
+﻿using DVLD_BLL;
+using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace DVLDWinForm.UIHelper_Manger
             });
         }
 
-        public void RegisterCreate(Func<IForm> createForm)
+        public void RegisterCreate(Func<Form> createForm)
         {
             Register(new clsUIAction
             {
@@ -52,17 +53,12 @@ namespace DVLDWinForm.UIHelper_Manger
                 {
                     if (createForm == null) return false;
 
-                    IForm form = createForm.Invoke();
-
-                    Form frm = form as Form;
-                    frm.ShowDialog();
-
-                    return form.IsChange;
+                    return createForm.Invoke()?.ShowDialog() == DialogResult.OK;
                 }
             });
         }
 
-        public void RegisterUpdate(Func<IDTO, IForm> updateForm)
+        public void RegisterUpdate(Func<IDTO, Form> updateForm)
         {
             Register(new clsUIAction
             {
@@ -70,36 +66,38 @@ namespace DVLDWinForm.UIHelper_Manger
                 Execute = dto =>
                 {
                     if (updateForm == null) return false;
-
-                    IForm form = updateForm.Invoke(dto);
-
-                    Form frm = form as Form;
-                    frm.ShowDialog();
-
-                    return form.IsChange;
+                    return updateForm.Invoke(dto).ShowDialog() == DialogResult.OK;
+                     
                 },
                 CanExecute = dto => dto != null
             });
         }
 
-        public void RegisterFilter(Func<IForm> filterForm)
+        public void RegisterFilter(Func<Form> filterForm)
         {
             Register(new clsUIAction
             {
                 ActionType = clsUIEnums.enUIAction.Filter,
                 Execute = dto =>
                 {
+
                     if (filterForm == null) return false;
 
-                    IForm form = filterForm.Invoke();
-
-                    Form frm = form as Form;
-                    frm.ShowDialog();
-
-                    return form.IsChange;
+                    return filterForm.Invoke().ShowDialog() == DialogResult.OK;
                 }
             });
         }
+        //public void RegisterPassedTest(Func<Form> filterForm)
+        //{
+        //    Register(new clsUIAction
+        //    {
+        //        ActionType = clsUIEnums.enUIAction.PassedTest,
+        //        Execute = dto =>
+        //        {
+                    
+        //        }
+        //    });
+        //}
         
     }
 }

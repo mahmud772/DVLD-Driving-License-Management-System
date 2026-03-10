@@ -77,47 +77,47 @@ namespace DVLD_BLL
 
 
 
-        public bool ReleaseLicense()
-        {
+        //public bool ReleaseLicense()
+        //{
 
-            if (this.IsNew || this.Detain.IsReleased) return false;
-            using (TransactionScope scope = new TransactionScope())
-            {
-                try
-                {
-                    int DriverID = clsLicense_BLL.GetDriverIDByLicenseID(this.Detain.LicenseID);
-                    if (DriverID < 1) return false;
-                    int PersonID = clsDriver_BLL.GetPersonIDByDriverID(DriverID);
-                    if (PersonID < 1) return false;
-                    clsApplication_BLL Application = new clsApplication_BLL();
-                    Application.Application.ApplicationTypeID = (int)clsApplicationEnums.enApplicationType.ReleaseDetainedDrivingLicsense;
-                    Application.Application.ApplicationStatus = clsApplicationEnums.enApplicationStatus.Completed;
-                    Application.Application.CreatedByUserID = 1;
-                    Application.Application.ApplicantPersonID = PersonID;
-                    Application.Application.LastStatusDate = clsBLHelper.GetDate_Now();
-                    Application.Application.PaidFees = clsApplicationType_BLL.GetApplicationFees(clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.RetakeTest));
-                    Application.Application.ApplicationDate = clsBLHelper.GetDate_Now();
+        //    if (this.IsNew || this.Detain.IsReleased) return false;
+        //    using (TransactionScope scope = new TransactionScope())
+        //    {
+        //        try
+        //        {
+        //            int DriverID = clsLicense_BLL.GetDriverIDByLicenseID(this.Detain.LicenseID);
+        //            if (DriverID < 1) return false;
+        //            int PersonID = clsDriver_BLL.GetPersonIDByDriverID(DriverID);
+        //            if (PersonID < 1) return false;
+        //            clsApplication_BLL Application = new clsApplication_BLL();
+        //            Application.Application.ApplicationTypeID = (int)clsApplicationEnums.enApplicationType.ReleaseDetainedDrivingLicsense;
+        //            Application.Application.ApplicationStatus = clsApplicationEnums.enApplicationStatus.Completed;
+        //            Application.Application.CreatedByUserID = 1;
+        //            Application.Application.ApplicantPersonID = PersonID;
+        //            Application.Application.LastStatusDate = clsBLHelper.GetDate_Now();
+        //            Application.Application.PaidFees = clsApplicationType_BLL.GetApplicationFees(clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.RetakeTest));
+        //            Application.Application.ApplicationDate = clsBLHelper.GetDate_Now();
 
-                    if (!Application.Save()) return false;
+        //            if (!Application.Save()) return false;
 
-                    this.Detain.IsReleased = true;
-                    this.Detain.ReleaseDate = clsBLHelper.GetDate_Now();
-                    this.Detain.ReleasedByUserID = 1;
-                    this.Detain.ReleaseApplicationID = Application.Application.ApplicationID;
+        //            this.Detain.IsReleased = true;
+        //            this.Detain.ReleaseDate = clsBLHelper.GetDate_Now();
+        //            this.Detain.ReleasedByUserID = 1;
+        //            this.Detain.ReleaseApplicationID = Application.Application.ApplicationID;
 
-                    if (!clsDetainedLicense_DAL.ReleaseLicense(this.Detain)) return false;
+        //            if (!clsDetainedLicense_DAL.ReleaseLicense(this.Detain)) return false;
 
-                    scope.Complete();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-            }
+        //            scope.Complete();
+        //            return true;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return false;
+        //        }
+        //    }
 
 
-        }
+        //}
 
         public static bool ReleaseLicense(int LicenseID, int ApplicationID)
         {
@@ -127,24 +127,26 @@ namespace DVLD_BLL
             detainedLicense.ReleasedByUserID = clsCurrentUser.User.UserID;
             detainedLicense.ReleaseApplicationID = ApplicationID;
 
-            if (clsDetainedLicense_DAL.ReleaseLicense(detainedLicense)) return true;
+            if (clsDetainedLicense_DAL.ReleaseLicense(detainedLicense))
+            {
+                clsApplication_BLL.SetComplete(ApplicationID);
+                return true;
+            }
 
             return false;
         }
         private bool _AddNewDetain()
         {
             this.Detain.DetainDate = clsBLHelper.GetDate_Now();
-            this.Detain.CreatedByUserID = clsCurrentUser.User.UserID;
-            this.Detain.DetainDate = clsBLHelper.GetDate_Now();
+            this.Detain.IsReleased = false;
             this.Detain.DetainID = clsDetainedLicense_DAL.AddNewDetainedLicense(this.Detain);
             return (this.Detain.DetainID > 0);
         }
 
         private bool _UpdateDetain()
         {
-
-
-            //this.Detain.ReleaseDate = this.Detain.IsReleased ? DateTime.Now : DateTime.MinValue;
+            if(this.Detain.IsReleased)
+                this.Detain.ReleaseDate = clsBLHelper.GetDate_Now();
 
             return clsDetainedLicense_DAL.UpdateDetainedLicense(this.Detain);
         }

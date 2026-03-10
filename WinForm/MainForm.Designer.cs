@@ -65,6 +65,7 @@
             this.btnFLP = new System.Windows.Forms.Button();
             this.pnlTypes = new System.Windows.Forms.Panel();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.btnTests = new System.Windows.Forms.Button();
             this.pnlMainMenu.SuspendLayout();
             this.pnlTopForm.SuspendLayout();
             this.pnlShowTotal.SuspendLayout();
@@ -77,6 +78,7 @@
             // pnlMainMenu
             // 
             this.pnlMainMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlMainMenu.Controls.Add(this.btnTests);
             this.pnlMainMenu.Controls.Add(this.btnLocalLicenseApp);
             this.pnlMainMenu.Controls.Add(this.btnDetainedLicenses);
             this.pnlMainMenu.Controls.Add(this.btnInternationalLicenses);
@@ -124,7 +126,7 @@
             this.btnDetainedLicenses.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnDetainedLicenses.Image = global::DVLDWinForm.Properties.Resources.Licenses;
             this.btnDetainedLicenses.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDetainedLicenses.Location = new System.Drawing.Point(36, 530);
+            this.btnDetainedLicenses.Location = new System.Drawing.Point(36, 544);
             this.btnDetainedLicenses.Name = "btnDetainedLicenses";
             this.btnDetainedLicenses.Size = new System.Drawing.Size(160, 30);
             this.btnDetainedLicenses.TabIndex = 13;
@@ -143,7 +145,7 @@
             this.btnInternationalLicenses.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnInternationalLicenses.Image = global::DVLDWinForm.Properties.Resources.InternationalLicense;
             this.btnInternationalLicenses.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInternationalLicenses.Location = new System.Drawing.Point(36, 494);
+            this.btnInternationalLicenses.Location = new System.Drawing.Point(36, 508);
             this.btnInternationalLicenses.Name = "btnInternationalLicenses";
             this.btnInternationalLicenses.Size = new System.Drawing.Size(178, 30);
             this.btnInternationalLicenses.TabIndex = 12;
@@ -170,7 +172,7 @@
             this.btnLicenses.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnLicenses.Image = global::DVLDWinForm.Properties.Resources.Licenses;
             this.btnLicenses.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLicenses.Location = new System.Drawing.Point(36, 458);
+            this.btnLicenses.Location = new System.Drawing.Point(36, 472);
             this.btnLicenses.Name = "btnLicenses";
             this.btnLicenses.Size = new System.Drawing.Size(160, 30);
             this.btnLicenses.TabIndex = 10;
@@ -189,7 +191,7 @@
             this.btnTestAppointments.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnTestAppointments.Image = global::DVLDWinForm.Properties.Resources.TestAppointment;
             this.btnTestAppointments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTestAppointments.Location = new System.Drawing.Point(36, 384);
+            this.btnTestAppointments.Location = new System.Drawing.Point(36, 410);
             this.btnTestAppointments.Name = "btnTestAppointments";
             this.btnTestAppointments.Size = new System.Drawing.Size(160, 30);
             this.btnTestAppointments.TabIndex = 9;
@@ -262,7 +264,7 @@
             this.lbLicenses_Title.BackColor = System.Drawing.Color.Transparent;
             this.lbLicenses_Title.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbLicenses_Title.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbLicenses_Title.Location = new System.Drawing.Point(7, 432);
+            this.lbLicenses_Title.Location = new System.Drawing.Point(7, 446);
             this.lbLicenses_Title.Name = "lbLicenses_Title";
             this.lbLicenses_Title.Size = new System.Drawing.Size(56, 17);
             this.lbLicenses_Title.TabIndex = 5;
@@ -563,6 +565,25 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // btnTests
+            // 
+            this.btnTests.BackColor = System.Drawing.Color.Transparent;
+            this.btnTests.FlatAppearance.BorderSize = 0;
+            this.btnTests.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTests.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTests.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnTests.Image = global::DVLDWinForm.Properties.Resources.TestAppointment;
+            this.btnTests.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTests.Location = new System.Drawing.Point(36, 374);
+            this.btnTests.Name = "btnTests";
+            this.btnTests.Size = new System.Drawing.Size(160, 30);
+            this.btnTests.TabIndex = 15;
+            this.btnTests.Text = "  Tests";
+            this.btnTests.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnTests.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTests.UseVisualStyleBackColor = false;
+            this.btnTests.Click += new System.EventHandler(this.btnTests_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -628,6 +649,7 @@
         private System.Windows.Forms.Button btnDetainedLicenses;
         private System.Windows.Forms.Button btnInternationalLicenses;
         private System.Windows.Forms.Button btnLocalLicenseApp;
+        private System.Windows.Forms.Button btnTests;
     }
 }
 

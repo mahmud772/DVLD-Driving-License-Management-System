@@ -1,4 +1,5 @@
-﻿using DVLD_DAL;
+﻿using Common.Queries;
+using DVLD_DAL;
 using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,10 @@ namespace DVLD_BLL
         {
             return clsTest_DAL.LoadCount();
         }
-
+        public static int GetCount(IQuery query)
+        {
+            return clsTest_DAL.LoadCount(query as clsTestQuery);
+        }
         public static clsTest_BLL FindByID(int TestID)
         {
             clsTest_DTO Model = clsTest_DAL.LoadTestByID(TestID);
@@ -57,19 +61,25 @@ namespace DVLD_BLL
             return true;
         }
 
-        // --- منطق الحفظ والتحديث ---
+        
 
         private bool _AddNewTest()
         {
             this.Test.TestID = clsTest_DAL.AddNewTest(this.Test);
+            
+            if (this.Test.TestID > -1) clsTestAppointment_DAL.LockedTestAppointment(this.Test.TestAppointmentID);
+
+            if (clsTestAppointment_BLL.GetLastTestType(this.Test.TestAppointmentID) ==
+                Common.clsTestEnums.enTestTypes.PracticalTest && this.Test.TestResult)
+            {
+                clsApplication_BLL.SetComplete(clsTestAppointment_BLL.GetApplicationIDByTestAppointmentID(this.Test.TestAppointmentID));
+            }
             return (this.Test.TestID > -1);
         }
 
         private bool _UpdateTest()
         {
-            clsTestAppointment_BLL Appointment = clsTestAppointment_BLL.FindByID(this.Test.TestAppointmentID);
-            Appointment.Appointment.IsLocked = true;
-            if (!Appointment.Save()) return false;
+            clsTestAppointment_DAL.LockedTestAppointment(this.Test.TestAppointmentID);
             return clsTest_DAL.UpdateTest(this.Test);
         }
 
@@ -98,9 +108,17 @@ namespace DVLD_BLL
         {
             return clsTest_DAL.LoadTests(Offset, CountRows);
         }
+        public static List<clsTest_DTO> GetTests(int Offset, int CountRows , IQuery Query)
+        {
+            return clsTest_DAL.LoadTests(Offset, CountRows , Query as clsTestQuery);
+        }
         public static bool IsDriverPassedInAllTests(int DriverID, int LicenseClassID)
         {
             return clsTest_DAL.IsDriverPassedInAllTests(DriverID, LicenseClassID);
+        }
+        public static bool DeleteTest(int TestID)
+        {
+            return clsTest_DAL.DeleteTest(TestID);
         }
     }
 }
