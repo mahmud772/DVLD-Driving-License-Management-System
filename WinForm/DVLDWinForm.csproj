@@ -69,6 +69,12 @@
     <Compile Include="Display\clsUsersDisplay.cs" />
     <Compile Include="Display\IDisplay.cs" />
     <Compile Include="Display\IPaginationView.cs" />
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewInternationalLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewInternationalLicense.Designer.cs">
+      <DependentUpon>frmAddNewInternationalLicense.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,6 +208,12 @@
     <Compile Include="User Controls\Display\ucLicense.Designer.cs">
       <DependentUpon>ucLicense.cs</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\Display\ucLocalLicenseApplication.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\Display\ucLocalLicenseApplication.Designer.cs">
+      <DependentUpon>ucLocalLicenseApplication.cs</DependentUpon>
+    </Compile>
     <Compile Include="User Controls\Display\ucPerson.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -302,6 +314,9 @@
     <Compile Include="User Controls\ucLogout.Designer.cs">
       <DependentUpon>ucLogout.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmAddNewInternationalLicense.resx">
+      <DependentUpon>frmAddNewInternationalLicense.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\Add New\frmAddNewLicense.resx">
       <DependentUpon>frmAddNewLicense.cs</DependentUpon>
     </EmbeddedResource>
@@ -358,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\Display\ucLicense.resx">
       <DependentUpon>ucLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\Display\ucLocalLicenseApplication.resx">
+      <DependentUpon>ucLocalLicenseApplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\Display\ucPerson.resx">
       <DependentUpon>ucPerson.cs</DependentUpon>

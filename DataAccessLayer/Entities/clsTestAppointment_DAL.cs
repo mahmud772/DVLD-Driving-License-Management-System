@@ -219,10 +219,14 @@ namespace DVLD_DAL
         }
         public static bool IsPassedInLastTest(int LocalDrivingLicenseApplicationID)
         {
-            string Query = @"Select T.TestResult From TestAppointments TA
+            string Query = @"SELECT T.TestResult 
+                            From TestAppointments TA
                             Join Tests T ON TA.TestAppointmentID = T.TestAppointmentID
-                            Where AppointmentDate IN 
-                            (Select Max (AppointmentDate) From TestAppointments Where LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID);
+                            Where TA.TestAppointmentID = (
+                                SELECT MAX(TestAppointmentID) 
+                                From TestAppointments 
+                                Where LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID
+                            );
                             ";
             return clsDbHelper.ExecuteScalar<bool>(Query, Command => clsDbHelper.SetValue(Command, "@LocalDrivingLicenseApplicationID", LocalDrivingLicenseApplicationID));
 

@@ -67,7 +67,7 @@ namespace DVLD_BLL
         {
             this.Test.TestID = clsTest_DAL.AddNewTest(this.Test);
             
-            if (this.Test.TestID > -1) clsTestAppointment_DAL.LockedTestAppointment(this.Test.TestAppointmentID);
+            if (this.Test.TestID > -1) clsTestAppointment_BLL.LockedTestAppointment(this.Test.TestAppointmentID);
 
             if (clsTestAppointment_BLL.GetLastTestType(this.Test.TestAppointmentID) ==
                 Common.clsTestEnums.enTestTypes.PracticalTest && this.Test.TestResult)
@@ -79,7 +79,7 @@ namespace DVLD_BLL
 
         private bool _UpdateTest()
         {
-            clsTestAppointment_DAL.LockedTestAppointment(this.Test.TestAppointmentID);
+            clsTestAppointment_BLL.LockedTestAppointment(this.Test.TestAppointmentID);
             return clsTest_DAL.UpdateTest(this.Test);
         }
 

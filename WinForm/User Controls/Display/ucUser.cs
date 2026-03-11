@@ -1,19 +1,9 @@
-﻿using Common;
-using DVLD_BLL;
-using DVLD_DTOs;
+﻿using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
-using DVLDWinForm.UIHelper_Manger;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 namespace DVLDWinForm.User_Controls
 {
     public partial class ucUser : UserControl , IUserControl
@@ -33,20 +23,11 @@ namespace DVLDWinForm.User_Controls
         public ucUser()
         {
             InitializeComponent();
-            _LoadDesign();
-            UnvisibleComponents();
-            ctrlPerson1.CollapseInstantly();
-            this.Height = ctrlPerson1._collapsedHeight;
         }
         public ucUser(ContextMenuStrip SharedContextMenu)
         {
-
             _sharedContextMenu = SharedContextMenu;
             InitializeComponent();
-            _LoadDesign();
-            UnvisibleComponents();
-            ctrlPerson1.CollapseInstantly();
-            this.Height = ctrlPerson1._collapsedHeight;
         }
         private void LoadUserControlDesign()
         {
@@ -101,7 +82,10 @@ namespace DVLDWinForm.User_Controls
         
         private void ctrlUser_Load(object sender, EventArgs e)
         {
-            
+            _LoadDesign();
+            UnvisibleComponents();
+            ctrlPerson1.CollapseInstantly();
+            this.Height = ctrlPerson1._collapsedHeight;
         }
     }
 }

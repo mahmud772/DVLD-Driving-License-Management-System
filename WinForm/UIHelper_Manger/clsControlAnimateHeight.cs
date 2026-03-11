@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace DVLDWinForm.UIHelper_Manger
@@ -13,13 +8,13 @@ namespace DVLDWinForm.UIHelper_Manger
     {
         public enum enStatus { Expanded = 1 , Closed = 2 };
         public enStatus Status {  get;private set; }
-        // الحقول الخاصة (Private Fields)
-        private readonly UserControl _userControl;
-        private readonly int _expandedHeight;
-        private readonly int _collapsedHeight;
-        private readonly Timer _animationTimer;
+        
+        private UserControl _userControl;
+        private int _expandedHeight;
+        private int _collapsedHeight;
+        private Timer _animationTimer;
         private bool _isExpanding;
-        private int _step; // مقدار الزيادة أو النقص في كل تكة تايمر
+        private int _step; 
 
         public event Action OnExpand;
         public event Action OnCollapse;
@@ -33,13 +28,12 @@ namespace DVLDWinForm.UIHelper_Manger
             _collapsedHeight = collapsedHeight;
             _step = step;
 
-            // إعداد التايمر (Setting up the timer)
             _animationTimer = new Timer();
-            _animationTimer.Interval = 15; // سرعة الحركة (أقل = أنعم)
+            _animationTimer.Interval = 15; 
             _animationTimer.Tick += _animationTimer_Tick;
         }
 
-        // الدالة المسؤولة عن منطق الحركة (Internal Logic)
+        
         private void _animationTimer_Tick(object sender, EventArgs e)
         {
             if (_isExpanding)

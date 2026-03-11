@@ -26,7 +26,7 @@ namespace DVLDWinForm.Display
             _displayMode = DisplayMode;
             InitializeAdapter(clsApplication_BLL.GetApplications,
                clsApplication_BLL.GetCount,
-               GetDisplayView<clsApplication_DTO>(application => new ucApplication(_context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
+               GetDisplayView<clsApplication_DTO>(application => new ucApplication(_context.SharedContextMenu) { ApplicationInfo = application  } , DisplayMode));
 
         }
         public override void InitializeUIActionsManager()

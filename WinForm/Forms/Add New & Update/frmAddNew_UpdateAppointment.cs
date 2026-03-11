@@ -5,6 +5,7 @@ using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
+using DVLDWinForm.User_Controls.Display;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -38,6 +39,9 @@ namespace DVLDWinForm.Forms.Add_New___Update
         private void LoadDesign()
         {
             clsUIHelper.CornerRadius(pnlAppointment, 5);
+            lbRetakeTestApp.Visible = false;
+            tbRetakeTestAppID.Visible = false;
+            pbSelectedRetakeAppID.Visible = false;
         }
         private void SetApplicationInfo()
         {
@@ -60,8 +64,11 @@ namespace DVLDWinForm.Forms.Add_New___Update
             _AppointmentInfo?.AppointmentDate = dtpAppointmentDate.Value;
             _AppointmentInfo?.LocalDrivingLicenseApplicationID = Convert.ToInt32(tbID.Text?.Trim());
             _AppointmentInfo?.CreatedByUserID = clsCurrentUser.User.UserID;
-            if (_AppointmentInfo.AppointmentDate <= DateTime.Now) return false;
-
+            if (_AppointmentInfo.AppointmentDate < DateTime.Now) return false;
+            int RetakeID;
+            if(tbRetakeTestAppID.Visible && int.TryParse(tbRetakeTestAppID.Text ,out RetakeID))
+                _AppointmentInfo.RetakeTestApplicationID = RetakeID;
+           
             return true;
         }
         private void btnSave_Click(object sender, EventArgs e)
@@ -75,14 +82,12 @@ namespace DVLDWinForm.Forms.Add_New___Update
                 Appointment.Appointment = _AppointmentInfo;
                 if(Appointment.Save())
                 {
-                    lbPaidFeesRetakeTest.Text = Appointment.IsRetakeTest ? 
-                        clsApplicationType_BLL.GetApplicationFees(
-                            clsApplicationEnumConverter.ToInt(
-                                clsApplicationEnums.enApplicationType.RetakeTest)).ToString("F1") 
-                        : "0";
+                    MessageBox.Show("A new date has been set .", "Information", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
+                    this.Close();
                 }
-                
+                MessageBox.Show("The Data Is Not Valid .", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -91,21 +96,54 @@ namespace DVLDWinForm.Forms.Add_New___Update
         }
         private void pbSelectedID_Click(object sender, EventArgs e)
         {
-            frmFind frm = new frmFind(new ucApplication(), clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);
+            ucLocalLicenseApplication app = new ucLocalLicenseApplication();
+            frmFind frm = new frmFind(app, clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);
             frm?.ShowDialog();
             tbID.Text = frm?.SelectedID;
             int ID;
             int.TryParse(tbID.Text, out ID);
             if (ID == 0) return;
-            UpdateFormAfterSelectedLDLA(ID);
+            UpdateFormAfterSelectedLDLA(ID , app.ApplicationInfo);
+
         }
-        private void UpdateFormAfterSelectedLDLA(int ID)
+        private void UpdateFormAfterSelectedLDLA(int ID, clsLocalDrivingLicenseApplication_DTO LocalApp)
         {
             clsTestEnums.enTestTypes eTestType = clsTestAppointment_BLL.GetLastTestType(ID);
+            bool IsNeedRetakeTestApp = 
+                clsTestAppointment_BLL.IsNeedRetakeTestApp(LocalApp.LocalDrivingLicenseApplicationID, eTestType);
+            eTestType = SelectTestType(eTestType, ID , IsNeedRetakeTestApp);
             int TestType = clsTestEnumConverter.ConvertTestTypeToInt(eTestType);
-            if (eTestType == clsTestEnums.enTestTypes.PracticalTest) TestType--;
-            lbType.Text = clsTestEnumConverter.ConvertTestTypeToEnum( TestType + 1).ToString().Split(' ')[0];
-            lbPaidFees.Text = clsTestType_BLL.GetPaidFees(TestType + 1).ToString("F1");
+            lbType.Text = eTestType.ToString().Split(' ')[0];
+            lbPaidFees.Text = clsTestType_BLL.GetPaidFees(TestType).ToString("F1");
+            if(LocalApp != null && IsNeedRetakeTestApp)
+            {
+                lbRetakeTestApp.Visible = true;
+                tbRetakeTestAppID.Visible = true;
+                pbSelectedRetakeAppID.Visible = true;
+            }
+            else
+            {
+                lbRetakeTestApp.Visible = false;
+                tbRetakeTestAppID.Visible = false;
+                pbSelectedRetakeAppID.Visible = false;
+            }
+            _AppointmentInfo.TestType = eTestType;
+        }
+        private clsTestEnums.enTestTypes SelectTestType(clsTestEnums.enTestTypes eTestType ,int LocalLicenseAppID , bool IsNeedRetakeTestApp)
+        {;
+            if (IsNeedRetakeTestApp)
+                return eTestType;
+            else if (eTestType == clsTestEnums.enTestTypes.VisionTest)
+                return clsTestEnums.enTestTypes.WrittenTest;
+            else if(eTestType == clsTestEnums.enTestTypes.WrittenTest)
+                return clsTestEnums.enTestTypes.PracticalTest;
+            return eTestType ;
+        }
+        private void pbSelectedRetakeAppID_Click(object sender, EventArgs e)
+        {
+            frmFind frm = new frmFind(new ucApplication() , clsApplication_BLL.FindByApplicationID);
+            frm.ShowDialog();
+            tbRetakeTestAppID.Text = frm.SelectedID;
         }
     }
 }

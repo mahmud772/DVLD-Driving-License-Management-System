@@ -6,6 +6,7 @@ using DVLDWinForm.Forms.Add_New___Update.Add_New;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
+using DVLDWinForm.User_Controls.Display;
 using DVLDWinForm.User_Controls.Display.ucApplication;
 using System;
 using System.Collections.Generic;
@@ -122,7 +123,7 @@ namespace DVLDWinForm.Forms
             else if (type == clsApplicationEnums.enApplicationType.RetakeTest)
             {
                 HideLicenseClass();
-                OpenForm = () => new frmFind(new ucApplication(), clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);
+                OpenForm = () => new frmFind(new ucLocalLicenseApplication(), clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);
                 lbID.Text = "Local Application ID:";
                 ckbOperationLicense.Visible = false;
                 lbPaidFeesLicenseClass.Visible = false;

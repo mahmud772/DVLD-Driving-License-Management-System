@@ -1,19 +1,10 @@
 ﻿using DVLD_BLL;
 using DVLD_DTOs;
-using DVLDWinForm;
 using DVLDWinForm.Forms;
 using DVLDWinForm.UIHelper;
-using DVLDWinForm.UIHelper_Manger;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Common.clsApplicationEnums;
 
 namespace DVLDWinForm.User_Controls
 {
@@ -57,14 +48,14 @@ namespace DVLDWinForm.User_Controls
         {
             if (AppointmentInfo == null)
             {
-                MessageBox.Show("This is Appointment Is Not Found !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("This is Appointment Is Not Found !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             lbAppointmentID.Text = AppointmentInfo.TestAppointmentID.ToString();
-            lbTestID.Text = AppointmentInfo.TestAppointmentID.ToString();
+            lbLocalLicenseAppID.Text = AppointmentInfo.LocalDrivingLicenseApplicationID.ToString();
             lbAppointmentDate.Text = AppointmentInfo.AppointmentDate.ToString("yyyy/MM/dd");
             lbTestType.Text = clsTestType_BLL.GetTestTypeTitle(AppointmentInfo.TestTypeID).Split(' ')[0];
-            lbTestResult.Text = AppointmentInfo.RetakeTestApplicationID.ToString();
+            lbStatus.Text = AppointmentInfo.IsLocked ? "Locked" : "Unlocked";
             lbPaidFees.Text = AppointmentInfo.PaidFees.ToString();
             clsUIHelper.FitText(lbTestType, 7.0f);
 

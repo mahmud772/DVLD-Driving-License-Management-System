@@ -31,22 +31,22 @@
             this.pnlIDs = new System.Windows.Forms.Panel();
             this.lbAppointmentID_Titel = new System.Windows.Forms.Label();
             this.lbTestID_Title = new System.Windows.Forms.Label();
-            this.lbTestID = new System.Windows.Forms.Label();
+            this.lbLocalLicenseAppID = new System.Windows.Forms.Label();
             this.lbAppointmentID = new System.Windows.Forms.Label();
             this.pnlMoreInfo = new System.Windows.Forms.Panel();
             this.lbPaidFees = new System.Windows.Forms.Label();
             this.pctrPaidFees = new System.Windows.Forms.PictureBox();
-            this.pctrCountry = new System.Windows.Forms.PictureBox();
+            this.pctrStatus = new System.Windows.Forms.PictureBox();
             this.lbAppointmentDate = new System.Windows.Forms.Label();
             this.lbTestType = new System.Windows.Forms.Label();
-            this.lbTestResult = new System.Windows.Forms.Label();
+            this.lbStatus = new System.Windows.Forms.Label();
             this.pctrAppointmentDate = new System.Windows.Forms.PictureBox();
             this.pctrGendor = new System.Windows.Forms.PictureBox();
             this.btnUpdate_Delete = new System.Windows.Forms.Button();
             this.pnlIDs.SuspendLayout();
             this.pnlMoreInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctrPaidFees)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrCountry)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrAppointmentDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrGendor)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +56,7 @@
             this.pnlIDs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(242)))), ((int)(((byte)(246)))));
             this.pnlIDs.Controls.Add(this.lbAppointmentID_Titel);
             this.pnlIDs.Controls.Add(this.lbTestID_Title);
-            this.pnlIDs.Controls.Add(this.lbTestID);
+            this.pnlIDs.Controls.Add(this.lbLocalLicenseAppID);
             this.pnlIDs.Controls.Add(this.lbAppointmentID);
             this.pnlIDs.Location = new System.Drawing.Point(0, 127);
             this.pnlIDs.Name = "pnlIDs";
@@ -68,7 +68,7 @@
             this.lbAppointmentID_Titel.AutoSize = true;
             this.lbAppointmentID_Titel.Font = new System.Drawing.Font("Segoe UI Variable Small Semilig", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAppointmentID_Titel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(128)))), ((int)(((byte)(147)))));
-            this.lbAppointmentID_Titel.Location = new System.Drawing.Point(174, 8);
+            this.lbAppointmentID_Titel.Location = new System.Drawing.Point(176, 8);
             this.lbAppointmentID_Titel.Name = "lbAppointmentID_Titel";
             this.lbAppointmentID_Titel.Size = new System.Drawing.Size(112, 17);
             this.lbAppointmentID_Titel.TabIndex = 25;
@@ -79,29 +79,29 @@
             this.lbTestID_Title.AutoSize = true;
             this.lbTestID_Title.Font = new System.Drawing.Font("Segoe UI Variable Small Semilig", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTestID_Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(128)))), ((int)(((byte)(147)))));
-            this.lbTestID_Title.Location = new System.Drawing.Point(12, 8);
+            this.lbTestID_Title.Location = new System.Drawing.Point(5, 8);
             this.lbTestID_Title.Name = "lbTestID_Title";
-            this.lbTestID_Title.Size = new System.Drawing.Size(58, 17);
+            this.lbTestID_Title.Size = new System.Drawing.Size(106, 17);
             this.lbTestID_Title.TabIndex = 24;
-            this.lbTestID_Title.Text = "Test ID : ";
+            this.lbTestID_Title.Text = "License App ID : ";
             // 
-            // lbTestID
+            // lbLocalLicenseAppID
             // 
-            this.lbTestID.AutoSize = true;
-            this.lbTestID.Font = new System.Drawing.Font("Segoe UI Variable Text Semiligh", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTestID.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lbTestID.Location = new System.Drawing.Point(74, 10);
-            this.lbTestID.Name = "lbTestID";
-            this.lbTestID.Size = new System.Drawing.Size(65, 15);
-            this.lbTestID.TabIndex = 10;
-            this.lbTestID.Text = "1234567890";
+            this.lbLocalLicenseAppID.AutoSize = true;
+            this.lbLocalLicenseAppID.Font = new System.Drawing.Font("Segoe UI Variable Text Semiligh", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLocalLicenseAppID.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lbLocalLicenseAppID.Location = new System.Drawing.Point(108, 10);
+            this.lbLocalLicenseAppID.Name = "lbLocalLicenseAppID";
+            this.lbLocalLicenseAppID.Size = new System.Drawing.Size(65, 15);
+            this.lbLocalLicenseAppID.TabIndex = 10;
+            this.lbLocalLicenseAppID.Text = "1234567890";
             // 
             // lbAppointmentID
             // 
             this.lbAppointmentID.AutoSize = true;
             this.lbAppointmentID.Font = new System.Drawing.Font("Segoe UI Variable Text Semiligh", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAppointmentID.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lbAppointmentID.Location = new System.Drawing.Point(288, 10);
+            this.lbAppointmentID.Location = new System.Drawing.Point(290, 10);
             this.lbAppointmentID.Name = "lbAppointmentID";
             this.lbAppointmentID.Size = new System.Drawing.Size(87, 15);
             this.lbAppointmentID.TabIndex = 1;
@@ -112,10 +112,10 @@
             this.pnlMoreInfo.BackColor = System.Drawing.Color.White;
             this.pnlMoreInfo.Controls.Add(this.lbPaidFees);
             this.pnlMoreInfo.Controls.Add(this.pctrPaidFees);
-            this.pnlMoreInfo.Controls.Add(this.pctrCountry);
+            this.pnlMoreInfo.Controls.Add(this.pctrStatus);
             this.pnlMoreInfo.Controls.Add(this.lbAppointmentDate);
             this.pnlMoreInfo.Controls.Add(this.lbTestType);
-            this.pnlMoreInfo.Controls.Add(this.lbTestResult);
+            this.pnlMoreInfo.Controls.Add(this.lbStatus);
             this.pnlMoreInfo.Controls.Add(this.pctrAppointmentDate);
             this.pnlMoreInfo.Controls.Add(this.pctrGendor);
             this.pnlMoreInfo.Location = new System.Drawing.Point(18, 28);
@@ -144,15 +144,15 @@
             this.pctrPaidFees.TabIndex = 24;
             this.pctrPaidFees.TabStop = false;
             // 
-            // pctrCountry
+            // pctrStatus
             // 
-            this.pctrCountry.Image = global::DVLDWinForm.Properties.Resources.Status;
-            this.pctrCountry.Location = new System.Drawing.Point(11, 58);
-            this.pctrCountry.Name = "pctrCountry";
-            this.pctrCountry.Size = new System.Drawing.Size(24, 26);
-            this.pctrCountry.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrCountry.TabIndex = 22;
-            this.pctrCountry.TabStop = false;
+            this.pctrStatus.Image = global::DVLDWinForm.Properties.Resources.Status;
+            this.pctrStatus.Location = new System.Drawing.Point(11, 58);
+            this.pctrStatus.Name = "pctrStatus";
+            this.pctrStatus.Size = new System.Drawing.Size(24, 26);
+            this.pctrStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrStatus.TabIndex = 22;
+            this.pctrStatus.TabStop = false;
             // 
             // lbAppointmentDate
             // 
@@ -176,16 +176,16 @@
             this.lbTestType.TabIndex = 11;
             this.lbTestType.Text = "TestType";
             // 
-            // lbTestResult
+            // lbStatus
             // 
-            this.lbTestResult.AutoSize = true;
-            this.lbTestResult.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTestResult.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.lbTestResult.Location = new System.Drawing.Point(50, 62);
-            this.lbTestResult.Name = "lbTestResult";
-            this.lbTestResult.Size = new System.Drawing.Size(84, 21);
-            this.lbTestResult.TabIndex = 15;
-            this.lbTestResult.Text = "TestResult";
+            this.lbStatus.AutoSize = true;
+            this.lbStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStatus.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lbStatus.Location = new System.Drawing.Point(50, 61);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(63, 21);
+            this.lbStatus.TabIndex = 15;
+            this.lbStatus.Text = "Locked";
             // 
             // pctrAppointmentDate
             // 
@@ -240,7 +240,7 @@
             this.pnlMoreInfo.ResumeLayout(false);
             this.pnlMoreInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pctrPaidFees)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrCountry)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrAppointmentDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrGendor)).EndInit();
             this.ResumeLayout(false);
@@ -252,13 +252,13 @@
         private System.Windows.Forms.Panel pnlIDs;
         private System.Windows.Forms.Label lbAppointmentID_Titel;
         private System.Windows.Forms.Label lbTestID_Title;
-        private System.Windows.Forms.Label lbTestID;
+        private System.Windows.Forms.Label lbLocalLicenseAppID;
         private System.Windows.Forms.Label lbAppointmentID;
         private System.Windows.Forms.Panel pnlMoreInfo;
-        private System.Windows.Forms.PictureBox pctrCountry;
+        private System.Windows.Forms.PictureBox pctrStatus;
         private System.Windows.Forms.Label lbAppointmentDate;
         private System.Windows.Forms.Label lbTestType;
-        private System.Windows.Forms.Label lbTestResult;
+        private System.Windows.Forms.Label lbStatus;
         private System.Windows.Forms.PictureBox pctrAppointmentDate;
         private System.Windows.Forms.PictureBox pctrGendor;
         private System.Windows.Forms.Button btnUpdate_Delete;

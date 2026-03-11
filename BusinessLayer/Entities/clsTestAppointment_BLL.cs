@@ -64,12 +64,21 @@ namespace DVLD_BLL
             Appointment = new clsTestAppointment_BLL(Model);
             return true;
         }
-
+        public static bool IsNeedRetakeTestApp(int LocalDrivingLicenseApplicationID 
+            , clsTestEnums.enTestTypes TestType)
+        {
+            if (!clsTestAppointment_DAL.IsPassedInLastTest(LocalDrivingLicenseApplicationID)
+                && clsTestAppointment_DAL.IsTestedBeforInthisType(LocalDrivingLicenseApplicationID, TestType)
+                )
+                return true;
+            return false;
+        }
 
         private bool _IsTestOrderValid()
         {
             int LastPassed = clsTestAppointment_DAL.LoadLastTestTypePassed(this.Appointment.LocalDrivingLicenseApplicationID);
-            clsTestEnums.enTestTypes LastTest = clsTestEnumConverter.ConvertTestTypeToEnum(clsTestAppointment_DAL.LoadLastTestType(this.Appointment.LocalDrivingLicenseApplicationID));
+            clsTestEnums.enTestTypes LastTest = clsTestEnumConverter.ConvertTestTypeToEnum(
+                clsTestAppointment_DAL.LoadLastTestType(this.Appointment.LocalDrivingLicenseApplicationID));
 
             if (LastPassed == 0 && LastTest != clsTestEnums.enTestTypes.VisionTest) return false;
             if (LastPassed == (int)clsTestEnums.enTestTypes.PracticalTest) return false;
@@ -82,33 +91,33 @@ namespace DVLD_BLL
 
             return true;
         }
+
         private bool _AddNewAppointment()
         {
-            decimal PaidFeesApplication = 0;
-            this.Appointment.RetakeTestApplicationID = 0;
+            //decimal PaidFeesApplication = 0;
             if (this.Appointment.AppointmentDate < clsBLHelper.GetDate_Now()) return false;
             if (clsTestAppointment_DAL.IsTestedBefor(this.Appointment.LocalDrivingLicenseApplicationID))
                 if (!_IsTestOrderValid()) return false;
 
-            if (!clsTestAppointment_DAL.IsPassedInLastTest(this.Appointment.LocalDrivingLicenseApplicationID)
-                && clsTestAppointment_DAL.IsTestedBeforInthisType(this.Appointment.LocalDrivingLicenseApplicationID, this.Appointment.TestType)
-                )
-            {
-                clsApplication_BLL Application = new clsApplication_BLL();
+            //if (!clsTestAppointment_DAL.IsPassedInLastTest(this.Appointment.LocalDrivingLicenseApplicationID)
+            //    && clsTestAppointment_DAL.IsTestedBeforInthisType(this.Appointment.LocalDrivingLicenseApplicationID, this.Appointment.TestType)
+            //    )
+            //{
+            //    clsApplication_BLL Application = new clsApplication_BLL();
 
-                Application.Application.ApplicantPersonID = clsLocalDrivingLicenseApplication_DAL.GetPersonIDByLocalDrivingLicenseApplicationID(this.Appointment.LocalDrivingLicenseApplicationID);
-                //Application.Application.ApplicationDate = clsBLHelper.GetDate_Now();
-                Application.Application.ApplicationTypeID = clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.RetakeTest);
-                Application.Application.ApplicationStatus = clsApplicationEnums.enApplicationStatus.Completed;
-                Application.Application.CreatedByUserID = this.Appointment.CreatedByUserID;
-                //Application.Application.LastStatusDate = clsBLHelper.GetDate_Now();
-                //Application.Application.PaidFees = clsApplicationType_BLL.GetApplicationFees(clsApplicationEnums.ConvertApplicationTypeToInt(clsApplicationEnums.enApplicationType.RetakeTest));
-                if (!Application.Save()) return false;
-                this.Appointment.RetakeTestApplicationID = Application.Application.ApplicationID;
-                this.IsRetakeTest = true;
-                PaidFeesApplication = Application.Application.PaidFees;
-                clsApplication_BLL.SetComplete(Application.Application.ApplicationID);
-            }
+            //    Application.Application.ApplicantPersonID = clsLocalDrivingLicenseApplication_DAL.GetPersonIDByLocalDrivingLicenseApplicationID(this.Appointment.LocalDrivingLicenseApplicationID);
+            //    //Application.Application.ApplicationDate = clsBLHelper.GetDate_Now();
+            //    Application.Application.ApplicationTypeID = clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.RetakeTest);
+            //    Application.Application.ApplicationStatus = clsApplicationEnums.enApplicationStatus.Completed;
+            //    Application.Application.CreatedByUserID = this.Appointment.CreatedByUserID;
+            //    //Application.Application.LastStatusDate = clsBLHelper.GetDate_Now();
+            //    //Application.Application.PaidFees = clsApplicationType_BLL.GetApplicationFees(clsApplicationEnums.ConvertApplicationTypeToInt(clsApplicationEnums.enApplicationType.RetakeTest));
+            //    if (!Application.Save()) return false;
+            //    this.Appointment.RetakeTestApplicationID = Application.Application.ApplicationID;
+            //    this.IsRetakeTest = true;
+            //    PaidFeesApplication = Application.Application.PaidFees;
+            //    clsApplication_BLL.SetComplete(Application.Application.ApplicationID);
+            //}
             this.Appointment.PaidFees = clsTestType_BLL.GetPaidFees(clsTestEnumConverter.ConvertTestTypeToInt(this.Appointment.TestType));
 
             this.Appointment.TestAppointmentID = clsTestAppointment_DAL.AddNewTestAppointment(this.Appointment);

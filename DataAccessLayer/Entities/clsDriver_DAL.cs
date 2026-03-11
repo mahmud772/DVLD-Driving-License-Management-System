@@ -130,8 +130,8 @@ namespace DVLD_DAL
         {
             string Query = @"INSERT INTO Drivers (PersonID, CreatedByUserID, CreatedDate)
                          Select @PersonID, @CreatedByUserID, @CreatedDate
-                         Where Not Exists (Select 1 From Drivers PersonID = @PersonID)
-                         And Exists (Select 1 From People PersonID = @PersonID);
+                         Where Not Exists (Select 1 From Drivers Where PersonID = @PersonID)
+                         And Exists (Select 1 From People Where PersonID = @PersonID);
                          IF @@ROWCOUNT > 0
                                 SELECT SCOPE_IDENTITY();
                             ELSE

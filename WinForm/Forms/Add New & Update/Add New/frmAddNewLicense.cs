@@ -6,12 +6,6 @@ using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms.Add_New___Update.Add_New
@@ -39,7 +33,7 @@ namespace DVLDWinForm.Forms.Add_New___Update.Add_New
         private void _SetApplicationInfo()
         {
             _LicenseClassesList = clsStaticData_BLL.LicenseClasses;
-            cbLicenseClass?.DataSource = _LicenseClassesList;
+            cbLicenseClass.DataSource = _LicenseClassesList;
             cbLicenseClass.DisplayMember = "ClassName";
             cbLicenseClass.ValueMember = "LicenseClassID";
         }
@@ -47,8 +41,15 @@ namespace DVLDWinForm.Forms.Add_New___Update.Add_New
         {
             clsValidation.ep.Clear();
             if (clsValidation.IsEmpty( tbID, "Select a valid ID")) return false;
-            _License.LicenseClass = clsLicenseEnumConverter.ToClass(cbLicenseClass.SelectedIndex + 1);
-            if (clsTest_BLL.IsDriverPassedInAllTests(_License.DriverID, _License.LicenseClassID))
+            clsLicenseClass_DTO licenseClass = cbLicenseClass.SelectedItem as clsLicenseClass_DTO;
+            if (licenseClass != null)
+                _License.LicenseClass = clsLicenseEnumConverter.ToClass(licenseClass.LicenseClassID);
+            _License.IssueReason = clsLicenseEnums.enIssueReason.New;
+            int DriverID;
+            int.TryParse(tbID.Text, out DriverID);
+            _License.DriverID = DriverID;
+            _License.CreatedByUserID = clsCurrentUser.User.UserID;
+            if (!clsTest_BLL.IsDriverPassedInAllTests(_License.DriverID, _License.LicenseClassID))
             {
                 MessageBox.Show($"This is Driver Is Not Passed In Test of {_License.LicenseClass.ToString()} .", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -63,9 +64,10 @@ namespace DVLDWinForm.Forms.Add_New___Update.Add_New
             {
                 clsLicense_BLL License = new clsLicense_BLL();
                 License.License = _License;
-                if(License.Save())
+                if(License.Save()){
                     DialogResult = DialogResult.OK;
-                this.Close();
+                    this.Close();
+                }
 
             }
             else

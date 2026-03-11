@@ -6,6 +6,7 @@ using DVLDWinForm.Forms;
 using DVLDWinForm.Forms.Add_New___Update.Update;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
+using DVLDWinForm.User_Controls.Display;
 using DVLDWinForm.User_Controls.Filters;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace DVLDWinForm.Display
             _displayMode = DisplayMode;
             InitializeAdapter(clsLocalDrivingLicenseApplication_BLL.GetLocalDrivingLicenseApplications,
                clsLocalDrivingLicenseApplication_BLL.GetCount,
-               GetDisplayView<clsLocalDrivingLicenseApplication_DTO>(application => new ucApplication( _context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
+               GetDisplayView<clsLocalDrivingLicenseApplication_DTO>(application => new ucLocalLicenseApplication( _context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
 
         }
         public override void InitializeUIActionsManager()

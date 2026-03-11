@@ -22,6 +22,7 @@ namespace DVLDWinForm.User_Controls
         
         private clsApplication_DTO _ApplicationInfo;
         ContextMenuStrip _sharedContextMenu;
+        public Func<IDTO> SelectdDTO;
         public clsApplication_DTO ApplicationInfo
         {
             get => _ApplicationInfo;
@@ -62,7 +63,7 @@ namespace DVLDWinForm.User_Controls
         {
             if (ApplicationInfo == null)
             {
-                MessageBox.Show("This is Application Is Not Found !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("This is Application Is Not Found !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             lbApplicationID.Text = ApplicationInfo.ApplicationID.ToString();
@@ -77,8 +78,15 @@ namespace DVLDWinForm.User_Controls
 
         private void btnUpdate_Delete_Click(object sender, EventArgs e)
         {
-            _sharedContextMenu.Tag = this.ApplicationInfo;
-            _sharedContextMenu?.Show(btnUpdate_Delete, new Point(0, btnUpdate_Delete.Height));
+            if (ApplicationInfo != null && SelectdDTO == null)
+            {
+                _sharedContextMenu.Tag = this.ApplicationInfo;
+            }
+            else
+            {
+                _sharedContextMenu.Tag = SelectdDTO?.Invoke();
+            }
+            _sharedContextMenu.Show(btnUpdate_Delete, new Point(0, btnUpdate_Delete.Height));
         }
     }
 }

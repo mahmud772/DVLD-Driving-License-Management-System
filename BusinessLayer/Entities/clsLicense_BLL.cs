@@ -77,19 +77,21 @@ namespace DVLD_BLL
         {
             this.License.PaidFees = clsLicenseClass_BLL.GetClassFees(clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
             this.License.IssueDate = clsBLHelper.GetDate_Now();
-            if (this.License.DriverID == -1 )// Is First Time
+            if (this.License.IssueReason == clsLicenseEnums.enIssueReason.New)// Is First Time
             {
                 this.License.ApplicationID = clsDriver_DAL.LoadLocalApplicationIDByDriverID(this.License.DriverID, clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
-                this.License.IssueReason = clsLicenseEnums.enIssueReason.New;
+
             }
             if (this.License.IssueReason == clsLicenseEnums.enIssueReason.New || this.License.IssueReason == clsLicenseEnums.enIssueReason.Renew)
                 this.License.ExpirationDate = clsBLHelper.GetDate_Now().AddYears(clsLicenseClass_BLL.GetDefaultValidityLength(clsLicenseEnumConverter.ToInt(this.License.LicenseClass)));
 
 
-            this.License.CreatedByUserID = clsCurrentUser.User.UserID;
+            
             this.License.IsActive = true;
 
             this.License.LicenseID = clsLicense_DAL.AddNewLicense(this.License);
+            if(this.License.LicenseID > -1 && this.License.IssueReason == clsLicenseEnums.enIssueReason.New) 
+                clsApplication_BLL.SetComplete(this.License.ApplicationID);
             return (this.License.LicenseID > -1);
         }
 
