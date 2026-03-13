@@ -129,6 +129,13 @@ namespace DVLDWinForm.Forms
                 lbPaidFeesLicenseClass.Visible = false;
                 GetLicenseClass = clsLocalDrivingLicenseApplication_BLL.GetLicenseClassIDByLocalDrivingLicenseApplicationID;
             }
+            else if (type == clsApplicationEnums.enApplicationType.NewInternationalLicense)
+            {
+                HideLicenseClass();
+                OpenForm = () => new frmFind(new ucLicense(), clsLicense_BLL.GetLicenseCardInfo);
+                lbID.Text = "License ID:";
+                GetLicenseClass = null;
+            }
             else
             {
                 HideLicenseClass();

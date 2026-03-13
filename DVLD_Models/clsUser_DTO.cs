@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,10 @@ namespace DVLD_DTOs
         int IDTO.ID { get => UserID; set => value = UserID; }
         public int UserID { get;  set; }
         public string UserName { get;  set; }
+        [DGVIgnore]
         public string Password { get; set; }
         public bool IsActive { get; set; }
+        [DGVIgnore]
         public int Permissions { get; set; }
     }
 }

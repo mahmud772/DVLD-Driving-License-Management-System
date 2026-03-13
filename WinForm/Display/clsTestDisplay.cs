@@ -9,11 +9,6 @@ using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls.Display;
 using DVLDWinForm.User_Controls.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static DVLDWinForm.UIHelper_Manger.clsUIEnums;
 
@@ -29,7 +24,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
-            _displayMode = DisplayMode;
+            base.DisplayMode = DisplayMode;
             InitializeAdapter(clsTest_BLL.GetTests,
                clsTest_BLL.GetCount,
                GetDisplayView<clsTest_DTO>(application => new ucTest(_context.SharedContextMenu) { TestInfo = application }, DisplayMode));
@@ -37,27 +32,34 @@ namespace DVLDWinForm.Display
         }
         public override void InitializeUIActionsManager()
         {
-            clsUIActionsManager ui = _context.UIActionsManager;
-            ui.Reset();
+            clsUIActionsManager ActionManager = _context.UIActionsManager;
+            ActionManager.Reset();
 
-            ui.RegisterCreate(() => new frmAddNewTest());
+            ActionManager.Register(
+                clsUIActionService.Create(() => new frmAddNewTest(),
+                clsUserEnums.enPermissions.ManageTests));
 
-            ui.RegisterUpdate(dto =>
-                new frmUpdateTest(dto as clsTest_DTO));
+            ActionManager.Register(
+                clsUIActionService.Update(dto =>
+                    new frmUpdateTest(dto as clsTest_DTO),
+                clsUserEnums.enPermissions.ManageTests));
 
-            ui.RegisterDelete(clsTest_BLL.DeleteTest);
+            ActionManager.Register(
+                clsUIActionService.Delete(
+                    clsTest_BLL.DeleteTest,
+                clsUserEnums.enPermissions.ManageTests));
 
-            ui.RegisterFilter(() =>
-                new frmSortAndFilter(new ucTestsFilter(), _currentQuery));
+            ActionManager.Register(
+                clsUIActionService.Filter(() =>
+                    new frmSortAndFilter(new ucTestsFilter(), _currentQuery),
+                clsUserEnums.enPermissions.ManageTests));
         }
 
-        public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-            Label lbTotalCount, PictureBox pbTotal)
+        public override void UpdateUI()
         {
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsTestEnums.enTestSearchBy));
-            lbTotalType_Titel.Text = "Test";
-            lbTotalCount.Text = _paginator.TotalItems.ToString();
-            pbTotal.Image = Properties.Resources.Applications;
+            _context.DisplayUIManager.InitializeHeaderBox
+          <clsTestEnums.enTestSearchBy>
+          ("Tests", Properties.Resources.TestAppointment);
             UpdateContextMenu();
         }
         public override void UpdateContextMenu()

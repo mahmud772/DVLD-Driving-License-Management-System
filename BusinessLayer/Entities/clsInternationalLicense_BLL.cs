@@ -4,6 +4,7 @@ using DVLD_DAL;
 using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,8 @@ namespace DVLD_BLL
 
         public static bool FindByID(int InternationalLicenseID, out clsInternationalLicense_BLL InternationalLicense)
         {
-            clsInternationalLicense_DTO Model = clsInternationalLicense_DAL.LoadInternationalLicenseByID(InternationalLicenseID);
+            clsInternationalLicense_DTO Model = clsInternationalLicense_DAL
+                .LoadInternationalLicenseByID(InternationalLicenseID);
             if (Model == null)
             {
                 InternationalLicense = null;
@@ -65,8 +67,16 @@ namespace DVLD_BLL
         private bool _AddNewInternationalLicense()
         {
             this.InternationalLicense.IssueDate = clsBLHelper.GetDate_Now();
-            this.InternationalLicense.ExpirationDate = clsBLHelper.GetDate_Now().AddYears(clsLicenseClass_BLL.GetDefaultValidityLength(clsLicense_DAL.LoadLicenseClassIDByLicenseID(this.InternationalLicense.IssuedUsingLocalLicenseID)));
-            this.InternationalLicense.InternationalLicenseID = clsInternationalLicense_DAL.AddNewInternationalLicense(this.InternationalLicense);
+            this.InternationalLicense.ExpirationDate = clsBLHelper.GetDate_Now()
+                .AddYears(clsLicenseClass_BLL.GetDefaultValidityLength
+                (clsLicense_DAL.LoadLicenseClassIDByLicenseID
+                (this.InternationalLicense.IssuedUsingLocalLicenseID)));
+            this.InternationalLicense.IsActive = true;
+            
+            this.InternationalLicense.InternationalLicenseID = 
+                clsInternationalLicense_DAL.AddNewInternationalLicense(this.InternationalLicense);
+            if (this.InternationalLicense.InternationalLicenseID > -1) 
+                clsApplication_BLL.SetComplete(this.InternationalLicense.ApplicationID);
             return (this.InternationalLicense.InternationalLicenseID > -1);
         }
 

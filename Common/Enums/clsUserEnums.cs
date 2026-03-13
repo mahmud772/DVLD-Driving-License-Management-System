@@ -1,26 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Common.clsApplicationEnums;
+
 
 namespace Common
 {
     public class clsUserEnums
     {
-        [Flags] // ضرورية جداً للتعامل مع الصلاحيات كـ بتات في النصوص
+        [Flags] 
         public enum enPermissions
         {
             None = 0,
-            ManageUsers = 1 << 0,
+            ManagePeople = 1 << 0,
             ManageDrivers = 1 << 1,
-            ManageLicenses = 1 << 2,
-            ManageTests = 1 << 3,
-            ManageApplications = 1 << 4,
-            ManageApplicationTypes = 1 << 5,
-            ManageTestTypes = 1 << 6,
-            ManageLicenseClasses = 1 << 7,
+            ManageUsers = 1 << 2,
+            ManageApplications = 1 << 3,
+            ManageTests = 1 << 4,
+            ManageLicenses = 1 << 5,
+            
             All = -1
         }
         public enum enUserSearchBy

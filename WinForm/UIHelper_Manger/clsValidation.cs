@@ -64,9 +64,8 @@ namespace DVLDWinForm.UIHelper_Manger
         }
         public static bool IsValidAddress(TextBox tb)
         {
-            string pattern = @"^[a-zA-Z\u0600-\u06FF\s,]+$";
 
-            if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, pattern))
+            if (_IsEmpty(tb) || !Regex.IsMatch(tb.Text, @"^[a-zA-Z\u0600-\u06FF\s,-]+$"))
             {
                 ep?.SetError(tb, "Enter a valid Address (Letters, spaces, and commas only).");
                 return false;

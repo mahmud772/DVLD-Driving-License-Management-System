@@ -23,7 +23,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
-            _displayMode = DisplayMode;
+            base.DisplayMode = DisplayMode;
             InitializeAdapter(clsLicense_BLL.GetLicensesCardsInfo,
                clsLicense_BLL.GetCount,
                GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense(_context.SharedContextMenu) { LicenseInfo = license } , DisplayMode));
@@ -31,23 +31,34 @@ namespace DVLDWinForm.Display
         }
         public override void InitializeUIActionsManager()
         {
-            clsUIActionsManager ui = _context.UIActionsManager;
-            ui.Reset();
+            clsUIActionsManager ActionManager = _context.UIActionsManager;
+            ActionManager.Reset();
 
-            ui.RegisterCreate(() => new frmAddNewLicense());
-            ui.RegisterUpdate(dto => new frmUpdateLicense(dto as clsLicenseCardInfo_DTO));
-            ui.RegisterDelete(clsLicense_BLL.DeleteLicense);
+            ActionManager.Register(
+                clsUIActionService.Create(() => new frmAddNewLicense(),
+                clsUserEnums.enPermissions.ManageLicenses));
 
-            ui.RegisterFilter(() =>
-                new frmSortAndFilter(new ucLicensesFilter(), _currentQuery));
+            ActionManager.Register(
+                clsUIActionService.Update(dto =>
+                    new frmUpdateLicense(dto as clsLicenseCardInfo_DTO),
+                clsUserEnums.enPermissions.ManageLicenses));
+
+            ActionManager.Register(
+                clsUIActionService.Delete(
+                    clsLicense_BLL.DeleteLicense,
+                clsUserEnums.enPermissions.ManageLicenses));
+
+            ActionManager.Register(
+                clsUIActionService.Filter(() =>
+                    new frmSortAndFilter(new ucLicensesFilter(), _currentQuery),
+                clsUserEnums.enPermissions.ManageLicenses));
         }
-        public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-            Label lbTotalCount, PictureBox pbTotal)
+        public override void UpdateUI()
         {
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsLicenseEnums.enLicenseSearchBy));
-            lbTotalType_Titel.Text = "Licenses";
-            lbTotalCount.Text = _paginator.TotalItems.ToString();
-            pbTotal.Image = Properties.Resources.Licenses;
+            _context.DisplayUIManager.InitializeHeaderBox
+                <clsLicenseEnums.enLicenseSearchBy>
+                ("Licenses", Properties.Resources.Licenses);
+            UpdateContextMenu();
         }
         public override void UpdateContextMenu()
         {

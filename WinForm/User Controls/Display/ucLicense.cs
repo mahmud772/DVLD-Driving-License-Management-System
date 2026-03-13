@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Helpers;
 using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.Forms;
@@ -35,8 +36,8 @@ namespace DVLDWinForm.User_Controls
         ContextMenuStrip _sharedContextMenu;
         private const int _step = 10; // مقدار التغيير في كل خطوة (سرعة الحركة)
 
-        private const int _collapsedHeight = 220;
-        private const int _expandedHeight = 410;
+        private const int _collapsedHeight = 150;
+        private const int _expandedHeight = 335;
 
         clsControlAnimateHeight Animate;
         
@@ -69,7 +70,9 @@ namespace DVLDWinForm.User_Controls
             lbDateOfBirth.Text = LicenseInfo.DateOfBirth.ToString("yyyy/MM/dd");
             lbIssueDate.Text = LicenseInfo.IssueDate.ToString("yyyy/MM/dd");
             lbExpiration.Text = LicenseInfo.ExpirationDate.ToString("yyyy/MM/dd");
-            lbLicenseClass.Text = clsUtil.TextSepatation(LicenseInfo.LicenseClass.ToString());
+            lbLicenseClass.Text = clsStaticData_BLL.LicenseClasses
+                .FirstOrDefault(c => c.LicenseClassID == clsLicenseEnumConverter.ToInt(LicenseInfo.LicenseClass))
+                .ClassName;
             lbNotes.Text = LicenseInfo.Notes;
             clsUIHelper.LoadImage(LicenseInfo.ImagePath, LicenseInfo.Gendor , pbImage);
             pbIsActive.Image = (LicenseInfo.IsActive) ?

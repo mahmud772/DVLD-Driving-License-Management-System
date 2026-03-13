@@ -87,7 +87,8 @@ namespace DVLDWinForm.Forms.Add_New___Update
                     DialogResult = DialogResult.OK;
                     this.Close();
                 }
-                MessageBox.Show("The Data Is Not Valid .", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    MessageBox.Show("The Data Is Not Valid .", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

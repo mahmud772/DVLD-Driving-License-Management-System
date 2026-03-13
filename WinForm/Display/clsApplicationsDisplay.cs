@@ -23,7 +23,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
-            _displayMode = DisplayMode;
+            base.DisplayMode = DisplayMode;
             InitializeAdapter(clsApplication_BLL.GetApplications,
                clsApplication_BLL.GetCount,
                GetDisplayView<clsApplication_DTO>(application => new ucApplication(_context.SharedContextMenu) { ApplicationInfo = application  } , DisplayMode));
@@ -31,27 +31,28 @@ namespace DVLDWinForm.Display
         }
         public override void InitializeUIActionsManager()
         {
-            clsUIActionsManager ui = _context.UIActionsManager;
-            ui.Reset();
+            clsUIActionsManager ActionManager = _context.UIActionsManager;
+            ActionManager.Reset();
+            ActionManager.Register(clsUIActionService.Create(() => new frmCreateApplication()
+            , clsUserEnums.enPermissions.ManageApplications));
 
-            ui.RegisterCreate(() => new frmCreateApplication());
+            ActionManager.Register(clsUIActionService.Update(dto =>
+                new frmUpdateApplication(dto as clsApplication_DTO)
+                , clsUserEnums.enPermissions.ManageApplications));
 
-            ui.RegisterUpdate(dto =>
-                new frmUpdateApplication(dto as clsApplication_DTO));
+            ActionManager.Register(clsUIActionService.Delete(clsApplication_BLL.DeleteApplication
+                , clsUserEnums.enPermissions.ManageApplications));
 
-            ui.RegisterDelete(clsApplication_BLL.DeleteApplication);
-
-            ui.RegisterFilter(() =>
-                new frmSortAndFilter(new ucApplicationsFilter(), _currentQuery));
+            ActionManager.Register(clsUIActionService.Filter(() =>
+                new frmSortAndFilter(new ucApplicationsFilter(), _currentQuery)
+                , clsUserEnums.enPermissions.ManageApplications));
         }
         
-        public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-            Label lbTotalCount, PictureBox pbTotal)
+        public override void UpdateUI()
         {
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsApplicationEnums.enApplicationSearchBy));
-            lbTotalType_Titel.Text = "Applications";
-            lbTotalCount.Text = _paginator.TotalItems.ToString();
-            pbTotal.Image = Properties.Resources.Applications;
+            _context.DisplayUIManager.InitializeHeaderBox
+                <clsApplicationEnums.enApplicationSearchBy>
+                ("Applications", Properties.Resources.Applications);
             UpdateContextMenu();
         }
         public override void UpdateContextMenu()

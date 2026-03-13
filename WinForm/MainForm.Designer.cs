@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pnlMainMenu = new System.Windows.Forms.Panel();
+            this.btnTests = new System.Windows.Forms.Button();
             this.btnLocalLicenseApp = new System.Windows.Forms.Button();
             this.btnDetainedLicenses = new System.Windows.Forms.Button();
             this.btnInternationalLicenses = new System.Windows.Forms.Button();
-            this.ucLogout1 = new DVLDWinForm.User_Controls.ucLogout();
             this.btnLicenses = new System.Windows.Forms.Button();
             this.btnTestAppointments = new System.Windows.Forms.Button();
             this.btnApplications = new System.Windows.Forms.Button();
@@ -45,10 +45,6 @@
             this.lbPeople_Titel = new System.Windows.Forms.Label();
             this.btnPeople = new System.Windows.Forms.Button();
             this.pnlTopForm = new System.Windows.Forms.Panel();
-            this.pnlShowTotal = new DVLDWinForm.UIHelper_Manger.GlassPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pbTotal = new System.Windows.Forms.PictureBox();
-            this.lbTotalCount = new System.Windows.Forms.Label();
             this.lbTotalType_Titel = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.cbSearchBy = new System.Windows.Forms.ComboBox();
@@ -63,21 +59,25 @@
             this.pnlDisplayMethod = new System.Windows.Forms.Panel();
             this.btnDGV = new System.Windows.Forms.Button();
             this.btnFLP = new System.Windows.Forms.Button();
-            this.pnlTypes = new System.Windows.Forms.Panel();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.btnTests = new System.Windows.Forms.Button();
+            this.pnlShowTotal = new DVLDWinForm.UIHelper_Manger.GlassPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pbTotal = new System.Windows.Forms.PictureBox();
+            this.lbTotalCount = new System.Windows.Forms.Label();
+            this.ucLogout1 = new DVLDWinForm.User_Controls.ucLogout();
             this.pnlMainMenu.SuspendLayout();
             this.pnlTopForm.SuspendLayout();
-            this.pnlShowTotal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).BeginInit();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).BeginInit();
             this.pnlDisplayMethod.SuspendLayout();
+            this.pnlShowTotal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMainMenu
             // 
             this.pnlMainMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlMainMenu.Controls.Add(this.btnTests);
             this.pnlMainMenu.Controls.Add(this.btnLocalLicenseApp);
             this.pnlMainMenu.Controls.Add(this.btnDetainedLicenses);
@@ -93,15 +93,38 @@
             this.pnlMainMenu.Controls.Add(this.lbTests_Title);
             this.pnlMainMenu.Controls.Add(this.lbPeople_Titel);
             this.pnlMainMenu.Controls.Add(this.btnPeople);
-            this.pnlMainMenu.Location = new System.Drawing.Point(0, 5);
+            this.pnlMainMenu.Location = new System.Drawing.Point(0, -4);
             this.pnlMainMenu.Name = "pnlMainMenu";
-            this.pnlMainMenu.Size = new System.Drawing.Size(217, 878);
+            this.pnlMainMenu.Size = new System.Drawing.Size(1444, 887);
             this.pnlMainMenu.TabIndex = 0;
+            // 
+            // btnTests
+            // 
+            this.btnTests.BackColor = System.Drawing.Color.Transparent;
+            this.btnTests.FlatAppearance.BorderSize = 0;
+            this.btnTests.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnTests.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnTests.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTests.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTests.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnTests.Image = global::DVLDWinForm.Properties.Resources.TestAppointment;
+            this.btnTests.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTests.Location = new System.Drawing.Point(36, 374);
+            this.btnTests.Name = "btnTests";
+            this.btnTests.Size = new System.Drawing.Size(160, 30);
+            this.btnTests.TabIndex = 15;
+            this.btnTests.Text = "  Tests";
+            this.btnTests.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnTests.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTests.UseVisualStyleBackColor = false;
+            this.btnTests.Click += new System.EventHandler(this.btnTests_Click);
             // 
             // btnLocalLicenseApp
             // 
             this.btnLocalLicenseApp.BackColor = System.Drawing.Color.Transparent;
             this.btnLocalLicenseApp.FlatAppearance.BorderSize = 0;
+            this.btnLocalLicenseApp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnLocalLicenseApp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLocalLicenseApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLocalLicenseApp.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLocalLicenseApp.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -121,6 +144,8 @@
             // 
             this.btnDetainedLicenses.BackColor = System.Drawing.Color.Transparent;
             this.btnDetainedLicenses.FlatAppearance.BorderSize = 0;
+            this.btnDetainedLicenses.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnDetainedLicenses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnDetainedLicenses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetainedLicenses.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetainedLicenses.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -140,6 +165,8 @@
             // 
             this.btnInternationalLicenses.BackColor = System.Drawing.Color.Transparent;
             this.btnInternationalLicenses.FlatAppearance.BorderSize = 0;
+            this.btnInternationalLicenses.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnInternationalLicenses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnInternationalLicenses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInternationalLicenses.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInternationalLicenses.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -155,18 +182,12 @@
             this.btnInternationalLicenses.UseVisualStyleBackColor = false;
             this.btnInternationalLicenses.Click += new System.EventHandler(this.btnInternationalLicenses_Click);
             // 
-            // ucLogout1
-            // 
-            this.ucLogout1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.ucLogout1.Location = new System.Drawing.Point(3, 762);
-            this.ucLogout1.Name = "ucLogout1";
-            this.ucLogout1.Size = new System.Drawing.Size(211, 58);
-            this.ucLogout1.TabIndex = 11;
-            // 
             // btnLicenses
             // 
             this.btnLicenses.BackColor = System.Drawing.Color.Transparent;
             this.btnLicenses.FlatAppearance.BorderSize = 0;
+            this.btnLicenses.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnLicenses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnLicenses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLicenses.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLicenses.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -186,6 +207,8 @@
             // 
             this.btnTestAppointments.BackColor = System.Drawing.Color.Transparent;
             this.btnTestAppointments.FlatAppearance.BorderSize = 0;
+            this.btnTestAppointments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnTestAppointments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnTestAppointments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTestAppointments.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTestAppointments.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -205,6 +228,8 @@
             // 
             this.btnApplications.BackColor = System.Drawing.Color.Transparent;
             this.btnApplications.FlatAppearance.BorderSize = 0;
+            this.btnApplications.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnApplications.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnApplications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnApplications.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnApplications.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -224,6 +249,8 @@
             // 
             this.btnDrivers.BackColor = System.Drawing.Color.Transparent;
             this.btnDrivers.FlatAppearance.BorderSize = 0;
+            this.btnDrivers.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnDrivers.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnDrivers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDrivers.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDrivers.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -243,6 +270,8 @@
             // 
             this.btnUsers.BackColor = System.Drawing.Color.Transparent;
             this.btnUsers.FlatAppearance.BorderSize = 0;
+            this.btnUsers.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnUsers.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUsers.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUsers.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -310,6 +339,8 @@
             // 
             this.btnPeople.BackColor = System.Drawing.Color.Transparent;
             this.btnPeople.FlatAppearance.BorderSize = 0;
+            this.btnPeople.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.btnPeople.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.btnPeople.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPeople.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPeople.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -334,50 +365,6 @@
             this.pnlTopForm.Name = "pnlTopForm";
             this.pnlTopForm.Size = new System.Drawing.Size(1215, 225);
             this.pnlTopForm.TabIndex = 1;
-            // 
-            // pnlShowTotal
-            // 
-            this.pnlShowTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(238)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
-            this.pnlShowTotal.Controls.Add(this.label1);
-            this.pnlShowTotal.Controls.Add(this.pbTotal);
-            this.pnlShowTotal.Controls.Add(this.lbTotalCount);
-            this.pnlShowTotal.Location = new System.Drawing.Point(1000, 109);
-            this.pnlShowTotal.Name = "pnlShowTotal";
-            this.pnlShowTotal.Size = new System.Drawing.Size(200, 82);
-            this.pnlShowTotal.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label1.Location = new System.Drawing.Point(6, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 21);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Total";
-            // 
-            // pbTotal
-            // 
-            this.pbTotal.BackColor = System.Drawing.Color.Transparent;
-            this.pbTotal.Location = new System.Drawing.Point(147, 52);
-            this.pbTotal.Name = "pbTotal";
-            this.pbTotal.Size = new System.Drawing.Size(25, 22);
-            this.pbTotal.TabIndex = 2;
-            this.pbTotal.TabStop = false;
-            // 
-            // lbTotalCount
-            // 
-            this.lbTotalCount.AutoSize = true;
-            this.lbTotalCount.BackColor = System.Drawing.Color.Transparent;
-            this.lbTotalCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.lbTotalCount.Location = new System.Drawing.Point(8, 44);
-            this.lbTotalCount.Name = "lbTotalCount";
-            this.lbTotalCount.Size = new System.Drawing.Size(49, 30);
-            this.lbTotalCount.TabIndex = 0;
-            this.lbTotalCount.Text = "400";
             // 
             // lbTotalType_Titel
             // 
@@ -404,7 +391,6 @@
             this.pnlMain.Controls.Add(this.btnSort_Filter);
             this.pnlMain.Controls.Add(this.tbSearch);
             this.pnlMain.Controls.Add(this.pnlDisplayMethod);
-            this.pnlMain.Controls.Add(this.pnlTypes);
             this.pnlMain.Controls.Add(this.btnSearch);
             this.pnlMain.Location = new System.Drawing.Point(217, 199);
             this.pnlMain.Name = "pnlMain";
@@ -473,6 +459,7 @@
             this.dgvDisplay.Location = new System.Drawing.Point(0, 81);
             this.dgvDisplay.Name = "dgvDisplay";
             this.dgvDisplay.ReadOnly = true;
+            this.dgvDisplay.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvDisplay.Size = new System.Drawing.Size(1215, 506);
             this.dgvDisplay.TabIndex = 0;
             this.dgvDisplay.Visible = false;
@@ -513,13 +500,14 @@
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(189, 38);
             this.tbSearch.TabIndex = 3;
+            this.tbSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSearch_KeyDown);
             // 
             // pnlDisplayMethod
             // 
             this.pnlDisplayMethod.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.pnlDisplayMethod.Controls.Add(this.btnDGV);
             this.pnlDisplayMethod.Controls.Add(this.btnFLP);
-            this.pnlDisplayMethod.Location = new System.Drawing.Point(292, 26);
+            this.pnlDisplayMethod.Location = new System.Drawing.Point(14, 25);
             this.pnlDisplayMethod.Name = "pnlDisplayMethod";
             this.pnlDisplayMethod.Size = new System.Drawing.Size(94, 39);
             this.pnlDisplayMethod.TabIndex = 1;
@@ -546,14 +534,6 @@
             this.btnFLP.UseVisualStyleBackColor = true;
             this.btnFLP.Click += new System.EventHandler(this.btnFLP_Click);
             // 
-            // pnlTypes
-            // 
-            this.pnlTypes.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.pnlTypes.Location = new System.Drawing.Point(6, 26);
-            this.pnlTypes.Name = "pnlTypes";
-            this.pnlTypes.Size = new System.Drawing.Size(252, 39);
-            this.pnlTypes.TabIndex = 0;
-            // 
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -565,24 +545,57 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // btnTests
+            // pnlShowTotal
             // 
-            this.btnTests.BackColor = System.Drawing.Color.Transparent;
-            this.btnTests.FlatAppearance.BorderSize = 0;
-            this.btnTests.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTests.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTests.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnTests.Image = global::DVLDWinForm.Properties.Resources.TestAppointment;
-            this.btnTests.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTests.Location = new System.Drawing.Point(36, 374);
-            this.btnTests.Name = "btnTests";
-            this.btnTests.Size = new System.Drawing.Size(160, 30);
-            this.btnTests.TabIndex = 15;
-            this.btnTests.Text = "  Tests";
-            this.btnTests.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnTests.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTests.UseVisualStyleBackColor = false;
-            this.btnTests.Click += new System.EventHandler(this.btnTests_Click);
+            this.pnlShowTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(238)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
+            this.pnlShowTotal.Controls.Add(this.label1);
+            this.pnlShowTotal.Controls.Add(this.pbTotal);
+            this.pnlShowTotal.Controls.Add(this.lbTotalCount);
+            this.pnlShowTotal.Location = new System.Drawing.Point(1000, 109);
+            this.pnlShowTotal.Name = "pnlShowTotal";
+            this.pnlShowTotal.Size = new System.Drawing.Size(200, 82);
+            this.pnlShowTotal.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label1.Location = new System.Drawing.Point(6, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 21);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Total";
+            // 
+            // pbTotal
+            // 
+            this.pbTotal.BackColor = System.Drawing.Color.Transparent;
+            this.pbTotal.Location = new System.Drawing.Point(147, 52);
+            this.pbTotal.Name = "pbTotal";
+            this.pbTotal.Size = new System.Drawing.Size(25, 22);
+            this.pbTotal.TabIndex = 2;
+            this.pbTotal.TabStop = false;
+            // 
+            // lbTotalCount
+            // 
+            this.lbTotalCount.AutoSize = true;
+            this.lbTotalCount.BackColor = System.Drawing.Color.Transparent;
+            this.lbTotalCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.lbTotalCount.Location = new System.Drawing.Point(8, 44);
+            this.lbTotalCount.Name = "lbTotalCount";
+            this.lbTotalCount.Size = new System.Drawing.Size(49, 30);
+            this.lbTotalCount.TabIndex = 0;
+            this.lbTotalCount.Text = "400";
+            // 
+            // ucLogout1
+            // 
+            this.ucLogout1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.ucLogout1.Location = new System.Drawing.Point(3, 762);
+            this.ucLogout1.Name = "ucLogout1";
+            this.ucLogout1.Size = new System.Drawing.Size(211, 58);
+            this.ucLogout1.TabIndex = 11;
             // 
             // MainForm
             // 
@@ -600,13 +613,13 @@
             this.pnlMainMenu.PerformLayout();
             this.pnlTopForm.ResumeLayout(false);
             this.pnlTopForm.PerformLayout();
-            this.pnlShowTotal.ResumeLayout(false);
-            this.pnlShowTotal.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).EndInit();
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).EndInit();
             this.pnlDisplayMethod.ResumeLayout(false);
+            this.pnlShowTotal.ResumeLayout(false);
+            this.pnlShowTotal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -617,7 +630,6 @@
         private System.Windows.Forms.Panel pnlTopForm;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Panel pnlDisplayMethod;
-        private System.Windows.Forms.Panel pnlTypes;
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnSort_Filter;

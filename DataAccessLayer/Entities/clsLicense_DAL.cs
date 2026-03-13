@@ -35,7 +35,8 @@ namespace DVLD_DAL
                 IssueDate = clsDbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                 ExpirationDate = clsDbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                 Notes = clsDbHelper.GetValue<string>(Reader, "Notes"),
-                DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID")
+                DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID"),
+                Gendor = clsPersonEnumConverter.ToGendor(clsDbHelper.GetValue<byte>(Reader, "Gendor"))
             };
         }
         public static int LoadCount(clsLicenseQuery clsQuery)
@@ -423,7 +424,7 @@ namespace DVLD_DAL
                          Where 1 = 1 "; ;
 
             Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null
-                ? $" AND {clsLicenseMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
+                ? $" AND L.{clsLicenseMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue"
                 : "";
 
             _ApplyLicenseFilter(clsQuery.Filter, ref Query);

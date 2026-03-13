@@ -63,7 +63,7 @@
             this.lbDateOfBirth.AutoSize = true;
             this.lbDateOfBirth.Font = new System.Drawing.Font("Segoe UI Variable Display", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDateOfBirth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
-            this.lbDateOfBirth.Location = new System.Drawing.Point(269, 118);
+            this.lbDateOfBirth.Location = new System.Drawing.Point(11, 113);
             this.lbDateOfBirth.Name = "lbDateOfBirth";
             this.lbDateOfBirth.Size = new System.Drawing.Size(79, 26);
             this.lbDateOfBirth.TabIndex = 33;
@@ -72,7 +72,7 @@
             // pbImage
             // 
             this.pbImage.Image = global::DVLDWinForm.Properties.Resources.User;
-            this.pbImage.Location = new System.Drawing.Point(283, 3);
+            this.pbImage.Location = new System.Drawing.Point(316, 3);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(77, 77);
             this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -85,7 +85,7 @@
             this.lbNationalNo_Titel.AutoSize = true;
             this.lbNationalNo_Titel.Font = new System.Drawing.Font("Segoe UI Variable Display", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNationalNo_Titel.ForeColor = System.Drawing.Color.DimGray;
-            this.lbNationalNo_Titel.Location = new System.Drawing.Point(9, 104);
+            this.lbNationalNo_Titel.Location = new System.Drawing.Point(9, 46);
             this.lbNationalNo_Titel.Name = "lbNationalNo_Titel";
             this.lbNationalNo_Titel.Size = new System.Drawing.Size(80, 15);
             this.lbNationalNo_Titel.TabIndex = 43;
@@ -96,7 +96,7 @@
             this.lbLicenseID.AutoSize = true;
             this.lbLicenseID.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbLicenseID.ForeColor = System.Drawing.Color.Black;
-            this.lbLicenseID.Location = new System.Drawing.Point(9, 169);
+            this.lbLicenseID.Location = new System.Drawing.Point(145, 64);
             this.lbLicenseID.Name = "lbLicenseID";
             this.lbLicenseID.Size = new System.Drawing.Size(97, 21);
             this.lbLicenseID.TabIndex = 41;
@@ -107,7 +107,7 @@
             this.lbNationalNo.AutoSize = true;
             this.lbNationalNo.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNationalNo.ForeColor = System.Drawing.Color.Black;
-            this.lbNationalNo.Location = new System.Drawing.Point(8, 122);
+            this.lbNationalNo.Location = new System.Drawing.Point(8, 64);
             this.lbNationalNo.Name = "lbNationalNo";
             this.lbNationalNo.Size = new System.Drawing.Size(130, 21);
             this.lbNationalNo.TabIndex = 40;
@@ -118,7 +118,7 @@
             this.lbLicenseID_Title.AutoSize = true;
             this.lbLicenseID_Title.Font = new System.Drawing.Font("Segoe UI Variable Display", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbLicenseID_Title.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lbLicenseID_Title.Location = new System.Drawing.Point(9, 151);
+            this.lbLicenseID_Title.Location = new System.Drawing.Point(145, 46);
             this.lbLicenseID_Title.Name = "lbLicenseID_Title";
             this.lbLicenseID_Title.Size = new System.Drawing.Size(70, 15);
             this.lbLicenseID_Title.TabIndex = 42;
@@ -129,7 +129,7 @@
             this.lbDateOfBirth_Titel.AutoSize = true;
             this.lbDateOfBirth_Titel.Font = new System.Drawing.Font("Segoe UI Variable Display", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDateOfBirth_Titel.ForeColor = System.Drawing.Color.DimGray;
-            this.lbDateOfBirth_Titel.Location = new System.Drawing.Point(270, 104);
+            this.lbDateOfBirth_Titel.Location = new System.Drawing.Point(12, 99);
             this.lbDateOfBirth_Titel.Name = "lbDateOfBirth_Titel";
             this.lbDateOfBirth_Titel.Size = new System.Drawing.Size(83, 15);
             this.lbDateOfBirth_Titel.TabIndex = 45;
@@ -137,7 +137,7 @@
             // 
             // btnShowMore_Less
             // 
-            this.btnShowMore_Less.Location = new System.Drawing.Point(328, 193);
+            this.btnShowMore_Less.Location = new System.Drawing.Point(361, 118);
             this.btnShowMore_Less.Name = "btnShowMore_Less";
             this.btnShowMore_Less.Size = new System.Drawing.Size(32, 23);
             this.btnShowMore_Less.TabIndex = 50;
@@ -149,7 +149,7 @@
             // 
             this.pbIsActive.BackColor = System.Drawing.SystemColors.Control;
             this.pbIsActive.Image = global::DVLDWinForm.Properties.Resources.NotActive;
-            this.pbIsActive.Location = new System.Drawing.Point(340, 64);
+            this.pbIsActive.Location = new System.Drawing.Point(373, 64);
             this.pbIsActive.Name = "pbIsActive";
             this.pbIsActive.Size = new System.Drawing.Size(16, 16);
             this.pbIsActive.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -177,9 +177,9 @@
             this.pnlMoreInfo.Controls.Add(this.lbIssueDate_Titel);
             this.pnlMoreInfo.Controls.Add(this.lbIssueDate);
             this.pnlMoreInfo.Controls.Add(this.pnlNotes);
-            this.pnlMoreInfo.Location = new System.Drawing.Point(8, 222);
+            this.pnlMoreInfo.Location = new System.Drawing.Point(3, 147);
             this.pnlMoreInfo.Name = "pnlMoreInfo";
-            this.pnlMoreInfo.Size = new System.Drawing.Size(356, 178);
+            this.pnlMoreInfo.Size = new System.Drawing.Size(391, 178);
             this.pnlMoreInfo.TabIndex = 52;
             // 
             // lbNotes_Titel
@@ -284,7 +284,7 @@
             this.lbIssueReason.AutoSize = true;
             this.lbIssueReason.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbIssueReason.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.lbIssueReason.Location = new System.Drawing.Point(270, 169);
+            this.lbIssueReason.Location = new System.Drawing.Point(146, 117);
             this.lbIssueReason.Name = "lbIssueReason";
             this.lbIssueReason.Size = new System.Drawing.Size(44, 21);
             this.lbIssueReason.TabIndex = 53;
@@ -295,7 +295,7 @@
             this.lbIssueReason_Titel.AutoSize = true;
             this.lbIssueReason_Titel.Font = new System.Drawing.Font("Segoe UI Variable Display", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbIssueReason_Titel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lbIssueReason_Titel.Location = new System.Drawing.Point(270, 151);
+            this.lbIssueReason_Titel.Location = new System.Drawing.Point(146, 99);
             this.lbIssueReason_Titel.Name = "lbIssueReason_Titel";
             this.lbIssueReason_Titel.Size = new System.Drawing.Size(86, 15);
             this.lbIssueReason_Titel.TabIndex = 54;
@@ -350,7 +350,7 @@
             this.Controls.Add(this.lbDateOfBirth);
             this.Controls.Add(this.lbName);
             this.Name = "ucLicense";
-            this.Size = new System.Drawing.Size(367, 406);
+            this.Size = new System.Drawing.Size(397, 328);
             this.Load += new System.EventHandler(this.ucLicense_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbIsActive)).EndInit();

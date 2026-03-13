@@ -23,13 +23,13 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
         public bool CreateApplication(clsApplication_DTO AppInfo,clsLocalDrivingLicenseApplication_DTO localInfo,
             int LicenseID,clsApplicationEnums.enApplicationType type,bool ExecuteLicenseOperation)
         {
-            if (type == clsApplicationEnums.enApplicationType.NewLocalDrivingLicense)
+            if (type == clsApplicationEnums.enApplicationType.NewLocalDrivingLicense )
             {
                 return CreateLocalApplication(AppInfo, localInfo);
             }
             else
             {
-                return CreateGeneralApplication(AppInfo,LicenseID, type, ExecuteLicenseOperation);
+                return CreateGeneralApplication(AppInfo, LicenseID, type, ExecuteLicenseOperation);
             }
         }
         private void _InitializeStaticDataToForm()
@@ -87,7 +87,7 @@ namespace DVLDWinForm.User_Controls.Display.ucApplication
                     return clsLicense_BLL.GetPersonIDByLicenseID(ID);
 
                 case clsApplicationEnums.enApplicationType.NewInternationalLicense:
-                    return clsInternationalLicense_BLL.GetPersonIDByInternationalLicenseID(ID);
+                    return clsLicense_BLL.GetPersonIDByLicenseID(ID);
 
                 case clsApplicationEnums.enApplicationType.RetakeTest:
                     return clsLocalDrivingLicenseApplication_BLL.GetPersonIDByLocalLicenseAppID(ID);

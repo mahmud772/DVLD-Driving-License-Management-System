@@ -45,7 +45,8 @@ namespace DVLD_DAL
                 IssueDate = clsDbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                 ExpirationDate = clsDbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                 Notes = clsDbHelper.GetValue<string>(Reader, "Notes"),
-                DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID")
+                DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID"),
+                Gendor = clsPersonEnumConverter.ToGendor(clsDbHelper.GetValue<byte>(Reader, "Gendor"))
             };
         }
         public static int LoadCount(clsDetainedLicenseQuery clsQuery)

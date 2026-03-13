@@ -9,10 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DVLD_DAL
@@ -94,6 +91,8 @@ namespace DVLD_DAL
                 Reader =>
                 {
                     Model = _Reader(Reader);
+                    Model.Permissions = clsDbHelper.GetValue<int>(Reader, "Permissions");
+                    Model.Password = clsDbHelper.GetValue<string>(Reader, "Password");
                 });
             return IsFound ? Model : null;
         }
@@ -237,14 +236,18 @@ namespace DVLD_DAL
                             U.UserID, U.UserName, U.Password, U.IsActive , U.Permissions
                         FROM People P
                         JOIN Users U ON P.PersonID = U.PersonID
-                        Where UserName = @UserName And Password = @Password;";
+                        Where UserName = @UserName And Password = @Password And IsActive = 1;";
             clsUser_DTO DTO = null;
             clsDbHelper.ExecuteReader(Query, Command =>
             {
                 clsDbHelper.SetValue<string>(Command, "@UserName", UserName);
                 clsDbHelper.SetValue<string>(Command, "@Password", Password);
             },
-            Reader => DTO = _Reader(Reader));
+            Reader => { DTO = 
+                _Reader(Reader);
+                DTO.Permissions = clsDbHelper.GetValue<int>(Reader, "Permissions");
+                DTO.Password = clsDbHelper.GetValue<string>(Reader, "Password");
+            });
             return DTO;
         }
 

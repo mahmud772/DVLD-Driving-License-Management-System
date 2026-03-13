@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static DVLDWinForm.UIHelper_Manger.clsUIEnums;
 
 namespace DVLDWinForm.Display
 {
@@ -17,10 +18,17 @@ namespace DVLDWinForm.Display
         protected IPageableLoader _currentLoader;
         protected IQuery _currentQuery;
         protected clsPaginationManager _paginator;
-        protected clsUIEnums.enDisplayMode _displayMode;
+        public clsUIEnums.enDisplayMode DisplayMode { get; protected set; } = enDisplayMode.FLP;
         public clsBaseDisplay(clsContextDisplay Context)
         {
             _context = Context;
+        }
+        public void Display()
+        {
+            if (DisplayMode == enDisplayMode.FLP)
+                ShowFLP();
+            else
+                ShowDGV();
         }
         public IDisplayView<T> GetDisplayView<T>(Func<T, UserControl> ControlCeartor , clsUIEnums.enDisplayMode DisplayMode)
         {
@@ -30,12 +38,11 @@ namespace DVLDWinForm.Display
         }
         public virtual void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery CurrentQuery) { }
         public virtual void InitializeUIActionsManager() { }
-        public virtual void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-            Label lbTotalCount, PictureBox pbTotal) { }
+        public virtual void UpdateUI() { }
         public void Refresh(bool IsChanged)
         {
-            if(IsChanged) 
-                Load(_displayMode , _currentQuery);
+            if (IsChanged)
+                Display();
         }
         public void InitializeAdapter<T>(Func<int, int, IQuery, List<T>> fetcher, Func<IQuery, int> counter, IDisplayView<T> viewManager)
         {
@@ -47,6 +54,7 @@ namespace DVLDWinForm.Display
         }
         public void LoadData()
         {
+            _context.DisplayUIManager.UpdateTotal(_paginator.TotalItems);
             _currentLoader.LoadPage(_paginator.Offset, _paginator.PageSize, _currentQuery);
             UpdatePageUI();
         }
@@ -89,6 +97,26 @@ namespace DVLDWinForm.Display
 
             _context.SharedContextMenu.Items.Add("DELETE", Properties.Resources.Delete_Person,
                 (s, e) => _context.UIActionsManager.Execute(clsUIEnums.enUIAction.Delete, GetSelectedDto(), Refresh));
+        }
+        public void ShowDGV()
+        {
+            this.DisplayMode = enDisplayMode.DGV;
+            _context.DisplayUIManager.InitializeButtonFLPandDGV(DisplayMode);
+            _context.flpUserControls.Visible = false;
+            _context.dgvDisplay.Visible = true;
+            Load(DisplayMode, _currentQuery);
+            this.UpdateUI();
+            InitializeUIActionsManager();
+        }
+        public void ShowFLP()
+        {
+            this.DisplayMode = enDisplayMode.FLP;
+            _context.DisplayUIManager.InitializeButtonFLPandDGV(DisplayMode);
+            _context.flpUserControls.Visible = true;
+            _context.dgvDisplay.Visible = false;
+            Load(DisplayMode, _currentQuery);
+            this.UpdateUI();
+            InitializeUIActionsManager();
         }
     }
 }

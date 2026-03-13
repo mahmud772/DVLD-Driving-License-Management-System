@@ -124,7 +124,13 @@ namespace DVLDWinForm.Forms.Add_New___Update.Update
 
             lbLicenseClass.Visible = isLocal;
             cbLicenseClass.Visible = isLocal;
-
+            if(_ApplicationInfo?.ApplicationStatus == clsApplicationEnums.enApplicationStatus.Completed)
+                chbCancel.Enabled = false;
+            if(_ApplicationInfo?.ApplicationStatus == clsApplicationEnums.enApplicationStatus.Cancelled)
+            {
+                chbCancel.Checked = true;
+                chbCancel.Enabled = false;
+            }
             _SaveAction = isLocal ? SaveLocalApplication : SaveApplication;
         }
 

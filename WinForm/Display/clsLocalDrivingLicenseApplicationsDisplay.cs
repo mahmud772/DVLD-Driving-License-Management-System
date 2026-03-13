@@ -9,10 +9,6 @@ using DVLDWinForm.User_Controls;
 using DVLDWinForm.User_Controls.Display;
 using DVLDWinForm.User_Controls.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DVLDWinForm.Display
@@ -28,7 +24,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
-            _displayMode = DisplayMode;
+            base.DisplayMode = DisplayMode;
             InitializeAdapter(clsLocalDrivingLicenseApplication_BLL.GetLocalDrivingLicenseApplications,
                clsLocalDrivingLicenseApplication_BLL.GetCount,
                GetDisplayView<clsLocalDrivingLicenseApplication_DTO>(application => new ucLocalLicenseApplication( _context.SharedContextMenu) { ApplicationInfo = application } , DisplayMode));
@@ -36,27 +32,37 @@ namespace DVLDWinForm.Display
         }
         public override void InitializeUIActionsManager()
         {
-            clsUIActionsManager ui = _context.UIActionsManager;
-            ui.Reset();
+            clsUIActionsManager ActionManager = _context.UIActionsManager;
+            ActionManager.Reset();
 
-            ui.RegisterCreate(() => new frmCreateApplication());
+            ActionManager.Register(
+                clsUIActionService.Create(() => new frmCreateApplication(),
+                clsUserEnums.enPermissions.ManageApplications));
 
-            ui.RegisterUpdate(dto =>
-                new frmUpdateApplication(dto as clsLocalDrivingLicenseApplication_DTO));
+            ActionManager.Register(
+                clsUIActionService.Update(dto =>
+                    new frmUpdateApplication(dto as clsLocalDrivingLicenseApplication_DTO),
+                clsUserEnums.enPermissions.ManageApplications));
 
-            ui.RegisterDelete(clsLocalDrivingLicenseApplication_BLL
-                .DeleteLocalDrivingLicenseApplicationByApplicationID);
+            ActionManager.Register(
+                clsUIActionService.Delete(
+                    clsLocalDrivingLicenseApplication_BLL
+                    .DeleteLocalDrivingLicenseApplicationByApplicationID,
+                clsUserEnums.enPermissions.ManageApplications));
 
-            ui.RegisterFilter(() =>
-                new frmSortAndFilter(new ucLocalDrivingLicenseApplicationsFilter(), _currentQuery));
+            ActionManager.Register(
+                clsUIActionService.Filter(() =>
+                    new frmSortAndFilter(
+                        new ucLocalDrivingLicenseApplicationsFilter(),
+                        _currentQuery),
+                clsUserEnums.enPermissions.ManageApplications));
         }
-        public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-            Label lbTotalCount, PictureBox pbTotal)
+        public override void UpdateUI()
         {
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsApplicationEnums.enApplicationSearchBy));
-            lbTotalType_Titel.Text = "Local License App";
-            lbTotalCount.Text = _paginator.TotalItems.ToString();
-            pbTotal.Image = Properties.Resources.Applications;
+            _context.DisplayUIManager.InitializeHeaderBox
+            <clsApplicationEnums.enApplicationSearchBy>
+            ("Local License App", Properties.Resources.Applications);
+            UpdateContextMenu();
         }
         public override void UpdateContextMenu()
         {

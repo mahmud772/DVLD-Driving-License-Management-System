@@ -156,8 +156,6 @@ namespace DVLD_DAL
             {
                 clsDbHelper.SetValue<int>(Command, "@DriverID", Model.DriverID); // شرط التحديث
                 clsDbHelper.SetValue<int>(Command, "@PersonID", Model.PersonID);
-                clsDbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
-                clsDbHelper.SetValue<DateTime>(Command, "@CreatedDate", Model.CreatedDate);
             });
             return RowsAffected > 0;
         }
@@ -190,7 +188,18 @@ namespace DVLD_DAL
         }
 
 
-
+        public static bool IsDriverHaveActiveLicenseFromClass3(int DriverID ,ref int LicenseID)
+        {
+            string Query = @"Select LicenseID From Licenses Where DriverID = @DriverID And
+                            LicenseClassID = @LicenseClassID And IsActive = 1;";
+            LicenseID = clsDbHelper.ExecuteScalar<int>(Query, Command =>
+            {
+                clsDbHelper.SetValue(Command, "@DriverID", DriverID);
+                clsDbHelper.SetValue(Command, "@LicenseClassID", clsLicenseEnumConverter.ToInt
+                    (clsLicenseEnums.enLicenseClasses.OrdinaryDrivingLicense));
+            });
+            return (LicenseID > 0);
+        }
 
         public static bool IsPersonIsDriver(int PersonID)
         {

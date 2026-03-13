@@ -37,7 +37,6 @@ namespace DVLD_DAL
             return Model;
         }
 
-        // إضافة نوع اختبار جديد
         public static int AddNewTestType(clsTestType_DTO Model)
         {
             string Query = @"INSERT INTO TestTypes (TestTypeTitle, TestTypeDescription, TestTypeFees)
@@ -52,7 +51,6 @@ namespace DVLD_DAL
             });
         }
 
-        // تحديث نوع اختبار
         public static bool UpdateTestType(clsTestType_DTO Model)
         {
             string Query = @"UPDATE TestTypes SET
@@ -70,7 +68,6 @@ namespace DVLD_DAL
             return RowsAffected > 0;
         }
 
-        // حذف نوع اختبار
         public static bool DeleteTestType(int TestTypeID)
         {
             int DeletedTestTypeCount = 0;

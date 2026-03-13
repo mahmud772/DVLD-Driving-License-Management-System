@@ -28,102 +28,105 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlAppointment = new System.Windows.Forms.Panel();
-            this.pbSelectedRetakeAppID = new System.Windows.Forms.PictureBox();
-            this.tbRetakeTestAppID = new System.Windows.Forms.TextBox();
-            this.lbRetakeTestApp = new System.Windows.Forms.Label();
-            this.pbSelectedID = new System.Windows.Forms.PictureBox();
-            this.tbID = new System.Windows.Forms.TextBox();
-            this.lbID = new System.Windows.Forms.Label();
+            this.pnlLicense = new System.Windows.Forms.Panel();
+            this.pbSelectedDriverID = new System.Windows.Forms.PictureBox();
+            this.tbDriverID = new System.Windows.Forms.TextBox();
+            this.lbDriverID = new System.Windows.Forms.Label();
+            this.pbSelectedApplicationID = new System.Windows.Forms.PictureBox();
+            this.tbApplicationID = new System.Windows.Forms.TextBox();
+            this.lbApplicationID = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.pnlAppointment.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedRetakeAppID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
+            this.pnlLicense.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedDriverID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedApplicationID)).BeginInit();
             this.SuspendLayout();
             // 
-            // pnlAppointment
+            // pnlLicense
             // 
-            this.pnlAppointment.BackColor = System.Drawing.Color.White;
-            this.pnlAppointment.Controls.Add(this.pbSelectedRetakeAppID);
-            this.pnlAppointment.Controls.Add(this.tbRetakeTestAppID);
-            this.pnlAppointment.Controls.Add(this.lbRetakeTestApp);
-            this.pnlAppointment.Controls.Add(this.pbSelectedID);
-            this.pnlAppointment.Controls.Add(this.tbID);
-            this.pnlAppointment.Controls.Add(this.lbID);
-            this.pnlAppointment.Location = new System.Drawing.Point(12, 44);
-            this.pnlAppointment.Name = "pnlAppointment";
-            this.pnlAppointment.Size = new System.Drawing.Size(299, 102);
-            this.pnlAppointment.TabIndex = 50;
+            this.pnlLicense.BackColor = System.Drawing.Color.White;
+            this.pnlLicense.Controls.Add(this.pbSelectedDriverID);
+            this.pnlLicense.Controls.Add(this.tbDriverID);
+            this.pnlLicense.Controls.Add(this.lbDriverID);
+            this.pnlLicense.Controls.Add(this.pbSelectedApplicationID);
+            this.pnlLicense.Controls.Add(this.tbApplicationID);
+            this.pnlLicense.Controls.Add(this.lbApplicationID);
+            this.pnlLicense.Location = new System.Drawing.Point(12, 44);
+            this.pnlLicense.Name = "pnlLicense";
+            this.pnlLicense.Size = new System.Drawing.Size(299, 102);
+            this.pnlLicense.TabIndex = 50;
             // 
-            // pbSelectedRetakeAppID
+            // pbSelectedDriverID
             // 
-            this.pbSelectedRetakeAppID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedRetakeAppID.Location = new System.Drawing.Point(250, 54);
-            this.pbSelectedRetakeAppID.Name = "pbSelectedRetakeAppID";
-            this.pbSelectedRetakeAppID.Size = new System.Drawing.Size(30, 30);
-            this.pbSelectedRetakeAppID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbSelectedRetakeAppID.TabIndex = 56;
-            this.pbSelectedRetakeAppID.TabStop = false;
+            this.pbSelectedDriverID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
+            this.pbSelectedDriverID.Location = new System.Drawing.Point(250, 54);
+            this.pbSelectedDriverID.Name = "pbSelectedDriverID";
+            this.pbSelectedDriverID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedDriverID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbSelectedDriverID.TabIndex = 56;
+            this.pbSelectedDriverID.TabStop = false;
+            this.pbSelectedDriverID.Click += new System.EventHandler(this.pbSelectedDriverID_Click);
             // 
-            // tbRetakeTestAppID
+            // tbDriverID
             // 
-            this.tbRetakeTestAppID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbRetakeTestAppID.Location = new System.Drawing.Point(120, 55);
-            this.tbRetakeTestAppID.Multiline = true;
-            this.tbRetakeTestAppID.Name = "tbRetakeTestAppID";
-            this.tbRetakeTestAppID.ReadOnly = true;
-            this.tbRetakeTestAppID.Size = new System.Drawing.Size(114, 28);
-            this.tbRetakeTestAppID.TabIndex = 55;
+            this.tbDriverID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbDriverID.Location = new System.Drawing.Point(120, 55);
+            this.tbDriverID.Multiline = true;
+            this.tbDriverID.Name = "tbDriverID";
+            this.tbDriverID.ReadOnly = true;
+            this.tbDriverID.Size = new System.Drawing.Size(114, 28);
+            this.tbDriverID.TabIndex = 55;
             // 
-            // lbRetakeTestApp
+            // lbDriverID
             // 
-            this.lbRetakeTestApp.AutoSize = true;
-            this.lbRetakeTestApp.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbRetakeTestApp.Location = new System.Drawing.Point(4, 60);
-            this.lbRetakeTestApp.Name = "lbRetakeTestApp";
-            this.lbRetakeTestApp.Size = new System.Drawing.Size(104, 17);
-            this.lbRetakeTestApp.TabIndex = 54;
-            this.lbRetakeTestApp.Text = "Driver ID          :";
+            this.lbDriverID.AutoSize = true;
+            this.lbDriverID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbDriverID.Location = new System.Drawing.Point(4, 60);
+            this.lbDriverID.Name = "lbDriverID";
+            this.lbDriverID.Size = new System.Drawing.Size(104, 17);
+            this.lbDriverID.TabIndex = 54;
+            this.lbDriverID.Text = "Driver ID          :";
             // 
-            // pbSelectedID
+            // pbSelectedApplicationID
             // 
-            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedID.Location = new System.Drawing.Point(250, 10);
-            this.pbSelectedID.Name = "pbSelectedID";
-            this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
-            this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbSelectedID.TabIndex = 45;
-            this.pbSelectedID.TabStop = false;
+            this.pbSelectedApplicationID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
+            this.pbSelectedApplicationID.Location = new System.Drawing.Point(250, 10);
+            this.pbSelectedApplicationID.Name = "pbSelectedApplicationID";
+            this.pbSelectedApplicationID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedApplicationID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbSelectedApplicationID.TabIndex = 45;
+            this.pbSelectedApplicationID.TabStop = false;
+            this.pbSelectedApplicationID.Click += new System.EventHandler(this.pbSelectedApplicationID_Click);
             // 
-            // tbID
+            // tbApplicationID
             // 
-            this.tbID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbID.Location = new System.Drawing.Point(120, 11);
-            this.tbID.Multiline = true;
-            this.tbID.Name = "tbID";
-            this.tbID.ReadOnly = true;
-            this.tbID.Size = new System.Drawing.Size(114, 28);
-            this.tbID.TabIndex = 5;
+            this.tbApplicationID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbApplicationID.Location = new System.Drawing.Point(120, 11);
+            this.tbApplicationID.Multiline = true;
+            this.tbApplicationID.Name = "tbApplicationID";
+            this.tbApplicationID.ReadOnly = true;
+            this.tbApplicationID.Size = new System.Drawing.Size(114, 28);
+            this.tbApplicationID.TabIndex = 5;
             // 
-            // lbID
+            // lbApplicationID
             // 
-            this.lbID.AutoSize = true;
-            this.lbID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbID.Location = new System.Drawing.Point(5, 16);
-            this.lbID.Name = "lbID";
-            this.lbID.Size = new System.Drawing.Size(104, 17);
-            this.lbID.TabIndex = 1;
-            this.lbID.Text = "Application ID  :";
+            this.lbApplicationID.AutoSize = true;
+            this.lbApplicationID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbApplicationID.Location = new System.Drawing.Point(5, 16);
+            this.lbApplicationID.Name = "lbApplicationID";
+            this.lbApplicationID.Size = new System.Drawing.Size(104, 17);
+            this.lbApplicationID.TabIndex = 1;
+            this.lbApplicationID.Text = "Application ID  :";
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(132, 152);
+            this.btnSave.Location = new System.Drawing.Point(116, 152);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(85, 33);
             this.btnSave.TabIndex = 49;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // lbTitel
             // 
@@ -143,15 +146,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(319, 191);
-            this.Controls.Add(this.pnlAppointment);
+            this.Controls.Add(this.pnlLicense);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmAddNewInternationalLicense";
             this.Text = "Add New International License";
-            this.pnlAppointment.ResumeLayout(false);
-            this.pnlAppointment.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedRetakeAppID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).EndInit();
+            this.Load += new System.EventHandler(this.frmAddNewInternationalLicense_Load);
+            this.pnlLicense.ResumeLayout(false);
+            this.pnlLicense.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedDriverID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedApplicationID)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,13 +163,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlAppointment;
-        private System.Windows.Forms.PictureBox pbSelectedRetakeAppID;
-        private System.Windows.Forms.TextBox tbRetakeTestAppID;
-        private System.Windows.Forms.Label lbRetakeTestApp;
-        private System.Windows.Forms.PictureBox pbSelectedID;
-        private System.Windows.Forms.TextBox tbID;
-        private System.Windows.Forms.Label lbID;
+        private System.Windows.Forms.Panel pnlLicense;
+        private System.Windows.Forms.PictureBox pbSelectedDriverID;
+        private System.Windows.Forms.TextBox tbDriverID;
+        private System.Windows.Forms.Label lbDriverID;
+        private System.Windows.Forms.PictureBox pbSelectedApplicationID;
+        private System.Windows.Forms.TextBox tbApplicationID;
+        private System.Windows.Forms.Label lbApplicationID;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lbTitel;
     }

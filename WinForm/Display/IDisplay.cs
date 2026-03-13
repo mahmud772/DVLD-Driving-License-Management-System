@@ -16,9 +16,12 @@ namespace DVLDWinForm.Display
         void NextPage();
         void PreviousPage();
         void InitializeUIActionsManager();
-        void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-                      Label lbTotalCount, PictureBox pbTotal);
+        void UpdateUI();
         IDTO GetSelectedDto();
         void Refresh(bool IsChanged);
+        void ShowDGV();
+        void ShowFLP();
+        clsUIEnums.enDisplayMode DisplayMode {  get; }
+        void Display();
     }
 }

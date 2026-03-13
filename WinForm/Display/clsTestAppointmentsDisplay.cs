@@ -27,33 +27,41 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
-            _displayMode = DisplayMode;
+            base.DisplayMode = DisplayMode;
             InitializeAdapter(clsTestAppointment_BLL.GetTestAppointments,
               clsTestAppointment_BLL.GetCount,
               GetDisplayView<clsTestAppointment_DTO>(Appointment => new ucTestAppointment( _context.SharedContextMenu) { AppointmentInfo = Appointment } , DisplayMode));
         }
         public override void InitializeUIActionsManager()
         {
-            clsUIActionsManager ui = _context.UIActionsManager;
-            ui.Reset();
+            clsUIActionsManager ActionManager = _context.UIActionsManager;
+            ActionManager.Reset();
 
-            ui.RegisterCreate(() => new frmAddNew_UpdateAppointment());
+            ActionManager.Register(
+                clsUIActionService.Create(() => new frmAddNew_UpdateAppointment(),
+                clsUserEnums.enPermissions.ManageTests));
 
-            ui.RegisterUpdate(dto =>
-                new frmAddNew_UpdateAppointment(dto as clsTestAppointment_DTO));
+            ActionManager.Register(
+                clsUIActionService.Update(dto =>
+                    new frmAddNew_UpdateAppointment(dto as clsTestAppointment_DTO),
+                clsUserEnums.enPermissions.ManageTests));
 
-            ui.RegisterDelete(clsTestAppointment_BLL.DeleteTestAppointment);
+            ActionManager.Register(
+                clsUIActionService.Delete(
+                    clsTestAppointment_BLL.DeleteTestAppointment,
+                clsUserEnums.enPermissions.ManageTests));
 
-            ui.RegisterFilter(() =>
-                new frmSortAndFilter(new ucTestAppointmentsFilter(), _currentQuery));
+            ActionManager.Register(
+                clsUIActionService.Filter(() =>
+                    new frmSortAndFilter(new ucTestAppointmentsFilter(), _currentQuery),
+                clsUserEnums.enPermissions.ManageTests));
         }
-        public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-            Label lbTotalCount, PictureBox pbTotal)
+        public override void UpdateUI()
         {
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsTestEnums.enTestAppointmentSearchBy));
-            lbTotalType_Titel.Text = "Test Appointment";
-            lbTotalCount.Text = _paginator.TotalItems.ToString();
-            pbTotal.Image = Properties.Resources.TestAppointment;
+            _context.DisplayUIManager.InitializeHeaderBox
+           <clsTestEnums.enTestAppointmentSearchBy>
+           ("Test Appointment", Properties.Resources.TestAppointment);
+            UpdateContextMenu();
         }
         public override void UpdateContextMenu()
         {

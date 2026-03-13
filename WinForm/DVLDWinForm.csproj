@@ -111,6 +111,12 @@
     <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateApplication.Designer.cs">
       <DependentUpon>frmUpdateApplication.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateInternationalLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateInternationalLicense.Designer.cs">
+      <DependentUpon>frmUpdateInternationalLicense.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Add New &amp; Update\Update\frmUpdateLicense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +178,8 @@
       <DependentUpon>frmSortAndFilter.cs</DependentUpon>
     </Compile>
     <Compile Include="UIHelper_Manger\clsControlAnimateHeight.cs" />
+    <Compile Include="UIHelper_Manger\clsDisplayUIManager.cs" />
+    <Compile Include="UIHelper_Manger\clsUIActionService.cs" />
     <Compile Include="UIHelper_Manger\clsUIEnums.cs" />
     <Compile Include="UIHelper_Manger\clsFormLayoutHelper.cs" />
     <Compile Include="Custom Components\GlassPanel.cs">
@@ -346,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateApplication.resx">
       <DependentUpon>frmUpdateApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateInternationalLicense.resx">
+      <DependentUpon>frmUpdateInternationalLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Add New &amp; Update\Update\frmUpdateLicense.resx">
       <DependentUpon>frmUpdateLicense.cs</DependentUpon>

@@ -19,7 +19,7 @@ namespace DVLD_DAL
         {
             return new clsLicenseCardInfo_DTO
             {
-                LicenseID = clsDbHelper.GetValue<int>(Reader, "LicenseID"),
+                LicenseID = clsDbHelper.GetValue<int>(Reader, "InternationalLicenseID"),
                 FirstName = clsDbHelper.GetValue<string>(Reader, "FirstName"),
                 SecondName = clsDbHelper.GetValue<string>(Reader, "SecondName"),
                 ThirdName = clsDbHelper.GetValue<string>(Reader, "ThirdName"),
@@ -33,7 +33,8 @@ namespace DVLD_DAL
                 IssueDate = clsDbHelper.GetValue<DateTime>(Reader, "IssueDate"),
                 ExpirationDate = clsDbHelper.GetValue<DateTime>(Reader, "ExpirationDate"),
                 Notes = clsDbHelper.GetValue<string>(Reader, "Notes"),
-                DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID")
+                DriverID = clsDbHelper.GetValue<int>(Reader, "DriverID"),
+                Gendor = clsPersonEnumConverter.ToGendor(clsDbHelper.GetValue<byte>(Reader, "Gendor"))
             };
         }
         public static int LoadCount(clsLicenseQuery clsQuery)
@@ -115,7 +116,7 @@ namespace DVLD_DAL
         public static int AddNewInternationalLicense(clsInternationalLicense_DTO Model)
         {
             string Query = @"INSERT INTO InternationalLicenses (ApplicationID, DriverID, IssuedUsingLocalLicenseID, IssueDate, ExpirationDate, IsActive, CreatedbyUserID)
-                         Select @ApplicationID, @DriverID, @IssuedUsingLocalLicenselID, @IssueDate, @ExpirationDate, @IsActive, @CreatedbyUserID
+                         Select @ApplicationID, @DriverID, @IssuedUsingLocalLicenseID, @IssueDate, @ExpirationDate, @IsActive, @CreatedbyUserID
                          Where Exists (Select 1 From Licenses Where LicenseID = @IssuedUsingLocalLicenseID And LicenseClassID = @LicenseClassID And IsActive = 1)
 						 And Not Exists (Select 1 From InternationalLicenses Where
 						 DriverID = @DriverID And IsActive = 1 And IssuedUsingLocalLicenseID = @IssuedUsingLocalLicenseID);
@@ -147,7 +148,7 @@ namespace DVLD_DAL
 
             int RowsAffected = clsDbHelper.ExecuteNonQuery(Query, Command =>
             {
-                clsDbHelper.SetValue(Command, "@InternationalLicenseID", Model.InternationalLicenseID); // شرط التحديث
+                clsDbHelper.SetValue(Command, "@InternationalLicenseID", Model.InternationalLicenseID); 
 
                 clsDbHelper.SetValue(Command, "@IsActive", Model.IsActive);
 
@@ -218,7 +219,7 @@ namespace DVLD_DAL
         }
         public static List<clsLicenseCardInfo_DTO> LoadInternationalLicensesCardsInfo(int Offset, int CountRows , clsLicenseQuery clsQuery)
         {
-            string Query = @"Select P.FirstName , P.SecondName , P.ThirdName , P.LastName,
+            string Query = @"Select IL.InternationalLicenseID, P.FirstName , P.SecondName , P.ThirdName , P.LastName,
                         P.ImagePath ,P.NationalNo , P.DateOfBirth , P.Gendor ,
                         L.LicenseClassID , L.IsActive , 
                         L.IssueReason , L.IssueDate , L.ExpirationDate ,

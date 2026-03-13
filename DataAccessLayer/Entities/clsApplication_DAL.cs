@@ -251,7 +251,7 @@ namespace DVLD_DAL
 
             string Query = $@"Select * From Applications Where 1 = 1 ";
 
-            Query += clsQuery.SearchBy.HasValue ? $@" And {clsApplicationMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue" : "";
+            Query += clsQuery.SearchBy.HasValue && clsQuery.SearchValue != null ? $@" And {clsApplicationMapper.MapSearchBy(clsQuery.SearchBy.Value)} = @SearchValue" : "";
             ApplyApplicationFilter(clsQuery.Filter, ref Query);
             Query += $@" Order By {clsApplicationMapper.MapOrderBy(clsQuery.OrderBy)} 
                                  {clsOrderDirectionMapper.MapOrderDirection(clsQuery.OrderDirection)}";

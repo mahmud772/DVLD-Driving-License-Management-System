@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.Linq;
@@ -19,9 +20,20 @@ namespace DVLDWinForm.UIHelper_Manger
             _DGV = DGV;
              
         }
-        private static int _CountItems { get; } = 22;
-        public int CountItems { get; } = _CountItems;
-        public static int GetCountItems() => _CountItems;
+        private void ApplyAttributes()
+        {
+            var props = typeof(T).GetProperties();
+
+            foreach (var prop in props)
+            {
+                if (Attribute.IsDefined(prop, typeof(DGVIgnoreAttribute)))
+                {
+                    if (_DGV.Columns.Contains(prop.Name))
+                        _DGV.Columns[prop.Name].Visible = false;
+                }
+            }
+        }
+        public int CountItems { get; } = 22;
         public void Display(List<T> Data)
         {
             _DGV.DataSource = null;
@@ -31,7 +43,7 @@ namespace DVLDWinForm.UIHelper_Manger
                 _DGV.SuspendLayout();
 
                 _DGV.DataSource = Data;
-
+                ApplyAttributes();
                 _DGV.ResumeLayout();
             }
         }

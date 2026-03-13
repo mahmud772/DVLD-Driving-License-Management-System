@@ -8,13 +8,9 @@ using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
 using DVLDWinForm.User_Controls.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using DVLDWinForm.Forms.Add_New___Update.Add_New;
+using DVLDWinForm.Forms.Add_New___Update.Update;
 namespace DVLDWinForm.Display
 {
     public class clsInternationalLicensesDisplay : clsBaseDisplay
@@ -27,31 +23,41 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
-            _displayMode = DisplayMode;
+            base.DisplayMode = DisplayMode;
             InitializeAdapter(clsInternationalLicense_BLL.GetInternationalLicensesCardsInfo,
                clsInternationalLicense_BLL.GetCount,
                GetDisplayView<clsLicenseCardInfo_DTO>(license => new ucLicense(_context.SharedContextMenu) { LicenseInfo = license } , DisplayMode));
         }
         public override void InitializeUIActionsManager()
         {
-            clsUIActionsManager ui = _context.UIActionsManager;
-            ui.Reset();
-            ui.RegisterCreate(() => null);
+            clsUIActionsManager ActionManager = _context.UIActionsManager;
+            ActionManager.Reset();
 
-            ui.RegisterUpdate(dto =>
-               null);
-            ui.RegisterDelete(clsInternationalLicense_BLL.DeleteInternationalLicense);
+            ActionManager.Register(
+                clsUIActionService.Create(() => new frmAddNewInternationalLicense(),
+                clsUserEnums.enPermissions.ManageLicenses));
 
-            ui.RegisterFilter(() =>
-                new frmSortAndFilter(new ucLicensesFilter(), _currentQuery));
+            ActionManager.Register(
+                clsUIActionService.Update(dto =>
+                    new frmUpdateInternationalLicense(dto as clsLicenseCardInfo_DTO),
+                clsUserEnums.enPermissions.ManageLicenses));
+
+            ActionManager.Register(
+                clsUIActionService.Delete(
+                    clsInternationalLicense_BLL.DeleteInternationalLicense,
+                clsUserEnums.enPermissions.ManageLicenses));
+
+            ActionManager.Register(
+                clsUIActionService.Filter(() =>
+                    new frmSortAndFilter(new ucLicensesFilter(), _currentQuery),
+                clsUserEnums.enPermissions.ManageLicenses));
         }
-        public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-            Label lbTotalCount, PictureBox pbTotal)
+        public override void UpdateUI()
         {
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsLicenseEnums.enLicenseSearchBy));
-            lbTotalType_Titel.Text = "International Licenses";
-            lbTotalCount.Text = _paginator.TotalItems.ToString();
-            pbTotal.Image = Properties.Resources.Licenses;
+            _context.DisplayUIManager.InitializeHeaderBox
+                <clsLicenseEnums.enLicenseSearchBy>
+                ("International Licenses", Properties.Resources.InternationalLicense);
+            UpdateContextMenu();
         }
         public override void UpdateContextMenu()
         {

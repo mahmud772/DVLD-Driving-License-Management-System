@@ -1,4 +1,6 @@
-﻿using Common.Helpers;
+﻿using Common;
+using Common.Enums;
+using Common.Helpers;
 using Common.Queries;
 using DVLD_BLL;
 using DVLD_DTOs;
@@ -6,11 +8,8 @@ using DVLDWinForm.Display;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
-using static DVLDWinForm.UIHelper_Manger.clsUIEnums;
 
 namespace DVLDWinForm
 {
@@ -18,7 +17,6 @@ namespace DVLDWinForm
     public partial class MainForm : Form , IPaginationView
     {
         private IQuery _currentQuery;
-        enDisplayMode DisplayMode = enDisplayMode.FLP;
         private IDisplay _display;
         public static ContextMenuStrip SharedContextMenu { get; private set; }
         private clsUIActionsManager _uiActionsManager;
@@ -53,11 +51,13 @@ namespace DVLDWinForm
             TestAppointmentQuery = new clsTestAppointmentQuery();
             DetainedLicenseQuery = new clsDetainedLicenseQuery();
             TestQuery = new clsTestQuery();
-            _context = new clsContextDisplay(this, dgvDisplay, flpUserControls, SharedContextMenu , _uiActionsManager);
+            _context = new clsContextDisplay(this, dgvDisplay, flpUserControls,
+                SharedContextMenu , _uiActionsManager ,
+                new clsDisplayUIManager(cbSearchBy , lbTotalType_Titel , lbTotalCount, pbTotal , btnFLP , btnDGV));
             _currentQuery = PersonQuery;
             _display = new clsPeopleDisplay(PersonQuery, _context);
             dgvDisplay.ContextMenuStrip = SharedContextMenu;
-            _ShowFLP();
+            _display.Display();
         }
         
         private void _LoadDesign()
@@ -65,19 +65,24 @@ namespace DVLDWinForm
             clsUIHelper.CornerRadius(pnlMainMenu, 25);
             clsUIHelper.CornerRadius(pnlTopForm, 25);
             clsUIHelper.CornerRadius(pnlDisplayMethod, 15);
-            clsUIHelper.CornerRadius(pnlTypes, 15);
-            clsUIHelper.CornerRadius(btnPeople, 5);
-            clsUIHelper.CornerRadius(btnUsers, 5);
-            clsUIHelper.CornerRadius(btnDrivers, 5);
             clsUIHelper.CornerRadius(pnlShowTotal, 5);
+            clsUIHelper.CornerRadius(btnPeople, 5);
+            clsUIHelper.CornerRadius(btnDrivers, 5);
+            clsUIHelper.CornerRadius(btnApplications, 5);
+            clsUIHelper.CornerRadius(btnLocalLicenseApp, 5);
+            clsUIHelper.CornerRadius(btnTestAppointments, 5);
+            clsUIHelper.CornerRadius(btnTests, 5);
+            clsUIHelper.CornerRadius(btnDetainedLicenses, 5);
+            clsUIHelper.CornerRadius(btnInternationalLicenses, 5);
+            clsUIHelper.CornerRadius(btnLicenses, 5);
             using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\C#\DVLD\WinForm\Images\TopBackground.png"))
             {
                 pnlTopForm.BackgroundImage = new Bitmap(tempImage);
             }
-        }
-        private void RefreshDisplay()
-        {
-            _display.Load(DisplayMode, _currentQuery);
+            using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\DVLD\WinForm\Images\BackgroundMainForm.jpg"))
+            {
+                pnlMainMenu.BackgroundImage = new Bitmap(tempImage);
+            }
         }
 
         public void SetPageNumber(int pageNumber) => lbPageNumber.Text = pageNumber.ToString();
@@ -88,52 +93,29 @@ namespace DVLDWinForm
 
         public void SetPreviousButtonVisible(bool visible) => btnPreviousPage.Visible = visible;
         
-        private void _ShowDGV()
-        {
-            btnFLP.BackgroundImage = Properties.Resources.Menu_Gray_FLP;
-            btnDGV.BackgroundImage = Properties.Resources.Menu_RGB_DGV;
-            DisplayMode = enDisplayMode.DGV;
-            flpUserControls.Visible = false;
-            dgvDisplay.Visible = true;
-            _display.Load(DisplayMode , _currentQuery);
-            _display.UpdateUI(cbSearchBy, lbTotalType_Titel, lbTotalCount, pbTotal);
-            _display.InitializeUIActionsManager();
-        }
-        private void _ShowFLP()
-        {
-            btnFLP.BackgroundImage = Properties.Resources.Menu_RGB_FLP;
-            btnDGV.BackgroundImage = Properties.Resources.Menu_Gray_DGV;
-            DisplayMode = enDisplayMode.FLP;
-            flpUserControls.Visible = true;
-            dgvDisplay.Visible = false;
-            _display.Load(DisplayMode, _currentQuery);
-            _display.UpdateUI(cbSearchBy, lbTotalType_Titel, lbTotalCount, pbTotal);
-            _display.InitializeUIActionsManager();
-        }
 
-        private void btnFLP_Click(object sender, EventArgs e)
-        {
-            _ShowFLP();
-        }
 
-        private void btnDGV_Click(object sender, EventArgs e)
-        {
-            _ShowDGV();
-        }
+        private void btnFLP_Click(object sender, EventArgs e) => _display.ShowFLP();
+        
+
+        private void btnDGV_Click(object sender, EventArgs e) => _display.ShowDGV();
+        
 
         private void btnNextPage_Click(object sender, EventArgs e) => _display.NextPage();
         
 
         private void btnPreviousPage_Click(object sender, EventArgs e) => _display.PreviousPage();
-        
+
 
 
 
         private void btnPeople_Click(object sender, EventArgs e)
         {
+
             _currentQuery = PersonQuery;
             _display = new clsPeopleDisplay(PersonQuery, _context);
-            _ShowFLP();
+            _display.Display();
+
         }
 
 
@@ -141,14 +123,14 @@ namespace DVLDWinForm
         {
             _currentQuery = UserQuery;
             _display = new clsUsersDisplay(UserQuery, _context);
-            _ShowFLP();
+            _display.Display();
         }
 
         private void btnDrivers_Click(object sender, EventArgs e)
         {
             _currentQuery = DriverQuery;
             _display = new clsDriversDisplay(DriverQuery, _context);
-            _ShowFLP();
+            _display.Display();
         }
 
 
@@ -156,48 +138,48 @@ namespace DVLDWinForm
         {
             _currentQuery = ApplicationQuery;
             _display = new clsDisplayApplications(ApplicationQuery, _context);
-            _ShowFLP();
+            _display.Display();
         }
 
         private void btnTestAppointments_Click(object sender, EventArgs e)
         {
             _currentQuery = TestAppointmentQuery;
             _display = new clsTestAppointmentsDisplay(TestAppointmentQuery, _context);
-            _ShowFLP();
+            _display.Display();
         }
 
         private void btnLicenses_Click(object sender, EventArgs e)
         {
             _currentQuery = LicenseQuery;
             _display = new clsLicensesDisplay(LicenseQuery, _context);
-            _ShowFLP();
+            _display.Display();
         }
         private void btnLocalLicenseApp_Click(object sender, EventArgs e)
         {
             _currentQuery = LocalLicenseAppQuery;
             _display = new clsLocalDrivingLicenseApplicationsDisplay(LocalLicenseAppQuery, _context);
-            _ShowFLP();
+            _display.Display();
         }
 
         private void btnInternationalLicenses_Click(object sender, EventArgs e)
         {
             _currentQuery = LicenseQuery;
             _display = new clsInternationalLicensesDisplay(LicenseQuery, _context);
-            _ShowFLP();
+            _display.Display();
         }
 
         private void btnDetainedLicenses_Click(object sender, EventArgs e)
         {
             _currentQuery = DetainedLicenseQuery;
             _display = new clsDetaindLicensesDisplay(DetainedLicenseQuery, _context);
-            _ShowFLP();
+            _display.Display();
         }
 
         private void btnTests_Click(object sender, EventArgs e)
         {
             _currentQuery = TestQuery;
             _display = new clsTestDisplay(TestQuery , _context);
-            _ShowFLP();
+            _display.Display();
         }
         private void dgvData_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -209,14 +191,12 @@ namespace DVLDWinForm
             }
         }
         
-        private void btnAddNew_Click(object sender, EventArgs e)
-        {
+        private void btnAddNew_Click(object sender, EventArgs e) =>
             _uiActionsManager.Execute(clsUIEnums.enUIAction.AddNew ,null , _display.Refresh);
-        }
-        private void btnSort_Filter_Click(object sender, EventArgs e)
-        {
+        
+        private void btnSort_Filter_Click(object sender, EventArgs e) =>
             _uiActionsManager.Execute(clsUIEnums.enUIAction.Filter, null , _display.Refresh);
-        }
+        
         private void btnSearch_Click(object sender, EventArgs e)
         {
             int ID;
@@ -224,9 +204,17 @@ namespace DVLDWinForm
             _currentQuery.SearchBy = (Enum)cbSearchBy.SelectedItem;
             _currentQuery.SearchValue = clsSearchType.IsTypeEnumString(_currentQuery.SearchBy) ?
                 ID : tbSearch.Text;
-            _display.Load(DisplayMode, _currentQuery);
+            _display.Display();
             _currentQuery.SearchValue = null;
         }
 
+        private void tbSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSearch.PerformClick(); 
+                e.SuppressKeyPress = true; 
+            }
+        }
     }
 }

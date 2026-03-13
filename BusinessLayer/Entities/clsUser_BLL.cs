@@ -1,13 +1,11 @@
-﻿using Common.Queries;
+﻿using Common;
+using Common.Helpers;
+using Common.Queries;
 using DVLD_DAL;
-using DVLD_DTOs;
 using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Common.Enums;
 namespace DVLD_BLL
 {
 
@@ -116,13 +114,14 @@ namespace DVLD_BLL
             return clsCurrentUser.User != null;
         }
 
-        public bool CheckAccessPermission(int Permission)
+        public static bool CheckAccessPermission(int CurrentUserPermission , clsUserEnums.enPermissions Permission)
         {
+            
+            if (CurrentUserPermission == -1) return true;
+            clsUserEnums.enPermissions enCurrentUserPermission = 
+                (clsUserEnums.enPermissions)CurrentUserPermission;
 
-            if (this.User.Permissions == -1) return true;
-
-
-            return ((this.User.Permissions & Permission) == Permission);
+            return ((enCurrentUserPermission & Permission) == Permission);
         }
         public static List<clsUser_DTO> GetUsers()
         {

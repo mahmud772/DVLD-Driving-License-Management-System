@@ -25,7 +25,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode , IQuery PersonQuery)
         {
             _currentQuery = PersonQuery;
-            _displayMode = DisplayMode;
+            base.DisplayMode = DisplayMode;
             InitializeAdapter(clsPerson_BLL.GetPeople,
                 clsPerson_BLL.GetCount,
                 GetDisplayView<clsPerson_DTO>(person => new ucPerson( _context.SharedContextMenu) { PersonInfo = person } , DisplayMode)
@@ -34,26 +34,33 @@ namespace DVLDWinForm.Display
         }
         public override void InitializeUIActionsManager()
         {
-            clsUIActionsManager ui = _context.UIActionsManager;
-            ui.Reset();
+            clsUIActionsManager ActionManager = _context.UIActionsManager;
+            ActionManager.Reset();
 
-            ui.RegisterCreate(() => new frmAddNew_UpdatePerson());
+            ActionManager.Register(
+                clsUIActionService.Create(() => new frmAddNew_UpdatePerson(),
+                clsUserEnums.enPermissions.ManagePeople));
 
-            ui.RegisterUpdate(dto =>
-                new frmAddNew_UpdatePerson(dto as clsPerson_DTO));
+            ActionManager.Register(
+                clsUIActionService.Update(dto =>
+                    new frmAddNew_UpdatePerson(dto as clsPerson_DTO),
+                clsUserEnums.enPermissions.ManagePeople));
 
-            ui.RegisterDelete(clsPerson_BLL.DeletePerson);
+            ActionManager.Register(
+                clsUIActionService.Delete(
+                    clsPerson_BLL.DeletePerson,
+                clsUserEnums.enPermissions.ManagePeople));
 
-            ui.RegisterFilter(() =>
-                new frmSortAndFilter(new ucPeopleFilter(), _currentQuery));
+            ActionManager.Register(
+                clsUIActionService.Filter(() =>
+                    new frmSortAndFilter(new ucPeopleFilter(), _currentQuery),
+                clsUserEnums.enPermissions.ManagePeople));
         }
-        public override void UpdateUI(ComboBox cbSearchBy , Label lbTotalType_Titel ,
-            Label lbTotalCount , PictureBox pbTotal)
+        public override void UpdateUI()
         {
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsPersonEnums.enPersonSearchBy));
-            lbTotalType_Titel.Text = "People";
-            lbTotalCount.Text = _paginator.TotalItems.ToString();
-            pbTotal.Image = Properties.Resources.People;
+            _context.DisplayUIManager.InitializeHeaderBox
+            <clsPersonEnums.enPersonSearchBy>
+            ("People", Properties.Resources.People);
             UpdateContextMenu();
         }
         public override void UpdateContextMenu()

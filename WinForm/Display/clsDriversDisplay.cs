@@ -28,7 +28,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
-            _displayMode = DisplayMode;
+            base.DisplayMode = DisplayMode;
             InitializeAdapter(clsDriver_BLL.GetDrivers,
                clsDriver_BLL.GetCount,
                GetDisplayView<clsDriver_DTO>(Driver => new ucDriver(_context.SharedContextMenu) { DriverInfo = Driver }, DisplayMode));
@@ -36,27 +36,33 @@ namespace DVLDWinForm.Display
         }
         public override void InitializeUIActionsManager()
         {
-            clsUIActionsManager ui = _context.UIActionsManager;
-            ui.Reset();
+            clsUIActionsManager ActionManager = _context.UIActionsManager;
+            ActionManager.Reset();
 
-            ui.RegisterCreate(() => new frmAddNewDriver());
+            ActionManager.Register(
+                clsUIActionService.Create(() => new frmAddNewDriver(),
+                clsUserEnums.enPermissions.ManageDrivers));
 
-            ui.RegisterUpdate(dto =>
-                 new frmAddNew_UpdatePerson(dto as clsDriver_DTO));
+            ActionManager.Register(
+                clsUIActionService.Update(dto =>
+                    new frmAddNew_UpdatePerson(dto as clsDriver_DTO),
+                clsUserEnums.enPermissions.ManageDrivers));
 
-            ui.RegisterDelete(clsDriver_BLL.DeleteDriver);
+            ActionManager.Register(
+                clsUIActionService.Delete(clsDriver_BLL.DeleteDriver,
+                clsUserEnums.enPermissions.ManageDrivers));
 
-            ui.RegisterFilter(() =>
-                new frmSortAndFilter(new ucDriversFilter(), _currentQuery));
-            
+            ActionManager.Register(
+                clsUIActionService.Filter(() =>
+                    new frmSortAndFilter(new ucDriversFilter(), _currentQuery),
+                clsUserEnums.enPermissions.ManageDrivers));
         }
-        public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-            Label lbTotalCount, PictureBox pbTotal)
+        public override void UpdateUI()
         {
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsDriverEnums.enDriverSearchBy));
-            lbTotalType_Titel.Text = "Drivers";
-            lbTotalCount.Text = _paginator.TotalItems.ToString();
-            pbTotal.Image = Properties.Resources.Drivers;
+            _context.DisplayUIManager.InitializeHeaderBox
+                <clsDriverEnums.enDriverSearchBy>
+                ("Drivers", Properties.Resources.Drivers);
+            UpdateContextMenu();
         }
         public override void UpdateContextMenu()
         {

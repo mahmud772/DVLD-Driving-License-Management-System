@@ -105,6 +105,9 @@ namespace DVLD_BLL
             }
             return false;
         }
-
+        public static bool IsDriverHaveActiveLicenseFromClass3(int DriverID , ref int LicenseID)
+        {
+            return clsDriver_DAL.IsDriverHaveActiveLicenseFromClass3(DriverID , ref LicenseID); 
+        }
     }
 }

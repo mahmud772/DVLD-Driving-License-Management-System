@@ -27,7 +27,7 @@ namespace DVLDWinForm.Display
         public override void Load(clsUIEnums.enDisplayMode DisplayMode, IQuery Query)
         {
             _currentQuery = Query;
-            _displayMode = DisplayMode;
+            base.DisplayMode = DisplayMode;
             InitializeAdapter(clsUser_BLL.GetUsers,
                clsUser_BLL.GetCount,
                GetDisplayView<clsUser_DTO>(user => new ucUser(_context.SharedContextMenu) { UserInfo = user }, DisplayMode));
@@ -35,26 +35,34 @@ namespace DVLDWinForm.Display
         }
         public override void InitializeUIActionsManager()
         {
-            clsUIActionsManager ui = _context.UIActionsManager;
-            ui.Reset();
+            clsUIActionsManager ActionManager = _context.UIActionsManager;
+            ActionManager.Reset();
 
-            ui.RegisterCreate(() => new frmAddNewUser());
+            ActionManager.Register(
+                clsUIActionService.Create(() => new frmAddNewUser(),
+                clsUserEnums.enPermissions.ManageUsers));
 
-            ui.RegisterUpdate(dto =>
-                new frmUpdateUser(dto as clsUser_DTO));
+            ActionManager.Register(
+                clsUIActionService.Update(dto =>
+                    new frmUpdateUser(dto as clsUser_DTO),
+                clsUserEnums.enPermissions.ManageUsers));
 
-            ui.RegisterDelete(clsUser_BLL.DeleteUser);
+            ActionManager.Register(
+                clsUIActionService.Delete(
+                    clsUser_BLL.DeleteUser,
+                clsUserEnums.enPermissions.ManageUsers));
 
-            ui.RegisterFilter(() =>
-                new frmSortAndFilter(new ucUsersFilter(), _currentQuery));
+            ActionManager.Register(
+                clsUIActionService.Filter(() =>
+                    new frmSortAndFilter(new ucUsersFilter(), _currentQuery),
+                clsUserEnums.enPermissions.ManageUsers));
         }
-        public override void UpdateUI(ComboBox cbSearchBy, Label lbTotalType_Titel,
-            Label lbTotalCount, PictureBox pbTotal)
+        public override void UpdateUI()
         {
-            cbSearchBy.DataSource = Enum.GetValues(typeof(clsUserEnums.enUserSearchBy));
-            lbTotalType_Titel.Text = "Users";
-            lbTotalCount.Text = _paginator.TotalItems.ToString();
-            pbTotal.Image = Properties.Resources.Users;
+            _context.DisplayUIManager.InitializeHeaderBox
+          <clsUserEnums.enUserSearchBy>
+          ("Users", Properties.Resources.Users);
+            UpdateContextMenu();
         }
         public override void UpdateContextMenu()
         {
