@@ -98,6 +98,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmUpdateTest";
+            this.ShowIcon = false;
             this.Text = "Update Test";
             this.Load += new System.EventHandler(this.frmUpdateTest_Load);
             this.pnlTest.ResumeLayout(false);

@@ -34,23 +34,17 @@
             this.tbNationalNo = new System.Windows.Forms.TextBox();
             this.lbNationalNo = new System.Windows.Forms.Label();
             this.pnlDateofBirthAndGender = new System.Windows.Forms.Panel();
-            this.pctrGendor = new System.Windows.Forms.PictureBox();
-            this.pctrDateOfBirth = new System.Windows.Forms.PictureBox();
             this.rdbtnFemale = new System.Windows.Forms.RadioButton();
             this.dtpDateOfBirth = new System.Windows.Forms.DateTimePicker();
             this.rdbtnMale = new System.Windows.Forms.RadioButton();
             this.lbGendor = new System.Windows.Forms.Label();
             this.lbDateOfBirth = new System.Windows.Forms.Label();
             this.pnlLocation = new System.Windows.Forms.Panel();
-            this.pctrCountry = new System.Windows.Forms.PictureBox();
-            this.pctrAddress = new System.Windows.Forms.PictureBox();
             this.cbCountry = new System.Windows.Forms.ComboBox();
             this.tbAddress = new System.Windows.Forms.TextBox();
             this.lbAddress = new System.Windows.Forms.Label();
             this.lbCountry = new System.Windows.Forms.Label();
             this.pnlContacts = new System.Windows.Forms.Panel();
-            this.pctrEmail = new System.Windows.Forms.PictureBox();
-            this.pctrPhone = new System.Windows.Forms.PictureBox();
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.tbPhone = new System.Windows.Forms.TextBox();
             this.lbEmail = new System.Windows.Forms.Label();
@@ -64,21 +58,29 @@
             this.lbThirdName = new System.Windows.Forms.Label();
             this.lbSecondName = new System.Windows.Forms.Label();
             this.lbFirstName = new System.Windows.Forms.Label();
+            this.pbDeleteImage = new System.Windows.Forms.PictureBox();
             this.pbImagePath = new System.Windows.Forms.PictureBox();
             this.pbImage = new System.Windows.Forms.PictureBox();
+            this.pctrGendor = new System.Windows.Forms.PictureBox();
+            this.pctrDateOfBirth = new System.Windows.Forms.PictureBox();
+            this.pctrCountry = new System.Windows.Forms.PictureBox();
+            this.pctrAddress = new System.Windows.Forms.PictureBox();
+            this.pctrEmail = new System.Windows.Forms.PictureBox();
+            this.pctrPhone = new System.Windows.Forms.PictureBox();
             this.pnlNationalNo.SuspendLayout();
             this.pnlDateofBirthAndGender.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrGendor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrDateOfBirth)).BeginInit();
             this.pnlLocation.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrCountry)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrAddress)).BeginInit();
             this.pnlContacts.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrEmail)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrPhone)).BeginInit();
             this.pnlName.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDeleteImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagePath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrGendor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrDateOfBirth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrCountry)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrAddress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrEmail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrPhone)).BeginInit();
             this.SuspendLayout();
             // 
             // lbTitel
@@ -146,26 +148,6 @@
             this.pnlDateofBirthAndGender.Size = new System.Drawing.Size(400, 78);
             this.pnlDateofBirthAndGender.TabIndex = 40;
             // 
-            // pctrGendor
-            // 
-            this.pctrGendor.Image = global::DVLDWinForm.Properties.Resources.Gendor;
-            this.pctrGendor.Location = new System.Drawing.Point(95, 53);
-            this.pctrGendor.Name = "pctrGendor";
-            this.pctrGendor.Size = new System.Drawing.Size(16, 16);
-            this.pctrGendor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrGendor.TabIndex = 30;
-            this.pctrGendor.TabStop = false;
-            // 
-            // pctrDateOfBirth
-            // 
-            this.pctrDateOfBirth.Image = global::DVLDWinForm.Properties.Resources.Date_of_birth;
-            this.pctrDateOfBirth.Location = new System.Drawing.Point(95, 16);
-            this.pctrDateOfBirth.Name = "pctrDateOfBirth";
-            this.pctrDateOfBirth.Size = new System.Drawing.Size(16, 16);
-            this.pctrDateOfBirth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrDateOfBirth.TabIndex = 31;
-            this.pctrDateOfBirth.TabStop = false;
-            // 
             // rdbtnFemale
             // 
             this.rdbtnFemale.AutoSize = true;
@@ -181,9 +163,10 @@
             // dtpDateOfBirth
             // 
             this.dtpDateOfBirth.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDateOfBirth.Location = new System.Drawing.Point(126, 14);
             this.dtpDateOfBirth.Name = "dtpDateOfBirth";
-            this.dtpDateOfBirth.Size = new System.Drawing.Size(190, 22);
+            this.dtpDateOfBirth.Size = new System.Drawing.Size(98, 22);
             this.dtpDateOfBirth.TabIndex = 10;
             // 
             // rdbtnMale
@@ -231,26 +214,6 @@
             this.pnlLocation.Name = "pnlLocation";
             this.pnlLocation.Size = new System.Drawing.Size(400, 50);
             this.pnlLocation.TabIndex = 41;
-            // 
-            // pctrCountry
-            // 
-            this.pctrCountry.Image = global::DVLDWinForm.Properties.Resources.Country;
-            this.pctrCountry.Location = new System.Drawing.Point(64, 15);
-            this.pctrCountry.Name = "pctrCountry";
-            this.pctrCountry.Size = new System.Drawing.Size(16, 16);
-            this.pctrCountry.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrCountry.TabIndex = 34;
-            this.pctrCountry.TabStop = false;
-            // 
-            // pctrAddress
-            // 
-            this.pctrAddress.Image = global::DVLDWinForm.Properties.Resources.Address;
-            this.pctrAddress.Location = new System.Drawing.Point(253, 15);
-            this.pctrAddress.Name = "pctrAddress";
-            this.pctrAddress.Size = new System.Drawing.Size(16, 16);
-            this.pctrAddress.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrAddress.TabIndex = 35;
-            this.pctrAddress.TabStop = false;
             // 
             // cbCountry
             // 
@@ -303,26 +266,6 @@
             this.pnlContacts.Name = "pnlContacts";
             this.pnlContacts.Size = new System.Drawing.Size(400, 46);
             this.pnlContacts.TabIndex = 38;
-            // 
-            // pctrEmail
-            // 
-            this.pctrEmail.Image = global::DVLDWinForm.Properties.Resources.Email;
-            this.pctrEmail.Location = new System.Drawing.Point(251, 16);
-            this.pctrEmail.Name = "pctrEmail";
-            this.pctrEmail.Size = new System.Drawing.Size(16, 16);
-            this.pctrEmail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrEmail.TabIndex = 32;
-            this.pctrEmail.TabStop = false;
-            // 
-            // pctrPhone
-            // 
-            this.pctrPhone.Image = global::DVLDWinForm.Properties.Resources.Phone;
-            this.pctrPhone.Location = new System.Drawing.Point(64, 16);
-            this.pctrPhone.Name = "pctrPhone";
-            this.pctrPhone.Size = new System.Drawing.Size(16, 16);
-            this.pctrPhone.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrPhone.TabIndex = 33;
-            this.pctrPhone.TabStop = false;
             // 
             // tbEmail
             // 
@@ -448,10 +391,21 @@
             this.lbFirstName.TabIndex = 0;
             this.lbFirstName.Text = "First Name  :";
             // 
+            // pbDeleteImage
+            // 
+            this.pbDeleteImage.Image = global::DVLDWinForm.Properties.Resources.DeleteImage;
+            this.pbDeleteImage.Location = new System.Drawing.Point(396, 89);
+            this.pbDeleteImage.Name = "pbDeleteImage";
+            this.pbDeleteImage.Size = new System.Drawing.Size(25, 18);
+            this.pbDeleteImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbDeleteImage.TabIndex = 45;
+            this.pbDeleteImage.TabStop = false;
+            this.pbDeleteImage.Click += new System.EventHandler(this.pbDeleteImage_Click);
+            // 
             // pbImagePath
             // 
             this.pbImagePath.Image = global::DVLDWinForm.Properties.Resources.Image;
-            this.pbImagePath.Location = new System.Drawing.Point(392, 89);
+            this.pbImagePath.Location = new System.Drawing.Point(396, 68);
             this.pbImagePath.Name = "pbImagePath";
             this.pbImagePath.Size = new System.Drawing.Size(25, 18);
             this.pbImagePath.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -470,12 +424,73 @@
             this.pbImage.TabStop = false;
             this.pbImage.Paint += new System.Windows.Forms.PaintEventHandler(this.pbImage_Paint);
             // 
+            // pctrGendor
+            // 
+            this.pctrGendor.Image = global::DVLDWinForm.Properties.Resources.Gendor;
+            this.pctrGendor.Location = new System.Drawing.Point(95, 53);
+            this.pctrGendor.Name = "pctrGendor";
+            this.pctrGendor.Size = new System.Drawing.Size(16, 16);
+            this.pctrGendor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrGendor.TabIndex = 30;
+            this.pctrGendor.TabStop = false;
+            // 
+            // pctrDateOfBirth
+            // 
+            this.pctrDateOfBirth.Image = global::DVLDWinForm.Properties.Resources.Date_of_birth;
+            this.pctrDateOfBirth.Location = new System.Drawing.Point(95, 16);
+            this.pctrDateOfBirth.Name = "pctrDateOfBirth";
+            this.pctrDateOfBirth.Size = new System.Drawing.Size(16, 16);
+            this.pctrDateOfBirth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrDateOfBirth.TabIndex = 31;
+            this.pctrDateOfBirth.TabStop = false;
+            // 
+            // pctrCountry
+            // 
+            this.pctrCountry.Image = global::DVLDWinForm.Properties.Resources.Country;
+            this.pctrCountry.Location = new System.Drawing.Point(64, 15);
+            this.pctrCountry.Name = "pctrCountry";
+            this.pctrCountry.Size = new System.Drawing.Size(16, 16);
+            this.pctrCountry.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrCountry.TabIndex = 34;
+            this.pctrCountry.TabStop = false;
+            // 
+            // pctrAddress
+            // 
+            this.pctrAddress.Image = global::DVLDWinForm.Properties.Resources.Address;
+            this.pctrAddress.Location = new System.Drawing.Point(253, 15);
+            this.pctrAddress.Name = "pctrAddress";
+            this.pctrAddress.Size = new System.Drawing.Size(16, 16);
+            this.pctrAddress.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrAddress.TabIndex = 35;
+            this.pctrAddress.TabStop = false;
+            // 
+            // pctrEmail
+            // 
+            this.pctrEmail.Image = global::DVLDWinForm.Properties.Resources.Email;
+            this.pctrEmail.Location = new System.Drawing.Point(251, 16);
+            this.pctrEmail.Name = "pctrEmail";
+            this.pctrEmail.Size = new System.Drawing.Size(16, 16);
+            this.pctrEmail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrEmail.TabIndex = 32;
+            this.pctrEmail.TabStop = false;
+            // 
+            // pctrPhone
+            // 
+            this.pctrPhone.Image = global::DVLDWinForm.Properties.Resources.Phone;
+            this.pctrPhone.Location = new System.Drawing.Point(64, 16);
+            this.pctrPhone.Name = "pctrPhone";
+            this.pctrPhone.Size = new System.Drawing.Size(16, 16);
+            this.pctrPhone.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrPhone.TabIndex = 33;
+            this.pctrPhone.TabStop = false;
+            // 
             // frmAddNew_UpdatePerson
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(455, 476);
+            this.Controls.Add(this.pbDeleteImage);
             this.Controls.Add(this.pbImagePath);
             this.Controls.Add(this.pbImage);
             this.Controls.Add(this.pnlNationalNo);
@@ -486,6 +501,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmAddNew_UpdatePerson";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add New Person";
             this.Load += new System.EventHandler(this.frmAddNew_UpdatePerson_Load);
@@ -493,20 +509,21 @@
             this.pnlNationalNo.PerformLayout();
             this.pnlDateofBirthAndGender.ResumeLayout(false);
             this.pnlDateofBirthAndGender.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrGendor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrDateOfBirth)).EndInit();
             this.pnlLocation.ResumeLayout(false);
             this.pnlLocation.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrCountry)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrAddress)).EndInit();
             this.pnlContacts.ResumeLayout(false);
             this.pnlContacts.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrEmail)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrPhone)).EndInit();
             this.pnlName.ResumeLayout(false);
             this.pnlName.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDeleteImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagePath)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrGendor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrDateOfBirth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrCountry)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrAddress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrEmail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrPhone)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -551,5 +568,6 @@
         private System.Windows.Forms.Label lbSecondName;
         private System.Windows.Forms.Label lbFirstName;
         private System.Windows.Forms.PictureBox pbImagePath;
+        private System.Windows.Forms.PictureBox pbDeleteImage;
     }
 }

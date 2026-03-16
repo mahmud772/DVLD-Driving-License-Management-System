@@ -34,6 +34,7 @@
             this.btnLocalLicenseApp = new System.Windows.Forms.Button();
             this.btnDetainedLicenses = new System.Windows.Forms.Button();
             this.btnInternationalLicenses = new System.Windows.Forms.Button();
+            this.ucLogout1 = new DVLDWinForm.User_Controls.ucLogout();
             this.btnLicenses = new System.Windows.Forms.Button();
             this.btnTestAppointments = new System.Windows.Forms.Button();
             this.btnApplications = new System.Windows.Forms.Button();
@@ -45,6 +46,10 @@
             this.lbPeople_Titel = new System.Windows.Forms.Label();
             this.btnPeople = new System.Windows.Forms.Button();
             this.pnlTopForm = new System.Windows.Forms.Panel();
+            this.pnlShowTotal = new DVLDWinForm.UIHelper_Manger.GlassPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pbTotal = new System.Windows.Forms.PictureBox();
+            this.lbTotalCount = new System.Windows.Forms.Label();
             this.lbTotalType_Titel = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.cbSearchBy = new System.Windows.Forms.ComboBox();
@@ -60,23 +65,18 @@
             this.btnDGV = new System.Windows.Forms.Button();
             this.btnFLP = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.pnlShowTotal = new DVLDWinForm.UIHelper_Manger.GlassPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pbTotal = new System.Windows.Forms.PictureBox();
-            this.lbTotalCount = new System.Windows.Forms.Label();
-            this.ucLogout1 = new DVLDWinForm.User_Controls.ucLogout();
             this.pnlMainMenu.SuspendLayout();
             this.pnlTopForm.SuspendLayout();
+            this.pnlShowTotal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).BeginInit();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).BeginInit();
             this.pnlDisplayMethod.SuspendLayout();
-            this.pnlShowTotal.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMainMenu
             // 
-            this.pnlMainMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlMainMenu.BackColor = System.Drawing.Color.Transparent;
             this.pnlMainMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlMainMenu.Controls.Add(this.btnTests);
             this.pnlMainMenu.Controls.Add(this.btnLocalLicenseApp);
@@ -93,9 +93,9 @@
             this.pnlMainMenu.Controls.Add(this.lbTests_Title);
             this.pnlMainMenu.Controls.Add(this.lbPeople_Titel);
             this.pnlMainMenu.Controls.Add(this.btnPeople);
-            this.pnlMainMenu.Location = new System.Drawing.Point(0, -4);
+            this.pnlMainMenu.Location = new System.Drawing.Point(0, 5);
             this.pnlMainMenu.Name = "pnlMainMenu";
-            this.pnlMainMenu.Size = new System.Drawing.Size(1444, 887);
+            this.pnlMainMenu.Size = new System.Drawing.Size(220, 878);
             this.pnlMainMenu.TabIndex = 0;
             // 
             // btnTests
@@ -109,7 +109,7 @@
             this.btnTests.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnTests.Image = global::DVLDWinForm.Properties.Resources.TestAppointment;
             this.btnTests.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTests.Location = new System.Drawing.Point(36, 374);
+            this.btnTests.Location = new System.Drawing.Point(36, 413);
             this.btnTests.Name = "btnTests";
             this.btnTests.Size = new System.Drawing.Size(160, 30);
             this.btnTests.TabIndex = 15;
@@ -182,6 +182,14 @@
             this.btnInternationalLicenses.UseVisualStyleBackColor = false;
             this.btnInternationalLicenses.Click += new System.EventHandler(this.btnInternationalLicenses_Click);
             // 
+            // ucLogout1
+            // 
+            this.ucLogout1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.ucLogout1.Location = new System.Drawing.Point(3, 762);
+            this.ucLogout1.Name = "ucLogout1";
+            this.ucLogout1.Size = new System.Drawing.Size(211, 58);
+            this.ucLogout1.TabIndex = 11;
+            // 
             // btnLicenses
             // 
             this.btnLicenses.BackColor = System.Drawing.Color.Transparent;
@@ -214,7 +222,7 @@
             this.btnTestAppointments.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnTestAppointments.Image = global::DVLDWinForm.Properties.Resources.TestAppointment;
             this.btnTestAppointments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTestAppointments.Location = new System.Drawing.Point(36, 410);
+            this.btnTestAppointments.Location = new System.Drawing.Point(36, 377);
             this.btnTestAppointments.Name = "btnTestAppointments";
             this.btnTestAppointments.Size = new System.Drawing.Size(160, 30);
             this.btnTestAppointments.TabIndex = 9;
@@ -365,6 +373,50 @@
             this.pnlTopForm.Name = "pnlTopForm";
             this.pnlTopForm.Size = new System.Drawing.Size(1215, 225);
             this.pnlTopForm.TabIndex = 1;
+            // 
+            // pnlShowTotal
+            // 
+            this.pnlShowTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(238)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
+            this.pnlShowTotal.Controls.Add(this.label1);
+            this.pnlShowTotal.Controls.Add(this.pbTotal);
+            this.pnlShowTotal.Controls.Add(this.lbTotalCount);
+            this.pnlShowTotal.Location = new System.Drawing.Point(1000, 109);
+            this.pnlShowTotal.Name = "pnlShowTotal";
+            this.pnlShowTotal.Size = new System.Drawing.Size(200, 82);
+            this.pnlShowTotal.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label1.Location = new System.Drawing.Point(6, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 21);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Total";
+            // 
+            // pbTotal
+            // 
+            this.pbTotal.BackColor = System.Drawing.Color.Transparent;
+            this.pbTotal.Location = new System.Drawing.Point(147, 52);
+            this.pbTotal.Name = "pbTotal";
+            this.pbTotal.Size = new System.Drawing.Size(25, 22);
+            this.pbTotal.TabIndex = 2;
+            this.pbTotal.TabStop = false;
+            // 
+            // lbTotalCount
+            // 
+            this.lbTotalCount.AutoSize = true;
+            this.lbTotalCount.BackColor = System.Drawing.Color.Transparent;
+            this.lbTotalCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.lbTotalCount.Location = new System.Drawing.Point(8, 44);
+            this.lbTotalCount.Name = "lbTotalCount";
+            this.lbTotalCount.Size = new System.Drawing.Size(49, 30);
+            this.lbTotalCount.TabIndex = 0;
+            this.lbTotalCount.Text = "400";
             // 
             // lbTotalType_Titel
             // 
@@ -545,58 +597,6 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // pnlShowTotal
-            // 
-            this.pnlShowTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(238)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
-            this.pnlShowTotal.Controls.Add(this.label1);
-            this.pnlShowTotal.Controls.Add(this.pbTotal);
-            this.pnlShowTotal.Controls.Add(this.lbTotalCount);
-            this.pnlShowTotal.Location = new System.Drawing.Point(1000, 109);
-            this.pnlShowTotal.Name = "pnlShowTotal";
-            this.pnlShowTotal.Size = new System.Drawing.Size(200, 82);
-            this.pnlShowTotal.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label1.Location = new System.Drawing.Point(6, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 21);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Total";
-            // 
-            // pbTotal
-            // 
-            this.pbTotal.BackColor = System.Drawing.Color.Transparent;
-            this.pbTotal.Location = new System.Drawing.Point(147, 52);
-            this.pbTotal.Name = "pbTotal";
-            this.pbTotal.Size = new System.Drawing.Size(25, 22);
-            this.pbTotal.TabIndex = 2;
-            this.pbTotal.TabStop = false;
-            // 
-            // lbTotalCount
-            // 
-            this.lbTotalCount.AutoSize = true;
-            this.lbTotalCount.BackColor = System.Drawing.Color.Transparent;
-            this.lbTotalCount.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.lbTotalCount.Location = new System.Drawing.Point(8, 44);
-            this.lbTotalCount.Name = "lbTotalCount";
-            this.lbTotalCount.Size = new System.Drawing.Size(49, 30);
-            this.lbTotalCount.TabIndex = 0;
-            this.lbTotalCount.Text = "400";
-            // 
-            // ucLogout1
-            // 
-            this.ucLogout1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.ucLogout1.Location = new System.Drawing.Point(3, 762);
-            this.ucLogout1.Name = "ucLogout1";
-            this.ucLogout1.Size = new System.Drawing.Size(211, 58);
-            this.ucLogout1.TabIndex = 11;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -605,21 +605,23 @@
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlTopForm);
             this.Controls.Add(this.pnlMainMenu);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "DVLD";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
             this.pnlMainMenu.ResumeLayout(false);
             this.pnlMainMenu.PerformLayout();
             this.pnlTopForm.ResumeLayout(false);
             this.pnlTopForm.PerformLayout();
+            this.pnlShowTotal.ResumeLayout(false);
+            this.pnlShowTotal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).EndInit();
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDisplay)).EndInit();
             this.pnlDisplayMethod.ResumeLayout(false);
-            this.pnlShowTotal.ResumeLayout(false);
-            this.pnlShowTotal.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotal)).EndInit();
             this.ResumeLayout(false);
 
         }

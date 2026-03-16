@@ -123,6 +123,12 @@ namespace DVLD_DAL
 
             return clsDbHelper.ExecuteScalar<bool>(Query, Command => clsDbHelper.SetValue(Command, "@TestAppointmentID", TestAppointmentID));
         }
+        public static bool IsTestingAppointment(int TestAppointmentID)
+        {
+            string Query = "Select 1 From Tests Where TestAppointmentID = @TestAppointmentID;";
+
+            return clsDbHelper.Exists(Query, Command => clsDbHelper.SetValue(Command, "@TestAppointmentID", TestAppointmentID));
+        }
 
         public static bool IsPersonPassedInAllTests(int PersonID, clsApplicationEnums.enApplicationType ApplicationType)
         {
@@ -133,7 +139,7 @@ namespace DVLD_DAL
                             Where A.ApplicantPersonID = @ApplicantPersonID
                             And TA.TestTypeID = @TestTypeID
                             And A.ApplicationTypeID = @ApplicationTypeID;";
-            return clsDbHelper.Exists(Query, (Action<System.Data.SqlClient.SqlCommand>)(Command =>
+            return clsDbHelper.Exists(Query, (Command =>
             {
                 clsDbHelper.SetValue(Command, "@ApplicantPersonID", PersonID);
                 clsDbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));

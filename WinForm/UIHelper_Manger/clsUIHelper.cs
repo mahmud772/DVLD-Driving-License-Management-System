@@ -1,22 +1,42 @@
 ﻿using Common;
-using DVLDWinForm;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DVLDWinForm.UIHelper
 {
     public static class clsUIHelper
     {
-        
-        
 
+        public static Image SetImageOpacity(Image image, float opacity)
+        {
+            Bitmap bmp = new Bitmap(image.Width, image.Height);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                ColorMatrix matrix = new ColorMatrix { Matrix33 = opacity }; // هنا نحدد الشفافية من 0 إلى 1
+                ImageAttributes attributes = new ImageAttributes();
+                attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                g.DrawImage(image, new Rectangle(0, 0, bmp.Width, bmp.Height),
+                            0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+            }
+            return bmp;
+        }
+        public static void FormColor(Form frm , object sender, PaintEventArgs e)
+        {
+            // إنشاء مستطيل بحجم النموذج
+            Rectangle rect = frm.ClientRectangle;
+            
+            // استخدام LinearGradientBrush لعمل التدرج
+            using (LinearGradientBrush brush = new LinearGradientBrush(rect,
+                Color.FromArgb(245, 245, 245), // اللون الأول (أعلى)
+                Color.FromArgb(210, 210, 210), // اللون الثاني (أسفل)
+                90F)) // زاوية التدرج (رأسية)
+            {
+                e.Graphics.FillRectangle(brush, rect);
+            }
+        }
         // دالة تجعل حواف أي أداة مستديرة (A function that makes the corners of any control rounded)
         public static void CornerRadius(Control ctrl, int radius)
         {

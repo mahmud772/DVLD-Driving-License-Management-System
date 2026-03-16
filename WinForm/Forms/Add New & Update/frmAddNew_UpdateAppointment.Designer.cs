@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddNew_UpdateAppointment));
             this.dtpAppointmentDate = new System.Windows.Forms.DateTimePicker();
             this.pnlAppointment = new System.Windows.Forms.Panel();
+            this.pbSelectedRetakeAppID = new System.Windows.Forms.PictureBox();
+            this.tbRetakeTestAppID = new System.Windows.Forms.TextBox();
+            this.lbRetakeTestApp = new System.Windows.Forms.Label();
             this.lbPaidFees = new System.Windows.Forms.Label();
             this.lbPaidFees_Titel = new System.Windows.Forms.Label();
             this.lbType = new System.Windows.Forms.Label();
@@ -40,12 +44,9 @@
             this.lbAppointmentType = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.pbSelectedRetakeAppID = new System.Windows.Forms.PictureBox();
-            this.tbRetakeTestAppID = new System.Windows.Forms.TextBox();
-            this.lbRetakeTestApp = new System.Windows.Forms.Label();
             this.pnlAppointment.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedRetakeAppID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             this.SuspendLayout();
             // 
             // dtpAppointmentDate
@@ -76,6 +77,37 @@
             this.pnlAppointment.Name = "pnlAppointment";
             this.pnlAppointment.Size = new System.Drawing.Size(319, 178);
             this.pnlAppointment.TabIndex = 47;
+            // 
+            // pbSelectedRetakeAppID
+            // 
+            this.pbSelectedRetakeAppID.Image = ((System.Drawing.Image)(resources.GetObject("pbSelectedRetakeAppID.Image")));
+            this.pbSelectedRetakeAppID.Location = new System.Drawing.Point(275, 145);
+            this.pbSelectedRetakeAppID.Name = "pbSelectedRetakeAppID";
+            this.pbSelectedRetakeAppID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedRetakeAppID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbSelectedRetakeAppID.TabIndex = 56;
+            this.pbSelectedRetakeAppID.TabStop = false;
+            this.pbSelectedRetakeAppID.Click += new System.EventHandler(this.pbSelectedRetakeAppID_Click);
+            // 
+            // tbRetakeTestAppID
+            // 
+            this.tbRetakeTestAppID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbRetakeTestAppID.Location = new System.Drawing.Point(145, 146);
+            this.tbRetakeTestAppID.Multiline = true;
+            this.tbRetakeTestAppID.Name = "tbRetakeTestAppID";
+            this.tbRetakeTestAppID.ReadOnly = true;
+            this.tbRetakeTestAppID.Size = new System.Drawing.Size(114, 28);
+            this.tbRetakeTestAppID.TabIndex = 55;
+            // 
+            // lbRetakeTestApp
+            // 
+            this.lbRetakeTestApp.AutoSize = true;
+            this.lbRetakeTestApp.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbRetakeTestApp.Location = new System.Drawing.Point(4, 151);
+            this.lbRetakeTestApp.Name = "lbRetakeTestApp";
+            this.lbRetakeTestApp.Size = new System.Drawing.Size(134, 17);
+            this.lbRetakeTestApp.TabIndex = 54;
+            this.lbRetakeTestApp.Text = "Retake Test App ID  :";
             // 
             // lbPaidFees
             // 
@@ -122,7 +154,7 @@
             // 
             // pbSelectedID
             // 
-            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
+            this.pbSelectedID.Image = ((System.Drawing.Image)(resources.GetObject("pbSelectedID.Image")));
             this.pbSelectedID.Location = new System.Drawing.Point(275, 10);
             this.pbSelectedID.Name = "pbSelectedID";
             this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
@@ -183,37 +215,6 @@
             this.lbTitel.TabIndex = 45;
             this.lbTitel.Text = "ADD NEW APPOINTMENT";
             // 
-            // pbSelectedRetakeAppID
-            // 
-            this.pbSelectedRetakeAppID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedRetakeAppID.Location = new System.Drawing.Point(275, 145);
-            this.pbSelectedRetakeAppID.Name = "pbSelectedRetakeAppID";
-            this.pbSelectedRetakeAppID.Size = new System.Drawing.Size(30, 30);
-            this.pbSelectedRetakeAppID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbSelectedRetakeAppID.TabIndex = 56;
-            this.pbSelectedRetakeAppID.TabStop = false;
-            this.pbSelectedRetakeAppID.Click += new System.EventHandler(this.pbSelectedRetakeAppID_Click);
-            // 
-            // tbRetakeTestAppID
-            // 
-            this.tbRetakeTestAppID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbRetakeTestAppID.Location = new System.Drawing.Point(145, 146);
-            this.tbRetakeTestAppID.Multiline = true;
-            this.tbRetakeTestAppID.Name = "tbRetakeTestAppID";
-            this.tbRetakeTestAppID.ReadOnly = true;
-            this.tbRetakeTestAppID.Size = new System.Drawing.Size(114, 28);
-            this.tbRetakeTestAppID.TabIndex = 55;
-            // 
-            // lbRetakeTestApp
-            // 
-            this.lbRetakeTestApp.AutoSize = true;
-            this.lbRetakeTestApp.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbRetakeTestApp.Location = new System.Drawing.Point(4, 151);
-            this.lbRetakeTestApp.Name = "lbRetakeTestApp";
-            this.lbRetakeTestApp.Size = new System.Drawing.Size(134, 17);
-            this.lbRetakeTestApp.TabIndex = 54;
-            this.lbRetakeTestApp.Text = "Retake Test App ID  :";
-            // 
             // frmAddNew_UpdateAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -224,13 +225,14 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmAddNew_UpdateAppointment";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add New Appointment";
             this.Load += new System.EventHandler(this.frmAddNewAppointment_Load);
             this.pnlAppointment.ResumeLayout(false);
             this.pnlAppointment.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedRetakeAppID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

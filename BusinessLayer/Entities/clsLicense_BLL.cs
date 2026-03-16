@@ -80,15 +80,16 @@ namespace DVLD_BLL
             if (this.License.IssueReason == clsLicenseEnums.enIssueReason.New)// Is First Time
             {
                 this.License.ApplicationID = clsDriver_DAL.LoadLocalApplicationIDByDriverID(this.License.DriverID, clsLicenseEnumConverter.ToInt(this.License.LicenseClass));
-
+                
             }
+            if (this.License.ApplicationID < 1) return false;
             if (this.License.IssueReason == clsLicenseEnums.enIssueReason.New || this.License.IssueReason == clsLicenseEnums.enIssueReason.Renew)
                 this.License.ExpirationDate = clsBLHelper.GetDate_Now().AddYears(clsLicenseClass_BLL.GetDefaultValidityLength(clsLicenseEnumConverter.ToInt(this.License.LicenseClass)));
 
 
             
             this.License.IsActive = true;
-
+            this.License.CreatedByUserID = clsCurrentUser.User.UserID;
             this.License.LicenseID = clsLicense_DAL.AddNewLicense(this.License);
             if(this.License.LicenseID > -1 && this.License.IssueReason == clsLicenseEnums.enIssueReason.New) 
                 clsApplication_BLL.SetComplete(this.License.ApplicationID);

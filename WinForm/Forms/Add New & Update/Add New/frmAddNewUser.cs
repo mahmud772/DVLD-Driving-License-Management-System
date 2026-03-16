@@ -16,6 +16,11 @@ namespace DVLDWinForm.Forms.Add_New___Update
 {
     public partial class frmAddNewUser : Form
     {
+        public frmAddNewUser(clsPerson_DTO Person)
+        {
+            InitializeComponent();
+            tbID.Text = CheckPersonID(Person?.PersonID.ToString());
+        }
         public frmAddNewUser()
         {
             InitializeComponent();

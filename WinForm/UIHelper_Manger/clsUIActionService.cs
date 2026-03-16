@@ -1,4 +1,5 @@
 ﻿using Common;
+using DVLD_BLL;
 using DVLD_DTOs;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace DVLDWinForm.UIHelper_Manger
                 {
                     if (createForm == null) return false;
 
-                    return createForm.Invoke()?.ShowDialog() == DialogResult.OK;
+                    return createForm?.Invoke()?.ShowDialog() == DialogResult.OK;
                 },
                 PermissionRequired = permissions
             };
@@ -55,7 +56,7 @@ namespace DVLDWinForm.UIHelper_Manger
                 Execute = dto =>
                 {
                     if (updateForm == null) return false;
-                    return updateForm.Invoke(dto)?.ShowDialog() == DialogResult.OK;
+                    return updateForm?.Invoke(dto)?.ShowDialog() == DialogResult.OK;
 
                 },
                 CanExecute = dto => dto != null
@@ -75,10 +76,100 @@ namespace DVLDWinForm.UIHelper_Manger
 
                     if (filterForm == null) return false;
 
-                    return filterForm.Invoke().ShowDialog() == DialogResult.OK;
+                    return filterForm?.Invoke()?.ShowDialog() == DialogResult.OK;
                 }
                 ,
                 PermissionRequired = clsUserEnums.enPermissions.None
+            };
+        }
+        public static clsUIAction AssignAsDriver(Func<IDTO, Form> AddDriverForm
+            , clsUserEnums.enPermissions permissions)
+        {
+            return new clsUIAction
+            {
+                ActionType = clsUIEnums.enUIAction.AssignAsDriver,
+                Execute = dto =>
+                {
+
+                    if (AddDriverForm == null) return false;
+
+                    return AddDriverForm?.Invoke(dto)?.ShowDialog() == DialogResult.OK;
+                },
+                CanExecute = dto => dto != null
+                ,
+                PermissionRequired = permissions
+            };
+        }
+        public static clsUIAction AssignAsUser(Func<IDTO, Form> AddUserForm
+            , clsUserEnums.enPermissions permissions)
+        {
+            return new clsUIAction
+            {
+                ActionType = clsUIEnums.enUIAction.AssignAsUser,
+                Execute = dto =>
+                {
+
+                    if (AddUserForm == null) return false;
+
+                    return AddUserForm?.Invoke(dto)?.ShowDialog() == DialogResult.OK;
+                },
+                CanExecute = dto => dto != null 
+                ,
+                PermissionRequired = permissions
+            };
+        }
+        public static clsUIAction DetaindLicense(Func<IDTO, Form> AddDetaidLicenseForm
+            , clsUserEnums.enPermissions permissions)
+        {
+            return new clsUIAction
+            {
+                ActionType = clsUIEnums.enUIAction.DetainLicense,
+                Execute = dto =>
+                {
+
+                    if (AddDetaidLicenseForm == null) return false;
+
+                    return AddDetaidLicenseForm?.Invoke(dto)?.ShowDialog() == DialogResult.OK;
+                },
+                CanExecute = dto => dto != null 
+                ,
+                PermissionRequired = permissions
+            };
+        }
+        public static clsUIAction Testing(Func<IDTO, Form> AddtTestForm
+            , clsUserEnums.enPermissions permissions)
+        {
+            return new clsUIAction
+            {
+                ActionType = clsUIEnums.enUIAction.Testing,
+                Execute = dto =>
+                {
+
+                    if (AddtTestForm == null) return false;
+
+                    return AddtTestForm?.Invoke(dto)?.ShowDialog() == DialogResult.OK;
+                },
+                CanExecute = dto => dto != null 
+                ,
+                PermissionRequired = permissions
+            };
+        }
+        public static clsUIAction TestAppointment(Func<IDTO, Form> AddtTestAppointmentForm
+            , clsUserEnums.enPermissions permissions)
+        {
+            return new clsUIAction
+            {
+                ActionType = clsUIEnums.enUIAction.TestAppointment,
+                Execute = dto =>
+                {
+
+                    if (AddtTestAppointmentForm == null) return false;
+
+                    return AddtTestAppointmentForm?.Invoke(dto)?.ShowDialog() == DialogResult.OK;
+                },
+                CanExecute = dto => dto != null 
+                ,
+                PermissionRequired = permissions
             };
         }
 

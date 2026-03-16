@@ -34,7 +34,7 @@ namespace DVLDWinForm
         public MainForm()
         {
             InitializeComponent();
-            _LoadDesign();
+            LoadDesign();
 
         }
 
@@ -60,7 +60,7 @@ namespace DVLDWinForm
             _display.Display();
         }
         
-        private void _LoadDesign()
+        private void LoadDesign()
         {
             clsUIHelper.CornerRadius(pnlMainMenu, 25);
             clsUIHelper.CornerRadius(pnlTopForm, 25);
@@ -75,14 +75,11 @@ namespace DVLDWinForm
             clsUIHelper.CornerRadius(btnDetainedLicenses, 5);
             clsUIHelper.CornerRadius(btnInternationalLicenses, 5);
             clsUIHelper.CornerRadius(btnLicenses, 5);
-            using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\C#\DVLD\WinForm\Images\TopBackground.png"))
+            using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\DVLD\WinForm\Images\TopBackground.png"))
             {
                 pnlTopForm.BackgroundImage = new Bitmap(tempImage);
             }
-            using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\DVLD\WinForm\Images\BackgroundMainForm.jpg"))
-            {
-                pnlMainMenu.BackgroundImage = new Bitmap(tempImage);
-            }
+            
         }
 
         public void SetPageNumber(int pageNumber) => lbPageNumber.Text = pageNumber.ToString();
@@ -107,17 +104,12 @@ namespace DVLDWinForm
         private void btnPreviousPage_Click(object sender, EventArgs e) => _display.PreviousPage();
 
 
-
-
         private void btnPeople_Click(object sender, EventArgs e)
         {
-
             _currentQuery = PersonQuery;
             _display = new clsPeopleDisplay(PersonQuery, _context);
             _display.Display();
-
         }
-
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
@@ -215,6 +207,11 @@ namespace DVLDWinForm
                 btnSearch.PerformClick(); 
                 e.SuppressKeyPress = true; 
             }
+        }
+
+        private void MainForm_Paint(object sender, PaintEventArgs e)
+        {
+            clsUIHelper.FormColor(this ,sender , e);
         }
     }
 }

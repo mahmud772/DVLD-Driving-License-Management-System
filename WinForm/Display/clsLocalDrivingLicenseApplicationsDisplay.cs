@@ -3,6 +3,7 @@ using Common.Queries;
 using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.Forms;
+using DVLDWinForm.Forms.Add_New___Update;
 using DVLDWinForm.Forms.Add_New___Update.Update;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
@@ -43,7 +44,6 @@ namespace DVLDWinForm.Display
                 clsUIActionService.Update(dto =>
                     new frmUpdateApplication(dto as clsLocalDrivingLicenseApplication_DTO),
                 clsUserEnums.enPermissions.ManageApplications));
-
             ActionManager.Register(
                 clsUIActionService.Delete(
                     clsLocalDrivingLicenseApplication_BLL
@@ -56,6 +56,12 @@ namespace DVLDWinForm.Display
                         new ucLocalDrivingLicenseApplicationsFilter(),
                         _currentQuery),
                 clsUserEnums.enPermissions.ManageApplications));
+            
+            ActionManager.Register(
+                clsUIActionService.TestAppointment(dto =>
+                    new frmAddNew_UpdateAppointment(dto as clsLocalDrivingLicenseApplication_DTO),
+                clsUserEnums.enPermissions.ManageTests));
+
         }
         public override void UpdateUI()
         {
@@ -67,6 +73,9 @@ namespace DVLDWinForm.Display
         public override void UpdateContextMenu()
         {
             base.UpdateContextMenu();
+            _context.SharedContextMenu.Items.Add("Select Test Appointment", Properties.Resources.TestAppointment,
+               (s, e) => _context.UIActionsManager.Execute(clsUIEnums.enUIAction.TestAppointment, GetSelectedDto(), Refresh));
+
         }
     }
 }

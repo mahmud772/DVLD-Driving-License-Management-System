@@ -7,8 +7,6 @@ using DVLDWinForm.Forms.Add_New___Update.Update;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
 using DVLDWinForm.User_Controls.Filters;
-using System;
-using System.Windows.Forms;
 
 namespace DVLDWinForm.Display
 {
@@ -26,7 +24,8 @@ namespace DVLDWinForm.Display
             base.DisplayMode = DisplayMode;
             InitializeAdapter(clsApplication_BLL.GetApplications,
                clsApplication_BLL.GetCount,
-               GetDisplayView<clsApplication_DTO>(application => new ucApplication(_context.SharedContextMenu) { ApplicationInfo = application  } , DisplayMode));
+               GetDisplayView<clsApplication_DTO>(application => 
+               new ucApplication(_context.SharedContextMenu) { ApplicationInfo = application  } , DisplayMode));
 
         }
         public override void InitializeUIActionsManager()
@@ -58,6 +57,7 @@ namespace DVLDWinForm.Display
         public override void UpdateContextMenu()
         {
             base.UpdateContextMenu();
+
         }
     }
 }

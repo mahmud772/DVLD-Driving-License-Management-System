@@ -330,6 +330,12 @@ namespace DVLD_DAL
                         Where DetainID = @DetainID;";
             return clsDbHelper.ExecuteScalar<int>(Query, Command => clsDbHelper.SetValue(Command, "@DetainID", DetainID));
         }
+        public static bool IsDetained(int LicenseID)
+        {
+            string Query = @"Select 1 From DetainedLicenses
+                        Where LicenseID = @LicenseID And (IsReleased = 0 OR IsReleased = Null);";
+            return clsDbHelper.Exists(Query, Command => clsDbHelper.SetValue(Command, "@LicenseID", LicenseID));
+        }
     }
 }
 

@@ -110,10 +110,10 @@
             // pbSelectedID
             // 
             this.pbSelectedID.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedID.Location = new System.Drawing.Point(287, 6);
+            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.Search;
+            this.pbSelectedID.Location = new System.Drawing.Point(287, 8);
             this.pbSelectedID.Name = "pbSelectedID";
-            this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedID.Size = new System.Drawing.Size(26, 24);
             this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbSelectedID.TabIndex = 53;
             this.pbSelectedID.TabStop = false;
@@ -181,6 +181,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmAddNewUser";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddNew";
             this.Load += new System.EventHandler(this.frmAddNewUser_Load);

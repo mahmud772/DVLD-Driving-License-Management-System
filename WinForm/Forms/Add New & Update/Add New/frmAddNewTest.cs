@@ -15,6 +15,21 @@ namespace DVLDWinForm.Forms.Add_New___Update.Add_New
             InitializeComponent();
             LoadDesign();
         }
+        public frmAddNewTest(clsTestAppointment_DTO appointment)
+        {
+            InitializeComponent();
+            LoadDesign();
+            IsTestingAppointment(appointment);
+        }
+        private void IsTestingAppointment(clsTestAppointment_DTO appointment)
+        {
+            if (appointment == null) return;
+            if (!clsTest_BLL.IsTestingAppointment(appointment.TestAppointmentID))
+                tbID.Text = appointment.TestAppointmentID.ToString();
+            else
+                MessageBox.Show("The result of this test appointment \nhas been recorded.",
+                           "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private void LoadDesign()
         {
             clsUIHelper.CornerRadius(pnlTest, 5);
@@ -50,7 +65,7 @@ namespace DVLDWinForm.Forms.Add_New___Update.Add_New
             {
                 clsTest_BLL Test = new clsTest_BLL();
                 Test.Test = _Test;
-                if (Test.Save())
+                if (Test.Save() && Test.Test.TestResult)
                 {
                     MessageBox.Show("Test result added .",
                             "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);

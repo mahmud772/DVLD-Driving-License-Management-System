@@ -3,6 +3,7 @@ using Common.Queries;
 using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.Forms;
+using DVLDWinForm.Forms.Add_New___Update;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls.Filters;
@@ -55,6 +56,17 @@ namespace DVLDWinForm.Display
                 clsUIActionService.Filter(() =>
                     new frmSortAndFilter(new ucPeopleFilter(), _currentQuery),
                 clsUserEnums.enPermissions.ManagePeople));
+
+            ActionManager.Register(
+                clsUIActionService.AssignAsDriver(dto =>
+                    new frmAddNewDriver(dto as clsPerson_DTO),
+                clsUserEnums.enPermissions.ManageDrivers));
+
+            ActionManager.Register(
+                clsUIActionService.AssignAsUser(dto =>
+                    new frmAddNewUser(dto as clsPerson_DTO),
+                clsUserEnums.enPermissions.ManageUsers));
+
         }
         public override void UpdateUI()
         {
@@ -66,6 +78,12 @@ namespace DVLDWinForm.Display
         public override void UpdateContextMenu()
         {
             base.UpdateContextMenu();
+            _context.SharedContextMenu.Items.Add("Assign as User", Properties.Resources.AddNew_Gray,
+               (s, e) => _context.UIActionsManager.Execute(clsUIEnums.enUIAction.AssignAsUser, GetSelectedDto(), Refresh));
+            
+            _context.SharedContextMenu.Items.Add("Assign as Driver", Properties.Resources.AddNew_Gray,
+               (s, e) => _context.UIActionsManager.Execute(clsUIEnums.enUIAction.AssignAsDriver, GetSelectedDto(), Refresh));
+
         }
     }
 }

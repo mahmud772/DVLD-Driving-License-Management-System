@@ -108,6 +108,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmUpdateInternationalLicense";
+            this.ShowIcon = false;
             this.Text = "Update International License";
             this.Load += new System.EventHandler(this.frmUpdateInternationalLicense_Load);
             this.pnlLicense.ResumeLayout(false);

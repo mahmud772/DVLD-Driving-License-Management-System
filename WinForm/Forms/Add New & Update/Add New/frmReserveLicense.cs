@@ -23,6 +23,21 @@ namespace DVLDWinForm.Forms.Add_New___Update.Add_New
             InitializeComponent();
             clsUIHelper.CornerRadius(pnlLicenseDetails, 5);
         }
+        public frmReserveLicense(clsLicenseCardInfo_DTO license)
+        {
+            InitializeComponent();
+            clsUIHelper.CornerRadius(pnlLicenseDetails, 5);
+            IsDetained(license);
+        }
+        private void IsDetained(clsLicenseCardInfo_DTO license)
+        {
+            if (license == null) return;
+            if (clsDetainedLicense_BLL.IsDetained(license.LicenseID))
+                tbID.Text = license.LicenseID.ToString();
+            else
+                MessageBox.Show("This license is not Detained.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private bool LoadFromForm()
         {
             clsValidation.ep.Clear();

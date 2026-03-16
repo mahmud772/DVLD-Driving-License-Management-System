@@ -44,10 +44,12 @@ namespace DVLDWinForm.Forms
         {
             clsUIHelper.CornerRadius(pnlContainer , 5);
             clsUIHelper.CornerRadius(this , 5);
+            pbBackgroundImage.Image =  clsUIHelper.SetImageOpacity(Properties.Resources.LoginLicense, 0.3f);
             using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\DVLD\WinForm\Images\LoginBackground.png"))
             {
                 pnl.BackgroundImage = new Bitmap(tempImage);
             }
+            
         }
 
     }

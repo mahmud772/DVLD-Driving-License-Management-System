@@ -32,10 +32,10 @@
             this.rbDeactivate = new System.Windows.Forms.RadioButton();
             this.rbActive = new System.Windows.Forms.RadioButton();
             this.lbIsActive_Titel = new System.Windows.Forms.Label();
+            this.ckcbPermissions = new CheckedComboBox();
             this.lbLicenseClass = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.ckcbPermissions = new CheckedComboBox();
             this.pnlUserInfo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +80,16 @@
             this.lbIsActive_Titel.TabIndex = 55;
             this.lbIsActive_Titel.Text = "Active Status    :";
             // 
+            // ckcbPermissions
+            // 
+            this.ckcbPermissions.DropDownHeight = 1;
+            this.ckcbPermissions.FormattingEnabled = true;
+            this.ckcbPermissions.IntegralHeight = false;
+            this.ckcbPermissions.Location = new System.Drawing.Point(123, 45);
+            this.ckcbPermissions.Name = "ckcbPermissions";
+            this.ckcbPermissions.Size = new System.Drawing.Size(195, 21);
+            this.ckcbPermissions.TabIndex = 54;
+            // 
             // lbLicenseClass
             // 
             this.lbLicenseClass.AutoSize = true;
@@ -112,16 +122,6 @@
             this.lbTitel.TabIndex = 54;
             this.lbTitel.Text = "UPDATE USER";
             // 
-            // ckcbPermissions
-            // 
-            this.ckcbPermissions.DropDownHeight = 1;
-            this.ckcbPermissions.FormattingEnabled = true;
-            this.ckcbPermissions.IntegralHeight = false;
-            this.ckcbPermissions.Location = new System.Drawing.Point(123, 45);
-            this.ckcbPermissions.Name = "ckcbPermissions";
-            this.ckcbPermissions.Size = new System.Drawing.Size(195, 21);
-            this.ckcbPermissions.TabIndex = 54;
-            // 
             // frmUpdateUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -132,6 +132,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmUpdateUser";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update User";
             this.Load += new System.EventHandler(this.frmUpdateUser_Load);

@@ -584,5 +584,17 @@
   <ItemGroup>
     <None Include="Images\InternationalLicense.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\DeleteImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Icons\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\AddNew_Gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\DVLD.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

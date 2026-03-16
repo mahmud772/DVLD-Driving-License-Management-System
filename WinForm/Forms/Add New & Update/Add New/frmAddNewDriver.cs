@@ -8,6 +8,12 @@ namespace DVLDWinForm.Forms
     public partial class frmAddNewDriver : Form
     {
         
+        public frmAddNewDriver(clsPerson_DTO Person)
+        {
+            InitializeComponent();
+            tbID.Text = clsDriver_BLL.IsPersonIsDriver(Person.PersonID) ?
+                Person?.PersonID.ToString() : "";
+        }
         public frmAddNewDriver()
         {
             InitializeComponent();

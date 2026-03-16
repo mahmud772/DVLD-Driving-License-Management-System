@@ -132,6 +132,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmUpdateLicense";
+            this.ShowIcon = false;
             this.Text = "Update License";
             this.Load += new System.EventHandler(this.frmUpdateLicense_Load);
             this.pnlLicense.ResumeLayout(false);

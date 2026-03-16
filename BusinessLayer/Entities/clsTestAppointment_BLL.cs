@@ -91,13 +91,18 @@ namespace DVLD_BLL
 
             return true;
         }
-
+        public static bool IsTestedBefor(int LocalDrivingLicenseApplicationID)
+        {
+            return clsTestAppointment_DAL.IsTestedBefor(LocalDrivingLicenseApplicationID);
+        }
         private bool _AddNewAppointment()
         {
             //decimal PaidFeesApplication = 0;
             if (this.Appointment.AppointmentDate < clsBLHelper.GetDate_Now()) return false;
-            if (clsTestAppointment_DAL.IsTestedBefor(this.Appointment.LocalDrivingLicenseApplicationID))
-                if (!_IsTestOrderValid()) return false;
+            if (IsTestedBefor(this.Appointment.LocalDrivingLicenseApplicationID))
+            { if (!_IsTestOrderValid()) return false; }
+            else
+                this.Appointment.TestType = clsTestEnums.enTestTypes.VisionTest;
 
             //if (!clsTestAppointment_DAL.IsPassedInLastTest(this.Appointment.LocalDrivingLicenseApplicationID)
             //    && clsTestAppointment_DAL.IsTestedBeforInthisType(this.Appointment.LocalDrivingLicenseApplicationID, this.Appointment.TestType)
@@ -179,9 +184,10 @@ namespace DVLD_BLL
         {
             return clsTestAppointment_DAL.LoadApplicationIDByTestAppointmentID(TestAppointmentID) ;
         }
-        public static clsTestEnums.enTestTypes GetLastTestType(int TestAppointmentID)
+        public static clsTestEnums.enTestTypes GetLastTestType(int LocalDrivingLicenseApplicationID)
         {
-            return clsTestEnumConverter.ConvertTestTypeToEnum(clsTestAppointment_DAL.LoadLastTestType(TestAppointmentID));
+            return clsTestEnumConverter.ConvertTestTypeToEnum
+                (clsTestAppointment_DAL.LoadLastTestType(LocalDrivingLicenseApplicationID));
         }
     }
 }

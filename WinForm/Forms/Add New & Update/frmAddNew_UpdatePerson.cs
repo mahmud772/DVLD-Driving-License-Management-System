@@ -27,7 +27,6 @@ namespace DVLDWinForm.Forms
             Mode = enMode.AddNew;
             lbTitel.Text = "ADD NEW PERSON";
             this.Text = "ADD NEW PERSON";
-            
         }
         public frmAddNew_UpdatePerson(clsPerson_DTO PersonInfo)
         {
@@ -37,7 +36,7 @@ namespace DVLDWinForm.Forms
             Mode = enMode.Update;
             lbTitel.Text = "UPDATE PERSON";
             this.Text = "UPDATE PERSON";
-            
+            tbNationalNo.ReadOnly = true;
         }
         private void _LoadDesign()
         {
@@ -64,7 +63,8 @@ namespace DVLDWinForm.Forms
 
             cbCountry.DisplayMember = "CountryName"; 
             cbCountry.ValueMember = "CountryID";     
-            if (_PersonInfo == null) return;
+            if (_PersonInfo == null)
+                return;
             
             tbNationalNo.Text = _PersonInfo.NationalNo;
             tbFirstName.Text = _PersonInfo.FirstName;
@@ -96,7 +96,10 @@ namespace DVLDWinForm.Forms
                 clsValidation.IsValidPhoneNumber(tbPhone)&&
                 clsValidation.IsValidDateOfBirth(dtpDateOfBirth)
                 )) return false;
-            if (_PersonInfo == null) return false;
+            if (_PersonInfo == null && this.Mode == enMode.AddNew)
+                _PersonInfo = new clsPerson_DTO();
+            else
+                return false;
 
             _PersonInfo.NationalNo = tbNationalNo.Text.Trim();
             _PersonInfo.FirstName = tbFirstName.Text.Trim();
@@ -107,9 +110,9 @@ namespace DVLDWinForm.Forms
             _PersonInfo.Email = tbEmail.Text.Trim();
             _PersonInfo.Address = tbAddress.Text.Trim();
 
-            // الدولة (نأخذ الـ ValueMember وهو CountryID)
-            if (cbCountry.SelectedValue != null)
-                _PersonInfo.NationalityCountryID = Convert.ToInt32(cbCountry.SelectedValue);
+            clsCountry_DTO CurrentCountry = cbCountry.SelectedItem as clsCountry_DTO;
+            if (CurrentCountry != null)
+                _PersonInfo.NationalityCountryID = CurrentCountry.CountryID;
 
             _PersonInfo.DateOfBirth = dtpDateOfBirth.Value;
 
@@ -148,19 +151,27 @@ namespace DVLDWinForm.Forms
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                ofd.Title = "اختر صورة";
+                ofd.Title = "Select Image";
                 ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
                 ofd.Multiselect = false;
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    // عرض الصورة داخل PictureBox
-                    pbImage.Image = Image.FromFile(ofd.FileName);
+                    clsUIHelper.LoadImage(ofd.FileName, _PersonInfo.Gendor, pbImage);
 
-                    
-                    pbImage.Tag = ofd.FileName;
+
                 }
             }
+        }
+
+        private void pbDeleteImage_Click(object sender, EventArgs e)
+        {
+            if(_PersonInfo == null) return;
+            if (MessageBox.Show("Are You Sure ?", "Warning",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                return;
+            pbImage.Tag = null;
+            clsUIHelper.LoadImage(string.Empty, _PersonInfo.Gendor, pbImage);
         }
     }
 }

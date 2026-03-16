@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace DVLDWinForm.UIHelper_Manger
 {
@@ -17,8 +13,10 @@ namespace DVLDWinForm.UIHelper_Manger
             Filter = 4,
             DetainLicense = 5,
             ReleaseLicense = 6,
-            PassedTest = 7,
-            FailedTest = 8,
+            Testing = 7,
+            AssignAsUser = 8,
+            AssignAsDriver = 9,
+            TestAppointment = 10,
         }
     }
 }

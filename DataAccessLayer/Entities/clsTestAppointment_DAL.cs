@@ -234,10 +234,10 @@ namespace DVLD_DAL
 
         public static int LoadLastTestType(int LocalDrivingLicenseApplicationID)
         {
-            string Query = @"Select TestTypeID From TestAppointments Where
-                            AppointmentDate IN 
-                            (Select Max (AppointmentDate) From TestAppointments Where LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID)
-                            ;";
+            string Query = @"Select TOP 1 TestTypeID 
+                            From TestAppointments 
+                            Where LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID
+                            Order BY TestAppointmentID DESC;";
             return clsDbHelper.ExecuteScalar<int>(Query, Command => clsDbHelper.SetValue(Command, "@LocalDrivingLicenseApplicationID", LocalDrivingLicenseApplicationID));
         }
 

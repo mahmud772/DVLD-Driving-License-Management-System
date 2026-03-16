@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFind));
             this.pnlFind = new System.Windows.Forms.Panel();
             this.tbFindBy = new System.Windows.Forms.TextBox();
             this.pbSearch = new System.Windows.Forms.PictureBox();
@@ -69,16 +70,17 @@
             // 
             this.pnlContainer.Location = new System.Drawing.Point(12, 68);
             this.pnlContainer.Name = "pnlContainer";
-            this.pnlContainer.Size = new System.Drawing.Size(448, 165);
+            this.pnlContainer.Size = new System.Drawing.Size(309, 165);
             this.pnlContainer.TabIndex = 3;
             // 
             // frmFind
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 246);
+            this.ClientSize = new System.Drawing.Size(330, 246);
             this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.pnlFind);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmFind";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Find";

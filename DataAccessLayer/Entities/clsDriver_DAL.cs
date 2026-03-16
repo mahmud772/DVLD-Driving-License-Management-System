@@ -214,14 +214,20 @@ namespace DVLD_DAL
                         Join LocalDrivingLicenseApplications LDLA ON LDLA.LocalDrivingLicenseApplicationID = TA.LocalDrivingLicenseApplicationID
                         Join Applications A ON A.ApplicationID = LDLA.ApplicationID
                         Join Drivers D ON D.PersonID = A.ApplicantPersonID
-                        Where D.DriverID = @DriverID And TA.TestTypeID = @TestTypeID And A.ApplicationTypeID = @ApplicationTypeID And LDLA.LicenseClassID = @LicenseClassID And A.ApplicationStatus = @ApplicationStatus;";
-            return clsDbHelper.ExecuteScalar<int>(Query, (Action<SqlCommand>)(Command =>
+                        Where D.DriverID = @DriverID And TA.TestTypeID = @TestTypeID And
+                        A.ApplicationTypeID = @ApplicationTypeID And
+                        LDLA.LicenseClassID = @LicenseClassID And
+                        A.ApplicationStatus = @ApplicationStatus;";
+            return clsDbHelper.ExecuteScalar<int>(Query, (Command =>
             {
                 clsDbHelper.SetValue(Command, "@DriverID", DriverID);
-                clsDbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt(clsTestEnums.enTestTypes.PracticalTest));
-                clsDbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt(clsApplicationEnums.enApplicationType.NewLocalDrivingLicense));
+                clsDbHelper.SetValue(Command, "@TestTypeID", clsTestEnumConverter.ConvertTestTypeToInt
+                    (clsTestEnums.enTestTypes.PracticalTest));
+                clsDbHelper.SetValue(Command, "@ApplicationTypeID", clsApplicationEnumConverter.ToInt
+                    (clsApplicationEnums.enApplicationType.NewLocalDrivingLicense));
                 clsDbHelper.SetValue(Command, "@LicenseClassID", LicenseClassID);
-                clsDbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.Completed));
+                clsDbHelper.SetValue(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte
+                    (clsApplicationEnums.enApplicationStatus.Completed));
             }));
         }
 
@@ -322,6 +328,5 @@ namespace DVLD_DAL
 
             clsPerson_DAL.ApplyPersonFilter(filter, ref query);
         }
-
     }
 }

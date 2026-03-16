@@ -4,6 +4,7 @@ using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.Forms;
 using DVLDWinForm.Forms.Add_New___Update;
+using DVLDWinForm.Forms.Add_New___Update.Add_New;
 using DVLDWinForm.Forms.Add_New___Update.Update;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls;
@@ -55,6 +56,11 @@ namespace DVLDWinForm.Display
                 clsUIActionService.Filter(() =>
                     new frmSortAndFilter(new ucTestAppointmentsFilter(), _currentQuery),
                 clsUserEnums.enPermissions.ManageTests));
+            
+            ActionManager.Register(
+                clsUIActionService.Testing(dto =>
+                    new frmAddNewTest(dto as clsTestAppointment_DTO),
+                clsUserEnums.enPermissions.ManageTests));
         }
         public override void UpdateUI()
         {
@@ -66,6 +72,10 @@ namespace DVLDWinForm.Display
         public override void UpdateContextMenu()
         {
             base.UpdateContextMenu();
+            _context.SharedContextMenu.Items.Add("Testing", Properties.Resources.AddNew_Gray,
+            (s, e) => _context.UIActionsManager.Execute
+            (clsUIEnums.enUIAction.Testing, GetSelectedDto(), Refresh));
+
         }
     }
 }

@@ -52,10 +52,10 @@
             // pbSelectedID
             // 
             this.pbSelectedID.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedID.Location = new System.Drawing.Point(287, 6);
+            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.Search;
+            this.pbSelectedID.Location = new System.Drawing.Point(291, 10);
             this.pbSelectedID.Name = "pbSelectedID";
-            this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedID.Size = new System.Drawing.Size(26, 24);
             this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbSelectedID.TabIndex = 53;
             this.pbSelectedID.TabStop = false;
@@ -103,7 +103,7 @@
             this.lbTitel.TabIndex = 54;
             this.lbTitel.Text = "ADD NEW DRIVER";
             // 
-            // frmAddNew_UpdateDriver
+            // frmAddNewDriver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -112,7 +112,8 @@
             this.Controls.Add(this.pnlDriver);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
-            this.Name = "frmAddNew_UpdateDriver";
+            this.Name = "frmAddNewDriver";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ADD NEW";
             this.Load += new System.EventHandler(this.frmAddNew_UpdateDriver_Load);

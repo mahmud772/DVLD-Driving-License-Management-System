@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.pnlApplication = new System.Windows.Forms.Panel();
+            this.lbPaidFeesLicenseClass = new System.Windows.Forms.Label();
+            this.lbPaidFees = new System.Windows.Forms.Label();
             this.lbPaidFees_Titel = new System.Windows.Forms.Label();
+            this.ckbOperationLicense = new System.Windows.Forms.CheckBox();
+            this.cbLicenseClass = new System.Windows.Forms.ComboBox();
+            this.lbLicenseClass = new System.Windows.Forms.Label();
             this.pbSelectedID = new System.Windows.Forms.PictureBox();
+            this.cbApplicationTypes = new System.Windows.Forms.ComboBox();
             this.tbID = new System.Windows.Forms.TextBox();
             this.lbID = new System.Windows.Forms.Label();
+            this.lbApplicationType = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.lbPaidFees = new System.Windows.Forms.Label();
-            this.lbPaidFeesLicenseClass = new System.Windows.Forms.Label();
-            this.lbApplicationType = new System.Windows.Forms.Label();
-            this.lbLicenseClass = new System.Windows.Forms.Label();
-            this.cbLicenseClass = new System.Windows.Forms.ComboBox();
-            this.ckbOperationLicense = new System.Windows.Forms.CheckBox();
-            this.cbApplicationTypes = new System.Windows.Forms.ComboBox();
             this.pnlApplication.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             this.SuspendLayout();
@@ -65,6 +65,28 @@
             this.pnlApplication.Size = new System.Drawing.Size(373, 149);
             this.pnlApplication.TabIndex = 44;
             // 
+            // lbPaidFeesLicenseClass
+            // 
+            this.lbPaidFeesLicenseClass.AutoSize = true;
+            this.lbPaidFeesLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFeesLicenseClass.ForeColor = System.Drawing.Color.MediumTurquoise;
+            this.lbPaidFeesLicenseClass.Location = new System.Drawing.Point(172, 46);
+            this.lbPaidFeesLicenseClass.Name = "lbPaidFeesLicenseClass";
+            this.lbPaidFeesLicenseClass.Size = new System.Drawing.Size(28, 17);
+            this.lbPaidFeesLicenseClass.TabIndex = 51;
+            this.lbPaidFeesLicenseClass.Text = "+ 0";
+            // 
+            // lbPaidFees
+            // 
+            this.lbPaidFees.AutoSize = true;
+            this.lbPaidFees.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFees.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbPaidFees.Location = new System.Drawing.Point(144, 46);
+            this.lbPaidFees.Name = "lbPaidFees";
+            this.lbPaidFees.Size = new System.Drawing.Size(15, 17);
+            this.lbPaidFees.TabIndex = 50;
+            this.lbPaidFees.Text = "0";
+            // 
             // lbPaidFees_Titel
             // 
             this.lbPaidFees_Titel.AutoSize = true;
@@ -76,16 +98,60 @@
             this.lbPaidFees_Titel.TabIndex = 49;
             this.lbPaidFees_Titel.Text = "PaidFees                :";
             // 
+            // ckbOperationLicense
+            // 
+            this.ckbOperationLicense.AutoSize = true;
+            this.ckbOperationLicense.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.ckbOperationLicense.Location = new System.Drawing.Point(3, 123);
+            this.ckbOperationLicense.Name = "ckbOperationLicense";
+            this.ckbOperationLicense.Size = new System.Drawing.Size(67, 21);
+            this.ckbOperationLicense.TabIndex = 48;
+            this.ckbOperationLicense.Text = "Renew";
+            this.ckbOperationLicense.UseVisualStyleBackColor = true;
+            this.ckbOperationLicense.CheckedChanged += new System.EventHandler(this.ckbOperationLicense_CheckedChanged);
+            // 
+            // cbLicenseClass
+            // 
+            this.cbLicenseClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLicenseClass.FormattingEnabled = true;
+            this.cbLicenseClass.Location = new System.Drawing.Point(142, 109);
+            this.cbLicenseClass.Name = "cbLicenseClass";
+            this.cbLicenseClass.Size = new System.Drawing.Size(206, 21);
+            this.cbLicenseClass.TabIndex = 47;
+            this.cbLicenseClass.SelectedIndexChanged += new System.EventHandler(this.cbLicenseClass_SelectedIndexChanged);
+            // 
+            // lbLicenseClass
+            // 
+            this.lbLicenseClass.AutoSize = true;
+            this.lbLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLicenseClass.Location = new System.Drawing.Point(2, 109);
+            this.lbLicenseClass.Name = "lbLicenseClass";
+            this.lbLicenseClass.Size = new System.Drawing.Size(132, 17);
+            this.lbLicenseClass.TabIndex = 46;
+            this.lbLicenseClass.Text = "License Class           :";
+            // 
             // pbSelectedID
             // 
-            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedID.Location = new System.Drawing.Point(318, 68);
+            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.Search;
+            this.pbSelectedID.Location = new System.Drawing.Point(318, 67);
             this.pbSelectedID.Name = "pbSelectedID";
-            this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedID.Size = new System.Drawing.Size(30, 28);
             this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbSelectedID.TabIndex = 45;
             this.pbSelectedID.TabStop = false;
             this.pbSelectedID.Click += new System.EventHandler(this.pbSelectedID_Click);
+            // 
+            // cbApplicationTypes
+            // 
+            this.cbApplicationTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbApplicationTypes.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbApplicationTypes.FormattingEnabled = true;
+            this.cbApplicationTypes.Location = new System.Drawing.Point(142, 13);
+            this.cbApplicationTypes.Name = "cbApplicationTypes";
+            this.cbApplicationTypes.Size = new System.Drawing.Size(206, 21);
+            this.cbApplicationTypes.TabIndex = 10;
+            this.cbApplicationTypes.SelectedIndexChanged += new System.EventHandler(this.cbApplicationTypes_SelectedIndexChanged);
             // 
             // tbID
             // 
@@ -106,6 +172,16 @@
             this.lbID.Size = new System.Drawing.Size(130, 17);
             this.lbID.TabIndex = 1;
             this.lbID.Text = "Person ID               :";
+            // 
+            // lbApplicationType
+            // 
+            this.lbApplicationType.AutoSize = true;
+            this.lbApplicationType.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbApplicationType.Location = new System.Drawing.Point(3, 13);
+            this.lbApplicationType.Name = "lbApplicationType";
+            this.lbApplicationType.Size = new System.Drawing.Size(131, 17);
+            this.lbApplicationType.TabIndex = 0;
+            this.lbApplicationType.Text = "Application Type     :";
             // 
             // btnSave
             // 
@@ -129,82 +205,6 @@
             this.lbTitel.TabIndex = 42;
             this.lbTitel.Text = "CREATE APPLICATION";
             // 
-            // lbPaidFees
-            // 
-            this.lbPaidFees.AutoSize = true;
-            this.lbPaidFees.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbPaidFees.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbPaidFees.Location = new System.Drawing.Point(144, 46);
-            this.lbPaidFees.Name = "lbPaidFees";
-            this.lbPaidFees.Size = new System.Drawing.Size(15, 17);
-            this.lbPaidFees.TabIndex = 50;
-            this.lbPaidFees.Text = "0";
-            // 
-            // lbPaidFeesLicenseClass
-            // 
-            this.lbPaidFeesLicenseClass.AutoSize = true;
-            this.lbPaidFeesLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbPaidFeesLicenseClass.ForeColor = System.Drawing.Color.MediumTurquoise;
-            this.lbPaidFeesLicenseClass.Location = new System.Drawing.Point(172, 46);
-            this.lbPaidFeesLicenseClass.Name = "lbPaidFeesLicenseClass";
-            this.lbPaidFeesLicenseClass.Size = new System.Drawing.Size(28, 17);
-            this.lbPaidFeesLicenseClass.TabIndex = 51;
-            this.lbPaidFeesLicenseClass.Text = "+ 0";
-            // 
-            // lbApplicationType
-            // 
-            this.lbApplicationType.AutoSize = true;
-            this.lbApplicationType.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbApplicationType.Location = new System.Drawing.Point(3, 13);
-            this.lbApplicationType.Name = "lbApplicationType";
-            this.lbApplicationType.Size = new System.Drawing.Size(131, 17);
-            this.lbApplicationType.TabIndex = 0;
-            this.lbApplicationType.Text = "Application Type     :";
-            // 
-            // lbLicenseClass
-            // 
-            this.lbLicenseClass.AutoSize = true;
-            this.lbLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLicenseClass.Location = new System.Drawing.Point(2, 109);
-            this.lbLicenseClass.Name = "lbLicenseClass";
-            this.lbLicenseClass.Size = new System.Drawing.Size(132, 17);
-            this.lbLicenseClass.TabIndex = 46;
-            this.lbLicenseClass.Text = "License Class           :";
-            // 
-            // cbLicenseClass
-            // 
-            this.cbLicenseClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLicenseClass.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbLicenseClass.FormattingEnabled = true;
-            this.cbLicenseClass.Location = new System.Drawing.Point(142, 109);
-            this.cbLicenseClass.Name = "cbLicenseClass";
-            this.cbLicenseClass.Size = new System.Drawing.Size(206, 21);
-            this.cbLicenseClass.TabIndex = 47;
-            this.cbLicenseClass.SelectedIndexChanged += new System.EventHandler(this.cbLicenseClass_SelectedIndexChanged);
-            // 
-            // ckbOperationLicense
-            // 
-            this.ckbOperationLicense.AutoSize = true;
-            this.ckbOperationLicense.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.ckbOperationLicense.Location = new System.Drawing.Point(3, 123);
-            this.ckbOperationLicense.Name = "ckbOperationLicense";
-            this.ckbOperationLicense.Size = new System.Drawing.Size(67, 21);
-            this.ckbOperationLicense.TabIndex = 48;
-            this.ckbOperationLicense.Text = "Renew";
-            this.ckbOperationLicense.UseVisualStyleBackColor = true;
-            this.ckbOperationLicense.CheckedChanged += new System.EventHandler(this.ckbOperationLicense_CheckedChanged);
-            // 
-            // cbApplicationTypes
-            // 
-            this.cbApplicationTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbApplicationTypes.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbApplicationTypes.FormattingEnabled = true;
-            this.cbApplicationTypes.Location = new System.Drawing.Point(142, 13);
-            this.cbApplicationTypes.Name = "cbApplicationTypes";
-            this.cbApplicationTypes.Size = new System.Drawing.Size(206, 21);
-            this.cbApplicationTypes.TabIndex = 10;
-            this.cbApplicationTypes.SelectedIndexChanged += new System.EventHandler(this.cbApplicationTypes_SelectedIndexChanged);
-            // 
             // frmCreateApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,6 +215,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmCreateApplication";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Create Application";
             this.Load += new System.EventHandler(this.frmCreateApplication_Load);

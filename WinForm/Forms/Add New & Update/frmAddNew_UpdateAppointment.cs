@@ -20,8 +20,17 @@ namespace DVLDWinForm.Forms.Add_New___Update
         public frmAddNew_UpdateAppointment()
         {
             InitializeComponent();
+            LoadDesign();
             _AppointmentInfo = new clsTestAppointment_DTO();
             Mode = enMode.AddNew;
+        }
+        public frmAddNew_UpdateAppointment(clsLocalDrivingLicenseApplication_DTO LocalApplication)
+        {
+            InitializeComponent();
+            LoadDesign();
+            _AppointmentInfo = new clsTestAppointment_DTO();
+            Mode = enMode.AddNew;
+            UpdateFormAfterSelectedLDLA(LocalApplication);
         }
         public frmAddNew_UpdateAppointment(clsTestAppointment_DTO AppointmentInfo)
         {
@@ -29,12 +38,13 @@ namespace DVLDWinForm.Forms.Add_New___Update
             _AppointmentInfo = AppointmentInfo;
             pbSelectedID.Enabled = false;
             Mode = enMode.Update;
+            lbTitel.Text = "UPDATE APPOINTMENT";
+            this.Text = "UPDATE APPOINTMENT";
         }
 
         private void frmAddNewAppointment_Load(object sender, EventArgs e)
         {
             SetApplicationInfo();
-            LoadDesign();
         }
         private void LoadDesign()
         {
@@ -100,19 +110,17 @@ namespace DVLDWinForm.Forms.Add_New___Update
             ucLocalLicenseApplication app = new ucLocalLicenseApplication();
             frmFind frm = new frmFind(app, clsLocalDrivingLicenseApplication_BLL.FindByLocaLicenseApplicationlID);
             frm?.ShowDialog();
-            tbID.Text = frm?.SelectedID;
-            int ID;
-            int.TryParse(tbID.Text, out ID);
-            if (ID == 0) return;
-            UpdateFormAfterSelectedLDLA(ID , app.ApplicationInfo);
+            UpdateFormAfterSelectedLDLA(app.ApplicationInfo);
 
         }
-        private void UpdateFormAfterSelectedLDLA(int ID, clsLocalDrivingLicenseApplication_DTO LocalApp)
+        private void UpdateFormAfterSelectedLDLA(clsLocalDrivingLicenseApplication_DTO LocalApp)
         {
-            clsTestEnums.enTestTypes eTestType = clsTestAppointment_BLL.GetLastTestType(ID);
+            if (LocalApp == null) return;
+            tbID.Text = LocalApp.LocalDrivingLicenseApplicationID.ToString();
+            clsTestEnums.enTestTypes eTestType = clsTestAppointment_BLL.GetLastTestType(LocalApp.LocalDrivingLicenseApplicationID);
             bool IsNeedRetakeTestApp = 
                 clsTestAppointment_BLL.IsNeedRetakeTestApp(LocalApp.LocalDrivingLicenseApplicationID, eTestType);
-            eTestType = SelectTestType(eTestType, ID , IsNeedRetakeTestApp);
+            eTestType = SelectTestType(eTestType, LocalApp.LocalDrivingLicenseApplicationID , IsNeedRetakeTestApp);
             int TestType = clsTestEnumConverter.ConvertTestTypeToInt(eTestType);
             lbType.Text = eTestType.ToString().Split(' ')[0];
             lbPaidFees.Text = clsTestType_BLL.GetPaidFees(TestType).ToString("F1");
@@ -131,12 +139,15 @@ namespace DVLDWinForm.Forms.Add_New___Update
             _AppointmentInfo.TestType = eTestType;
         }
         private clsTestEnums.enTestTypes SelectTestType(clsTestEnums.enTestTypes eTestType ,int LocalLicenseAppID , bool IsNeedRetakeTestApp)
-        {;
+        {
+
             if (IsNeedRetakeTestApp)
                 return eTestType;
+            if (!clsTestAppointment_BLL.IsTestedBefor(LocalLicenseAppID))
+                return clsTestEnums.enTestTypes.VisionTest;
             else if (eTestType == clsTestEnums.enTestTypes.VisionTest)
                 return clsTestEnums.enTestTypes.WrittenTest;
-            else if(eTestType == clsTestEnums.enTestTypes.WrittenTest)
+            else if (eTestType == clsTestEnums.enTestTypes.WrittenTest)
                 return clsTestEnums.enTestTypes.PracticalTest;
             return eTestType ;
         }

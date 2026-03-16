@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.pnlLicense = new System.Windows.Forms.Panel();
+            this.lbPaidFees = new System.Windows.Forms.Label();
+            this.lbPaidFees_Titel = new System.Windows.Forms.Label();
             this.pbSelectedID = new System.Windows.Forms.PictureBox();
             this.tbID = new System.Windows.Forms.TextBox();
             this.lbID = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.lbPaidFees = new System.Windows.Forms.Label();
-            this.lbPaidFees_Titel = new System.Windows.Forms.Label();
             this.pnlLicense.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             this.SuspendLayout();
@@ -53,10 +53,32 @@
             this.pnlLicense.Size = new System.Drawing.Size(330, 64);
             this.pnlLicense.TabIndex = 59;
             // 
+            // lbPaidFees
+            // 
+            this.lbPaidFees.AutoSize = true;
+            this.lbPaidFees.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFees.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbPaidFees.Location = new System.Drawing.Point(124, 40);
+            this.lbPaidFees.Name = "lbPaidFees";
+            this.lbPaidFees.Size = new System.Drawing.Size(15, 17);
+            this.lbPaidFees.TabIndex = 55;
+            this.lbPaidFees.Text = "0";
+            // 
+            // lbPaidFees_Titel
+            // 
+            this.lbPaidFees_Titel.AutoSize = true;
+            this.lbPaidFees_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbPaidFees_Titel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbPaidFees_Titel.Location = new System.Drawing.Point(4, 39);
+            this.lbPaidFees_Titel.Name = "lbPaidFees_Titel";
+            this.lbPaidFees_Titel.Size = new System.Drawing.Size(108, 17);
+            this.lbPaidFees_Titel.TabIndex = 54;
+            this.lbPaidFees_Titel.Text = "PaidFees           :";
+            // 
             // pbSelectedID
             // 
             this.pbSelectedID.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
+            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.Search;
             this.pbSelectedID.Location = new System.Drawing.Point(287, 6);
             this.pbSelectedID.Name = "pbSelectedID";
             this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
@@ -107,28 +129,6 @@
             this.lbTitel.TabIndex = 57;
             this.lbTitel.Text = "RELEASE LICENSE";
             // 
-            // lbPaidFees
-            // 
-            this.lbPaidFees.AutoSize = true;
-            this.lbPaidFees.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbPaidFees.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbPaidFees.Location = new System.Drawing.Point(124, 40);
-            this.lbPaidFees.Name = "lbPaidFees";
-            this.lbPaidFees.Size = new System.Drawing.Size(15, 17);
-            this.lbPaidFees.TabIndex = 55;
-            this.lbPaidFees.Text = "0";
-            // 
-            // lbPaidFees_Titel
-            // 
-            this.lbPaidFees_Titel.AutoSize = true;
-            this.lbPaidFees_Titel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbPaidFees_Titel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbPaidFees_Titel.Location = new System.Drawing.Point(4, 39);
-            this.lbPaidFees_Titel.Name = "lbPaidFees_Titel";
-            this.lbPaidFees_Titel.Size = new System.Drawing.Size(108, 17);
-            this.lbPaidFees_Titel.TabIndex = 54;
-            this.lbPaidFees_Titel.Text = "PaidFees           :";
-            // 
             // frmReleaseLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -140,6 +140,7 @@
             this.Controls.Add(this.lbTitel);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "frmReleaseLicense";
+            this.ShowIcon = false;
             this.Text = "Release License";
             this.Load += new System.EventHandler(this.frmReleaseLicense_Load);
             this.pnlLicense.ResumeLayout(false);

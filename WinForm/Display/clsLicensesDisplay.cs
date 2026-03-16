@@ -42,7 +42,6 @@ namespace DVLDWinForm.Display
                 clsUIActionService.Update(dto =>
                     new frmUpdateLicense(dto as clsLicenseCardInfo_DTO),
                 clsUserEnums.enPermissions.ManageLicenses));
-
             ActionManager.Register(
                 clsUIActionService.Delete(
                     clsLicense_BLL.DeleteLicense,
@@ -52,6 +51,12 @@ namespace DVLDWinForm.Display
                 clsUIActionService.Filter(() =>
                     new frmSortAndFilter(new ucLicensesFilter(), _currentQuery),
                 clsUserEnums.enPermissions.ManageLicenses));
+           
+            ActionManager.Register(
+                clsUIActionService.DetaindLicense(dto =>
+                    new frmReserveLicense(dto as clsLicenseCardInfo_DTO),
+                clsUserEnums.enPermissions.ManageLicenses));
+
         }
         public override void UpdateUI()
         {
@@ -63,6 +68,10 @@ namespace DVLDWinForm.Display
         public override void UpdateContextMenu()
         {
             base.UpdateContextMenu();
+            _context.SharedContextMenu.Items.Add("Detain", Properties.Resources.AddNew_Gray,
+               (s, e) => _context.UIActionsManager.Execute
+               (clsUIEnums.enUIAction.DetainLicense, GetSelectedDto(), Refresh));
+
         }
     }
 }

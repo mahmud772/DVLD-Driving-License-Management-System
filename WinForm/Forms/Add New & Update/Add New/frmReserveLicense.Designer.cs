@@ -40,7 +40,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             this.SuspendLayout();
             // 
-            // pnlApplication
+            // pnlLicenseDetails
             // 
             this.pnlLicenseDetails.BackColor = System.Drawing.Color.White;
             this.pnlLicenseDetails.Controls.Add(this.tbPaidFees);
@@ -49,7 +49,7 @@
             this.pnlLicenseDetails.Controls.Add(this.tbID);
             this.pnlLicenseDetails.Controls.Add(this.lbID);
             this.pnlLicenseDetails.Location = new System.Drawing.Point(12, 34);
-            this.pnlLicenseDetails.Name = "pnlApplication";
+            this.pnlLicenseDetails.Name = "pnlLicenseDetails";
             this.pnlLicenseDetails.Size = new System.Drawing.Size(266, 86);
             this.pnlLicenseDetails.TabIndex = 47;
             // 
@@ -73,10 +73,10 @@
             // 
             // pbSelectedID
             // 
-            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedID.Location = new System.Drawing.Point(224, 9);
+            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.Search;
+            this.pbSelectedID.Location = new System.Drawing.Point(224, 10);
             this.pbSelectedID.Name = "pbSelectedID";
-            this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedID.Size = new System.Drawing.Size(26, 24);
             this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbSelectedID.TabIndex = 45;
             this.pbSelectedID.TabStop = false;
@@ -134,6 +134,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmReserveLicense";
+            this.ShowIcon = false;
             this.Text = "Reserve License";
             this.Load += new System.EventHandler(this.frmReserveLicense_Load);
             this.pnlLicenseDetails.ResumeLayout(false);

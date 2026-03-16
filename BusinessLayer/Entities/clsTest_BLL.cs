@@ -69,7 +69,7 @@ namespace DVLD_BLL
             
             if (this.Test.TestID > -1) clsTestAppointment_BLL.LockedTestAppointment(this.Test.TestAppointmentID);
 
-            if (clsTestAppointment_BLL.GetLastTestType(this.Test.TestAppointmentID) ==
+            if (clsTestAppointment_BLL.GetLastTestType(clsTestAppointment_BLL.GetApplicationIDByTestAppointmentID(this.Test.TestAppointmentID)) ==
                 Common.clsTestEnums.enTestTypes.PracticalTest && this.Test.TestResult)
             {
                 clsApplication_BLL.SetComplete(clsTestAppointment_BLL.GetApplicationIDByTestAppointmentID(this.Test.TestAppointmentID));
@@ -119,6 +119,10 @@ namespace DVLD_BLL
         public static bool DeleteTest(int TestID)
         {
             return clsTest_DAL.DeleteTest(TestID);
+        }
+        public static bool IsTestingAppointment(int AppointmentID)
+        {
+            return clsTest_DAL.IsTestingAppointment(AppointmentID);
         }
     }
 }

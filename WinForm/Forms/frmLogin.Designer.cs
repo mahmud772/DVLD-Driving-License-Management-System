@@ -38,8 +38,10 @@ namespace DVLDWinForm.Forms
             this.tbUsername = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.pbBackgroundImage = new System.Windows.Forms.PictureBox();
             this.pnl.SuspendLayout();
             this.pnlContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBackgroundImage)).BeginInit();
             this.SuspendLayout();
             // 
             // pnl
@@ -47,6 +49,7 @@ namespace DVLDWinForm.Forms
             this.pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.pnl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnl.Controls.Add(this.pnlContainer);
+            this.pnl.Controls.Add(this.pbBackgroundImage);
             this.pnl.Location = new System.Drawing.Point(0, 0);
             this.pnl.Name = "pnl";
             this.pnl.Size = new System.Drawing.Size(743, 453);
@@ -175,12 +178,23 @@ namespace DVLDWinForm.Forms
             this.lblTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(90)))), ((int)(((byte)(160)))));
-            this.lblTitle.Location = new System.Drawing.Point(3, 65);
+            this.lblTitle.Location = new System.Drawing.Point(3, 56);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(386, 30);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Driving && Vehicle License Department";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pbBackgroundImage
+            // 
+            this.pbBackgroundImage.BackColor = System.Drawing.Color.Transparent;
+            this.pbBackgroundImage.Image = ((System.Drawing.Image)(resources.GetObject("pbBackgroundImage.Image")));
+            this.pbBackgroundImage.Location = new System.Drawing.Point(137, 266);
+            this.pbBackgroundImage.Name = "pbBackgroundImage";
+            this.pbBackgroundImage.Size = new System.Drawing.Size(202, 175);
+            this.pbBackgroundImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbBackgroundImage.TabIndex = 9;
+            this.pbBackgroundImage.TabStop = false;
             // 
             // frmLogin
             // 
@@ -201,11 +215,13 @@ namespace DVLDWinForm.Forms
             this.pnl.ResumeLayout(false);
             this.pnlContainer.ResumeLayout(false);
             this.pnlContainer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBackgroundImage)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         private Button btnCancel;
         private Panel pnl;
+        private PictureBox pbBackgroundImage;
     }
 }

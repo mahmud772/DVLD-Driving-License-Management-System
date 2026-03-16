@@ -109,5 +109,10 @@ namespace DVLD_BLL
         {
             return clsDriver_DAL.IsDriverHaveActiveLicenseFromClass3(DriverID , ref LicenseID); 
         }
+        public static bool IsPersonIsDriver(int PersonID)
+        {
+
+            return clsDriver_DAL.IsPersonIsDriver(PersonID);
+        }
     }
 }

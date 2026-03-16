@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddNewInternationalLicense));
             this.pnlLicense = new System.Windows.Forms.Panel();
             this.pbSelectedDriverID = new System.Windows.Forms.PictureBox();
             this.tbDriverID = new System.Windows.Forms.TextBox();
@@ -58,10 +59,10 @@
             // 
             // pbSelectedDriverID
             // 
-            this.pbSelectedDriverID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedDriverID.Location = new System.Drawing.Point(250, 54);
+            this.pbSelectedDriverID.Image = ((System.Drawing.Image)(resources.GetObject("pbSelectedDriverID.Image")));
+            this.pbSelectedDriverID.Location = new System.Drawing.Point(250, 56);
             this.pbSelectedDriverID.Name = "pbSelectedDriverID";
-            this.pbSelectedDriverID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedDriverID.Size = new System.Drawing.Size(26, 24);
             this.pbSelectedDriverID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbSelectedDriverID.TabIndex = 56;
             this.pbSelectedDriverID.TabStop = false;
@@ -89,10 +90,10 @@
             // 
             // pbSelectedApplicationID
             // 
-            this.pbSelectedApplicationID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedApplicationID.Location = new System.Drawing.Point(250, 10);
+            this.pbSelectedApplicationID.Image = ((System.Drawing.Image)(resources.GetObject("pbSelectedApplicationID.Image")));
+            this.pbSelectedApplicationID.Location = new System.Drawing.Point(250, 12);
             this.pbSelectedApplicationID.Name = "pbSelectedApplicationID";
-            this.pbSelectedApplicationID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedApplicationID.Size = new System.Drawing.Size(26, 24);
             this.pbSelectedApplicationID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbSelectedApplicationID.TabIndex = 45;
             this.pbSelectedApplicationID.TabStop = false;
@@ -150,6 +151,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmAddNewInternationalLicense";
+            this.ShowIcon = false;
             this.Text = "Add New International License";
             this.Load += new System.EventHandler(this.frmAddNewInternationalLicense_Load);
             this.pnlLicense.ResumeLayout(false);

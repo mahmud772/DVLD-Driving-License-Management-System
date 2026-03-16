@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.pnlTest = new System.Windows.Forms.Panel();
+            this.pbSelectedID = new System.Windows.Forms.PictureBox();
+            this.tbID = new System.Windows.Forms.TextBox();
+            this.lbTestAppointmentID_Title = new System.Windows.Forms.Label();
             this.rbPassed = new System.Windows.Forms.RadioButton();
             this.rbFailed = new System.Windows.Forms.RadioButton();
             this.lbTestResult_Titel = new System.Windows.Forms.Label();
@@ -36,9 +39,6 @@
             this.lbID = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.lbTitel = new System.Windows.Forms.Label();
-            this.pbSelectedID = new System.Windows.Forms.PictureBox();
-            this.tbID = new System.Windows.Forms.TextBox();
-            this.lbTestAppointmentID_Title = new System.Windows.Forms.Label();
             this.pnlTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSelectedID)).BeginInit();
             this.SuspendLayout();
@@ -58,6 +58,37 @@
             this.pnlTest.Name = "pnlTest";
             this.pnlTest.Size = new System.Drawing.Size(319, 137);
             this.pnlTest.TabIndex = 50;
+            // 
+            // pbSelectedID
+            // 
+            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.Search;
+            this.pbSelectedID.Location = new System.Drawing.Point(277, 9);
+            this.pbSelectedID.Name = "pbSelectedID";
+            this.pbSelectedID.Size = new System.Drawing.Size(26, 24);
+            this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbSelectedID.TabIndex = 48;
+            this.pbSelectedID.TabStop = false;
+            this.pbSelectedID.Click += new System.EventHandler(this.pbSelectedID_Click);
+            // 
+            // tbID
+            // 
+            this.tbID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbID.Location = new System.Drawing.Point(147, 8);
+            this.tbID.Multiline = true;
+            this.tbID.Name = "tbID";
+            this.tbID.ReadOnly = true;
+            this.tbID.Size = new System.Drawing.Size(114, 28);
+            this.tbID.TabIndex = 47;
+            // 
+            // lbTestAppointmentID_Title
+            // 
+            this.lbTestAppointmentID_Title.AutoSize = true;
+            this.lbTestAppointmentID_Title.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lbTestAppointmentID_Title.Location = new System.Drawing.Point(4, 13);
+            this.lbTestAppointmentID_Title.Name = "lbTestAppointmentID_Title";
+            this.lbTestAppointmentID_Title.Size = new System.Drawing.Size(145, 17);
+            this.lbTestAppointmentID_Title.TabIndex = 46;
+            this.lbTestAppointmentID_Title.Text = "Test Appointment ID  :";
             // 
             // rbPassed
             // 
@@ -93,7 +124,6 @@
             this.tbNotes.Location = new System.Drawing.Point(3, 87);
             this.tbNotes.Multiline = true;
             this.tbNotes.Name = "tbNotes";
-            this.tbNotes.ReadOnly = true;
             this.tbNotes.Size = new System.Drawing.Size(313, 46);
             this.tbNotes.TabIndex = 5;
             // 
@@ -129,37 +159,6 @@
             this.lbTitel.TabIndex = 48;
             this.lbTitel.Text = "ADD NEW TEST RESULT";
             // 
-            // pbSelectedID
-            // 
-            this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.SearchPerson;
-            this.pbSelectedID.Location = new System.Drawing.Point(277, 7);
-            this.pbSelectedID.Name = "pbSelectedID";
-            this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
-            this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbSelectedID.TabIndex = 48;
-            this.pbSelectedID.TabStop = false;
-            this.pbSelectedID.Click += new System.EventHandler(this.pbSelectedID_Click);
-            // 
-            // tbID
-            // 
-            this.tbID.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbID.Location = new System.Drawing.Point(147, 8);
-            this.tbID.Multiline = true;
-            this.tbID.Name = "tbID";
-            this.tbID.ReadOnly = true;
-            this.tbID.Size = new System.Drawing.Size(114, 28);
-            this.tbID.TabIndex = 47;
-            // 
-            // lbTestAppointmentID_Title
-            // 
-            this.lbTestAppointmentID_Title.AutoSize = true;
-            this.lbTestAppointmentID_Title.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.lbTestAppointmentID_Title.Location = new System.Drawing.Point(4, 13);
-            this.lbTestAppointmentID_Title.Name = "lbTestAppointmentID_Title";
-            this.lbTestAppointmentID_Title.Size = new System.Drawing.Size(145, 17);
-            this.lbTestAppointmentID_Title.TabIndex = 46;
-            this.lbTestAppointmentID_Title.Text = "Test Appointment ID  :";
-            // 
             // frmAddNewTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,6 +169,8 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);
             this.Name = "frmAddNewTest";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddNewTest";
             this.Load += new System.EventHandler(this.frmAddNewTest_Load);
             this.pnlTest.ResumeLayout(false);

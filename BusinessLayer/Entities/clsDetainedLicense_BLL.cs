@@ -192,5 +192,9 @@ namespace DVLD_BLL
         {
             return clsDetainedLicense_DAL.LoadPersonIDByDetainID(DetainID);
         }
+        public static bool IsDetained(int LicenseID)
+        {
+            return clsDetainedLicense_DAL.IsDetained(LicenseID);
+        }
     }
 }
