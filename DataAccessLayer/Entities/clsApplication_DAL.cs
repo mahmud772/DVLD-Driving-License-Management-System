@@ -75,7 +75,7 @@ namespace DVLD_DAL
             return null;
         }
 
-        public static int CreateApplication(clsApplication_DTO Model)
+        public static int CreateApplication(clsApplication_DTO DTO)
         {
 
             string Query = @"INSERT INTO Applications 
@@ -100,16 +100,16 @@ namespace DVLD_DAL
                             ELSE
                                 SELECT -1;";
 
-            return clsDbHelper.ExecuteScalar<int>(Query, (Action<SqlCommand>)(Command =>
+            return clsDbHelper.ExecuteScalar<int>(Query, (Command =>
             {
-                clsDbHelper.SetValue<int>(Command, "@ApplicantPersonID", Model.ApplicantPersonID);
-                clsDbHelper.SetValue<DateTime>(Command, "@ApplicationDate", Model.ApplicationDate);
-                clsDbHelper.SetValue<int>(Command, "@ApplicationTypeID", Model.ApplicationTypeID);
-                clsDbHelper.SetValue<int>(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(Model.ApplicationStatus));
+                clsDbHelper.SetValue<int>(Command, "@ApplicantPersonID", DTO.ApplicantPersonID);
+                clsDbHelper.SetValue<DateTime>(Command, "@ApplicationDate", DTO.ApplicationDate);
+                clsDbHelper.SetValue<int>(Command, "@ApplicationTypeID", DTO.ApplicationTypeID);
+                clsDbHelper.SetValue<int>(Command, "@ApplicationStatus", clsApplicationEnumConverter.ToByte(DTO.ApplicationStatus));
                 clsDbHelper.SetValue(Command, "@ApplicationStatus_AddNew", clsApplicationEnumConverter.ToByte(clsApplicationEnums.enApplicationStatus.New));
-                clsDbHelper.SetValue<DateTime>(Command, "@LastStatusDate", Model.LastStatusDate);
-                clsDbHelper.SetValue<decimal>(Command, "@PaidFees", Model.PaidFees);
-                clsDbHelper.SetValue<int>(Command, "@CreatedByUserID", Model.CreatedByUserID);
+                clsDbHelper.SetValue<DateTime>(Command, "@LastStatusDate", DTO.LastStatusDate);
+                clsDbHelper.SetValue<decimal>(Command, "@PaidFees", DTO.PaidFees);
+                clsDbHelper.SetValue<int>(Command, "@CreatedByUserID", DTO.CreatedByUserID);
             }));
 
         }

@@ -11,9 +11,9 @@ namespace DVLDWinForm.UIHelper_Manger
 {
     public class clsDataDisplayAdapter<T> : IPageableLoader
     {
-        private readonly Func<int, int, IQuery , List<T>> _dataSource; // دالة جلب البيانات من BLL
-        private readonly IDisplayView<T> _viewManager;         
-        private readonly Func<IQuery ,int> _countSource;             // دالة جلب العدد الكلي
+        private Func<int, int, IQuery , List<T>> _dataSource; 
+        private IDisplayView<T> _viewManager;         
+        private Func<IQuery ,int> _countSource;             
 
         private IQuery _lastQuery;
 

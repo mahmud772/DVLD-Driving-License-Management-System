@@ -64,7 +64,7 @@
             // tbPassword
             // 
             this.tbPassword.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPassword.Location = new System.Drawing.Point(124, 72);
+            this.tbPassword.Location = new System.Drawing.Point(123, 72);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(114, 22);
             this.tbPassword.TabIndex = 59;

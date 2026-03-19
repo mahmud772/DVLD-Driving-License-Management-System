@@ -21,24 +21,23 @@ namespace DVLDWinForm
         public static ContextMenuStrip SharedContextMenu { get; private set; }
         private clsUIActionsManager _uiActionsManager;
 
-        public clsApplicationQuery ApplicationQuery { get; set; }
-        public clsLocalDrivingLicenseApplicationQuery LocalLicenseAppQuery { get; set; }
-        public clsPersonQuery PersonQuery { get; set; }
-        public clsDetainedLicenseQuery DetainedLicenseQuery { get; set; }
-        public clsDriverQuery DriverQuery { get; set; }
-        public clsLicenseQuery LicenseQuery { get; set; }
-        public clsTestAppointmentQuery TestAppointmentQuery { get; set; }
-        public clsUserQuery UserQuery { get; set; }
-        public clsTestQuery TestQuery { get; set; }
-        private clsContextDisplay _context { get; set; }
+        private clsApplicationQuery ApplicationQuery { get; set; }
+        private clsLocalDrivingLicenseApplicationQuery LocalLicenseAppQuery { get; set; }
+        private clsPersonQuery PersonQuery { get; set; }
+        private clsDetainedLicenseQuery DetainedLicenseQuery { get; set; }
+        private clsDriverQuery DriverQuery { get; set; }
+        private clsLicenseQuery LicenseQuery { get; set; }
+        private clsTestAppointmentQuery TestAppointmentQuery { get; set; }
+        private clsUserQuery UserQuery { get; set; }
+        private clsTestQuery TestQuery { get; set; }
+        private clsContextDisplay _contextDisplay { get; set; }
         public MainForm()
         {
             InitializeComponent();
             LoadDesign();
-
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             SharedContextMenu = new ContextMenuStrip();
             _uiActionsManager = new clsUIActionsManager();
@@ -51,15 +50,14 @@ namespace DVLDWinForm
             TestAppointmentQuery = new clsTestAppointmentQuery();
             DetainedLicenseQuery = new clsDetainedLicenseQuery();
             TestQuery = new clsTestQuery();
-            _context = new clsContextDisplay(this, dgvDisplay, flpUserControls,
-                SharedContextMenu , _uiActionsManager ,
-                new clsDisplayUIManager(cbSearchBy , lbTotalType_Titel , lbTotalCount, pbTotal , btnFLP , btnDGV));
+            _contextDisplay = new clsContextDisplay(this, dgvDisplay, flpUserControls,
+                SharedContextMenu, _uiActionsManager,
+                new clsDisplayUIManager(cbSearchBy, lbTotalType_Titel, lbTotalCount, pbTotal, btnFLP, btnDGV));
             _currentQuery = PersonQuery;
-            _display = new clsPeopleDisplay(PersonQuery, _context);
+            _display = new clsPeopleDisplay(PersonQuery, _contextDisplay);
             dgvDisplay.ContextMenuStrip = SharedContextMenu;
             _display.Display();
         }
-        
         private void LoadDesign()
         {
             clsUIHelper.CornerRadius(pnlMainMenu, 25);
@@ -75,10 +73,6 @@ namespace DVLDWinForm
             clsUIHelper.CornerRadius(btnDetainedLicenses, 5);
             clsUIHelper.CornerRadius(btnInternationalLicenses, 5);
             clsUIHelper.CornerRadius(btnLicenses, 5);
-            using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\DVLD\WinForm\Images\TopBackground.png"))
-            {
-                pnlTopForm.BackgroundImage = new Bitmap(tempImage);
-            }
             
         }
 
@@ -107,21 +101,21 @@ namespace DVLDWinForm
         private void btnPeople_Click(object sender, EventArgs e)
         {
             _currentQuery = PersonQuery;
-            _display = new clsPeopleDisplay(PersonQuery, _context);
+            _display = new clsPeopleDisplay(PersonQuery, _contextDisplay);
             _display.Display();
         }
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
             _currentQuery = UserQuery;
-            _display = new clsUsersDisplay(UserQuery, _context);
+            _display = new clsUsersDisplay(UserQuery, _contextDisplay);
             _display.Display();
         }
 
         private void btnDrivers_Click(object sender, EventArgs e)
         {
             _currentQuery = DriverQuery;
-            _display = new clsDriversDisplay(DriverQuery, _context);
+            _display = new clsDriversDisplay(DriverQuery, _contextDisplay);
             _display.Display();
         }
 
@@ -129,48 +123,48 @@ namespace DVLDWinForm
         private void btnApplications_Click(object sender, EventArgs e)
         {
             _currentQuery = ApplicationQuery;
-            _display = new clsDisplayApplications(ApplicationQuery, _context);
+            _display = new clsDisplayApplications(ApplicationQuery, _contextDisplay);
             _display.Display();
         }
 
         private void btnTestAppointments_Click(object sender, EventArgs e)
         {
             _currentQuery = TestAppointmentQuery;
-            _display = new clsTestAppointmentsDisplay(TestAppointmentQuery, _context);
+            _display = new clsTestAppointmentsDisplay(TestAppointmentQuery, _contextDisplay);
             _display.Display();
         }
 
         private void btnLicenses_Click(object sender, EventArgs e)
         {
             _currentQuery = LicenseQuery;
-            _display = new clsLicensesDisplay(LicenseQuery, _context);
+            _display = new clsLicensesDisplay(LicenseQuery, _contextDisplay);
             _display.Display();
         }
         private void btnLocalLicenseApp_Click(object sender, EventArgs e)
         {
             _currentQuery = LocalLicenseAppQuery;
-            _display = new clsLocalDrivingLicenseApplicationsDisplay(LocalLicenseAppQuery, _context);
+            _display = new clsLocalDrivingLicenseApplicationsDisplay(LocalLicenseAppQuery, _contextDisplay);
             _display.Display();
         }
 
         private void btnInternationalLicenses_Click(object sender, EventArgs e)
         {
             _currentQuery = LicenseQuery;
-            _display = new clsInternationalLicensesDisplay(LicenseQuery, _context);
+            _display = new clsInternationalLicensesDisplay(LicenseQuery, _contextDisplay);
             _display.Display();
         }
 
         private void btnDetainedLicenses_Click(object sender, EventArgs e)
         {
             _currentQuery = DetainedLicenseQuery;
-            _display = new clsDetaindLicensesDisplay(DetainedLicenseQuery, _context);
+            _display = new clsDetaindLicensesDisplay(DetainedLicenseQuery, _contextDisplay);
             _display.Display();
         }
 
         private void btnTests_Click(object sender, EventArgs e)
         {
             _currentQuery = TestQuery;
-            _display = new clsTestDisplay(TestQuery , _context);
+            _display = new clsTestDisplay(TestQuery , _contextDisplay);
             _display.Display();
         }
         private void dgvData_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -209,9 +203,6 @@ namespace DVLDWinForm
             }
         }
 
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            clsUIHelper.FormColor(this ,sender , e);
-        }
+        
     }
 }

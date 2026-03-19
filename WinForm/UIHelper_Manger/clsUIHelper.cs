@@ -23,20 +23,7 @@ namespace DVLDWinForm.UIHelper
             }
             return bmp;
         }
-        public static void FormColor(Form frm , object sender, PaintEventArgs e)
-        {
-            // إنشاء مستطيل بحجم النموذج
-            Rectangle rect = frm.ClientRectangle;
-            
-            // استخدام LinearGradientBrush لعمل التدرج
-            using (LinearGradientBrush brush = new LinearGradientBrush(rect,
-                Color.FromArgb(245, 245, 245), // اللون الأول (أعلى)
-                Color.FromArgb(210, 210, 210), // اللون الثاني (أسفل)
-                90F)) // زاوية التدرج (رأسية)
-            {
-                e.Graphics.FillRectangle(brush, rect);
-            }
-        }
+        
         // دالة تجعل حواف أي أداة مستديرة (A function that makes the corners of any control rounded)
         public static void CornerRadius(Control ctrl, int radius)
         {

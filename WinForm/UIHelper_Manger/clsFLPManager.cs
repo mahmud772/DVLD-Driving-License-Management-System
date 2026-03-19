@@ -14,10 +14,8 @@ namespace DVLDWinForm.UIHelper
     {
         private FlowLayoutPanel _FLP;
         private Func<T, UserControl> _ControlCreator;
-        private static int _CountItems { get; } = 9;
-        public int CountItems { get; } = _CountItems;
-        public static int GetCountItems() => _CountItems;
-        // نمرر دالة تفوض إنشاء الكونترول ليكون الكود مرناً
+        public int CountItems { get; } = 9;
+
         public clsFLPManager(FlowLayoutPanel FLP, Func<T, UserControl> ControlCreator)
         {
             _FLP = FLP;
@@ -27,13 +25,12 @@ namespace DVLDWinForm.UIHelper
         public void Display(List<T> Data)
         {
             _FLP.Controls.Clear();
-            _FLP.SuspendLayout(); // لتحسين الأداء أثناء الإضافة
+            _FLP.SuspendLayout(); 
             if(Data == null || _ControlCreator == null) return;
 
-            foreach (var item in Data)
+            foreach (T item in Data)
             {
-                // نستخدم delegate لإنشاء الكونترول وتعبئته
-                var control = _ControlCreator(item);
+                UserControl control = _ControlCreator(item);
                 _FLP.Controls.Add(control);
             }
 

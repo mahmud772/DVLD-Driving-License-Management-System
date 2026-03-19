@@ -596,5 +596,14 @@
   <ItemGroup>
     <None Include="Images\DVLD.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\TopBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\BackgroundMainForm.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

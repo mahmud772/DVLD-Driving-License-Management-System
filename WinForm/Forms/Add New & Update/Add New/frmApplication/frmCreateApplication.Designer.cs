@@ -136,7 +136,7 @@
             this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.Search;
             this.pbSelectedID.Location = new System.Drawing.Point(318, 67);
             this.pbSelectedID.Name = "pbSelectedID";
-            this.pbSelectedID.Size = new System.Drawing.Size(30, 28);
+            this.pbSelectedID.Size = new System.Drawing.Size(26, 24);
             this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbSelectedID.TabIndex = 45;
             this.pbSelectedID.TabStop = false;

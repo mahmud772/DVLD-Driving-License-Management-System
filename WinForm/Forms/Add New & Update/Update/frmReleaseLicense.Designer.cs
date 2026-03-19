@@ -50,7 +50,7 @@
             this.pnlLicense.Controls.Add(this.lbID);
             this.pnlLicense.Location = new System.Drawing.Point(3, 42);
             this.pnlLicense.Name = "pnlLicense";
-            this.pnlLicense.Size = new System.Drawing.Size(330, 64);
+            this.pnlLicense.Size = new System.Drawing.Size(299, 64);
             this.pnlLicense.TabIndex = 59;
             // 
             // lbPaidFees
@@ -79,9 +79,9 @@
             // 
             this.pbSelectedID.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbSelectedID.Image = global::DVLDWinForm.Properties.Resources.Search;
-            this.pbSelectedID.Location = new System.Drawing.Point(287, 6);
+            this.pbSelectedID.Location = new System.Drawing.Point(263, 10);
             this.pbSelectedID.Name = "pbSelectedID";
-            this.pbSelectedID.Size = new System.Drawing.Size(30, 30);
+            this.pbSelectedID.Size = new System.Drawing.Size(26, 24);
             this.pbSelectedID.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbSelectedID.TabIndex = 53;
             this.pbSelectedID.TabStop = false;
@@ -109,7 +109,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(125, 112);
+            this.btnSave.Location = new System.Drawing.Point(116, 112);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(85, 33);
             this.btnSave.TabIndex = 58;
@@ -123,7 +123,7 @@
             this.lbTitel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.lbTitel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTitel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lbTitel.Location = new System.Drawing.Point(99, 9);
+            this.lbTitel.Location = new System.Drawing.Point(90, 9);
             this.lbTitel.Name = "lbTitel";
             this.lbTitel.Size = new System.Drawing.Size(142, 21);
             this.lbTitel.TabIndex = 57;
@@ -134,7 +134,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(342, 148);
+            this.ClientSize = new System.Drawing.Size(314, 148);
             this.Controls.Add(this.pnlLicense);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbTitel);

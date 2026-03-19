@@ -123,6 +123,16 @@ namespace DVLDWinForm.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BackgroundMainForm {
+            get {
+                object obj = ResourceManager.GetObject("BackgroundMainForm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Country {
             get {
                 object obj = ResourceManager.GetObject("Country", resourceCulture);
@@ -416,6 +426,16 @@ namespace DVLDWinForm.Properties {
         internal static System.Drawing.Bitmap TestAppointment {
             get {
                 object obj = ResourceManager.GetObject("TestAppointment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TopBackground {
+            get {
+                object obj = ResourceManager.GetObject("TopBackground", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

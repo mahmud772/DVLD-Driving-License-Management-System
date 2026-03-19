@@ -1,4 +1,5 @@
-﻿using DVLD_BLL;
+﻿using Common;
+using DVLD_BLL;
 using DVLD_DTOs;
 using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
@@ -9,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -157,7 +159,9 @@ namespace DVLDWinForm.Forms
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    clsUIHelper.LoadImage(ofd.FileName, _PersonInfo.Gendor, pbImage);
+                    clsPersonEnums.enGendor gendor = rdbtnMale.Checked ? 
+                        clsPersonEnums.enGendor.Male : clsPersonEnums.enGendor.Female;
+                    clsUIHelper.LoadImage(ofd.FileName, gendor, pbImage);
 
 
                 }
@@ -171,7 +175,9 @@ namespace DVLDWinForm.Forms
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 return;
             pbImage.Tag = null;
-            clsUIHelper.LoadImage(string.Empty, _PersonInfo.Gendor, pbImage);
+            clsPersonEnums.enGendor gendor = rdbtnMale.Checked ?
+                clsPersonEnums.enGendor.Male : clsPersonEnums.enGendor.Female;
+            clsUIHelper.LoadImage(string.Empty, gendor, pbImage);
         }
     }
 }

@@ -82,11 +82,11 @@
             // 
             // tbNotes
             // 
+            this.tbNotes.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.tbNotes.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbNotes.Location = new System.Drawing.Point(3, 52);
             this.tbNotes.Multiline = true;
             this.tbNotes.Name = "tbNotes";
-            this.tbNotes.ReadOnly = true;
             this.tbNotes.Size = new System.Drawing.Size(313, 46);
             this.tbNotes.TabIndex = 5;
             // 
