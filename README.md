@@ -91,14 +91,23 @@ to simulate a real-world system.
 
 ## 🖼️ Screenshots | صور من البرنامج
 
-> 📌 (قم بإضافة الصور هنا)
+### 🔐 Login Screen
+![Login](Images/Login.jpg)
 
-Example:
+### 👤 People Management
+![People](Images/People.jpg)
 
-```
-![Screenshot1](images/screen1.png)
-![Screenshot2](images/screen2.png)
-```
+### 🔍 People Filter
+![People Filter](Images/PeopleFilter.jpg)
+
+### 🚘 Licenses
+![Licenses](Images/Licenses.jpg)
+
+### 📋 Context Menu - People
+![ContextMenu People](Images/ContextMenuStripPeople.jpg)
+
+### 📋 Context Menu - Licenses
+![ContextMenu Licenses](Images/ContextMenuStripLicenses.jpg)
 
 ---
 
