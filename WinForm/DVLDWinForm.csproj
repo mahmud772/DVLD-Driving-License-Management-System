@@ -178,6 +178,7 @@
       <DependentUpon>frmSortAndFilter.cs</DependentUpon>
     </Compile>
     <Compile Include="UIHelper_Manger\clsControlAnimateHeight.cs" />
+    <Compile Include="UIHelper_Manger\clsDGVAttributeCache.cs" />
     <Compile Include="UIHelper_Manger\clsDisplayUIManager.cs" />
     <Compile Include="UIHelper_Manger\clsUIActionService.cs" />
     <Compile Include="UIHelper_Manger\clsUIEnums.cs" />

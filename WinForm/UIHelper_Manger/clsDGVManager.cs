@@ -22,16 +22,10 @@ namespace DVLDWinForm.UIHelper_Manger
         }
         private void ApplyAttributes()
         {
-            var props = typeof(T).GetProperties();
-
-            foreach (var prop in props)
-            {
-                if (Attribute.IsDefined(prop, typeof(DGVIgnoreAttribute)))
-                {
-                    if (_DGV.Columns.Contains(prop.Name))
-                        _DGV.Columns[prop.Name].Visible = false;
-                }
-            }
+            foreach (var columnName in clsDGVAttributeCache<T>.IgnoredColumns)
+                if (_DGV.Columns.Contains(columnName))
+                    _DGV.Columns[columnName].Visible = false;
+            
         }
         public int CountItems { get; } = 22;
         public void Display(List<T> Data)

@@ -57,10 +57,6 @@ namespace DVLD_DAL
                         IsFound = false;
                         throw;
                     }
-                    finally
-                    {
-                        Connection.Close();
-                    }
                 }
             }
             return IsFound;
@@ -87,10 +83,6 @@ namespace DVLD_DAL
                     {
                         throw;
                     }
-                    finally
-                    {
-                        Connection.Close();
-                    }
                 }
             }
             return Value;
@@ -113,10 +105,6 @@ namespace DVLD_DAL
                     catch
                     {
                         throw;
-                    }
-                    finally
-                    {
-                        Connection.Close();
                     }
                 }
             }
@@ -152,10 +140,6 @@ namespace DVLD_DAL
                     {
                         throw;
                     }
-                    finally
-                    {
-                        Connection.Close();
-                    }
                 }
             }
 
@@ -182,10 +166,6 @@ namespace DVLD_DAL
                     catch
                     {
                         throw;
-                    }
-                    finally
-                    {
-                        Connection.Close();
                     }
                 }
             }
@@ -216,10 +196,6 @@ namespace DVLD_DAL
                     {
                         throw;
                     }
-                    finally
-                    {
-                        Connection.Close();
-                    }
                 }
             }
 
@@ -243,10 +219,6 @@ namespace DVLD_DAL
                     catch
                     {
                         throw;
-                    }
-                    finally
-                    {
-                        Connection.Close();
                     }
                 }
             }
@@ -282,10 +254,6 @@ namespace DVLD_DAL
                         {
                             try { Transaction.Rollback(); } catch { }
                             throw;
-                        }
-                        finally
-                        {
-                            Connection.Close();
                         }
                     }
                 }

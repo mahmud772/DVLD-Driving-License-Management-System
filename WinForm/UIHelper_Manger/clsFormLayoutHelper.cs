@@ -10,9 +10,9 @@ namespace DVLDWinForm.UIHelper_Manger
 {
     public class clsFormLayoutHelper
     {
-        private readonly Form _form;
-        private readonly Panel _panel;
-        private readonly Button[] _buttons;
+        private Form _form;
+        private Panel _panel;
+        private Button[] _buttons;
         public static int spacing { get; set; } = 15;
 
         public clsFormLayoutHelper(Form form, Panel panel, params Button[] buttons)

@@ -62,7 +62,7 @@ namespace DVLD_DAL
             string Query = "Select * From Applications Where ApplicationID = @ApplicationID";
             IsFound = clsDbHelper.ExecuteReader(Query,
                 Command => clsDbHelper.SetValue<int>(Command, "@ApplicationID", ApplicationID),
-                Reader => { DTO = clsApplication_DAL._Reader(Reader); });
+                Reader => { DTO = _Reader(Reader); });
             return DTO ;
         }
 
