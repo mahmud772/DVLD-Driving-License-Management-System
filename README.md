@@ -24,6 +24,7 @@ people records, and applications.
 * الأشخاص
 * الرخص
 * الطلبات
+* الاختبارات 
   
 
 ---
