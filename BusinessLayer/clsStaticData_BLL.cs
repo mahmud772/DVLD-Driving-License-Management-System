@@ -4,8 +4,6 @@ namespace DVLD_BLL
 {
     public static class clsStaticData_BLL
     {
-        
-
         public static List<clsTestType_DTO> TestTypes;
         public static List<clsApplicationType_DTO> ApplicationTypes;
         public static List<clsLicenseClass_DTO> LicenseClasses;

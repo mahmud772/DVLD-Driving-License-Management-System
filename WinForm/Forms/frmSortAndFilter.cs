@@ -6,13 +6,6 @@ using DVLDWinForm.UIHelper;
 using DVLDWinForm.UIHelper_Manger;
 using DVLDWinForm.User_Controls.Filters;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DVLDWinForm.Forms
@@ -81,7 +74,6 @@ namespace DVLDWinForm.Forms
             if (cbSortBy.SelectedItem is Enum orderBy)
                 _Query.OrderBy = orderBy;
             DialogResult = DialogResult.OK;
-            this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

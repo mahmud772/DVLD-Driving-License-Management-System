@@ -47,6 +47,7 @@ namespace DVLDWinForm.Forms
             // pnl
             // 
             this.pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.pnl.BackgroundImage = global::DVLDWinForm.Properties.Resources.LoginBackground;
             this.pnl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnl.Controls.Add(this.pnlContainer);
             this.pnl.Controls.Add(this.pbBackgroundImage);

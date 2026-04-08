@@ -27,7 +27,8 @@ namespace DVLDWinForm.Forms
         private void btnLogin_Click(object sender, EventArgs e)
         {
             clsValidation.ep.Clear();
-            if(!clsValidation.IsValidWord(tbUsername , "Enter a Valid User Name") || clsValidation.IsEmpty(tbPassword , "Enter a Valid Password")) return;
+            if(!clsValidation.IsValidWord(tbUsername , "Enter a Valid User Name") ||
+                clsValidation.IsEmpty(tbPassword , "Enter a Valid Password")) return;
             if (!clsUser_BLL.Login(tbUsername?.Text , tbPassword?.Text))
             {
                 lblError.Text = "Incorrect Password or User Name";
@@ -45,10 +46,6 @@ namespace DVLDWinForm.Forms
             clsUIHelper.CornerRadius(pnlContainer , 5);
             clsUIHelper.CornerRadius(this , 5);
             pbBackgroundImage.Image =  clsUIHelper.SetImageOpacity(Properties.Resources.LoginLicense, 0.3f);
-            using (var tempImage = Image.FromFile(@"C:\Users\m9816\Desktop\DVLD\WinForm\Images\LoginBackground.png"))
-            {
-                pnl.BackgroundImage = new Bitmap(tempImage);
-            }
             
         }
 

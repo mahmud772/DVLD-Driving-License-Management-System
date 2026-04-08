@@ -603,5 +603,8 @@
   <ItemGroup>
     <None Include="Images\BackgroundMainForm.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\LoginBackground.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
